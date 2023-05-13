@@ -1,0 +1,110 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#account{
+    background-color: #FCFBFB;
+    padding: 80px 0;
+    .container{
+        .row{
+            .side-bar{
+                background: #ffffff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0px 4px 24px rgba(255, 255, 255, 0.2);
+                .bar-list{
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    li{
+                        padding: 10px;
+                        border-radius: 5px;
+                        border-bottom: 1px solid #F4F4F4;
+                        transition: 0.5s;
+                        cursor: pointer;
+                        &:hover{
+                            background-color: #FFA633;
+                            border-radius: 5px;
+                            color: white;
+                        }
+                        &:last-child{
+                            border: none;
+                        }
+                    }
+                    .active-li{
+                        background-color: #FFA633;
+                        color: white;
+                    }
+                }
+            }
+            .main-side{
+                .account-details{
+                    margin-bottom: 40px;
+                    display: none;
+                    h2{
+                        margin-bottom: 30px;
+                    }
+                    h3{
+                        margin-bottom: 20px;
+                    }
+                    .person-info{
+                        background: #ffffff;
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0px 4px 24px rgba(255, 255, 255, 0.2);
+                    }
+                    .address-info{
+                        background: #ffffff;
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0px 4px 24px rgba(255, 255, 255, 0.2);
+                    }
+                    .info-body{
+                        p{
+                            margin: 0 0 5px;
+                        }
+                    }
+                    .edit{
+                        display: inline-block;
+                        margin-top: 20px;
+                        padding: 5px 10px;
+                        text-decoration: none;
+                        color: black;
+                        border: 1px solid #F4F4F4;
+                        border-radius: 5px;
+                        background-color: #FFA633;
+                        color: white;
+                        box-shadow: inset 0 0 0 #ffffff;
+                        transition: 0.5s;
+                        font-weight: 500;
+                        &:hover{
+                            background-color: #ffffff;
+                            border: 1px solid #FFA633;
+                            box-shadow: inset 0 70px 0 0 #ffffff;
+                            color: #FFA633;
+                        }
+                        i{
+                            margin-right: 5px;
+                        }
+                    }
+                }
+                .wishlist{
+                    display: none;
+                    .row{
+                        .wishlist-wrapper{
+                            background: #ffffff;
+                            padding: 20px;
+                            border-radius: 10px;
+                            box-shadow: 0px 4px 24px rgba(255, 255, 255, 0.2);
+                        }
+                    }
+                }
+                .active-main{
+                    display: block;
+                }
+            }
+        }
+    }
+}

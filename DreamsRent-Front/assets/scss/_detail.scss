@@ -1,0 +1,922 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#detail-head{
+    padding: 24px 0;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(225, 225, 225, .25);
+    .container{
+        .detail-head-wrapper{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .detail-head-left{
+                .car-rate-info{
+                    .rate{
+                        margin-bottom: 15px;
+                        .year{
+                            display: inline-block;
+                            margin: 0 13px 0 0;
+                            padding: 10px 15px;
+                            background: #127384;
+                            color: #fff;
+                        }
+                        i{
+                            color: #ffa633;
+                            font-size: 15px;
+                            font-weight: 900;
+                            margin-right: -5px;
+                        }
+                        .rate-point{
+                            color: #737373;
+                            font-size: 15px;
+                            font-weight: 500;
+                            margin-left: 7px;
+                        }
+                    }
+                    .info{
+                        h3{
+                            font-weight: 500;
+                            margin-bottom: 10px;
+                            font-size: 24px;
+                            color: #111;
+                        }
+                        .car-location-view{
+                            font-size: 15px;
+                            color: #787878;
+                            display: flex;
+                            .car-location{
+                                margin-right: 10px;
+                            }
+                            i{
+                                margin-right: 5px;
+                            }   
+                        }
+                    }
+                }
+            }
+            .detail-head-right{
+                a{
+                    text-decoration: none;
+                    background: #f2f7f6;
+                    color: #737373;
+                    border-radius: 40px;
+                    padding: 15px 45px;
+                    transition: 0.3s;
+                    &:hover{
+                        background-color: #127384;
+                        color: #fff;
+                    }
+                    i{
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+#detail-body{
+    background-color: #fcfbfb;
+    position: relative;
+    z-index: 9;
+    padding: 80px 0 56px;
+    .container{
+        .row{
+            .body-left{
+                .left-components{
+                    background: #fff;
+                    padding: 24px;
+                    margin: 24px 0;
+                    border: 0;
+                    box-shadow: 0 4px 24px rgba(225, 225, 225, .25);
+                    border-radius: 10px;
+                    .component-title{
+                        position: relative;
+                        border-bottom: 1px solid #dee2e7;
+                        padding: 0 0 20px;
+                        margin: 0 0 25px;
+                        border-radius: 0;
+                        background: 0 0;
+                        h4{
+                            font-weight: 500;
+                            font-size: 20px;
+                            color: #201f1d;
+                            &::before{
+                                content: "";
+                                background: #ffa633;
+                                border-radius: 8px;
+                                width: 20px;
+                                height: 4px;
+                                left: 0;
+                                position: absolute;
+                                bottom: -3px;
+                            }
+                        }
+                    }
+                }
+                
+                .car-images{
+                    background: #fff;
+                    box-shadow: 0 4px 24px rgba(225, 225, 225, .25);
+                    border-radius: 5px;
+                    overflow: hidden;
+                    padding: 20px;
+                    .main-img{
+                        position: relative;
+                        margin-bottom: 15px;
+                        border-radius: 10px;
+                        overflow: hidden;
+                    }
+                    .slider-for{
+                        button{
+                            width: 50px;
+                            height: 50px;
+                            font-size: 0;
+                            background: #fff;
+                            border-radius: 50%;
+                            border: none;
+                            z-index: 1;
+                            transition: 0.5s;
+                            color: #111;
+                            &:hover{
+                                background-color: #ffa633;
+                                color: #fff;
+                            }
+                        }
+                        .slick-prev{
+                            position: absolute;
+                            top: 50%;
+                            left: 30px;
+                            transform: translateY(-50%);
+                        }
+                        .slick-next{
+                            position: absolute;
+                            top: 50%;
+                            right: 30px;
+                            transform: translateY(-50%);
+                        }
+                        img{
+                            width: 100%;
+                            border-radius: 10px;
+                        }
+                    }
+                    .slider-nav{
+                        .item{
+                            margin: 0 10px;
+                            overflow: hidden;
+                        }
+                        img{
+                            width: 100%;
+                            border-radius: 10px;
+                        }
+                    }
+                }
+
+                .extra-service{
+                    span{
+                        color: #2f2f2f;
+                        font-weight: 500;
+                    }
+                }
+
+                .car-specifications{
+                    .specifications-body{
+                        .row{
+                            flex-wrap: wrap;
+                            .specification{
+                                display: flex;
+                                margin-bottom: 24px;
+                                .specification-img{
+                                    width: 60px;
+                                    height: 60px;
+                                    background: #fff;
+                                    border: 1px solid #dbdbdb;
+                                    border-radius: 5px;
+                                    margin: 0 12px 0 0;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    img{
+
+                                    }
+                                }
+                                .specification-info{
+                                    span{
+                                        color: #201f1d;
+                                        font-weight: 500;
+                                        display: inline-block;
+                                        margin-bottom: 5px;
+                                    }
+                                    h6{
+                                        color: #737373;
+                                        margin-bottom: 0;
+                                        font-weight: 400;
+                                        font-size: 14px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .car-features{
+                    .features-body{
+                        ul{
+                            list-style: none;
+                            margin: 0;
+                            padding: 0;
+                            li{
+                                color: #737373;
+                                margin-bottom: 15px;
+                                display: flex;
+                                span{
+                                    padding: 8px;
+                                    background: #127384;
+                                    border-radius: 50%;
+                                    margin-right: 8px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    i{
+                                        font-size: 10px;
+                                        color: #fff;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .description{
+                    .description-items{
+                        p{
+                            margin-bottom: 24px;
+                            font-size: 15px;
+                            color: #787878;
+                        }
+                    }
+                }
+
+                .reviews{
+                    .reviews-body{
+                        .review{
+                            border: 1px solid #f4f4f4;
+                            padding: 15px;
+                            margin-bottom: 24px;
+                            border-radius: 10px;
+                            .review-head{
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 15px;
+                                .person-img-info{
+                                    display: flex;
+                                    .person-img{
+                                        img{
+                                            width: 60px;
+                                            height: 60px;
+                                            border-radius: 10px;
+                                        }
+                                    }
+                                    .person-info{
+                                        margin-left: 15px;
+                                        .person-name{
+                                            font-weight: 500;
+                                            font-size: 18px;
+                                            color: #111;
+                                            margin: 0;
+                                        }
+                                        .comment-add-date{
+                                            font-weight: 500;
+                                            font-size: 14px;
+                                            color: #787878;
+                                            margin-top: 5px;
+                                            margin-bottom: 0;
+                                        }
+                                    }
+                                }
+                                .rate-point{
+                                    i{
+                                        color: #ff9307;
+                                        font-size: 12px;
+                                        margin-right: -4px;
+                                    }
+                                    span{
+                                        font-weight: 500;
+                                        font-size: 14px;
+                                        color: #74788d;
+                                        margin-left: 7px;
+                                    }
+                                }
+                            }
+                            .comment{
+                                p{
+                                    font-size: 15px;
+                                    color: #787878;
+                                    margin: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .add-comment{
+                    .add-comment-body{
+                        .add-rate{
+                            color: #2f2f2f;
+                            margin: 15px 0;
+                            span{
+                                margin-right: 10px;
+                            }
+                            i{
+                                font-size: 12px;
+                                color: #ff9307;
+                            }
+                        }
+                        .comment-from{
+                            form{
+                                .form-group{
+                                    margin-bottom: 15px;
+                                }
+                                label{
+                                    margin-bottom: 10px;
+                                    font-weight: 600;
+                                    color: #2f2f2f;
+                                }
+                                input{
+                                    width: 100%;
+                                    background: #fcfbfb;
+                                    border: 1px solid #f4f4f4;
+                                    box-shadow: none;
+                                    border-radius: 5px;
+                                    margin: 0;
+                                    padding: 13px;
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                    color: #201f1d;
+                                    outline: none;
+                                    &:focus{
+                                        background-color: white;
+                                    }
+                                }
+                                textarea{
+                                    width: 100%;
+                                    height: 120px;
+                                    background: #fcfbfb;
+                                    border: 1px solid #f4f4f4;
+                                    box-shadow: none;
+                                    border-radius: 5px;
+                                    margin: 0;
+                                    padding: 13px;
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                    color: #201f1d;
+                                    outline: none;
+                                    &:focus{
+                                        background-color: white;
+                                    }
+                                }
+                                button{
+                                    padding: 12px 20px;
+                                    background-color: #ffa633;
+                                    border: 1px solid #ffa633;
+                                    color: white;
+                                    box-shadow: inset 0 0 0 0 #fff;
+                                    transition: 0.5s;
+                                    &:hover{
+                                        background-color: #fff;
+                                        border-color: #ffa633;
+                                        color: #ffa633;
+                                        box-shadow: inset 0 50px 0 0 #fff;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .body-right{
+                position: relative;
+                .sticky{
+                    position: sticky;
+                    top: 0;
+                }
+                .right-components{
+                    background: #fff;
+                    padding: 24px;
+                    margin-bottom: 24px;
+                    border: 0;
+                    box-shadow: 0 4px 24px rgba(225, 225, 225, .25);
+                    border-radius: 10px;
+                    .component-title{
+                        position: relative;
+                        border-bottom: 1px solid #dee2e7;
+                        padding-bottom: 20px;
+                        margin-bottom: 25px;
+                        border-radius: 0;
+                        background: 0 0;
+                        h4{
+                            font-weight: 500;
+                            font-size: 20px;
+                            color: #201f1d;
+                            
+                            &::before{
+                                content: "";
+                                background: #ffa633;
+                                border-radius: 8px;
+                                width: 20px;
+                                height: 4px;
+                                left: 0;
+                                position: absolute;
+                                bottom: -3px;
+                            }
+                        }
+                    }
+                }
+                .check-availability{
+                    .form-wrapper{
+                        form{
+                            ul{
+                                margin: 0;
+                                padding: 0;
+                                list-style: none;
+                                li{
+                                    margin-bottom: 15px;
+                                    label{
+                                        margin-bottom: 10px;
+                                        font-weight: 600;
+                                        color: #2f2f2f;
+                                    }
+                                    input{
+                                        width: 100%;
+                                        background: #fcfbfb;
+                                        border: 1px solid #f4f4f4;
+                                        box-shadow: none;
+                                        border-radius: 5px;
+                                        margin: 0;
+                                        padding: 13px;
+                                        font-size: 14px;
+                                        font-weight: 400;
+                                        color: #201f1d;
+                                        outline: none;
+                                        &:focus{
+                                            background-color: white;
+                                        }
+                                    }
+                                }
+                            }
+                            .submit{
+                                button{
+                                    width: 100%;
+                                    padding: 12px 20px;
+                                    background-color: #ffa633;
+                                    border: 1px solid #ffa633;
+                                    box-shadow: inset 0 0 0 0 #fff;
+                                    color: #fff;
+                                    transition: 0.5s;
+                                    &:hover{
+                                        background-color: #fff;
+                                        border-color: #ffa633;
+                                        color: #ffa633;
+                                        box-shadow: inset 0 50px 0 0 #fff;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .owner-details{
+                    .owner-img-info{
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 20px;
+                        .owner-img{
+                            a{
+                                img{
+                                    width: 80px;
+                                    height: 80px;
+                                    border-radius: 50%;
+                                    margin-right: 15px;
+                                }
+                            }
+                        }
+                        .owner-info{
+                            text-align: center;
+                            h5{
+                                color: #2f2f2f;
+                                font-size: 18px;
+                                margin: 0;
+                            }
+                            .rating{
+                                i{
+                                    color: #ff9307;
+                                    font-size: 12px;
+                                    line-height: 0;
+                                    margin-right: -5px;
+                                }
+                                span{
+                                    font-weight: 500;
+                                    font-size: 14px;
+                                    color: #74788d;
+                                    margin-left: 7px;
+                                }
+                            }
+                        }
+                    }
+                    .booking-wrapper{
+                        margin-bottom: 20px;
+                        .booking-list{
+                            list-style: none;
+                            margin: 0 0 20px;
+                            padding: 0;
+                            li{
+                                display: flex;
+                                justify-content: space-between;
+                                color: #737373;
+                                margin: 0 0 13px;
+                                padding: 0 0 13px;
+                                border-bottom: 1px solid #dbdbdb;
+                                span{
+                                    color: #2f2f2f;
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                }
+                                h6{
+                                    color: #1fbc2f;
+                                    font-weight: 500;
+                                    font-size: 18px;
+                                }
+                            }
+                            li:nth-child(3){
+                                border: none;
+                                margin: 0;
+                                padding: 0;
+                            }
+                        }
+                    }
+                    .message-btn{
+                        display: flex;
+                        justify-content: center;
+                        a{
+                            width: 100%;
+                            background: #201f1d;
+                            color: #fff;
+                            font-weight: 700;
+                            font-size: 16px;
+                            padding: 12px 20px;
+                            transition: 0.5s;
+                            &:hover{
+                                background-color: #fff;
+                                border: 1px solid #201f1d;
+                                box-shadow: inset 0 70px 0 0 #fff;
+                                color: #201f1d;
+                            }
+                        }
+                    }
+                }
+                .share-car{
+                    .wrapper{
+                        padding: 0;
+                        display: flex;
+                        justify-content: center;
+                        list-style: none;
+                        .button{
+                            display: inline-block;
+                            width: 35px;
+                            height: 35px;
+                            margin: 0 10px;
+                            background-color: #fff;
+                            border-radius: 50px;
+                            overflow: hidden;
+                            box-shadow: 0 10px 10px rgb(0,0,0,0.1);
+                            transition: 0.3s;
+                            cursor: pointer;
+                            &:hover{
+                                transform: translateY(-10px);
+                            }
+                            &:nth-child(1):hover .icon{
+                                background-color: #3080F8;
+                                color: #fff;
+                            }
+                            &:nth-child(2):hover .icon{
+                                background: linear-gradient(135deg, 
+                                    rgba(64, 93, 230) 0%, 
+                                    rgba(88, 81, 219) 11%, 
+                                    rgba(131, 58, 180) 22%, 
+                                    rgba(193, 53, 132) 33%,
+                                    rgba(225, 48, 108) 44%,
+                                    rgba(253, 29, 29) 55%,
+                                    rgba(245, 96, 64) 66%,
+                                    rgba(247, 119, 55) 77%,
+                                    rgba(252, 175, 69) 88%,
+                                    rgba(255, 220, 128) 99%,
+                                    rgba(255, 220, 128) 100%,
+                                );
+                                color: #fff;
+                            }
+                            &:nth-child(3):hover .icon{
+                                background-color: #0066FF;
+                                color: #fff;
+                            }
+                            &:nth-child(4):hover .icon{
+                                background-color: #35B6FF;
+                                color: #fff;
+                            }
+                            &:nth-child(5):hover .icon{
+                                background-color: #0066FF;
+                                color: #fff;
+                            }
+                            .icon{
+                                text-decoration: none;
+                                display: inline-block;
+                                width: 35px;
+                                height: 35px;
+                                border-radius: 50px;
+                                line-height: 35px;
+                                text-align: center;
+                                color: #201F1D;
+                                transition: 0.3s;
+                                i{
+                                    font-size: 20px;
+                                }
+                            }
+                        }
+                    }
+                }
+                .view-location{
+                    .mapouter{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        .slider-wrapper{
+            .slider{
+                margin-top: 50px;
+                .owl-prev{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    width: 55px;
+                    height: 55px;
+                    background-color: white;
+                    border: 1px solid #f4f4f4;
+                    box-shadow: 0 4px 24px rgba(255, 255, 255, .2);
+                    border-radius: 50%;
+                    color: black;
+                    z-index: 4;
+                    position: absolute;
+                    transform: translateY(-660px);
+                    right: 70px;
+                    cursor: pointer;
+                    transition: 0.5s;
+
+                    &:hover{
+                        background-color: #ffa633;
+                        color: #fff;
+                    }
+                }
+                .owl-next{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    width: 55px;
+                    height: 55px;
+                    background-color: white;
+                    border: 1px solid #f4f4f4;
+                    box-shadow: 0 4px 24px rgba(255, 255, 255, .2);
+                    border-radius: 50%;
+                    color: black;
+                    z-index: 4;
+                    position: absolute;
+                    transform: translateY(-660px);
+                    right: 0px;
+                    cursor: pointer;
+                    transition: 0.5s;
+
+                    &:hover{
+                        background-color: #ffa633;
+                        color: #fff;
+                    }
+                }
+                .slider-head{
+                    margin-bottom: 25px;
+                    h3{
+                        font-weight: 700;
+                        font-size: 24px;
+                        color: #111;                    
+                    }
+                }
+                .item{
+                    .car-item {
+                        box-shadow: 0 0 13px 0 rgba(82, 63, 105, .05);
+                        position: relative;
+                        background: #ffffff;
+                        border-radius: 10px;
+                        margin: 0 15px;
+                        padding: 20px;
+        
+                        &:hover .car-content .car-button a {
+                            background-color: #EDA600;
+                        }
+        
+                        &:hover .car-img .fav a {
+                            background-color: #127384;
+                            border: none;
+                        }
+        
+                        .car-img {
+                            position: relative;
+                            overflow: hidden;
+                            border-radius: 10px;
+                            margin: 0 0 10px;
+        
+                            img {
+                                border-radius: 10px;
+                                width: 100%;
+                            }
+        
+                            .fav {
+                                display: flex;
+                                justify-content: space-between;
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                width: 100%;
+                                padding: 15px;
+                                z-index: 1;
+                                font-size: 14px;
+        
+                                span {
+                                    background: #ffffff;
+                                    border-radius: 5px;
+                                    min-width: 75px;
+                                    padding: 5px 15px;
+                                    font-size: 14px;
+                                    color: #737373;
+                                }
+        
+                                a {
+                                    width: 26px;
+                                    height: 26px;
+                                    border-radius: 50%;
+                                    color: #ffffff;
+                                    border: 1px solid #ffffff;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    text-decoration: none;
+                                    transition: 0.5s;
+                                }
+                            }
+                        }
+        
+                        .car-content {
+                            margin-top: 15px;
+        
+                            .car-features {
+                                position: relative;
+                                border-bottom: 1px solid #F4F4F4;
+                                margin: 0 0 15px;
+                                padding: 0 0 15px;
+        
+                                .author-img {
+                                    position: absolute;
+                                    top: -35px;
+                                    z-index: 2;
+                                    right: 15px;
+                                    border-radius: 50px;
+        
+                                    img {
+                                        width: 35px;
+                                        height: 35px;
+                                        border-radius: 50px;
+                                        border: 2px solid #ffffff;
+                                    }
+                                }
+        
+                                .car-title {
+                                    margin-bottom: 5px;
+                                    font-size: 20px;
+        
+                                    a {
+                                        font-weight: 600;
+                                        color: #201F1D;
+                                        text-decoration: none;
+                                    }
+                                }
+        
+                                .car-rating {
+                                    i {
+                                        color: #FF9307;
+                                        font-size: 14px;
+                                    }
+        
+                                    span {
+                                        font-weight: 500;
+                                        color: #737373;
+                                        margin-left: 8px;
+                                    }
+                                }
+                            }
+        
+                            .car-details {
+                                margin-bottom: 15px;
+        
+                                ul {
+                                    list-style: none;
+                                    padding: 0;
+                                    margin-bottom: 10px;
+                                    display: flex;
+                                    align-items: center;
+        
+                                    li {
+                                        display: flex;
+                                        align-items: center;
+                                        flex: 33.33%;
+                                        max-width: 33.33%;
+                                        font-size: 15px;
+                                        color: #787878;
+        
+                                        p {
+                                            margin: 0 0 0 8px;
+                                        }
+                                    }
+                                }
+                            }
+        
+                            .car-location-price {
+                                border-radius: 5px;
+                                background: #EDA600;
+                                padding: 8px 20px;
+                                margin: 0 0 15px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                transition: 0.5s;
+        
+                                .car-location {
+                                    span {
+                                        margin-right: 7px;
+                                        color: white;
+                                    }
+                                }
+        
+                                .car-price {
+                                    h6 {
+                                        font-weight: 700;
+                                        font-size: 24px;
+                                        color: #ffffff;
+                                        margin: 0;
+                                        display: flex;
+                                        align-items: center;
+        
+                                        span {
+                                            color: #ffffff;
+                                            font-size: 14px;
+                                            font-weight: 400;
+                                            margin-left: 7px;
+                                        }
+                                    }
+                                }
+        
+                            }
+        
+                            .car-button {
+                                a {
+                                    display: block;
+                                    background: #201F1D;
+                                    position: relative;
+                                    border-radius: 5px;
+                                    font-weight: 600;
+                                    font-size: 16px;
+                                    color: #ffffff;
+                                    text-align: center;
+                                    padding: 10px;
+                                    width: 100%;
+                                    text-decoration: none;
+                                    transition: 0.5s;
+        
+                                    span {
+                                        margin-right: 5px;
+                                    }
+        
+                                    &:hover {
+                                        background-color: #111111;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

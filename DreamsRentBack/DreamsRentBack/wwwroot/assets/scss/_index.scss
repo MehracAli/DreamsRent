@@ -1,0 +1,1444 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#banner {
+    background-image: url(/assets/images/header/banner.jpg);
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: cover;
+    padding: 100px 0;
+
+    .container {
+        .row {
+            align-items: center;
+            transition: 1s;
+            .banner-text {
+                .banner-recomend {
+                    color: #2F2F2F;
+                    padding: 10px 20px;
+                    background: #ffffff;
+                    border-radius: 70px;
+                    display: inline-block;
+                    margin: 0 0 15px;
+                    color: #2F2F2F;
+                    padding: 10px 20px;
+                    background: #ffffff;
+                    border-radius: 70px;
+                    display: inline-block;
+                    margin: 0 0 15px;
+                    font-size: 18px;
+
+                    i {
+                        font-weight: 600;
+                        color: #EDA600;
+                    }
+                }
+
+                .banner-title {
+                    h1 {
+                        font-weight: 900;
+                        font-size: 62px;
+                        color: #201F1D;
+                        letter-spacing: -4px;
+                        word-spacing: 1px;
+
+                        &:nth-of-type(2) {
+                            color: #EDA600;
+                        }
+                    }
+                }
+
+                .banner-desc {
+                    p {
+                        margin: 0 0 30px;
+                        font-size: 18px;
+                        letter-spacing: 0.5px;
+                        color: #787878;
+                    }
+                }
+
+                .banner-button {
+                    a {
+                        text-decoration: none;
+                        font-weight: 500;
+                        font-size: 16px;
+                        color: #201F1D;
+                        border: 2px solid #201F1D;
+                        background-color: #ffffff;
+                        box-shadow: inset 0 0 0 0 #ffffff;
+                        border-radius: 5px;
+                        line-height: 0;
+                        margin: 0;
+                        padding: 8px 25px;
+                        transition: 0.5s;
+
+                        &:hover {
+                            background-color: #ffffff;
+                            border: 2px solid #FF9307;
+                            color: #ffffff;
+                            box-shadow: inset 0 50px 0 0 #FF9307;
+                        }
+                    }
+                }
+            }
+
+            .banner-photo {
+                img {
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}
+
+#search {
+    background-color: #FCFBFB;
+
+    .container {
+        .search-main {
+            background: #ffffff;
+            box-shadow: 0px 4px 24px rgba(225, 225, 225, 0.25);
+            border-radius: 10px;
+            padding: 25px;
+            z-index: 1;
+            position: relative;
+            margin: -35px auto auto;
+
+            form {
+                ul {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    
+                    li{
+                        flex: 40%;
+                        max-width: 29%;
+                        label{
+                            display: inline-block;
+                        }
+                        .form-group{
+                            padding: 0 10px;
+                            label{
+                                margin: 0 0 10px;
+                                font-weight: 700;
+                                font-size: 15px;
+                                color: #2F2F2F;
+                            }
+                            .group-img{
+                                position: relative;
+                                input{
+                                    background: #FCFBFB;
+                                    border: 1px solid #F4F4F4;
+                                    box-shadow: none;
+                                    border-radius: 5px;
+                                    margin: 0;
+                                    padding: 13px 13px 13px 36px;
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                    color: #201F1D;
+                                    width: 100%;
+                                    outline: none;
+                                }
+                                span{
+                                    i{
+                                        position: absolute;
+                                        top: 15px;
+                                        left: 15px
+                                    }
+                                }
+                            }
+                            .search-btn{
+                                margin-top: 30px;
+                                button{
+                                    background-color: #FFA633;
+                                    border: 1px solid #FFA633;
+                                    box-shadow: inset 0 0 0 #ffffff;
+                                    color: #ffffff;
+                                    width: 100%;
+                                    padding: 10px 12px;
+                                    &:hover{
+                                        background-color: #ffffff;
+                                        border: 1px solid #FFA633;
+                                        box-shadow: inset 0 70px 0 0 #ffffff;
+                                        color: #FFA633;
+                                    }
+
+                                    i{
+                                        margin-right: 8px;
+                                    }
+                                }
+                            }
+                        }
+                        .form-group-wrapper{
+                            display: flex;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#services {
+    background-color: #FCFBFB;
+    padding: 80px 0 56px;
+    position: relative;
+
+    .right-photo {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: -1;
+    }
+
+    .container {
+        .services-title {
+            text-align: center;
+            margin-bottom: 50px;
+            transition: 1s;
+            h2 {
+                font-weight: 900;
+                font-size: 36px;
+                color: #111111;
+                letter-spacing: -1px;
+            }
+
+            p {
+                max-width: 440px;
+                margin: auto;
+                font-size: 16px;
+                color: #201F1D;
+            }
+        }
+
+        .services-body {
+            transition: 1s;
+            .row {
+                .head {
+                    display: flex;
+                    justify-content: center;
+                    width: 95px;
+                    border-radius: 50px;
+                    margin: 0 auto 35px;
+                    padding: 10px;
+                    background: #ffffff;
+                    transition: 0.5s;
+                    transition-duration: 1s;
+                    transition-delay: 0.3;
+                }
+                .location-head-moving{
+                    transform: translateX(400px) rotateZ(720deg);
+                    background-image: url(../images/index/pngimg.com\ -\ car_wheel_PNG23302.png);
+                    background-size: cover;
+                }
+                .pick-up-head-moving{
+                    transform: translateX(-700px) rotateZ(-1080deg);
+                    background-image: url(../images/index/pngimg.com\ -\ car_wheel_PNG23302.png);
+                    background-size: cover;
+                }
+                .book-head-moving{
+                    transform: translateX(-400px) rotateZ(-720deg);
+                    background-image: url(../images/index/pngimg.com\ -\ car_wheel_PNG23302.png);
+                    background-size: cover;
+                }
+
+                .event-none{
+                    pointer-events: none;
+                }
+
+                .location-head {
+                    border: solid 2px #127384 !important;
+                    transition: 0.5s;
+                    opacity: 0;
+                    position: relative;
+                    left: -400px;
+                    
+                    img {
+                        border-radius: 50px;
+                        padding: 10px;
+                        background-color: #127384 !important;
+                        transition: 1s;
+                        transition-delay: 0.5s;
+                        opacity: 0;
+                    }
+                }
+
+                .pick-up-head {
+                    border: solid 2px #FF9307 !important;
+                    transition: 0.5s;
+                    opacity: 0;
+                    position: relative;
+                    right: -700px;
+
+                    img {
+                        border-radius: 50px;
+                        padding: 10px;
+                        background-color: #FF9307 !important;
+                        transition: 0.5s;
+                        transition-delay: 1s;
+                        opacity: 0;
+                    }
+                }
+
+                .book-head {
+                    border: solid 2px #201F1D !important;
+                    transition: 0.5s;
+                    opacity: 0;
+                    position: relative;
+                    right: -400px;
+                    
+                    img {
+                        border-radius: 50px;
+                        padding: 10px;
+                        background-color: #201F1D !important;
+                        transition: 0.5s;
+                        transition-delay: 1.5s;
+                        opacity: 0;
+                    }
+                }
+
+                .service-body {
+                    text-align: center;
+
+                    h3 {
+                        font-weight: 700;
+                        font-size: 24px;
+                        color: #111111;
+                        margin-bottom: 10px;
+                    }
+
+                    p {
+                        font-size: 15px;
+                        color: #787878;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#explore {
+    // background: url(/assets/images/index/5093886-car-mclaren-mclaren-570s-orange-car-sport-car-supercar-vehicle.jpg);
+    background-color: #2F2F2F;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    padding: 80px 0 56px 0;
+
+    .container {
+        .explore-title {
+            text-align: center;
+            margin-bottom: 50px;
+            transition: 1s;
+
+            h2 {
+                font-weight: 900;
+                font-size: 36px;
+                color: #ffffff;
+                letter-spacing: -1px;
+            }
+
+            p {
+                max-width: 440px;
+                margin: auto;
+                font-size: 16px;
+                color: #ffffff;
+            }
+        }
+
+        .explore-body-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 50px;
+            transition: 1s;
+
+            ul {
+                display: flex;
+                justify-content: space-around;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                max-width: 900px;
+                width: 100%;
+                ;
+
+                li {
+                    margin: 0;
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        text-decoration: none;
+                        background: #127384;
+                        color: #ffffff;
+                        background: #ffffff;
+                        padding: 10px 20px;
+                        text-transform: capitalize;
+                        font-weight: 400;
+                        font-size: 16px;
+                        color: #2F2F2F;
+                        border-radius: 6px;
+                        transition: 0.5s;
+
+                        span {
+                            margin: 0 10px 0 0;
+                            padding: 10px;
+                            line-height: 0;
+                            background: #FCFCFC;
+                            border: 1px solid #F2F7F6;
+                            border-radius: 6px;
+                            width: 35px;
+                            height: 35px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        &:hover {
+                            background-color: #127384;
+                            color: #ffffff;
+                        }
+                    }
+                }
+            }
+        }
+
+        .explore-body-bottom {
+            transition: 1s;
+            .cars {
+                .row {
+                    .car {
+                        .car-item {
+                            position: relative;
+                            background: #ffffff;
+                            border-radius: 10px;
+                            margin: 0 0 24px 0;
+                            padding: 20px;
+                            transition: 0.3s;
+
+                            &:hover {
+                                box-shadow: 0px 0px 10px white;
+                                transform: scale(1.02, 1.02);
+                            }
+
+                            &:hover .car-content .car-button a {
+                                background-color: #EDA600;
+                            }
+
+                            &:hover .car-img .fav a {
+                                background-color: #127384;
+                                border: none;
+                            }
+
+                            .car-img {
+                                position: relative;
+                                overflow: hidden;
+                                border-radius: 10px;
+                                margin: 0 0 10px;
+
+                                img {
+                                    border-radius: 10px;
+                                    width: 100%;
+                                }
+
+                                .fav {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    width: 100%;
+                                    padding: 15px;
+                                    z-index: 1;
+                                    font-size: 14px;
+
+                                    span {
+                                        background: #ffffff;
+                                        border-radius: 5px;
+                                        min-width: 75px;
+                                        padding: 5px 15px;
+                                        font-size: 14px;
+                                        color: #737373;
+                                    }
+
+                                    a {
+                                        width: 26px;
+                                        height: 26px;
+                                        border-radius: 50%;
+                                        color: #ffffff;
+                                        border: 1px solid #ffffff;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        text-decoration: none;
+                                        transition: 0.5s;
+                                    }
+                                }
+                            }
+
+                            .car-content {
+                                margin-top: 15px;
+
+                                .car-features {
+                                    position: relative;
+                                    border-bottom: 1px solid #F4F4F4;
+                                    margin: 0 0 15px;
+                                    padding: 0 0 15px;
+
+                                    .author-img {
+                                        position: absolute;
+                                        top: -35px;
+                                        z-index: 2;
+                                        right: 15px;
+                                        border-radius: 50px;
+
+                                        img {
+                                            width: 35px;
+                                            height: 35px;
+                                            border-radius: 50px;
+                                            border: 2px solid #ffffff;
+                                        }
+                                    }
+
+                                    .car-title {
+                                        margin-bottom: 5px;
+                                        font-size: 20px;
+
+                                        a {
+                                            font-weight: 600;
+                                            color: #201F1D;
+                                            text-decoration: none;
+                                        }
+                                    }
+
+                                    .car-rating {
+                                        i {
+                                            color: #FF9307;
+                                            font-size: 14px;
+                                        }
+
+                                        span {
+                                            font-weight: 500;
+                                            color: #737373;
+                                            margin-left: 8px;
+                                        }
+                                    }
+                                }
+
+                                .car-details {
+                                    margin-bottom: 15px;
+
+                                    ul {
+                                        list-style: none;
+                                        padding: 0;
+                                        margin-bottom: 10px;
+                                        display: flex;
+                                        align-items: center;
+
+                                        li {
+                                            display: flex;
+                                            align-items: center;
+                                            flex: 33.33%;
+                                            max-width: 33.33%;
+                                            font-size: 15px;
+                                            color: #787878;
+
+                                            p {
+                                                margin: 0 0 0 8px;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .car-location-price {
+                                    border-radius: 5px;
+                                    background: #EDA600;
+                                    padding: 8px 20px;
+                                    margin: 0 0 15px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    transition: 0.5s;
+
+                                    .car-location {
+                                        span {
+                                            margin-right: 7px;
+                                            color: white;
+                                        }
+                                    }
+
+                                    .car-price {
+                                        h6 {
+                                            font-weight: 700;
+                                            font-size: 24px;
+                                            color: #ffffff;
+                                            margin: 0;
+                                            display: flex;
+                                            align-items: center;
+
+                                            span {
+                                                color: #ffffff;
+                                                font-size: 14px;
+                                                font-weight: 400;
+                                                margin-left: 7px;
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                                .car-button {
+                                    a {
+                                        display: block;
+                                        background: #201F1D;
+                                        position: relative;
+                                        border-radius: 5px;
+                                        font-weight: 600;
+                                        font-size: 16px;
+                                        color: #ffffff;
+                                        text-align: center;
+                                        padding: 10px;
+                                        width: 100%;
+                                        text-decoration: none;
+                                        transition: 0.5s;
+
+                                        span {
+                                            margin-right: 5px;
+                                        }
+
+                                        &:hover {
+                                            background-color: #111111;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#populars {
+    background-color: #FCFBFB;
+    padding: 80px 0;
+
+    .container {
+        .populars-title {
+            text-align: center;
+            margin-bottom: 50px;
+            transition: 1s;
+
+            h2 {
+                font-weight: 900;
+                font-size: 36px;
+                color: #111111;
+                letter-spacing: -1px;
+            }
+
+            p {
+                max-width: 440px;
+                margin: auto;
+                font-size: 16px;
+                color: #787878;
+            }
+        }
+
+        .populars-body {
+            .slider {
+                margin: 0 0 50px;
+
+                .slider-wrapper {
+                    display: block;
+                    position: relative;
+
+                    .owl-theme {
+                        .item {
+                            width: 240px;
+                            margin-right: 24px;
+
+                            .listing-owl-item {
+                                .listing-owl-group {
+                                    padding: 30px;
+                                    background: #ffffff;
+                                    box-shadow: 0px 4px 24px rgba(225, 225, 225, 0.25);
+                                    text-align: center;
+                                    transition: 0.5s;
+
+                                    &:hover {
+                                        background-color: #127384;
+                                        color: #ffffff;
+                                    }
+
+                                    &:hover h6 {
+                                        color: #ffffff;
+                                    }
+
+                                    &:hover p {
+                                        color: #ffffff;
+                                    }
+
+                                    &:hover .listing-owl-img img {
+                                        filter: invert(100%);
+                                    }
+
+                                    .listing-owl-img {
+                                        margin-bottom: 20px;
+
+                                        img {
+                                            width: 103px;
+                                            height: 48px;
+                                            margin: auto;
+                                            transition: filter 0.5s ease;
+                                        }
+                                    }
+
+                                    h6 {
+                                        font-weight: 500;
+                                        font-size: 18px;
+                                        color: #111111;
+                                    }
+
+                                    p {
+                                        font-size: 14px;
+                                        color: #737373;
+                                    }
+                                }
+                            }
+                        }
+
+                        .owl-nav {
+                            .owl-prev {
+                                opacity: 1;
+                                width: 50px;
+                                background: #ffffff;
+                                height: 50px;
+                                border-radius: 50%;
+                                position: absolute;
+                                top: 35%;
+                                left: -2%;
+                                transition: all 0.7s;
+
+                                &:hover {
+                                    opacity: 1;
+                                    background-color: #EDA600;
+                                }
+                            }
+
+                            .owl-next {
+                                opacity: 1;
+                                width: 50px;
+                                background: #ffffff;
+                                height: 50px;
+                                border-radius: 50%;
+                                position: absolute;
+                                top: 35%;
+                                right: -2%;
+                                transition: all 0.7s;
+
+                                &:hover {
+                                    opacity: 1;
+                                    background-color: #EDA600;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .view-all{
+            display: flex;
+            justify-content: center;
+            a{
+                font-weight: 500;
+                font-size: 16px;
+                color: #201f1d;
+                border: 2px solid #201f1d;
+                background-color: #fff;
+                box-shadow: inset 0 0 0 0 #fff;
+                border-radius: 5px;
+                line-height: 0;
+                margin: 0;
+                padding: 11px 22px;
+                transition: 0.5s;
+                text-decoration: none;
+                &:hover{
+                    background-color: #fff;
+                    border: 2px solid #ff9307;
+                    color: #fff;
+                    box-shadow: inset 0 50px 0 0 #ff9307;
+                }
+                i{
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+#facts {
+    background-color: #201F1D;
+    padding: 80px 0;
+    position: relative;
+
+    .left-img {
+        position: absolute;
+        left: -80px;
+        top: 10px;
+    }
+
+    .right-img {
+        position: absolute;
+        right: 60px;
+        top: 30px;
+    }
+
+    .container {
+        .facts-title {
+            text-align: center;
+            margin-bottom: 50px;
+            transition: 1s;
+
+            h2 {
+                font-weight: 900;
+                font-size: 36px;
+                color: #ffffff;
+                letter-spacing: -1px;
+            }
+
+            p {
+                max-width: 440px;
+                margin: auto;
+                font-size: 16px;
+                color: #ffffff;
+            }
+        }
+
+        .counter-group {
+            transition: 1s;
+
+            .row {
+                .count-item {
+                    position: relative;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    top: 0;
+                    background-image: url(/assets/images/index/count-bg.jpg);
+                    background-repeat: no-repeat;
+                    background-position: right;
+                    background-size: cover;
+                    border-radius: 10px;
+                    padding: 20px;
+                    transition: 0.5s;
+
+                    &:hover {
+                        transform: translateY(-15px);
+                    }
+
+                    &:hover .count-img {
+                        background-color: #127384;
+                    }
+
+                    .count-img {
+                        padding: 24px;
+                        background: #201F1D;
+                        border-radius: 10px;
+                        display: flex;
+                        align-items: center;
+                        margin: 0 20px 0 0;
+                        transition: 0.5s;
+                    }
+
+                    .count-digit {
+                        h4 {
+                            font-weight: 900;
+                            margin: 0 0 7px;
+                            font-size: 28px;
+                            color: #2F2F2F;
+                        }
+
+                        p {
+                            font-size: 15px;
+                            color: #787878;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#recommended {
+    background-color: #F2F7F6;
+    position: relative;
+    padding: 80px 0;
+
+    .container {
+        .recommended-title {
+            text-align: center;
+            margin-bottom: 50px;
+            transition: 1s;
+
+            h2 {
+                font-weight: 900;
+                font-size: 36px;
+                color: #111111;
+                letter-spacing: -1px;
+            }
+
+            p {
+                max-width: 440px;
+                margin: auto;
+                font-size: 16px;
+                color: #787878;
+            }
+        }
+
+        .recommended-body {
+            transition: 1s;
+
+            .slider {
+                .slider-wrapper{
+                    .responsive {
+                        .slick-list{
+                            padding-left: 10px;
+                            margin-right: -20px;
+                            transform: translate(-15px, 0px);
+                        }
+                        .item {
+                            width: 416px;
+                            margin-right: 24px;
+                            display: flex;
+                            align-items: center;
+                            .slider-item {
+                                .card {
+                                    position: relative;
+                                    background: #ffffff;
+                                    border-radius: 10px;
+                                    margin: 25px 0;
+                                    padding: 20px;
+                                    transition: 0.5s;
+                                    cursor: pointer;
+
+                                    &:hover{
+                                        transform: scale(1.02,1.02);
+                                        box-shadow: 0px 0px 10px #EDA600;
+                                    }
+                                    
+                                    .car-img {
+                                        position: relative;
+                                        overflow: hidden;
+                                        border-radius: 10px;
+                                        margin: 0 0 10px;
+    
+                                        img {
+                                            border-radius: 10px;
+                                            width: 100%;
+                                        }
+                                    }
+    
+                                    .car-content {
+                                        margin-top: 15px;
+    
+                                        .car-features {
+                                            position: relative;
+                                            border-bottom: 1px solid #F4F4F4;
+                                            margin: 0 0 15px;
+                                            padding: 0 0 15px;
+    
+                                            .fav-item {
+                                                position: absolute;
+                                                top: -40px;
+                                                z-index: 2;
+                                                right: 15px;
+                                                border-radius: 50px;
+    
+                                                span {
+                                                    background: #FFA633;
+                                                    border-radius: 3px;
+                                                    padding: 6px 10px;
+                                                    color: #ffffff;
+                                                    font-weight: 500;
+                                                    font-size: 15px;
+                                                }
+                                            }
+    
+                                            .card-rating {
+                                                i {
+                                                    color: #FF9307;
+                                                    font-size: 14px;
+                                                }
+    
+                                                span {
+                                                    font-weight: 500;
+                                                    color: #737373;
+                                                    margin-left: 8px;
+                                                }
+                                            }
+    
+                                            h3 {
+                                                font-size: 20px;
+                                                margin-bottom: 5px;
+    
+                                                a {
+                                                    text-decoration: none;
+                                                    font-weight: 600;
+                                                    color: #201F1D;
+                                                }
+                                            }
+    
+                                            h6 {
+                                                font-size: 15px;
+                                                font-weight: 400;
+                                                color: #787878;
+                                            }
+                                        }
+    
+                                        .car-details {
+                                            margin-bottom: 15px;
+    
+                                            ul {
+                                                list-style: none;
+                                                padding: 0;
+                                                margin-bottom: 10px;
+                                                display: flex;
+                                                align-items: center;
+    
+                                                li {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    flex: 33.33%;
+                                                    max-width: 33.33%;
+                                                    font-size: 12px;
+                                                    color: #787878;
+    
+                                                    span {
+                                                        width: 12px;
+                                                    }
+    
+                                                    p {
+                                                        margin: 0 0 0 8px;
+                                                    }
+                                                }
+                                            }
+                                        }
+    
+                                        .car-button {
+                                            a {
+                                                display: block;
+                                                background: #201F1D;
+                                                position: relative;
+                                                border-radius: 5px;
+                                                font-weight: 600;
+                                                font-size: 16px;
+                                                color: #ffffff;
+                                                text-align: center;
+                                                padding: 10px;
+                                                width: 100%;
+                                                text-decoration: none;
+                                                transition: 0.5s;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .left_arrow {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            position: absolute;
+                            width: 60px;
+                            height: 60px;
+                            background-color: white;
+                            border-radius: 50%;
+                            color: black;
+                            z-index: 4;
+                            position: absolute;
+                            right: -50px;
+                            top: 45%;
+                            transform: translate(-50%);
+                            cursor: pointer;
+                            transition: 0.5s;
+
+                            &:hover {
+                                opacity: 1;
+                                background-color: #EDA600;
+                                color: #ffffff;
+                            }
+                        }
+                        .right_arrow {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            position: absolute;
+                            width: 60px;
+                            height: 60px;
+                            background-color: white;
+                            border-radius: 50%;
+                            color: black;
+                            z-index: 4;
+                            position: absolute;
+                            top: 45%;
+                            transform: translate(-50%);
+                            cursor: pointer;
+                            transition: 0.5s;
+
+                            &:hover {
+                                opacity: 1;
+                                background-color: #EDA600;
+                                color: #ffffff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#choose-us {
+    background-color: #FCFBFB;
+    padding: 80px 0 56px 0;
+    position: relative;
+
+    .left-img {
+        position: absolute;
+        left: 0;
+        top: 10px;
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+    .container {
+        .choose-us-title {
+            text-align: center;
+            margin-bottom: 50px;
+            transition: 1s;
+
+            h2 {
+                font-weight: 900;
+                font-size: 36px;
+                color: #111111;
+                letter-spacing: -1px;
+            }
+
+            p {
+                max-width: 440px;
+                margin: auto;
+                font-size: 16px;
+                color: #787878;
+            }
+        }
+
+        .choose-us-group {
+            transition: 1s;
+            .row {
+                .card-body {
+                    background: #ffffff;
+                    box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+                    margin: 0 0 24px 0;
+                    display: inline-block;
+                    width: 100%;
+                    border: 0;
+                    border-radius: 8px;
+                    position: relative;
+                    padding: 30px;
+                    transition: 0.5s;
+
+                    &:hover {
+                        background-color: #111111;
+                        color: #ffffff;
+                    }
+
+                    &:hover .card-content p {
+                        color: #ffffff;
+                    }
+
+                    &:hover .card-img {
+                        position: relative;
+                        background: url(/assets/images/index/count-bg.jpg);
+                        background-position: left;
+                    }
+
+                    &:hover .card-img img {
+                        filter: brightness(0%) hue-rotate(180deg);
+                    }
+
+                    .card-img {
+                        display: flex;
+                        justify-content: center;
+                        margin-bottom: 20px;
+                        padding: 20px;
+                        border-radius: 10px;
+                        transition: 0.7s;
+                        background-position: right;
+
+                        img {
+                            transition: 0.5s;
+                        }
+                    }
+
+                    .black-img {
+                        background-color: #201F1D;
+                    }
+
+                    .blue-img {
+                        background-color: #127384;
+                    }
+
+                    .orange-img {
+                        background-color: #FF9307;
+                    }
+
+                    .card-content {
+                        text-align: center;
+
+                        h4 {
+                            font-size: 24px;
+                            font-weight: 700;
+                            margin-bottom: 20px;
+                        }
+
+                        p {
+                            font-size: 15px;
+                            color: #787878;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#testimonials {
+    position: relative;
+    padding: 80px 0;
+    background: url(/assets/images/index/about-testimonial.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    .testimonials-title {
+        text-align: center;
+        margin-bottom: 50px;
+        transition: 1s;
+
+        h2 {
+            font-weight: 900;
+            font-size: 36px;
+            color: #ffffff;
+            letter-spacing: -1px;
+        }
+
+        p {
+            max-width: 440px;
+            margin: auto;
+            font-size: 16px;
+            color: #ffffff;
+        }
+    }
+    .testimonials-body{
+        margin-bottom: 40px;
+
+        .owl-theme{
+            .owl-dots{
+                .owl-dot{
+                    margin-right: 8px;
+                    span{
+                        width: 8px;
+                        height: 8px;
+                        margin: 0;
+                        background: #DBDBDB;
+                        border-radius: 50%;
+                        display: block;
+                        transition: 0.5s;
+                    }
+                }
+                .active{
+                    margin-right: 8px;
+                    span{
+                        background: #FFA633;
+                        width: 46px;
+                        height: 8px;
+                        border-radius: 40px;
+                    }
+                }
+            }
+            .item{
+                margin-right: 25px;
+                .testimonial-item{
+                    display: flex;
+                    .card{
+                        background: #ffffff;
+                        box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+                        margin: 0 0 24px 0;
+                        display: inline-block;
+                        width: 100%;
+                        border: 0;
+                        border-radius: 8px;
+                        transition: 0.5s;
+
+                        &:hover{
+                            background-color: #127384;
+                        }
+                        &:hover .card-body .card-desc{
+                            color: #ffffff;
+                        }
+                        &:hover .card-body .review .review-details h6{
+                            color: #ffffff;
+                        }
+                        &:hover .card-body .review .review-details .list-rating .stars span{
+                            color: #ffffff;
+                        }
+                        &:hover .card-body .review .review-profile .review-img{
+                            border: 3px solid #ffffff;
+                        }
+                        .card-body{
+                            position: relative;
+                            padding: 1.5rem;
+                            .quotes{
+                                display: block;
+                                width: 28px;
+                                height: 28px;
+                                margin: 0 0 20px;
+                            }
+                            .review{
+                                align-items: center;
+                                margin-bottom: 20px;
+                                display: flex;
+                                .review-profile{
+                                    .review-img{
+                                        width: 60px;
+                                        height: 60px;
+                                        border-radius: 50%;
+                                        border: 3px solid #127384;
+                                        transition: 0.5s;
+                                        overflow: hidden;
+                                    }
+                                }
+                                .review-details{
+                                    margin-left: 18px;
+
+                                    h6{
+                                        font-weight: 500;
+                                        font-size: 18px;
+                                        color: #2F2F2F;
+                                        margin-bottom: 7px;
+                                    }
+                                    .list-rating{
+                                        .stars{
+                                            display: flex;
+                                            align-items: center;
+                                            i{
+                                                font-size: 12px;
+                                                line-height: 0;
+                                                color: #FFA633
+                                            }
+                                            span{
+                                                margin-left: 5px;
+                                                color: #737373;
+                                                font-size: 14px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .card-desc{
+                                font-size: 15px;
+                                color: #787878;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#faq {
+    background-color: #FCFBFB;
+    position: relative;
+    padding: 80px 0;
+
+    .container {
+        .faq-title {
+            text-align: center;
+            margin-bottom: 50px;
+
+            h2 {
+                font-weight: 900;
+                font-size: 36px;
+                color: #111111;
+                letter-spacing: -1px;
+            }
+
+            p {
+                max-width: 440px;
+                margin: auto;
+                font-size: 16px;
+                color: #201F1D;
+            }
+        }
+
+        .faq-accordion {
+            .accordion {
+                background-color: #ffffff;
+                margin: 0 0 20px;
+                padding: 20px 40px 20px 20px;
+                border: 1px solid #DBDBDB;
+                border-radius: 5px;
+                transition: 1s;
+
+                .accordion-title {
+                    font-weight: 500;
+                    font-size: 18px;
+                    margin: 0;
+                    cursor: pointer;
+
+                    p{
+                        display: flex;
+                        justify-content: space-between;
+                        position: relative;
+                        color: #201F1D;
+                        font-size: 18px;
+                        margin: 0;
+
+                        i {
+                            color: #828282;
+                        }
+                        .active-i{
+                            transform: rotateZ(180deg);
+                            color: #EDA600;
+                        }
+                    }
+                }
+
+                .accordion-desc {
+                    display: none;
+
+                    p {
+                        margin: 15px 0 0;
+                    }
+                }
+            }
+
+        }
+    }
+}

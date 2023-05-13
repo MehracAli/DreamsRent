@@ -1,0 +1,371 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#list{
+    background-color: #FCFBFB;
+    position: relative;
+    padding: 80px 0;
+    .container{
+        .row{
+            .filter-bar{
+                position: relative;
+                overflow: visible;
+                box-sizing: border-box;
+                min-height: 1px;
+                width: 25%;
+                .form-wrapper{
+                    padding-top: 0px;
+                    padding-bottom: 1px;
+                    position: static;
+                    transform: none;
+                    form{
+                        background: #ffffff;
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0px 4px 24px rgba(255, 255, 255, 0.2);
+                        .bar-head{
+                            border-bottom: 1px solid #F4F4F4;
+                            background-color: #FFA633;
+                            color: #ffffff;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 5px;
+                            margin-bottom: 18px;
+                            padding: 10px;
+                            h3{
+                                font-weight: 500;
+                                font-size: 18px;
+                                margin: 0;
+                            }
+                        }
+                        .accordion{
+                            border-bottom: 1px solid #F4F4F4;
+                            margin-bottom: 18px;
+                            .accordion-title{
+                                margin-bottom: 20px;
+                                font-weight: 500;
+                                font-size: 18px;
+                                cursor: pointer;
+                                
+                                p{
+                                    color: #111111;
+                                    text-decoration: none;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    width: 100%;
+                                    i{
+                                        color: #201F1D;
+                                        font-size: 14px;
+                                        margin-top: 3px;
+                                        transition: 0.3s;
+                                    }
+                                    .active-i{
+                                        transform: rotateZ(180deg);
+                                        color: #EDA600;
+                                    }
+                                }
+                            }
+                            .accordion-desc{
+                                padding-bottom: 15px;
+                                display: none;
+
+                                ::-webkit-scrollbar {
+                                    width: 7px;
+                                    height: 10px;
+                                }
+                                ::-webkit-scrollbar-track {
+                                    background: #e1e1e1;
+                                }
+                                ::-webkit-scrollbar-thumb {
+                                    border-radius: 5px;
+                                    background: #FFA633;
+                                }
+                                .labels{
+                                    height: 180px;
+                                    overflow-y: scroll;
+                                    label{
+                                        display: flex;
+                                        align-items: center;
+                                        color: #828282;
+                                        font-size: 16px;
+                                        margin-bottom: 15px;
+                                        cursor: pointer;
+                                        font-weight: 400;
+                                        user-select: none;
+                                        input{
+                                            margin-right: 10px;
+                                            width: 40px;
+                                        }
+                                        span{
+                                            color: #828282;
+                                            font-size: 14px;
+                                            font-weight: 400;
+                                            user-select: none;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        button{
+                            width: 100%;
+                            padding: 10px 15px;
+                            background-color: #FFA633;
+                            border: 1px solid #FFA633;
+                            box-shadow: inset 0 0 0 0 #ffffff;
+                            color: #ffffff;
+                            transition: 0.5s;
+
+                            &:hover {
+                                background-color: #ffffff;
+                                border-color: #FFA633;
+                                color: #FFA633;
+                                box-shadow: inset 0 50px 0 0 #ffffff;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .car-list{
+                width: 75%;
+                .row{
+                    flex-wrap: wrap;
+                    .car-item{
+                        .card{
+                            margin-bottom: 24px;
+                            padding: 0 20px;
+                            background: #ffffff;
+                            box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+                            display: inline-block;
+                            width: 100%;
+                            border: none;
+                            border-radius: 8px;
+                            .img-details{
+                                display: flex;
+                                align-items: center;
+                                .card-img{
+                                    margin-right: 15px;
+                                    border-radius: 10px;
+                                    max-width: 30%;
+                                    img{
+                                        border-radius: 10px;
+                                        max-width: 100%;
+                                        height: auto;
+                                    }
+                                }
+                                .card-details{
+                                    width: 100%;
+                                    .card-body{
+                                        position: relative;
+                                        .body-head{
+                                            margin-bottom: 15px;
+                                            display: flex;
+                                            justify-content: space-between;
+                                            .title{
+                                                h3{
+                                                    margin-bottom: 10px;
+                                                    font-size: 20px;
+                                                    font-weight: 600;
+                                                    
+                                                    a{
+                                                        color: #201F1D;
+                                                        text-decoration: none;
+                                                    }
+                                                }
+                                                h6{
+                                                    font-size: 15px;
+                                                    color: #737373;
+                                                    font-weight: 400;
+                                                }
+                                            }
+                                            .price-rating{
+                                                .rating{
+                                                    margin-bottom: 8px;
+                                                    i{
+                                                        color: #FF9307;
+                                                        font-size: 14px;
+                                                    }
+                                                    span{
+                                                        font-size: 15px;
+                                                        color: #787878;
+                                                    }
+                                                }
+                                                .price{
+                                                    font-weight: 700;
+                                                    font-size: 24px;
+                                                    color: #FF0000;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                    margin: 0;
+                                                    span{
+                                                        font-size: 14px;
+                                                        font-weight: normal;
+                                                        color: #828282;
+                                                        margin-left: 7px;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .body-mid{
+                                            margin-bottom: 15px;
+                                            padding-bottom: 15px;
+                                            border-bottom: 1px solid #F4F4F4;
+                                            ul{
+                                                margin: 0;
+                                                padding: 10px;
+                                                background: #F2F7F6;
+                                                border-radius: 5px;
+                                                list-style: none;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: space-between;
+                                                li{
+                                                    display: flex;
+                                                    img{
+                                                        margin-right: 10px;
+                                                        line-height: 0;
+                                                        width: 16px;
+                                                    }
+                                                    p{
+                                                        margin: 0;
+                                                        font-size: 15px;
+                                                        color: #787878;
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                        .body-bottom{
+                                            display: flex;
+                                            justify-content: space-between;
+                                            align-items: center;
+                                            .author{
+                                                display: flex;
+                                                .author-img{
+                                                    img{
+                                                        margin-right: 10px;
+                                                        border-radius: 50%;
+                                                        width: 46px;
+                                                        height: 46px;
+                                                    }
+                                                }
+                                                .author-name-location{
+                                                    .author-name{
+                                                        h5{
+                                                            margin-bottom: 3px;
+                                                            a{
+                                                                text-decoration: none;
+                                                                font-size: 16px;
+                                                                color: #201F1D;
+                                                            }
+                                                        }
+                                                        h6{
+                                                            display: flex;
+                                                            align-items: center;
+                                                            font-size: 15px;
+                                                            color: #737373;
+                                                            font-weight: 400;
+                                                            i{
+                                                                margin-right: 10px;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            .rent-btn{
+                                                a{
+                                                    background: #201F1D;
+                                                    color: #ffffff;
+                                                    transition: all 0.5;
+
+                                                    &:hover{
+                                                        background-color: #127384;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .pagination-wrapper{
+                    margin-top: 25px;
+                    display: flex;
+                    justify-content: center;
+                    .pagination-nav{
+                        .pagination{
+                            flex-wrap: wrap;
+                            .previtem{
+                                a{
+                                    height: 38px;
+                                    border-radius: 10px;
+                                    padding: 0 20px;
+                                    color: #2F2F2F;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                            }
+                            .pagination-center{
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+
+                                .page-group{
+                                    ul{
+                                        margin: 0;
+                                        padding: 0;
+                                        list-style: none;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        margin: 0 0 0 10px;
+
+                                        .page-item{
+                                            .page-link{
+                                                border: 1px solid #DEE2E7;
+                                                background: #ffffff;
+                                                border-radius: 10px;
+                                                padding: 10px 19px;
+                                                margin: 0 12px 0 0;
+                                                color: #2F2F2F;
+                                                width: 47px;
+                                                height: 38px;
+                                                display: flex;
+                                                justify-content: center;
+                                                align-items: center;
+
+                                                &:hover {
+                                                    background-color: #dee2e6;
+                                                    border-color: #dee2e6;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .nextitem{
+                                a{
+                                    height: 38px;
+                                    border-radius: 10px;
+                                    padding: 0 20px;
+                                    color: #2F2F2F;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

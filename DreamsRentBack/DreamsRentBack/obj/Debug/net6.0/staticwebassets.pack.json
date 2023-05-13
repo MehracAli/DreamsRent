@@ -1,0 +1,501 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\css\\owl.carousel.css",
+      "PackagePath": "staticwebassets\\assets\\css\\owl.carousel.css"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\css\\owl.theme.default.css",
+      "PackagePath": "staticwebassets\\assets\\css\\owl.theme.default.css"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\css\\style.css",
+      "PackagePath": "staticwebassets\\assets\\css\\style.css"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\css\\style.css.map",
+      "PackagePath": "staticwebassets\\assets\\css\\style.css.map"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\about\\about-us.png",
+      "PackagePath": "staticwebassets\\assets\\images\\about\\about-us.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\49705_KrXUdwdMn5SjaVk3RjoEBA.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\49705_KrXUdwdMn5SjaVk3RjoEBA.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\51208_LIdH8VdikxzVIDtyD89zWw.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\51208_LIdH8VdikxzVIDtyD89zWw.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\73788_R4i-lOocczfDReRlwrezxQ.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\73788_R4i-lOocczfDReRlwrezxQ.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\73791_820dzw_DEnBO9E790dfXwA.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\73791_820dzw_DEnBO9E790dfXwA.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\contact\\contact-info.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\contact\\contact-info.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\comments\\avatar-01.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\comments\\avatar-01.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-1.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-1.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-10.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-10.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-11.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-11.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-12.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-12.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-2.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-2.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-3.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-3.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-4.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-4.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-5.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-5.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-6.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-6.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-7.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-7.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-8.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-8.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\details\\spesifications\\specification-icon-9.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\details\\spesifications\\specification-icon-9.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\favicon.png",
+      "PackagePath": "staticwebassets\\assets\\images\\favicon.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\footer\\applegpay.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\footer\\applegpay.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\footer\\footer-left.png",
+      "PackagePath": "staticwebassets\\assets\\images\\footer\\footer-left.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\footer\\footer-right.png",
+      "PackagePath": "staticwebassets\\assets\\images\\footer\\footer-right.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\footer\\master.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\footer\\master.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\footer\\paypal.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\footer\\paypal.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\footer\\title-head.png",
+      "PackagePath": "staticwebassets\\assets\\images\\footer\\title-head.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\footer\\visa.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\footer\\visa.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\header\\banner.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\header\\banner.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\header\\car-right.png",
+      "PackagePath": "staticwebassets\\assets\\images\\header\\car-right.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\header\\logo.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\header\\logo.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\5093886-car-mclaren-mclaren-570s-orange-car-sport-car-supercar-vehicle.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\5093886-car-mclaren-mclaren-570s-orange-car-sport-car-supercar-vehicle.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\about-testimonial.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\about-testimonial.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\bx-car.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\bx-car.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\bx-headphone.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\bx-headphone.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\bx-heart.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\bx-heart.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\bx-history.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\bx-history.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\bx-user-check.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\bx-user-check.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\car-icon-01.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\car-icon-01.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\car-icon-02.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\car-icon-02.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\car-icon-03.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\car-icon-03.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\car-icon-04.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\car-icon-04.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\car-icon-05.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\car-icon-05.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\car-icon-06.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\car-icon-06.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\cars\\Audi-4K-PNG.png",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\cars\\Audi-4K-PNG.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\cars\\car-detail\\car-parts-01.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\cars\\car-detail\\car-parts-01.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\cars\\car-detail\\car-parts-02.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\cars\\car-detail\\car-parts-02.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\cars\\car-detail\\car-parts-03.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\cars\\car-detail\\car-parts-03.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\cars\\car-detail\\car-parts-04.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\cars\\car-detail\\car-parts-04.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\cars\\car-detail\\car-parts-05.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\cars\\car-detail\\car-parts-05.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\cars\\car-detail\\car-parts-06.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\cars\\car-detail\\car-parts-06.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\cars\\car-logo\\WpcTavg99b5XpK6STzSLZ8.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\cars\\car-logo\\WpcTavg99b5XpK6STzSLZ8.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\cars\\toyota-camry-se-hybrid-nightshade-550x400.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\cars\\toyota-camry-se-hybrid-nightshade-550x400.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\cars\\toyota-rebrand-logo-design_dezeen_2364_sq_1.webp",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\cars\\toyota-rebrand-logo-design_dezeen_2364_sq_1.webp"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\choose-left.png",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\choose-left.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\count-bg.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\count-bg.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\facts-left.png",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\facts-left.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\facts-right.png",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\facts-right.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\image.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\image.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\pexels-torsten-dettlaff-70912.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\pexels-torsten-dettlaff-70912.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\pngimg.com - car_wheel_PNG23302.png",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\pngimg.com - car_wheel_PNG23302.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\service-right.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\service-right.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\services-icon-01.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\services-icon-01.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\slider\\avatar-02.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\slider\\avatar-02.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\slider\\mp-vehicle-01.png",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\slider\\mp-vehicle-01.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\slider\\mp-vehicle-02.png",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\slider\\mp-vehicle-02.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\slider\\mp-vehicle-03.png",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\slider\\mp-vehicle-03.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\slider\\mp-vehicle-04.png",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\slider\\mp-vehicle-04.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\slider\\mp-vehicle-05.png",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\slider\\mp-vehicle-05.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\slider\\quote.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\slider\\quote.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\invoice\\invoice.png",
+      "PackagePath": "staticwebassets\\assets\\images\\invoice\\invoice.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\listing\\breadcrumbleft.png",
+      "PackagePath": "staticwebassets\\assets\\images\\listing\\breadcrumbleft.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\listing\\breadcrumbright.png",
+      "PackagePath": "staticwebassets\\assets\\images\\listing\\breadcrumbright.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\owners\\avatar-07.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\owners\\avatar-07.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\owners\\signute\\signature (1).png",
+      "PackagePath": "staticwebassets\\assets\\images\\owners\\signute\\signature (1).png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\payments\\payment-1.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\payments\\payment-1.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\payments\\payment-2.png",
+      "PackagePath": "staticwebassets\\assets\\images\\payments\\payment-2.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\payments\\payment-3.png",
+      "PackagePath": "staticwebassets\\assets\\images\\payments\\payment-3.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\payments\\payment-4.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\payments\\payment-4.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\scroll\\PngItem_1509117.png",
+      "PackagePath": "staticwebassets\\assets\\images\\scroll\\PngItem_1509117.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\scroll\\PngItem_5121945.png",
+      "PackagePath": "staticwebassets\\assets\\images\\scroll\\PngItem_5121945.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\scroll\\vintage-car-png.png",
+      "PackagePath": "staticwebassets\\assets\\images\\scroll\\vintage-car-png.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\scroll\\vintage-car-png.webp",
+      "PackagePath": "staticwebassets\\assets\\images\\scroll\\vintage-car-png.webp"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\team\\team-01.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\team\\team-01.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\AOS.js",
+      "PackagePath": "staticwebassets\\assets\\js\\AOS.js"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\accordion.js",
+      "PackagePath": "staticwebassets\\assets\\js\\accordion.js"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\carousel.js",
+      "PackagePath": "staticwebassets\\assets\\js\\carousel.js"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\checkout.js",
+      "PackagePath": "staticwebassets\\assets\\js\\checkout.js"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\detail.js",
+      "PackagePath": "staticwebassets\\assets\\js\\detail.js"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\footer.js",
+      "PackagePath": "staticwebassets\\assets\\js\\footer.js"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\index.js",
+      "PackagePath": "staticwebassets\\assets\\js\\index.js"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\myaccount.js",
+      "PackagePath": "staticwebassets\\assets\\js\\myaccount.js"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\owl.carousel.js",
+      "PackagePath": "staticwebassets\\assets\\js\\owl.carousel.js"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\progress.js",
+      "PackagePath": "staticwebassets\\assets\\js\\progress.js"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\slick.min.js",
+      "PackagePath": "staticwebassets\\assets\\js\\slick.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_about.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_about.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_checkout.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_checkout.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_contact.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_contact.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_detail.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_detail.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_footer.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_footer.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_forgotpassword.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_forgotpassword.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_head.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_head.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_header.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_header.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_index.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_index.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_invoice.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_invoice.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_listing.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_listing.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_myaccount.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_myaccount.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_order.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_order.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_privacy.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_privacy.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_resetpassword.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_resetpassword.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_signin.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_signin.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_signup.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_signup.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_slick-theme.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_slick-theme.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_slick.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_slick.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_team.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_team.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\style.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\style.scss"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.DreamsRentBack.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.DreamsRentBack.props",
+      "PackagePath": "build\\DreamsRentBack.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.DreamsRentBack.props",
+      "PackagePath": "buildMultiTargeting\\DreamsRentBack.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.DreamsRentBack.props",
+      "PackagePath": "buildTransitive\\DreamsRentBack.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

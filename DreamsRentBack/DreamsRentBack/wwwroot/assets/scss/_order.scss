@@ -1,0 +1,140 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#order{
+    padding: 80px 0;
+    background-color: #FCFBFB;
+    .container{
+        .order-wrapper{
+            .order-title{
+                display: flex;
+                justify-content: space-between;
+                max-width: 900px;
+                margin: 0 auto 20px;
+                padding: 0;
+                h3{
+                    font-weight: 700;
+                    font-size: 24px;
+                    color: #111;
+                }
+                h5{
+                    color: #2f2f2f;
+                    span{
+                        font-weight: 700;
+                        font-size: 20px;
+                    }
+                }
+            }
+            .order-box{
+                max-width: 900px;
+                background: #fff;
+                border-radius: 10px;
+                margin: 0 auto 40px;
+                padding: 30px;
+                .order-box-title{
+                    margin: 0 0 20px;
+                    padding: 0 0 20px;
+                    border-bottom: 1px solid #dbdbdb;
+                    h4{
+                        color: #201f1d;
+                        font-size: 18px;
+                        font-weight: 500;
+                    }
+                }
+                .order-car{
+                    display: flex;
+                    margin-bottom: 20px;
+                    span{
+                        img{
+                            width: 90px;
+                            border-radius: 10px;
+                            margin-right: 10px;
+                        }
+                    }
+                    h5{
+                        color: #1fbc2f;
+                        font-size: 18px;
+                        span{
+                            color: red;
+                            font-size: 16px;
+                            display: block;
+                            margin-top: 8px;
+                            font-weight: 600;
+                        }
+                    }
+                }
+                .services-list{
+                    ul{
+                        list-style: none;
+                        margin: 0;
+                        padding: 0;
+                        li{
+                            color: #737373;
+                        }
+                    }
+                }
+                .pay-card{
+                    margin-bottom: 30px;
+                    a{
+                        width: 70px;
+                        height: 50px;
+                        padding: 10px;  
+                        border-radius: 5px;
+                        background: #f2f7f6;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 10px;
+                        img{
+                            background: #f2f7f6;
+                            width: 100%;
+                        }
+                    }
+                    h6{
+                        color: #737373;
+                        font-weight: 500;
+                        font-size: 18px;
+                    }
+                }
+                .adress-info{
+                    p{
+                        color: #737373;
+                        margin-bottom: 10px;
+                        font-size: 15px;
+                    }
+                }
+                .your-info{
+                    p{
+                        color: #737373;
+                        margin-bottom: 10px;
+                        font-size: 15px;
+                    }
+                }
+            }
+            .place-order{
+                display: flex;
+                justify-content: end;
+                max-width: 900px;
+                margin: 0 auto 40px;
+                padding: 30px;
+                a{
+                    background-color: #ffa633;
+                    border: 1px solid #ffa633;
+                    box-shadow: inset 0 0 0 0 #fff;
+                    padding: 12px 20px;
+                    transition: 0.5s;
+                    color: white;
+                    &:hover{
+                        background-color: #fff;
+                        border-color: #ffa633;
+                        color: #ffa633;
+                        box-shadow: inset 0 50px 0 0 #fff;
+                    }
+                }
+            }
+        }
+    }
+}

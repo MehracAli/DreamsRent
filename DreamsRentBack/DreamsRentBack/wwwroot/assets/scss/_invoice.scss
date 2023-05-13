@@ -1,0 +1,202 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#invoice{
+    position: relative;
+    padding: 80px 0;
+    .container{
+        .invoice-box{
+            background: #fff;
+            box-shadow: 0 4px 24px rgba(225, 225, 225, .25);
+            border-radius: 14px;
+            padding: 40px;
+            max-width: 1076px;
+            margin: auto;
+            .invoice-title{
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 15px;
+                .title-info{
+                    text-align: right;
+                    h1{
+                        font-weight: 700;
+                        font-size: 32px;
+                        color: #2f2f2f;
+                        margin: 0 0 10px;
+                    }
+                    h6{
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #737373;
+                    }
+                }
+            }
+            .invoice-info{
+                position: relative;
+                background: #201f1d;
+                border-radius: 10px;
+                padding: 30px;
+                margin: 0 0 37px;
+                &::before{
+                    content: "";
+                    background: url(../images/invoice/invoice.png) no-repeat;
+                    position: absolute;
+                    top: -45px;
+                    left: -45px;
+                    width: 179px;
+                    height: 180px;
+                    background-size: cover;
+                }
+                ul{
+                    justify-content: space-between;
+                    color: white;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    li{
+                        display: flex;
+                        justify-content: center;
+                        border-left: 1px solid #fcfbfb;
+                        &:first-child{
+                            border-left: none;
+                        }
+                        p{
+                            margin: 0;
+                            font-size: 14px;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+            .invoice-table{
+                .table-wrapper{
+                    table{
+                        color: #2f2f2f;
+                        max-width: 100%;
+                        margin-bottom: 0;
+                        width: 100%;
+                        thead{
+                            background-color: #f4f4f4;
+                            border-bottom: 0;
+                            vertical-align: middle;
+                            white-space: nowrap;
+                            tr{
+                                th{
+                                    font-size: 15px;
+                                    color: #201f1d;
+                                    font-weight: 500;
+                                    background-color: #f4f4f4;
+                                    padding: 15px;
+                                }
+                            }
+                        }
+                        tbody{
+                            vertical-align: middle;
+                            white-space: nowrap;
+                            tr{
+                                &:hover{
+                                    background-color: #f6f6f7;
+                                }
+                                td{
+                                    border-color: #dee2e6;
+                                    padding: 15px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .invoice-payment{
+                margin-top: 40px;
+                .row{
+                    .payment-details{
+                        h6{
+                            font-weight: 500;
+                            font-size: 18px;
+                            color: #2f2f2f;
+                            margin-bottom: 18px;
+                        }
+                        .card-details{
+                            border: 2px dashed #787878;
+                            border-radius: 4px;
+                            max-width: 266px;
+                            padding: 20px;
+                            p{
+                                margin: 0;
+                                font-weight: 500;
+                                font-size: 14px;
+                                color: #2f2f2f;
+                            }
+                        }
+                    }
+                    .invoice-total{
+                        p{
+                            font-weight: 500;
+                            font-size: 14px;
+                            color: #828282;
+                            margin-bottom: 25px;
+                            display: flex;
+                            justify-content: space-between;
+                            span{
+                                font-weight: 700;
+                                font-size: 15px;
+                                color: #2f2f2f;
+                            }
+                        }
+                    }
+                }
+            }
+            .invoice-total{
+                background: #f1f1f1;
+                border: 2px dashed #fcfcfc;
+                margin: 33px 0;
+                padding: 10px;
+                text-align: right;
+                h4{
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: #201f1d;
+                    span{
+                        padding-left: 88px;
+                    }
+                }
+            }
+            .invoice-footer{
+                .row{
+                    align-items: center;
+                    justify-content: space-between;
+                    .invoice-not{
+                        margin-bottom: 20px;
+                        h6{
+                            font-weight: 500;
+                            font-size: 18px;
+                            color: #201f1d;
+                            margin: 0 0 13px;
+                        }
+                        p{
+                            font-weight: 500;
+                            font-size: 14px;
+                            color: #2f2f2f;
+                            margin: 0;
+                        }
+                    }
+                    .invoice-signature{
+                        img{
+                            margin-bottom: 20px;
+                        }
+                        span{
+                            font-weight: 500;
+                            font-size: 18px;
+                            color: #201f1d;
+                            text-align: center;
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

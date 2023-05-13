@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#privacy{
+    position: relative;
+    padding: 80px 0;
+    font-size: 15px;
+    color: #787878;
+    .container{
+        .terms-policy{
+            p{
+                margin-bottom: 38px;
+            }
+            ul{
+                list-style: none;
+                margin: 0 0 38px;
+                padding: 0;
+                li{
+                    margin-bottom: 10px;
+                    span{
+                        margin-right: 10px;
+                        color: #ffa633;
+                    }
+                }
+            }
+        }
+    }
+}
