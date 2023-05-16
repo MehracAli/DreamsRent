@@ -1,0 +1,42 @@
+﻿using DreamsRentBack.Entities;
+using DreamsRentBack.Entities.CarModels;
+using DreamsRentBack.Entities.ClientModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace DreamsRentBack.DAL
+{
+    public class DreamsRentDbContext : IdentityDbContext<User>
+    {
+        public DreamsRentDbContext(DbContextOptions<DreamsRentDbContext> options) : base(options)
+        {
+
+        }
+
+        //Client Models Start
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<PayCard> PayCards { get; set; }
+        public DbSet<PayCardType> PayCardTypes { get; set; }
+        public DbSet<Street> Streets { get; set; }
+        //Client Models End
+
+        //Car Models Start
+        public DbSet<AirCondition> AirConditions { get; set; }
+        public DbSet<Body> Bodys { get; set; }
+        public DbSet<Brake> Brakes { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Car> Cars { get; set; }
+        public DbSet<CarFeatures> CarsFeatures { get; set; }
+        public DbSet<CarPhoto> CarPhotos { get; set; }
+        public DbSet<Drivetrian> Drivetrians { get; set; }
+        public DbSet<Engine> Engines { get; set; }
+        public DbSet<ExtraService> ExtraServices { get; set; }
+        public DbSet<FuelType> FuelTypes { get; set; }
+        public DbSet<Transmission> Transmissions { get; set; }
+        //Car Models End
+        public DbSet<Setting> Settings { get; set; }
+    }
+}

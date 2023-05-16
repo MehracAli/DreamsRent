@@ -1,6 +1,4 @@
 @charset "UTF-8";
-@import "./owl.carousel.css";
-@import "./owl.theme.default.css";
 * {
   margin: 0;
   padding: 0;
@@ -2180,7 +2178,7 @@ html ::-webkit-scrollbar-thumb:hover {
 #header .container nav .nav-menu {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
 }
 #header .container nav .nav-menu ul {
   margin: 0;
@@ -2219,7 +2217,25 @@ html ::-webkit-scrollbar-thumb:hover {
   line-height: 85px;
   font-weight: bold;
 }
-#header .container nav .nav-user ul .sign-in a {
+#header .container nav .nav-user ul .add-car a {
+  background-color: green;
+  border: 1px solid green;
+  box-shadow: inset 0 0 0 #ffffff;
+  color: #ffffff;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-align: center;
+  transition: 0.5s;
+}
+#header .container nav .nav-user ul .add-car a:hover {
+  background-color: #ffffff;
+  border: 1px solid green;
+  box-shadow: inset 0 70px 0 0 #ffffff;
+  color: green;
+}
+#header .container nav .nav-user ul .first-choose a {
   background-color: #201F1D;
   border: 1px solid #201F1D;
   box-shadow: inset 0 0 0 #ffffff;
@@ -2231,13 +2247,13 @@ html ::-webkit-scrollbar-thumb:hover {
   text-align: center;
   transition: 0.5s;
 }
-#header .container nav .nav-user ul .sign-in a:hover {
+#header .container nav .nav-user ul .first-choose a:hover {
   background-color: #ffffff;
   border: 1px solid #201F1D;
   box-shadow: inset 0 70px 0 0 #ffffff;
   color: #201F1D;
 }
-#header .container nav .nav-user ul .sign-out a {
+#header .container nav .nav-user ul .second-choose a {
   background-color: #FFA633;
   border: 1px solid #FFA633;
   box-shadow: inset 0 0 0 #ffffff;
@@ -2248,7 +2264,7 @@ html ::-webkit-scrollbar-thumb:hover {
   padding: 10px 20px;
   transition: 0.5s;
 }
-#header .container nav .nav-user ul .sign-out a:hover {
+#header .container nav .nav-user ul .second-choose a:hover {
   background-color: #ffffff;
   border: 1px solid #FFA633;
   box-shadow: inset 0 70px 0 0 #ffffff;
@@ -3987,7 +4003,63 @@ html ::-webkit-scrollbar-thumb:hover {
 
 #account {
   background-color: #FCFBFB;
-  padding: 80px 0;
+  padding: 40px 0;
+}
+#account .container {
+  position: relative;
+}
+#account .container .profile {
+  background-image: url(../images/index/about-testimonial.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 30px 30px;
+  margin-bottom: 50px;
+  border-radius: 10px;
+}
+#account .container .profile .photo {
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 5px solid #FFA633;
+}
+#account .container .profile .photo img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+#account .container .profile .fullname h1 {
+  z-index: 1;
+  color: white;
+  margin-top: 50px;
+}
+#account .container .profile .fullname h4 {
+  color: #FFA633;
+}
+#account .container .edit-photo {
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: black;
+  border: solid 2px #FFA633;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  cursor: pointer;
+}
+#account .container .edit-photo i {
+  color: #FFA633;
+  transition: 0.5s;
+}
+#account .container .edit-photo:hover {
+  background-color: #FFA633;
+}
+#account .container .edit-photo:hover i {
+  color: #ffffff;
 }
 #account .container .row .side-bar {
   background: #ffffff;
@@ -4403,10 +4475,14 @@ html ::-webkit-scrollbar-thumb:hover {
 #login .container .login-wrapper .login-box form .form-group.inputs input:focus {
   background-color: white;
 }
-#login .container .login-wrapper .login-box form .form-group.remember-me label span {
+#login .container .login-wrapper .login-box form .remember-me label {
+  display: flex;
+}
+#login .container .login-wrapper .login-box form .remember-me label span {
   font-size: 14px;
   color: #828282;
   font-weight: 400;
+  margin-right: 10px;
 }
 #login .container .login-wrapper .login-box form a.forgot {
   color: red;
@@ -4468,6 +4544,16 @@ html ::-webkit-scrollbar-thumb:hover {
   padding: 30px;
   width: 635px;
 }
+#register .container .register-wrapper .register-box .consumer-company {
+  color: #201f1d;
+  display: inline-block;
+  text-decoration: none;
+  margin: 10px 0 20px;
+  transition: 0.3s;
+}
+#register .container .register-wrapper .register-box .consumer-company:hover {
+  color: #FFA633;
+}
 #register .container .register-wrapper .register-box h1 {
   margin: 0 0 10px;
   font-size: 28px;
@@ -4507,8 +4593,9 @@ html ::-webkit-scrollbar-thumb:hover {
 #register .container .register-wrapper .register-box form .form-group input:focus {
   background-color: white;
 }
-#register .container .register-wrapper .register-box form a.sign-button {
+#register .container .register-wrapper .register-box form button.sign-button {
   display: block;
+  margin: 0 auto;
   color: #fff;
   background-color: #201f1d;
   border: 1px solid #201f1d;
@@ -4518,7 +4605,7 @@ html ::-webkit-scrollbar-thumb:hover {
   padding: 12px;
   margin-top: 20px;
 }
-#register .container .register-wrapper .register-box form a.sign-button:hover {
+#register .container .register-wrapper .register-box form button.sign-button:hover {
   background-color: #fff;
   border-color: #f1f1f1;
   color: #3f4254;
@@ -4535,6 +4622,16 @@ html ::-webkit-scrollbar-thumb:hover {
 }
 #register .container .register-wrapper .register-box form .already-have a:hover {
   text-decoration: underline;
+}
+#register .container .register-wrapper .register-box .terms label {
+  font-size: 15px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #828282;
+  display: flex;
+}
+#register .container .register-wrapper .register-box .terms label span {
+  margin-right: 10px;
 }
 
 * {

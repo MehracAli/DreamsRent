@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "j1QpK2lq3G/fJ2UHTVLxBxIIPOPIvLF/QFKj7SAx1dk=",
+  "Hash": "fltwd8PZIUdlWJb21dI+nO/3JtAuToxVcPX1jGtYtVg=",
   "Source": "DreamsRentBack",
   "BasePath": "_content/DreamsRentBack",
   "Mode": "Default",
@@ -1734,6 +1734,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\scss\\_checkout.scss"
     },
     {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_confirmation.scss",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/scss/_confirmation.scss",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\scss\\_confirmation.scss"
+    },
+    {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_contact.scss",
       "SourceId": "DreamsRentBack",
       "SourceType": "Discovered",
@@ -2055,6 +2072,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\scss\\style.scss"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\confirmation.html",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "confirmation.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\confirmation.html"
     }
   ]
 }

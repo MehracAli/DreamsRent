@@ -1,0 +1,96 @@
+﻿@using DreamsRentBack.ViewModels.Identify;
+@model CompanyRegisterVM
+@{
+    ViewData["Title"] = "CompanySignUp";
+}
+
+<!-- main start -->
+<main>
+    <section id="register">
+        <div class="container">
+            <div class="register-wrapper">
+                <div class="register-box">
+                    <h1>Sign Up</h1>
+                    <a asp-action="ConsumerSignUp" class="consumer-company">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Back
+                    </a>
+                    <p>We'll send a confirmation code to your email.</p>
+                    <form asp-action="CompanySignup" method="post">
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <label asp-for="CompanyName" >
+                                    Company Name
+                                    <span>*</span>
+                                </label>
+                                <input asp-for="CompanyName" placeholder="Company Name">
+                                <span asp-validation-for="CompanyName" class="text-danger"></span>
+
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label asp-for="UserName">
+                                    User Name
+                                    <span>*</span>
+                                </label>
+                                <input asp-for="UserName" placeholder="User Name">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email">
+                                Email
+                                <span>*</span>
+                            </label>
+                            <input asp-for="Email" placeholder="exm: example@exm.com">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber">
+                                Phone Number
+                                <span>*</span>
+                            </label>
+                            <input asp-for="PhoneNumber" placeholder="exm: 050 999 99 99">
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password">
+                                Password
+                                <span>*</span>
+                            </label>
+                            <input asp-for="Password" placeholder="Password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword">
+                                Confirm Password
+                                <span>*</span>
+                            </label>
+                            <input asp-for="ConfirmPassword" placeholder="Confirm Password">
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                        </div>
+                        <div class="remember-me">
+                            <label asp-for="Terms">
+                                <span>I agree with Privacy & Policy</span>
+                                <input asp-for="Terms">
+                                <span asp-validation-for="Terms" class="text-danger"></span>
+
+                            </label>
+                        </div>
+                        <button href="#" class="btn sign-button">Sign Up</button>
+                        <div class="already-have">
+                            Already have an Account?
+                            <a href="signin.html">Sign In</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- main end -->
+

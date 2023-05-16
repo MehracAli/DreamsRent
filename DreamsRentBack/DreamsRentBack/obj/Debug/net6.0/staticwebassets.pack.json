@@ -405,6 +405,10 @@
       "PackagePath": "staticwebassets\\assets\\scss\\_checkout.scss"
     },
     {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_confirmation.scss",
+      "PackagePath": "staticwebassets\\assets\\scss\\_confirmation.scss"
+    },
+    {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\_contact.scss",
       "PackagePath": "staticwebassets\\assets\\scss\\_contact.scss"
     },
@@ -479,6 +483,10 @@
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\scss\\style.scss",
       "PackagePath": "staticwebassets\\assets\\scss\\style.scss"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\confirmation.html",
+      "PackagePath": "staticwebassets\\confirmation.html"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.DreamsRentBack.Microsoft.AspNetCore.StaticWebAssets.props",

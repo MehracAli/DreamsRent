@@ -1,0 +1,97 @@
+﻿@using DreamsRentBack.ViewModels.Identify;
+@model ConsumerRegisterVM
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<!-- main start -->
+<main>
+    <section id="register">
+        <div class="container">
+            <div class="register-wrapper">
+                <div class="register-box">
+                    <h1>Sign Up</h1>
+                    <a asp-action="CompanySignUp" class="consumer-company">
+                        <i class="fa-solid fa-building"></i>
+                        Sign up as Company
+                    </a>
+                    <p>We'll send a confirmation code to your email.</p>
+                    <form asp-action="ConsumerSignup" method="post">
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <label asp-for="Name">
+                                    Name
+                                    <span>*</span>
+                                </label>
+                                <input asp-for="Name" placeholder="Name">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label asp-for="Surname">
+                                    Surname
+                                    <span>*</span>
+                                </label>
+                                <input asp-for="Surname" placeholder="Surname">
+                                <span asp-validation-for="Surname" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UserName">
+                                User Name
+                                <span>*</span>
+                            </label>
+                            <input asp-for="UserName" placeholder="User Name">
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email">
+                                Email
+                                <span>*</span>
+                            </label>
+                            <input asp-for="Email" placeholder="exm: example@exm.com">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber">
+                                Phone Number
+                                <span>*</span>
+                            </label>
+                            <input asp-for="PhoneNumber" placeholder="exm: 050 999 99 99">
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password">
+                                Password
+                                <span>*</span>
+                            </label>
+                            <input asp-for="Password" placeholder="Password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword">
+                                Confirm Password
+                                <span>*</span>
+                            </label>
+                            <input asp-for="ConfirmPassword" placeholder="Confirm Password">
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="terms">
+                            <label asp-for="Terms">
+                                <span>I agree with Privacy & Policy</span>
+                                <input asp-for="Terms">
+                                <span asp-validation-for="Terms" class="text-danger"></span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn sign-button">Sign Up</button>
+                        <div class="already-have">
+                            Already have an Account?
+                            <a asp-action="Signin">Sign In</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- main end -->
+

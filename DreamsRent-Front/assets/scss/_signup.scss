@@ -19,6 +19,17 @@
             .register-box{
                 padding: 30px;
                 width: 635px;
+                .consumer-company{
+                    color: #201f1d;
+                    display: inline-block;
+                    text-decoration: none;
+                    margin: 10px 0 20px;
+                    transition: 0.3s;
+
+                    &:hover{
+                        color: #FFA633;
+                    }
+                }
                 h1{
                     margin: 0 0 10px;
                     font-size: 28px;
@@ -59,8 +70,9 @@
                             }
                         }
                     }
-                    a.sign-button{
+                    button.sign-button{
                         display: block;
+                        margin: 0 auto;
                         color: #fff;
                         background-color: #201f1d;
                         border: 1px solid #201f1d;
@@ -86,6 +98,18 @@
                             &:hover{
                                 text-decoration: underline;
                             }
+                        }
+                    }
+                }
+                .terms{
+                    label{
+                        font-size: 15px;
+                        margin-bottom: 10px;
+                        font-weight: 600;
+                        color: #828282;
+                        display: flex;
+                        span{
+                            margin-right: 10px;
                         }
                     }
                 }

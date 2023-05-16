@@ -44,7 +44,7 @@ html{
             .nav-menu{
                 display: flex;
                 align-items: center;
-                justify-content: center;
+                justify-content: end;
                 ul{
                     margin: 0;
                     padding: 0;
@@ -82,7 +82,28 @@ html{
                             font-weight: bold;
                         }
                     }
-                    .sign-in{
+                    .add-car{
+                        a{
+                            background-color: green;
+                            border: 1px solid green;
+                            box-shadow: inset 0 0 0 #ffffff;
+                            color: #ffffff;
+                            border-radius: 5px;
+                            font-weight: 500;
+                            font-size: 16px;
+                            padding: 10px 20px;
+                            text-align: center;
+                            transition: 0.5s;
+
+                            &:hover{
+                                background-color: #ffffff;
+                                border: 1px solid green;
+                                box-shadow: inset 0 70px 0 0 #ffffff;
+                                color: green;
+                            }
+                        }
+                    }
+                    .first-choose{
                         a{
                             background-color: #201F1D;
                             border: 1px solid #201F1D;
@@ -103,7 +124,7 @@ html{
                             }
                         }
                     }
-                    .sign-out{
+                    .second-choose{
                         a{
                             background-color: #FFA633;
                             border: 1px solid #FFA633;
