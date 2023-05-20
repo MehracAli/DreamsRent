@@ -5,6 +5,8 @@ namespace DreamsRentBack.ViewModels.Identify
 {
     public class CompanyRegisterVM
     {
+        public int Id { get; set; }
+
         [System.ComponentModel.DataAnnotations.Required, StringLength(maximumLength:30)]
         public string CompanyName { get; set; }
 

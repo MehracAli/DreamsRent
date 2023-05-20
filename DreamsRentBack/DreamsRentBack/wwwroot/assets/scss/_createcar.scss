@@ -1,0 +1,105 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#createcar{
+    padding: 50px;
+    background-color: #F2F7F6;
+    .container{
+        .create-wrapper{
+            form{
+                .red-star{
+                    color: red;
+                }
+                label{
+                    margin: 20px 0;
+                }
+                .photos{
+                    .add-image-wrap{
+                        justify-content: space-around;
+                        align-items: center;
+                        .add-image{
+                            width: 200px;
+                            height: 200px;
+                            background-color: rgb(241, 241, 241);
+                            border: 3px solid rgb(225, 225, 225);
+                            border-radius: 10px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transition: 0.3s;
+                            cursor: pointer;
+                            input{
+                                display: none;
+                            }
+                            svg{
+                                fill: rgb(170, 170, 170);
+                            }
+                            &:active{
+                                background-color: rgb(200, 200, 200);;
+                            }
+                        }
+                        .image-pool{
+                            background-color: rgb(241, 241, 241);
+                            border: 3px solid rgb(225, 225, 225);
+                            padding: 20px 30px;
+                            overflow-x: scroll;
+                            display: flex;
+                            flex-wrap: nowrap;
+                            .loaded-img{
+                                width: 200px;
+                                height: 200px;
+                                background-color: rgb(241, 241, 241);
+                                border: 3px solid rgb(225, 225, 225);
+                                border-radius: 10px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                img{
+                                    width: 100%;
+                                    object-fit: contain;
+                                }
+                            }
+                        }
+                    }
+                }
+                .fg-6{
+                    input{
+                        width: 300px;
+                        height: 35px;
+                        outline: none!important;
+                        border: none;
+                    }
+                    select{
+                        width: 300px;
+                        height: 35px;
+                        outline: none!important;
+                        border: none;
+                    }
+                    &:nth-child(even) label{
+                        margin-left: 300px;
+                    }
+                    &:nth-child(even) input{
+                        margin-left: 300px;
+                    }
+                    &:nth-child(even) select{
+                        margin-left: 300px;
+                    }
+                }
+                .fg{
+                    &:last-child{
+                        margin-top: 50px;
+                        display: flex;
+                        justify-content: center;
+                    }
+                    .btn{
+                        background-color: black;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}

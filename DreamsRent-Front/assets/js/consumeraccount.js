@@ -25,7 +25,6 @@ accountDetailsLi.addEventListener("click", function(){
     accountDetailsMain.classList.add("active-main")
     wishlistMain.classList.remove("active-main")
     orderMain.classList.remove("active-main")
-
 })
 
 orderLi.addEventListener("click", function(){

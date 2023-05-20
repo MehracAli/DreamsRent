@@ -1,4 +1,5 @@
-﻿@using DreamsRentBack.Services;
+﻿@using DreamsRentBack.Entities.CarModels;
+@using DreamsRentBack.Services;
 @inject LayoutService layoutServices;
 
 <!DOCTYPE html>
@@ -55,7 +56,7 @@
                         @if (User.IsInRole("Company"))
                         {
                             <li class="add-car">
-                                <a href="#" style="text-decoration:none">
+                                <a asp-controller="Car" asp-action="AddCar" style="text-decoration:none">
                                     @Html.Raw(layoutServices.GetSettings().FirstOrDefault(s=>s.Key.Equals("AddCarIcon")).Value)
                                     Add Car
                                 </a>
@@ -79,17 +80,20 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="first-choose">
-                                <a asp-controller="Account" asp-action="ConsumerSignup">
-                                    @Html.Raw(layoutServices.GetSettings().FirstOrDefault(s=>s.Key.Equals("MyAccountIcon")).Value)
-                                    @if(User.IsInRole("Consumer"))
-                                    {
+                                @if (User.IsInRole("Consumer"))
+                                {
+                                    <a asp-controller="Account" asp-action="ConsumerAccount">
+                                        @Html.Raw(layoutServices.GetSettings().FirstOrDefault(s=>s.Key.Equals("ConsumerAccountIcon")).Value)
                                         @await layoutServices.GetConsmuerFullName()
-                                    }
-                                    @if (User.IsInRole("Company"))
-                                    {
+                                    </a>
+                                }
+                                @if (User.IsInRole("Company"))
+                                {
+                                    <a asp-controller="Account" asp-action="CompanyAccount">
+                                        @Html.Raw(layoutServices.GetSettings().FirstOrDefault(s=>s.Key.Equals("CompanyAccountIcon")).Value)
                                         @await layoutServices.GetCompanyName()
-                                    }
-                                </a>
+                                    </a>
+                                }
                             </li>
                             <li class="sign-in second-choose">
                                 <a asp-controller="Account" asp-action="Signout">
@@ -141,21 +145,12 @@
                         <div class="col-lg-4 footer-cols">
                             <h5>Vehicles Type</h5>
                             <ul class="col-list">
-                                <li>
-                                    <a href="#">Convertible</a>
-                                </li>
-                                <li>
-                                    <a href="#">Crossover</a>
-                                </li>
-                                <li>
-                                    <a href="#">Sedan</a>
-                                </li>
-                                <li>
-                                    <a href="#">Wagon</a>
-                                </li>
-                                <li>
-                                    <a href="#">Pickup</a>
-                                </li>
+                                @foreach (Body body in layoutServices.GetBodyTypes())
+                                {
+                                    <li>
+                                        <a href="#">@body.Name</a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                         <div class="col-lg-4 footer-cols">
@@ -298,5 +293,6 @@
     <script src="~/assets/js/footer.js"></script>
     <script src="~/assets/js/accordion.js"></script>
     <script src="~/assets/js/AOS.js"></script>
+    @RenderSection("Scripts", false)
 </body>
 </html>

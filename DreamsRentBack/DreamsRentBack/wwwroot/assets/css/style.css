@@ -2174,7 +2174,6 @@ html ::-webkit-scrollbar-thumb:hover {
 #header .container nav .nav-logo {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 #header .container nav .nav-menu {
   display: flex;
@@ -4004,7 +4003,63 @@ html ::-webkit-scrollbar-thumb:hover {
 
 #account {
   background-color: #FCFBFB;
-  padding: 80px 0;
+  padding: 40px 0;
+}
+#account .container {
+  position: relative;
+}
+#account .container .profile {
+  background-image: url(../images/index/about-testimonial.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 30px 30px;
+  margin-bottom: 50px;
+  border-radius: 10px;
+}
+#account .container .profile .photo {
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 5px solid #FFA633;
+}
+#account .container .profile .photo img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+#account .container .profile .fullname h1 {
+  z-index: 1;
+  color: white;
+  margin-top: 50px;
+}
+#account .container .profile .fullname h4 {
+  color: #FFA633;
+}
+#account .container .edit-photo {
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: black;
+  border: solid 2px #FFA633;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  cursor: pointer;
+}
+#account .container .edit-photo i {
+  color: #FFA633;
+  transition: 0.5s;
+}
+#account .container .edit-photo:hover {
+  background-color: #FFA633;
+}
+#account .container .edit-photo:hover i {
+  color: #ffffff;
 }
 #account .container .row .side-bar {
   background: #ffffff;
@@ -4025,9 +4080,9 @@ html ::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
 }
 #account .container .row .side-bar .bar-list li:hover {
-  background-color: #FFA633;
+  background-color: #F2F7F6;
   border-radius: 5px;
-  color: white;
+  color: black;
 }
 #account .container .row .side-bar .bar-list li:last-child {
   border: none;
@@ -4057,6 +4112,21 @@ html ::-webkit-scrollbar-thumb:hover {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 24px rgba(255, 255, 255, 0.2);
+}
+#account .container .row .main-side .account-details .pay-card {
+  background: #ffffff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 24px rgba(255, 255, 255, 0.2);
+}
+#account .container .row .main-side .account-details .pay-card .pay-card-type {
+  width: 250px;
+  display: flex;
+  align-items: center;
+}
+#account .container .row .main-side .account-details .pay-card .pay-card-type img {
+  width: 100%;
 }
 #account .container .row .main-side .account-details .info-body p {
   margin: 0 0 5px;
@@ -4093,7 +4163,124 @@ html ::-webkit-scrollbar-thumb:hover {
   border-radius: 10px;
   box-shadow: 0px 4px 24px rgba(255, 255, 255, 0.2);
 }
+#account .container .row .main-side .wishlist .row .wishlist-wrapper h5 {
+  text-align: center;
+  color: gray;
+  width: 100%;
+}
+#account .container .row .main-side .wishlist .row .wishlist-wrapper svg {
+  display: block;
+  width: 100px;
+  fill: gray;
+  margin: 0 auto;
+  margin: 30px auto 0;
+}
+#account .container .row .main-side .order-history {
+  display: none;
+}
+#account .container .row .main-side .order-history .order-wrapper {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 24px rgba(255, 255, 255, 0.2);
+}
+#account .container .row .main-side .order-history .order-wrapper h5 {
+  text-align: center;
+  width: 100%;
+  color: gray;
+}
+#account .container .row .main-side .order-history .order-wrapper svg {
+  display: block;
+  width: 100px;
+  fill: gray;
+  margin: 30px auto 0;
+}
 #account .container .row .main-side .active-main {
+  display: block;
+}
+#account .container .row .company-main-side .account-details {
+  padding: 20px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  display: none;
+}
+#account .container .row .company-main-side .about-announcements {
+  display: none;
+}
+#account .container .row .company-main-side .about-announcements .company-main-head {
+  margin-bottom: 20px;
+}
+#account .container .row .company-main-side .about-announcements .company-main-head ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  border-radius: 5px;
+}
+#account .container .row .company-main-side .about-announcements .company-main-head ul li {
+  font-size: 16px;
+  color: #a3a3a4;
+  display: inline-block;
+  padding: 10px 20px;
+  border-bottom: 3px solid #ebebeb;
+  transition: 0.5s;
+  cursor: pointer;
+}
+#account .container .row .company-main-side .about-announcements .company-main-head ul li:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+#account .container .row .company-main-side .about-announcements .company-main-head ul li:hover {
+  color: black;
+  background-color: #F2F7F6;
+  border-bottom: 3px solid #FFA633;
+}
+#account .container .row .company-main-side .about-announcements .company-main-head ul .active-li {
+  background-color: #FFA633;
+  border-bottom: 3px solid black;
+  color: #fff;
+}
+#account .container .row .company-main-side .about-announcements .company-main-body .announcements-body {
+  padding: 20px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 5px;
+}
+#account .container .row .company-main-side .about-announcements .company-main-body .announcements-body a {
+  background-color: green;
+  color: #ffffff;
+  transition: 0.5s;
+}
+#account .container .row .company-main-side .about-announcements .company-main-body .announcements-body a:hover {
+  background-color: rgb(0, 151, 0);
+}
+#account .container .row .company-main-side .about-announcements .company-main-body .pending-body {
+  padding: 20px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 5px;
+  text-align: center;
+}
+#account .container .row .company-main-side .about-announcements .company-main-body .rented-body {
+  padding: 20px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 5px;
+  text-align: center;
+}
+#account .container .row .company-main-side .about-announcements .company-main-body p {
+  color: #838383;
+  font-size: 16px;
+}
+#account .container .row .company-main-side .about-announcements .company-main-body svg {
+  display: block;
+  width: 100px;
+  fill: gray;
+  margin: 0 auto;
+  margin: 30px auto 0;
+}
+#account .container .row .company-main-side .active-main {
   display: block;
 }
 
@@ -4953,6 +5140,155 @@ html ::-webkit-scrollbar-thumb:hover {
 .slick-dots li.slick-active button:before {
   color: black;
   opacity: 0.75;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#createcar {
+  padding: 50px;
+  background-color: #F2F7F6;
+}
+#createcar .container .create-wrapper form .red-star {
+  color: red;
+}
+#createcar .container .create-wrapper form label {
+  margin: 20px 0;
+}
+#createcar .container .create-wrapper form .photos .add-image-wrap {
+  justify-content: space-around;
+  align-items: center;
+}
+#createcar .container .create-wrapper form .photos .add-image-wrap .add-image {
+  width: 200px;
+  height: 200px;
+  background-color: rgb(241, 241, 241);
+  border: 3px solid rgb(225, 225, 225);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  cursor: pointer;
+}
+#createcar .container .create-wrapper form .photos .add-image-wrap .add-image input {
+  display: none;
+}
+#createcar .container .create-wrapper form .photos .add-image-wrap .add-image svg {
+  fill: rgb(170, 170, 170);
+}
+#createcar .container .create-wrapper form .photos .add-image-wrap .add-image:active {
+  background-color: rgb(200, 200, 200);
+}
+#createcar .container .create-wrapper form .photos .add-image-wrap .image-pool {
+  background-color: rgb(241, 241, 241);
+  border: 3px solid rgb(225, 225, 225);
+  padding: 20px 30px;
+  overflow-x: scroll;
+  display: flex;
+  flex-wrap: nowrap;
+}
+#createcar .container .create-wrapper form .photos .add-image-wrap .image-pool .loaded-img {
+  width: 200px;
+  height: 200px;
+  background-color: rgb(241, 241, 241);
+  border: 3px solid rgb(225, 225, 225);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#createcar .container .create-wrapper form .photos .add-image-wrap .image-pool .loaded-img img {
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+#createcar .container .create-wrapper form .fg-6 input {
+  width: 300px;
+  height: 35px;
+  outline: none !important;
+  border: none;
+}
+#createcar .container .create-wrapper form .fg-6 select {
+  width: 300px;
+  height: 35px;
+  outline: none !important;
+  border: none;
+}
+#createcar .container .create-wrapper form .fg-6:nth-child(even) label {
+  margin-left: 300px;
+}
+#createcar .container .create-wrapper form .fg-6:nth-child(even) input {
+  margin-left: 300px;
+}
+#createcar .container .create-wrapper form .fg-6:nth-child(even) select {
+  margin-left: 300px;
+}
+#createcar .container .create-wrapper form .fg:last-child {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+#createcar .container .create-wrapper form .fg .btn {
+  background-color: black;
+  color: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#not-found {
+  padding: 50px;
+  align-items: center;
+  color: #28283C;
+  font-weight: 900;
+}
+#not-found .main-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  justify-content: center;
+  width: 100%;
+  min-height: unset;
+}
+#not-found .main-wrapper .error-box {
+  margin: 40px auto;
+  max-width: 600px;
+  text-align: center;
+  width: 100%;
+}
+#not-found .main-wrapper .error-box img {
+  margin: 0 0 50px;
+}
+#not-found .main-wrapper .error-box h3 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+#not-found .main-wrapper .error-box p {
+  margin: auto auto 30px;
+  color: #787878;
+  font-weight: 500;
+  max-width: 560px;
+}
+#not-found .main-wrapper .error-box .back-button a {
+  padding: 15px 20px;
+  font-size: 16px;
+  background-color: #FFA633;
+  border: 1px solid #FFA633;
+  box-shadow: inset 0 0 0 0 #ffffff;
+  transition: 0.5s;
+}
+#not-found .main-wrapper .error-box .back-button a:hover {
+  background-color: #ffffff;
+  border-color: #FFA633;
+  color: #FFA633;
+  box-shadow: inset 0 50px 0 0 #ffffff;
 }
 
 body {

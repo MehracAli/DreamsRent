@@ -1,5 +1,6 @@
 ﻿using DreamsRentBack.DAL;
 using DreamsRentBack.Entities;
+using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
 using Microsoft.AspNetCore.Identity;
 
@@ -42,5 +43,12 @@ namespace DreamsRentBack.Services
 
             return company.CompanyName;
         }
+
+        public List<Body> GetBodyTypes()
+        {
+            List<Body> bodies = _context.Bodys.Take(5).ToList();
+
+            return bodies;
+        } 
     }
 }

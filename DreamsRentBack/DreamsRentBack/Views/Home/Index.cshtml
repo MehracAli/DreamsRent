@@ -1,5 +1,11 @@
-﻿@{
+﻿@using DreamsRentBack.Entities.CarModels;
+@using DreamsRentBack.ViewModels.Car;
+@{
     ViewData["Title"] = "Home";
+    List<CarExploreVM> cars = ViewBag.Cars;
+    List<Brand> brands = ViewBag.Brands;
+    List<Body> bodies = ViewBag.Bodies;
+    List<Like> likes = ViewBag.Likes;
 }
 
 <!-- main start -->
@@ -30,7 +36,7 @@
                     </div>
                 </div>
                 <div class="banner-photo col-lg-6">
-                    <img data-aos="fade-down-left" data-aos-duration="500" data-aos-delay="500" src="~/assets/images/index/cars/Audi-4K-PNG.png" alt="">
+                    <img data-aos="fade-down-left" data-aos-duration="500" data-aos-delay="500" src="~/assets/images/index/banner/Audi-4K-PNG.png" alt="">
                 </div>
             </div>
         </div>
@@ -172,92 +178,70 @@
                 <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
             </div>
             <div data-aos="fade-down" class="explore-body-top">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <span>
-                                <img src="~/assets/images/index/car-icon-01.svg" alt="">
-                            </span>
-                            Mercedes
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span>
-                                <img src="~/assets/images/index/car-icon-02.svg" alt="">
-                            </span>
-                            Audi
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span>
-                                <img src="~/assets/images/index/car-icon-03.svg" alt="">
-                            </span>
-                            Honda
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span>
-                                <img src="~/assets/images/index/car-icon-04.svg" alt="">
-                            </span>
-                            Toyota
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span>
-                                <img src="~/assets/images/index/car-icon-05.svg" alt="">
-                            </span>
-                            Acura
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span>
-                                <img src="~/assets/images/index/car-icon-06.svg" alt="">
-                            </span>
-                            Tesla
-                        </a>
-                    </li>
+                <ul style="justify-content: center">
+                    @foreach (Brand brand in brands)
+                    {
+                        <li style="margin-right:20px">
+                            <a href="#">
+                                <span style="padding: 5px;width:50px;height:50px;">
+                                    <img style="width:100%;" src="~/assets/images/index/brands/@brand.BrandLogo" alt="">
+                                </span>
+                                @brand.Name
+                            </a>
+                        </li>
+                    }
                 </ul>
             </div>
             <div class="explore-body-bottom">
                 <div class="cars">
                     <div class="row">
-                        <div data-aos="zoom-in-up" data-aos-duration="1000" class="car col-lg-4">
+                        @foreach (CarExploreVM car in cars)
+                        {
+                            <div data-aos="zoom-in-up" data-aos-duration="1000" class="car col-lg-4">
                             <div class="car-item">
                                 <div class="car-img">
-                                    <a href="./detail.html">
-                                        <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
-                                             alt="">
+                                    <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
+                                        <img src="~/assets/images/cars/@car.CarPhotos.FirstOrDefault(p=>p.CarId == car.Id).Path" alt="">
                                     </a>
                                     <div class="fav">
-                                        <span>Toyota</span>
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
+                                        <span style="height:max-content">@car.Company.CompanyName</span>
+                                        <a href="#" style="width:40px; height:40px">
+                                            @if(likes.Any(l=>l.User.UserName == User.Identity.Name && l.CarId == car.Id))
+                                            {
+                                                <i class="fa-solid fa-heart" style="font-size:20px"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa-regular fa-heart" style="font-size:20px"></i>
+                                            }
                                         </a>
                                     </div>
                                 </div>
                                 <div class="car-content">
                                     <div class="car-features">
-                                        <a href="#" class="author-img">
-                                            <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
-                                                 alt="">
+                                        <a href="#" class="author-img" style="top:-45px">
+                                            <img src="~/assets/images/companies/@car.Company.CompanyPhoto"
+                                                     style="width:60px;height:60px;padding:2px;border: 1px solid orange;background:white;" alt="">
                                         </a>
                                         <h3 class="car-title">
                                             <a href="#">
-                                                Toyota Camry SE Hybrid
+                                                    @car.Brand.Name @car.Brand.Models.FirstOrDefault(m=>m.Id == car.ModelId).Name
                                             </a>
                                         </h3>
                                         <div class="car-rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <span>(5.0)</span>
+                                            @for (double i = 0; i < car.Rating; i++)
+                                            {
+                                                <i class="fa-solid fa-star"></i>
+                                            }
+                                            @for (double i = 0; i < 5 - car.Rating; i++)
+                                            {
+                                                <i class="fa-solid fa-star" style="color: gray;"></i>
+                                            }
+                                            <span>(@car.Rating)</span>
+                                            <span style="position:absolute;right:5px;"> 
+                                                <i class="fa-solid fa-heart"></i>
+                                                Likes (@car.Likes.Count())
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="car-details">
@@ -267,44 +251,44 @@
                                                     <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
                                                          alt="">
                                                 </span>
-                                                <p>Auto</p>
+                                                <p>@car.Transmission.Name</p>
                                             </li>
                                             <li>
                                                 <span>
                                                     <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
                                                          alt="">
                                                 </span>
-                                                <p>10 KM</p>
+                                                <p>@car.Speed</p>
                                             </li>
                                             <li>
                                                 <span>
                                                     <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
                                                          alt="">
                                                 </span>
-                                                <p>Petrol</p>
+                                                <p>@car.FuelType.Name</p>
                                             </li>
                                         </ul>
                                         <ul>
                                             <li>
                                                 <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Power</p>
-                                            </li>
-                                            <li>
-                                                <span>
                                                     <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
                                                          alt="">
                                                 </span>
-                                                <p>2023</p>
+                                                <p>@car.Engine.HorsePower (hp)</p>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
+                                                         alt="">
+                                                </span>
+                                                <p>@car.Year</p>
                                             </li>
                                             <li>
                                                 <span>
                                                     <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
                                                          alt="">
                                                 </span>
-                                                <p>5 Persons</p>
+                                                <p>@car.Capacity</p>
                                             </li>
                                         </ul>
                                     </div>
@@ -317,7 +301,7 @@
                                         </div>
                                         <div class="car-price">
                                             <h6>
-                                                $400
+                                                $@car.Price
                                                 <span>/Day</span>
                                             </h6>
                                         </div>
@@ -333,6 +317,7 @@
                                 </div>
                             </div>
                         </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -349,116 +334,20 @@
                 <div class="slider">
                     <div class="slider-wrapper">
                         <div class="owl-carousel owl-theme">
-                            <div class="item">
+                            @foreach (Body body in bodies)
+                            {
+                                <div class="item">
                                 <div class="listing-owl-item">
                                     <div class="listing-owl-group">
                                         <div class="listing-owl-img">
-                                            <img src="/assets/images/index/slider/mp-vehicle-01.png" alt="">
+                                            <img src="/assets/images/index/bodies/@body.BodyPhoto" alt="">
                                         </div>
-                                        <h6>Sedan</h6>
-                                        <p>15 cars</p>
+                                        <h6>@body.Name</h6>
+                                        <p>@body.Cars.Count()</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="listing-owl-item">
-                                    <div class="listing-owl-group">
-                                        <div class="listing-owl-img">
-                                            <img src="/assets/images/index/slider/mp-vehicle-02.png" alt="">
-                                        </div>
-                                        <h6>Pickup</h6>
-                                        <p>17 Cars</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="listing-owl-item">
-                                    <div class="listing-owl-group">
-                                        <div class="listing-owl-img">
-                                            <img src="/assets/images/index/slider/mp-vehicle-03.png" alt="">
-                                        </div>
-                                        <h6>Family MPV</h6>
-                                        <p>24 Cars</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="listing-owl-item">
-                                    <div class="listing-owl-group">
-                                        <div class="listing-owl-img">
-                                            <img src="/assets/images/index/slider/mp-vehicle-04.png" alt="">
-                                        </div>
-                                        <h6>Crossover</h6>
-                                        <p>35 Cars</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="listing-owl-item">
-                                    <div class="listing-owl-group">
-                                        <div class="listing-owl-img">
-                                            <img src="/assets/images/index/slider/mp-vehicle-05.png" alt="">
-                                        </div>
-                                        <h6>Sports Coupe</h6>
-                                        <p>45 Cars</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="listing-owl-item">
-                                    <div class="listing-owl-group">
-                                        <div class="listing-owl-img">
-                                            <img src="/assets/images/index/slider/mp-vehicle-01.png" alt="">
-                                        </div>
-                                        <h6>Sedan</h6>
-                                        <p>15 cars</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="listing-owl-item">
-                                    <div class="listing-owl-group">
-                                        <div class="listing-owl-img">
-                                            <img src="/assets/images/index/slider/mp-vehicle-02.png" alt="">
-                                        </div>
-                                        <h6>Pickup</h6>
-                                        <p>17 Cars</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="listing-owl-item">
-                                    <div class="listing-owl-group">
-                                        <div class="listing-owl-img">
-                                            <img src="/assets/images/index/slider/mp-vehicle-03.png" alt="">
-                                        </div>
-                                        <h6>Family MPV</h6>
-                                        <p>24 Cars</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="listing-owl-item">
-                                    <div class="listing-owl-group">
-                                        <div class="listing-owl-img">
-                                            <img src="/assets/images/index/slider/mp-vehicle-04.png" alt="">
-                                        </div>
-                                        <h6>Crossover</h6>
-                                        <p>35 Cars</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="listing-owl-item">
-                                    <div class="listing-owl-group">
-                                        <div class="listing-owl-img">
-                                            <img src="/assets/images/index/slider/mp-vehicle-05.png" alt="">
-                                        </div>
-                                        <h6>Sports Coupe</h6>
-                                        <p>45 Cars</p>
-                                    </div>
-                                </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -492,7 +381,7 @@
                                 <img src="~/assets/images/index/bx-heart.svg" alt="">
                             </div>
                             <div class="count-digit">
-                                <h4 class="count">16</h4>
+                                <h4 class="count">@likes.Count()</h4>
                                 <p>Happy Customers</p>
                             </div>
                         </div>
@@ -503,7 +392,7 @@
                                 <img src="~/assets/images/index/bx-car.svg" alt="">
                             </div>
                             <div class="count-digit">
-                                <h4 class="count">2547+</h4>
+                                <h4 class="count">@cars.Count()</h4>
                                 <p>Count of Cars</p>
                             </div>
                         </div>
@@ -545,31 +434,36 @@
                 <div class="slider">
                     <div class="slider-wrapper">
                         <div class="responsive">
-                            <div class="item">
+                            @foreach (CarExploreVM car in cars)
+                            {
+                                <div class="item">
                                 <div class="slider-item">
                                     <div class="card">
                                         <div class="car-img">
                                             <a href="#">
-                                                <img src="/assets/images/index/cars/toyota-camry-se-hybrid-nightshade-550x400.jpg" alt="">
+                                                <img src="/assets/images/cars/@car.CarPhotos.FirstOrDefault(cp=>cp.CarId == car.Id).Path" alt="">
                                             </a>
                                         </div>
                                         <div class="car-content">
                                             <div class="car-features">
                                                 <div class="fav-item">
                                                     <span class="featured-text">
-                                                        $400/day
+                                                        $@car.Price/day
                                                     </span>
                                                 </div>
                                                 <div class="card-rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <span>(5.0)</span>
+                                                    @for (double i = 0; i < car.Rating; i++)
+                                                    {
+                                                        <i class="fa-solid fa-star"></i>
+                                                    }
+                                                    @for (double i = 0; i < 5 - car.Rating; i++)
+                                                    {
+                                                        <i class="fa-solid fa-star" style="color: gray;"></i>
+                                                    }
+                                                    <span>(@car.Rating)</span>
                                                 </div>
                                                 <h3 class="card-title">
-                                                    <a href="listing-details.html">Toyota Camry SE 350</a>
+                                                        <a href="listing-details.html">@car.Brand.Name @car.Brand.Models.FirstOrDefault(m=>m.Id == car.ModelId).Name</a>
                                                 </h3>
                                                 <h6>
                                                     Listed By :
@@ -582,19 +476,19 @@
                                                         <span>
                                                             <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
                                                         </span>
-                                                        <p>Auto</p>
+                                                        <p>@car.Transmission.Name</p>
                                                     </li>
                                                     <li>
                                                         <span>
                                                             <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
                                                         </span>
-                                                        <p>10 KM</p>
+                                                        <p>@car.Speed (km/h)</p>
                                                     </li>
                                                     <li>
                                                         <span>
                                                             <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
                                                         </span>
-                                                        <p>Petrol</p>
+                                                        <p>@car.FuelType.Name</p>
                                                     </li>
                                                 </ul>
                                                 <ul>
@@ -602,19 +496,19 @@
                                                         <span>
                                                             <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
                                                         </span>
-                                                        <p>Power</p>
+                                                        <p>@car.Engine.HorsePower (hp)</p>
                                                     </li>
                                                     <li>
                                                         <span>
                                                             <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
                                                         </span>
-                                                        <p>2023</p>
+                                                        <p style="margin-left:15px;">@car.Year</p>
                                                     </li>
                                                     <li>
                                                         <span>
                                                             <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
                                                         </span>
-                                                        <p>5 Persons</p>
+                                                        <p>@car.Capacity</p>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -630,601 +524,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="slider-item">
-                                    <div class="card">
-                                        <div class="car-img">
-                                            <a href="#">
-                                                <img src="/assets/images/index/cars/toyota-camry-se-hybrid-nightshade-550x400.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="car-content">
-                                            <div class="car-features">
-                                                <div class="fav-item">
-                                                    <span class="featured-text">
-                                                        $400/day
-                                                    </span>
-                                                </div>
-                                                <div class="card-rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <span>(5.0)</span>
-                                                </div>
-                                                <h3 class="card-title">
-                                                    <a href="listing-details.html">Toyota Camry SE 350</a>
-                                                </h3>
-                                                <h6>
-                                                    Listed By :
-                                                    <span>Venis Darren</span>
-                                                </h6>
-                                            </div>
-                                            <div class="car-details">
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
-                                                        </span>
-                                                        <p>Auto</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
-                                                        </span>
-                                                        <p>10 KM</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
-                                                        </span>
-                                                        <p>Petrol</p>
-                                                    </li>
-                                                </ul>
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
-                                                        </span>
-                                                        <p>Power</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
-                                                        </span>
-                                                        <p>2023</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
-                                                        </span>
-                                                        <p>5 Persons</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="car-button">
-                                                <a href="#">
-                                                    <span>
-                                                        <i class="fa-solid fa-calendar"></i>
-                                                    </span>
-                                                    Rent Now
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="slider-item">
-                                    <div class="card">
-                                        <div class="car-img">
-                                            <a href="#">
-                                                <img src="/assets/images/index/cars/toyota-camry-se-hybrid-nightshade-550x400.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="car-content">
-                                            <div class="car-features">
-                                                <div class="fav-item">
-                                                    <span class="featured-text">
-                                                        $400/day
-                                                    </span>
-                                                </div>
-                                                <div class="card-rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <span>(5.0)</span>
-                                                </div>
-                                                <h3 class="card-title">
-                                                    <a href="listing-details.html">Toyota Camry SE 350</a>
-                                                </h3>
-                                                <h6>
-                                                    Listed By :
-                                                    <span>Venis Darren</span>
-                                                </h6>
-                                            </div>
-                                            <div class="car-details">
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
-                                                        </span>
-                                                        <p>Auto</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
-                                                        </span>
-                                                        <p>10 KM</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
-                                                        </span>
-                                                        <p>Petrol</p>
-                                                    </li>
-                                                </ul>
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
-                                                        </span>
-                                                        <p>Power</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
-                                                        </span>
-                                                        <p>2023</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
-                                                        </span>
-                                                        <p>5 Persons</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="car-button">
-                                                <a href="#">
-                                                    <span>
-                                                        <i class="fa-solid fa-calendar"></i>
-                                                    </span>
-                                                    Rent Now
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="slider-item">
-                                    <div class="card">
-                                        <div class="car-img">
-                                            <a href="#">
-                                                <img src="/assets/images/index/cars/toyota-camry-se-hybrid-nightshade-550x400.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="car-content">
-                                            <div class="car-features">
-                                                <div class="fav-item">
-                                                    <span class="featured-text">
-                                                        $400/day
-                                                    </span>
-                                                </div>
-                                                <div class="card-rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <span>(5.0)</span>
-                                                </div>
-                                                <h3 class="card-title">
-                                                    <a href="listing-details.html">Toyota Camry SE 350</a>
-                                                </h3>
-                                                <h6>
-                                                    Listed By :
-                                                    <span>Venis Darren</span>
-                                                </h6>
-                                            </div>
-                                            <div class="car-details">
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
-                                                        </span>
-                                                        <p>Auto</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
-                                                        </span>
-                                                        <p>10 KM</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
-                                                        </span>
-                                                        <p>Petrol</p>
-                                                    </li>
-                                                </ul>
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
-                                                        </span>
-                                                        <p>Power</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
-                                                        </span>
-                                                        <p>2023</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
-                                                        </span>
-                                                        <p>5 Persons</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="car-button">
-                                                <a href="#">
-                                                    <span>
-                                                        <i class="fa-solid fa-calendar"></i>
-                                                    </span>
-                                                    Rent Now
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="slider-item">
-                                    <div class="card">
-                                        <div class="car-img">
-                                            <a href="#">
-                                                <img src="/assets/images/index/cars/toyota-camry-se-hybrid-nightshade-550x400.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="car-content">
-                                            <div class="car-features">
-                                                <div class="fav-item">
-                                                    <span class="featured-text">
-                                                        $400/day
-                                                    </span>
-                                                </div>
-                                                <div class="card-rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <span>(5.0)</span>
-                                                </div>
-                                                <h3 class="card-title">
-                                                    <a href="listing-details.html">Toyota Camry SE 350</a>
-                                                </h3>
-                                                <h6>
-                                                    Listed By :
-                                                    <span>Venis Darren</span>
-                                                </h6>
-                                            </div>
-                                            <div class="car-details">
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
-                                                        </span>
-                                                        <p>Auto</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
-                                                        </span>
-                                                        <p>10 KM</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
-                                                        </span>
-                                                        <p>Petrol</p>
-                                                    </li>
-                                                </ul>
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
-                                                        </span>
-                                                        <p>Power</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
-                                                        </span>
-                                                        <p>2023</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
-                                                        </span>
-                                                        <p>5 Persons</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="car-button">
-                                                <a href="#">
-                                                    <span>
-                                                        <i class="fa-solid fa-calendar"></i>
-                                                    </span>
-                                                    Rent Now
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="slider-item">
-                                    <div class="card">
-                                        <div class="car-img">
-                                            <a href="#">
-                                                <img src="/assets/images/index/cars/toyota-camry-se-hybrid-nightshade-550x400.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="car-content">
-                                            <div class="car-features">
-                                                <div class="fav-item">
-                                                    <span class="featured-text">
-                                                        $400/day
-                                                    </span>
-                                                </div>
-                                                <div class="card-rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <span>(5.0)</span>
-                                                </div>
-                                                <h3 class="card-title">
-                                                    <a href="listing-details.html">Toyota Camry SE 350</a>
-                                                </h3>
-                                                <h6>
-                                                    Listed By :
-                                                    <span>Venis Darren</span>
-                                                </h6>
-                                            </div>
-                                            <div class="car-details">
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
-                                                        </span>
-                                                        <p>Auto</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
-                                                        </span>
-                                                        <p>10 KM</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
-                                                        </span>
-                                                        <p>Petrol</p>
-                                                    </li>
-                                                </ul>
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
-                                                        </span>
-                                                        <p>Power</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
-                                                        </span>
-                                                        <p>2023</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
-                                                        </span>
-                                                        <p>5 Persons</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="car-button">
-                                                <a href="#">
-                                                    <span>
-                                                        <i class="fa-solid fa-calendar"></i>
-                                                    </span>
-                                                    Rent Now
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="slider-item">
-                                    <div class="card">
-                                        <div class="car-img">
-                                            <a href="#">
-                                                <img src="/assets/images/index/cars/toyota-camry-se-hybrid-nightshade-550x400.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="car-content">
-                                            <div class="car-features">
-                                                <div class="fav-item">
-                                                    <span class="featured-text">
-                                                        $400/day
-                                                    </span>
-                                                </div>
-                                                <div class="card-rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <span>(5.0)</span>
-                                                </div>
-                                                <h3 class="card-title">
-                                                    <a href="listing-details.html">Toyota Camry SE 350</a>
-                                                </h3>
-                                                <h6>
-                                                    Listed By :
-                                                    <span>Venis Darren</span>
-                                                </h6>
-                                            </div>
-                                            <div class="car-details">
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
-                                                        </span>
-                                                        <p>Auto</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
-                                                        </span>
-                                                        <p>10 KM</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
-                                                        </span>
-                                                        <p>Petrol</p>
-                                                    </li>
-                                                </ul>
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
-                                                        </span>
-                                                        <p>Power</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
-                                                        </span>
-                                                        <p>2023</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
-                                                        </span>
-                                                        <p>5 Persons</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="car-button">
-                                                <a href="#">
-                                                    <span>
-                                                        <i class="fa-solid fa-calendar"></i>
-                                                    </span>
-                                                    Rent Now
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="slider-item">
-                                    <div class="card">
-                                        <div class="car-img">
-                                            <a href="#">
-                                                <img src="/assets/images/index/cars/toyota-camry-se-hybrid-nightshade-550x400.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="car-content">
-                                            <div class="car-features">
-                                                <div class="fav-item">
-                                                    <span class="featured-text">
-                                                        $400/day
-                                                    </span>
-                                                </div>
-                                                <div class="card-rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <span>(5.0)</span>
-                                                </div>
-                                                <h3 class="card-title">
-                                                    <a href="listing-details.html">Toyota Camry SE 350</a>
-                                                </h3>
-                                                <h6>
-                                                    Listed By :
-                                                    <span>Venis Darren</span>
-                                                </h6>
-                                            </div>
-                                            <div class="car-details">
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
-                                                        </span>
-                                                        <p>Auto</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
-                                                        </span>
-                                                        <p>10 KM</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
-                                                        </span>
-                                                        <p>Petrol</p>
-                                                    </li>
-                                                </ul>
-                                                <ul>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
-                                                        </span>
-                                                        <p>Power</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
-                                                        </span>
-                                                        <p>2023</p>
-                                                    </li>
-                                                    <li>
-                                                        <span>
-                                                            <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
-                                                        </span>
-                                                        <p>5 Persons</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="car-button">
-                                                <a href="#">
-                                                    <span>
-                                                        <i class="fa-solid fa-calendar"></i>
-                                                    </span>
-                                                    Rent Now
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>

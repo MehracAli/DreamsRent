@@ -35,6 +35,9 @@ namespace DreamsRentBack.DAL
         public DbSet<Engine> Engines { get; set; }
         public DbSet<ExtraService> ExtraServices { get; set; }
         public DbSet<FuelType> FuelTypes { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<Model> Models { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
         public DbSet<Transmission> Transmissions { get; set; }
         //Car Models End
         public DbSet<Setting> Settings { get; set; }

@@ -1,0 +1,257 @@
+﻿@using DreamsRentBack.Entities.CarModels;
+@using DreamsRentBack.ViewModels.Account;
+@using DreamsRentBack.ViewModels.Car;
+@model CreateCarVM
+@{
+    ViewData["Title"] = "AddCar";
+    List<Brand> brands = ViewBag.Brands;
+    List<Body> bodies = ViewBag.Bodies;
+    List<FuelType> fuelTypes = ViewBag.FuelTypes;
+    List<Engine> engines = ViewBag.Engines;
+    List<Brake> brakes = ViewBag.Brakes;
+    List<Transmission> transmissions = ViewBag.Transmissions;
+    List<Drivetrian> drivetrians = ViewBag.Drivetrians;
+    List<AirCondition> airConditions = ViewBag.AirConditions;
+    List<ExtraService> services = ViewBag.Services;
+    List<CarFeatures> features = ViewBag.Features;
+}
+
+<!-- main start -->
+<main>
+    <section id="createcar">
+        <div class="container">
+            <div class="create-wrapper">
+                <form asp-action="AddCar" class="row" enctype="multipart/form-data">
+                    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                    <div class="form-group col-lg-12 photos row justify-content-center" style="margin-bottom: 50px;">
+                        <label asp-for="iff_CarPhotos" class="control-label" style="width:max-content">Choose photos
+                            <span class="red-star">*</span>
+                            <input style="display:block; width:300px;margin-top:20px" asp-for="iff_CarPhotos" class="form-control add-image-input" type="file" multiple accept="image/" />
+                            <span asp-validation-for="iff_CarPhotos" class="text-danger"></span>
+                        </label>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="BrandId" class="control-label">
+                            Brand
+                            <span class="red-star">*</span>
+                        </label>
+                        <select asp-for="BrandId" onclick="clickFunc();" class="form-control" asp-items="@(new SelectList(brands, "Id", "Name"))">
+                            <option value="0">-- Select --</option>
+                        </select>
+                        <span asp-validation-for="BrandId" class="text-danger" style="margin-left:300px;"></span>
+
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="ModelId" class="control-label">
+                            Model
+                            <span class="red-star">*</span>
+                        </label>
+                        <select asp-for="ModelId" class="form-control" disabled>
+                            <option value="0"></option>
+                        </select>
+                        <span asp-validation-for="ModelId" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="Year" class="control-label">
+                            Year
+                            <span class="red-star">*</span>
+                        </label>
+                        <input asp-for="Year" class="form-control" min="1900" max="10000" placeholder="Year: 1900s+"/>
+                        <span asp-validation-for="Year" class="text-danger" style="margin-left:300px;"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="BodyId" class="control-label">
+                            Vehicles Type
+                            <span class="red-star">*</span>
+                        </label>
+                        <select asp-for="BodyId" class="form-control" asp-items="@(new SelectList(bodies, "Id", "Name"))">
+                            <option value="0">-- Select --</option>
+                        </select>
+                        <span asp-validation-for="BodyId" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="FuelTypeId" class="control-label">
+                            Fuel Type
+                            <span class="red-star">*</span>
+                        </label>
+                        <select asp-for="FuelTypeId" class="form-control" asp-items="@(new SelectList(fuelTypes, "Id", "Name"))">
+                            <option value="0">-- Select --</option>
+                        </select>
+                        <span asp-validation-for="FuelTypeId" class="text-danger" style="margin-left:300px;"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="Speed" class="control-label">
+                            Speed (km/ph)
+                            <span class="red-star">*</span>
+                        </label>
+                        <input asp-for="Speed" class="form-control" min="20" max="420" step="10" placeholder="Speed: 20-420 km/ph" />
+                        <span asp-validation-for="Speed" class="text-danger"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="EngineId" class="control-label">
+                            Engine (hf)
+                            <span class="red-star">*</span>
+                        </label>
+                        <select asp-for="EngineId" class="form-control" asp-items="@(new SelectList(engines, "Id", "HorsePower"))">
+                            <option value="0">-- Select --</option>
+                        </select>
+                        <span asp-validation-for="EngineId" class="text-danger" style="margin-left:300px;"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="BrakeId" class="control-label">
+                            Brake Type
+                            <span class="red-star">*</span>
+                        </label>
+                        <select asp-for="BrakeId" class="form-control" asp-items="@(new SelectList(brakes, "Id", "Name"))">
+                            <option value="0">-- Select --</option>
+                        </select>
+                        <span asp-validation-for="BrakeId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="Door" class="control-label">
+                            Doors
+                            <span class="red-star">*</span>
+                        </label>
+                        <input asp-for="Door" class="form-control" min="1" max="6" placeholder="Doors" />
+                        <span asp-validation-for="Door" class="text-danger" style="margin-left:300px;"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="Capacity" class="control-label">
+                            Capacity
+                            <span class="red-star">*</span>
+                        </label>
+                        <input asp-for="Capacity" class="form-control" min="1" max="10" placeholder="Capacity: 1-10 Passengers" />
+                        <span asp-validation-for="Capacity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="TransmissionId" class="control-label">
+                            Transmission Type
+                            <span class="red-star">*</span>
+                        </label>
+                        <select asp-for="TransmissionId" class="form-control" asp-items="@(new SelectList(transmissions, "Id", "Name"))">
+                            <option value="0">-- Select --</option>
+                        </select>
+                        <span asp-validation-for="TransmissionId" class="text-danger" style="margin-left:300px;"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="DrivertrianId" class="control-label">
+                            Drivertrian
+                            <span class="red-star">*</span>
+                        </label>
+                        <select asp-for="DrivertrianId" class="form-control" asp-items="@(new SelectList(drivetrians, "Id", "Name"))">
+                            <option value="0">-- Select --</option>
+                        </select>
+                        <span asp-validation-for="DrivertrianId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="AirConditionId" class="control-label">
+                            AirCondition
+                            <span class="red-star">*</span>
+                        </label>
+                        <select asp-for="AirConditionId" class="form-control" asp-items="@(new SelectList(airConditions, "Id", "Name"))">
+                            <option value="0">-- Select --</option>
+                        </select>
+                        <span asp-validation-for="AirConditionId" class="text-danger" style="margin-left:300px;"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="VIN" class="control-label">
+                            VIN Code
+                            <span class="red-star">*</span>
+                        </label>
+                        <input asp-for="VIN" class="form-control" placeholder="VIN" />
+                        <span asp-validation-for="VIN" class="text-danger"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="ServicesIds" class="control-label">
+                            Services
+                            <span class="red-star">*</span>
+                        </label>
+                        <select asp-for="ServicesIds" asp-items="@(new SelectList(services, "Id", "Name"))" class="form-control multiple-select" style="height:100px;"></select>
+                        <span asp-validation-for="ServicesIds" class="text-danger" style="margin-left:300px;"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6">
+                        <label asp-for="FeaturesIds" class="control-label">
+                            Features
+                            <span class="red-star">*</span>
+                        </label>
+                        <select asp-for="FeaturesIds" asp-items="@(new SelectList(features, "Id", "Name"))" class="form-control multiple-select" style="height:100px;"></select>
+                        <span asp-validation-for="FeaturesIds" class="text-danger"></span>
+                    </div>
+                    <div class="form-group fg-6 fg col-lg-6" style="font-size:25px;">
+                        <label asp-for="Price" class="control-label">
+                            Price
+                            <span class="red-star">*</span>
+                        </label>
+                        <input asp-for="Price" class="form-control" style="width:90px;height:50px;display:inline-block;margin-right:10px;" min="1" placeholder="0.00$"/>$
+                        <span asp-validation-for="Price" style="color:red; display:block;width:100%;font-size:16px;margin-left:300px"></span>
+                    </div>
+                    <div class="form-group fg col-lg-8" style="margin:0 auto">
+                        <label asp-for="Description" class="control-label">
+                            Description
+                            <span class="red-star">*</span>
+                        </label>
+                        <div style="display:flex; justify-content:center">
+                        <textarea asp-for="Description" class="form-control" style="height: 200px; padding: 10px 20px;"></textarea>
+                        </div>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group fg col-lg-12" style="display:flex;justify-content:center;margin-top:50px;">
+                        <button type="submit" value="Create" class="btn">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- main end -->
+
+<!-- scripts -->
+@section Scripts{
+    <script>
+        const selects = document.querySelectorAll(".multiple-select");
+
+        selects.forEach(select => {
+
+            select.style.padding = "0px"
+            select.style.fontSize = "14px"
+
+            for (let i = 0; i < select.options.length; i++) {
+                const option = select.options[i];
+
+                // Add padding to the option
+                option.style.padding = "7px 12px";
+                option.style.borderBottom = "1px solid #f5f5f5"
+            }
+        })
+
+
+        function clickFunc() {
+
+            const select = document.querySelector("#BrandId")
+            const option = select.options[select.selectedIndex].value;
+
+            let models = document.querySelector("#ModelId")
+            models.innerHTML = $`<option>Select</option>`;
+            models.disabled = "true"
+
+            var url = `/Car/GetBrandModels?brandId=${option}`
+            fetch(url).then(response => response.json()).then(datas => {
+                if (datas.status !== 404) {
+                    datas.forEach(data => {
+                        let modelOption = document.createElement("option")
+                        modelOption.innerText = data.name
+                        modelOption.value = data.id
+                        console.log(modelOption)
+                        models.append(modelOption)
+                        models.removeAttribute("disabled")
+                    })
+                }
+            });
+
+        }
+
+    </script>
+}
+<script src="~/assets/js/createcar.js"></script>

@@ -16,8 +16,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Programming\DreamsRent\DreamsRentBack\DreamsRentBack
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Account/CompanyAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDb21wYW55QWNjb3VudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Account/CompanySignUp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDb21wYW55U2lnblVwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Account/ConsumerAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDb25zdW1lckFjY291bnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Account/ConsumerSignup.cshtml]
@@ -32,12 +40,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxTaWduaW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Car/AddCar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyXEFkZENhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Detail/CarDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0YWlsXENhckRldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Error/NotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcTm90Rm91bmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Shared/_LayoutError.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRFcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/_ViewImports.cshtml]

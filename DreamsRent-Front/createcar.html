@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dreams Rent - Home</title>
+    <title>Dreams Rent - Contact Us</title>
     <link rel="shortcut icon" href="./assets/images/favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -68,89 +68,153 @@
 
     <!-- main start -->
     <main>
-        <section id="account">
+        <section id="createcar">
             <div class="container">
-                <div class="profile row">
-                    <div class="col-lg-3">
-                        <div class="photo">
-                            <img src="./assets/images/users/Screenshot 2023-05-16 210450.png" alt="">
-                        </div>
-                        <div class="edit-photo">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
-                    </div>
-                    <div class="fullname col-lg-9">
-                        <h1>Mehrac Mammadov</h1>
-                        <h4>Consumer</h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="side-bar">
-                            <ul class="bar-list">
-                                <li id="account-detail" class="active-li">
-                                    Account Details
-                                </li>
-                                <li id="li-wishlist">
-                                    Wishlist
-                                </li>
-                                <li id="li-order-history">
-                                    Order History
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="main-side">
-                            <div class="consumer-account account-details active-main">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="person-info">
-                                            <h3>Personal Info</h3>
-                                            <div class="info-body">
-                                                <p>Casandra</p>
-                                                <p>casandra@example.com</p>
-                                                <p>+1 73940 45355</p>
-                                            </div>
-                                            <a class="edit" href="#">
-                                                <i class="fa-solid fa-pen"></i>
-                                                Edit
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="address-info">
-                                            <h3>Address Info</h3>
-                                            <div class="info-body">
-                                                <p>Thomas Nolan Kaszas</p>
-                                                <p>5322 Otter Ln Middleberge</p>
-                                                <p>FL 32068 Palm Bay FL 32907</p>
-                                            </div>
-                                            <a class="edit" href="#">
-                                                <i class="fa-solid fa-pen"></i>
-                                                Edit
-                                            </a>
-                                        </div>
+                <div class="create-wrapper">
+                    <form asp-action="AddCar" class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group col-lg-12 photos" style="margin-bottom: 50px;">
+                            <label asp-for="iff_CarPhotos" class="control-label" style="font-size: 20px;">Choose Photos
+                                <span class="red-star">*</span>
+                            </label>
+                            <div class="add-image-wrap row">
+                                <div class="add-image col-lg-4">
+                                    <input asp-for="iff_CarPhotos" class="form-control add-image-input" type="file" multiple accept="image/"/>
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="100px" width="100px" version="1.1" id="Capa_1" viewBox="0 0 339.555 339.555" xml:space="preserve">
+                                        <path id="XMLID_35_" d="M253.895,231.663c4.295,4.297,4.294,11.262-0.002,15.557c-2.147,2.147-4.963,3.221-7.777,3.221  c-2.815,0-5.631-1.074-7.779-3.223l-11.31-11.313c-4.295-4.297-4.294-11.262,0.002-15.557c4.296-4.294,11.261-4.294,15.557,0.002  L253.895,231.663z M115.248,166.167c35.635,0,57.691-35.185,57.691-67.784V18.412c0-2.917-1.159-5.716-3.222-7.778  c-2.063-2.063-4.861-3.222-7.778-3.222l-46.695,0.001c-6.075,0-11,4.925-11,11v79.569c0,6.075,4.925,11,11,11s11-4.925,11-11V29.413  l24.695-0.001v68.972c0,19.194-12.403,45.784-35.691,45.784c-19.35,0-35.697-20.967-35.697-45.784V18.76c0-6.075-4.925-11-11-11  s-11,4.925-11,11v79.623C57.551,135.759,83.434,166.167,115.248,166.167z M339.555,60.208v260.936c0,6.075-4.925,11-11,11H11  c-6.075,0-11-4.925-11-11V60.208c0-6.075,4.925-11,11-11h15.157c6.075,0,11,4.925,11,11s-4.925,11-11,11H22v238.936h117.729  c3.231-16.422,13.629-31.799,29.802-43.967c-14.507-35.259-11.274-68.853,9.094-89.222c19.424-19.424,51.306-23.251,84.965-10.754  c13.081-25.322,32.372-41.662,53.965-45.821V71.208H206.718c-6.075,0-11-4.925-11-11s4.925-11,11-11h121.837  C334.63,49.208,339.555,54.132,339.555,60.208z M317.555,262.275c-21.113,4.972-37.694,23.962-41.645,47.868h41.645V262.275z   M317.555,143.048c-15.331,4.831-29.156,19.629-38.293,41.597c-1.15,2.766-3.379,4.943-6.172,6.028s-5.906,0.983-8.624-0.279  c-28.695-13.35-55.628-12.539-70.285,2.116c-15.177,15.179-15.546,43.032-0.965,72.69c2.498,5.081,0.731,11.228-4.082,14.207  c-13.971,8.646-23.167,19.292-26.769,30.735h33.848c-0.191-0.813-0.293-1.661-0.293-2.533c0-6.075,4.925-11,11-11h15.995  c6.075,0,11,4.925,11,11c0,0.872-0.102,1.72-0.293,2.533h20.065c4.474-36.193,30.704-64.993,63.867-70.276v-25.661  c-0.272,0.021-0.548,0.03-0.825,0.03c-6.075,0-11-4.925-11-11v-15.997c0-6.075,4.925-11,11-11c0.277,0,0.553,0.01,0.825,0.03  V143.048z"/>
+                                    </svg>
+                                </div>
+                                <div class="image-pool col-lg-8">
+                                    <div class="loaded-img">
                                     </div>
                                 </div>
                             </div>
-                            <div class="consumer-account wishlist">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="wishlist-wrapper"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="consumer-account order-history">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="order-wrapper"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <span asp-validation-for="iff_CarPhotos" class="text-danger"></span>
                         </div>
-                    </div>
-                </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="BrandId" class="control-label">Brand
+                                <span class="red-star">*</span>
+                            </label>
+                            <select asp-for="BrandId" class ="form-control" asp-items="ViewBag.BrandId"></select>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="Model" class="control-label">Model
+                                <span class="red-star">*</span>
+                            </label>
+                            <input asp-for="Model" class="form-control" />
+                            <span asp-validation-for="Model" class="text-danger"></span>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="Year" class="control-label">Year
+                                <span class="red-star">*</span>
+                            </label>
+                            <input asp-for="Year" class="form-control" />
+                            <span asp-validation-for="Year" class="text-danger"></span>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="BodyId" class="control-label">Vehicles Type
+                                <span class="red-star">*</span>
+                            </label>
+                            <select asp-for="BodyId" class ="form-control" asp-items="ViewBag.BodyId"></select>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="FuelTypeId" class="control-label">Fuel Type
+                                <span class="red-star">*</span>
+                            </label>
+                            <select asp-for="FuelTypeId" class ="form-control" asp-items="ViewBag.FuelTypeId"></select>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="Speed" class="control-label">Speed (km/h)
+                                <span class="red-star">*</span>
+                            </label>
+                            <input asp-for="Speed" class="form-control" />
+                            <span asp-validation-for="Speed" class="text-danger"></span>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="EngineId" class="control-label">Engine (hf)
+                                <span class="red-star">*</span>
+                            </label>
+                            <select asp-for="EngineId" class ="form-control" asp-items="ViewBag.EngineId"></select>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="Capacity" class="control-label">Capacity
+                                <span class="red-star">*</span>
+                            </label>
+                            <input asp-for="Capacity" class="form-control" />
+                            <span asp-validation-for="Capacity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="Doors" class="control-label">Doors
+                                <span class="red-star">*</span>
+                            </label>
+                            <input asp-for="Doors" class="form-control" />
+                            <span asp-validation-for="Doors" class="text-danger"></span>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="BrakeId" class="control-label">Brake Type
+                                <span class="red-star">*</span>
+                            </label>
+                            <select asp-for="BrakeId" class ="form-control" asp-items="ViewBag.BrakeId"></select>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="TransmissionId" class="control-label">Transmission Type
+                                <span class="red-star">*</span>
+                            </label>
+                            <select asp-for="TransmissionId" class ="form-control" asp-items="ViewBag.TransmissionId"></select>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="DrivertrianId" class="control-label">Drivertrian
+                                <span class="red-star">*</span>
+                            </label>
+                            <input asp-for="DrivertrianId" class="form-control" />
+                            <span asp-validation-for="DrivertrianId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="AirConditionId" class="control-label">AirCondition
+                                <span class="red-star">*</span>
+                            </label>
+                            <select asp-for="AirConditionId" class ="form-control" asp-items="ViewBag.AirConditionId"></select>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="VIN" class="control-label">VIN Code
+                                <span class="red-star">*</span>
+                            </label>
+                            <input asp-for="VIN" class="form-control" />
+                            <span asp-validation-for="VIN" class="text-danger"></span>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="ServicesIds" class="control-label">Services
+                                <span class="red-star">*</span>
+                            </label>
+                            <select asp-for="ServicesIds" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))" class="form-control"></select>
+                            <span asp-validation-for="ServicesIds" class="text-danger"></span>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="FeaturesIds" class="control-label">Features
+                                <span class="red-star">*</span>
+                            </label>
+                            <select asp-for="FeaturesIds" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))" class="form-control"></select>
+                            <span asp-validation-for="FeaturesIds" class="text-danger"></span>
+                        </div>
+                        <div class="form-group fg-6 fg col-lg-6">
+                            <label asp-for="Price" class="control-label">Price
+                                <span class="red-star">*</span>
+                            </label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group fg col-lg-12">
+                            <label asp-for="Description" class="control-label">Description
+                                <span class="red-star">*</span>
+                            </label>
+                            <textarea asp-for="Description" class="form-control" style="height: 200px; padding: 10px 20px;"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group fg col-lg-12">
+                            <input type="submit" value="Create" class="btn" />
+                        </div>
+                    </form>
+                </div>                
             </div>
         </section>
     </main>
@@ -161,7 +225,7 @@
         <i class="fa-solid fa-arrow-up"></i>
     </a>
     <!-- scroll-top end -->
-
+    
     <!-- footer start -->
     <footer id="footer">
         <div class="container">
@@ -342,12 +406,11 @@
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="./assets/js/slick.min.js"></script>
-    <script src="./assets/js/owl.carousel.js"></script>
-    <script src="./assets/js/carousel.js"></script>
     <script src="./assets/js/footer.js"></script>
-    <script src="./assets/js/accordion.js"></script>
-    <script src="./assets/js/AOS.js"></script>
-    <script src="./assets/js/myaccount.js"></script>
+    <script src="./assets/js/createcar.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
+
 </html>

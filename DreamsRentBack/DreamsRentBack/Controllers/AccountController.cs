@@ -1,10 +1,13 @@
 ﻿using DreamsRentBack.DAL;
+using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
 using DreamsRentBack.Utilities;
+using DreamsRentBack.ViewModels.Account;
 using DreamsRentBack.ViewModels.Identify;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -31,6 +34,10 @@ namespace DreamsRentBack.Controllers
             //CONSUMER SIGNUP START
             public IActionResult ConsumerSignup()
             {
+                if (User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
                 return View();
             }
 
@@ -110,7 +117,11 @@ namespace DreamsRentBack.Controllers
             //COMPANY SIGNUP START
             public IActionResult CompanySignup() 
             {
-                return View();
+                if (User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            return View();
             }
 
             [HttpPost]
@@ -212,7 +223,11 @@ namespace DreamsRentBack.Controllers
             //SIGNIN START
             public IActionResult Signin()
             {
-                return View();
+                if (User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            return View();
             }
 
             [HttpPost]
@@ -262,13 +277,19 @@ namespace DreamsRentBack.Controllers
 
         #region MyAccount
             
-        public IActionResult MyAccount()
-        {
-            return View();
-        }
+            public IActionResult ConsumerAccount()
+            {
+                return View();
+            }
+
+            public IActionResult CompanyAccount()
+            {
+                return View();
+            }
 
         #endregion
 
+       
 
         //public async Task AddRoles()
         //{

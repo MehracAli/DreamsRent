@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using DreamsRentBack.Entities.CarModels;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DreamsRentBack.Entities.ClientModels
@@ -14,10 +15,13 @@ namespace DreamsRentBack.Entities.ClientModels
         public Company? Company { get; set; }
         public PayCard? PayCard { get; set; }
         public List<Comment> Comments { get; set; }
-
+        public List<Like> Likes { get; set; }
+        public List<Rating> Ratings { get; set; }
         public User()
         {
             Comments = new();
+            Likes = new();
+            Ratings = new();
         }
     }
 }
