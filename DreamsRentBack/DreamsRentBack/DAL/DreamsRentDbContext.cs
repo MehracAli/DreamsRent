@@ -3,6 +3,7 @@ using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace DreamsRentBack.DAL
 {
@@ -41,5 +42,6 @@ namespace DreamsRentBack.DAL
         public DbSet<Transmission> Transmissions { get; set; }
         //Car Models End
         public DbSet<Setting> Settings { get; set; }
+
     }
 }

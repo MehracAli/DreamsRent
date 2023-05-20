@@ -1,6 +1,12 @@
-﻿
+﻿@using DreamsRentBack.Entities.CarModels;
+@using DreamsRentBack.Entities.ClientModels;
+@using DreamsRentBack.ViewModels.CarViewModels;
+@model CarDetailVM
 @{
     ViewData["Title"] = "CarDetail";
+    List<ExtraService> extraServices = ViewBag.Services;
+    List<CarFeatures> carFeatures = ViewBag.Features;
+    List<User> users = ViewBag.Users;
 }
 
 <!-- main start -->
@@ -30,29 +36,32 @@
                 <div class="detail-head-left">
                     <div class="car-rate-info">
                         <div class="rate">
-                            <span class="year">2023</span>
-                            <i class="fas fa-star filled"></i>
-                            <i class="fas fa-star filled"></i>
-                            <i class="fas fa-star filled"></i>
-                            <i class="fas fa-star filled"></i>
-                            <i class="fas fa-star filled"></i>
-                            <span class="rate-point">5.0</span>
+                            <span class="year">@Model.Year</span>
+                            @for (double i = 0; i < Model.Rating; i++)
+                            {
+                                <i class="fas fa-star filled"></i>
+                            }
+                            @for (double i = 0; i < 5 - Model.Rating; i++)
+                            {
+                                <i class="fas fa-star filled" style="color:gray;"></i>
+                            }
+                            <span class="rate-point">@Model.Rating</span>
                         </div>
                         <div class="info">
-                            <h3>Toyota Camry SE</h3>
+                            <h3>@Model.Brand.Name @Model.Brand.Models.FirstOrDefault(m=>m.Id == Model.ModelId).Name</h3>
                             <div class="car-location-view">
                                 <div class="car-location">
                                     <i class="fa-sharp fa-solid fa-location-dot"></i>
                                     <span>
                                         <b>Location:</b>
-                                        Miami St, Destin, FL 32550, USA
+                                        @Model.Location
                                     </span>
                                 </div>
                                 <div class="car-view">
                                     <i class="fa-solid fa-eye"></i>
                                     <span>
                                         <b>Views:</b>
-                                        250
+                                        @Model.Views
                                     </span>
                                 </div>
                             </div>
@@ -74,45 +83,68 @@
                 <div class="col-lg-8 body-left">
                     <div class="car-images">
                         <div class="slider-for main-img">
-                            <div class="item">
-                                <img src="./assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="./assets/images/cars/49705_KrXUdwdMn5SjaVk3RjoEBA.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="./assets/images/cars/51208_LIdH8VdikxzVIDtyD89zWw.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="./assets/images/cars/73788_R4i-lOocczfDReRlwrezxQ.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="./assets/images/cars/73791_820dzw_DEnBO9E790dfXwA.jpg" alt="">
-                            </div>
+                            @foreach (CarPhoto photo in Model.CarPhotos)
+                            {
+                                <div class="item">
+                                    <img src="~/assets/images/cars/@photo.Path" alt="">
+                                </div>
+                            }
                         </div>
                         <div class="slider-nav">
-                            <div class="item">
-                                <img src="./assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="./assets/images/cars/49705_KrXUdwdMn5SjaVk3RjoEBA.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="./assets/images/cars/51208_LIdH8VdikxzVIDtyD89zWw.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="./assets/images/cars/73788_R4i-lOocczfDReRlwrezxQ.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="./assets/images/cars/73791_820dzw_DEnBO9E790dfXwA.jpg" alt="">
-                            </div>
+                            @foreach (CarPhoto photo in Model.CarPhotos)
+                            {
+                                <div class="item">
+                                    <img src="~/assets/images/cars/@photo.Path" alt="">
+                                </div>
+                            }
                         </div>
                     </div>
                     <div class="left-components extra-service">
                         <div class="component-title">
                             <h4>Extra Service</h4>
                         </div>
-                        <span>Baby Seat - $10</span>
+                        <ul>
+                            @foreach (ExtraServicesAndCars servicesAndCars in Model.ServicesAndCars)
+                            {
+                                @foreach (ExtraService extraService in extraServices)
+                                {
+                                    @if(extraService.ServicesAndCars.Take(4).Any(sc=>sc.Id == servicesAndCars.Id))
+                                    {
+                                        <li>
+                                            <span style="display:block;padding:5px 10px;">@extraService.Name - $@extraService.Price</span>
+                                        </li>
+                                    }
+                                }
+                            }
+                        </ul>
+                        <ul>
+                            @foreach (ExtraServicesAndCars servicesAndCars in Model.ServicesAndCars)
+                            {
+                                @foreach (ExtraService extraService in extraServices)
+                                {
+                                    @if (extraService.ServicesAndCars.Skip(4).Take(4).Any(sc => sc.Id == servicesAndCars.Id))
+                                    {
+                                        <li>
+                                            <span style="display:block;padding:5px 10px;">@extraService.Name - $@extraService.Price</span>
+                                        </li>
+                                    }
+                                }
+                            }
+                        </ul>
+                        <ul>
+                            @foreach (ExtraServicesAndCars servicesAndCars in Model.ServicesAndCars)
+                            {
+                                @foreach (ExtraService extraService in extraServices)
+                                {
+                                    @if (extraService.ServicesAndCars.Skip(8).Take(4).Any(sc => sc.Id == servicesAndCars.Id))
+                                    {
+                                        <li>
+                                            <span style="display:block;padding:5px 10px;">@extraService.Name - $@extraService.Price</span>
+                                        </li>
+                                    }
+                                }
+                            }
+                        </ul>
                     </div>
                     <div class="left-components car-specifications">
                         <div class="component-title">
@@ -122,110 +154,110 @@
                             <div class="row">
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-1.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-1.svg" alt="">
                                     </div>
                                     <div class="specification-info">
                                         <span>Body</span>
-                                        <h6>Sedan</h6>
+                                        <h6>@Model.Body.Name</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-2.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-2.svg" alt="">
                                     </div>
                                     <div class="specification-info">
                                         <span>Make</span>
-                                        <h6>Nissan</h6>
+                                        <h6>@Model.Brand.Name</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-3.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-3.svg" alt="">
                                     </div>
                                     <div class="specification-info">
                                         <span>Transmission</span>
-                                        <h6>Automatic</h6>
+                                        <h6>@Model.Transmission.Name</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-4.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-4.svg" alt="">
                                     </div>
                                     <div class="specification-info">
                                         <span>Fuel Type</span>
-                                        <h6>Diesel</h6>
+                                        <h6>@Model.FuelType.Name</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-5.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-5.svg" alt="">
                                     </div>
                                     <div class="specification-info">
-                                        <span>Mileage</span>
-                                        <h6>16 Km</h6>
+                                        <span>Speed</span>
+                                        <h6>@Model.Speed (km/ph)</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-6.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-6.svg" alt="">
                                     </div>
                                     <div class="specification-info">
                                         <span>Drivetrian</span>
-                                        <h6>Front Wheel</h6>
+                                        <h6>@Model.Drivetrian.Name</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-7.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-7.svg" alt="">
                                     </div>
                                     <div class="specification-info">
                                         <span>Year</span>
-                                        <h6>2018</h6>
+                                        <h6>@Model.Year</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-8.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-8.svg" alt="">
                                     </div>
                                     <div class="specification-info">
                                         <span>AC</span>
-                                        <h6>Air Condition</h6>
+                                        <h6>@Model.AirCondition.Name</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-9.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-9.svg" alt="">
                                     </div>
                                     <div class="specification-info">
                                         <span>VIN</span>
-                                        <h6>45456444</h6>
+                                        <h6>@Model.VIN</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-10.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-10.svg" alt="">
                                     </div>
                                     <div class="specification-info">
                                         <span>Doors</span>
-                                        <h6>4 Doors</h6>
+                                        <h6>@Model.Door</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-11.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-11.svg" alt="">
                                     </div>
                                     <div class="specification-info">
                                         <span>Brake</span>
-                                        <h6>ABS</h6>
+                                        <h6>@Model.Brake.Name</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
                                     <div class="specification-img">
-                                        <img src="./assets/images/details/spesifications/specification-icon-12.svg" alt="">
+                                        <img src="~/assets/images/details/spesifications/specification-icon-12.svg" alt="">
                                     </div>
                                     <div class="specification-info">
                                         <span>Engine (Hp)</span>
-                                        <h6>3,000</h6>
+                                        <h6>@Model.Engine.HorsePower</h6>
                                     </div>
                                 </div>
                             </div>
@@ -239,86 +271,59 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <ul>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            Multi-zone A/C
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            Heated front seats
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            Andriod Auto
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            Navigation system
-                                        </li>
+                                        @foreach (CarFeaturesAndCars carFeaturesAndCars in Model.FeaturesAndCars)
+                                        {
+                                            @foreach (CarFeatures carFeature in carFeatures)
+                                            {
+                                                @if (carFeature.FeaturesAndCars.Take(4).Any(sc => sc.Id == carFeaturesAndCars.Id))
+                                                {
+                                                    <li>
+                                                        <span>
+                                                            <i class="fa-solid fa-check-double"></i>
+                                                        </span>
+                                                        @carFeature.Name
+                                                    </li>
+                                                }
+                                            }
+                                        }
                                     </ul>
                                 </div>
                                 <div class="col-lg-4">
                                     <ul>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            Premium sound system
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            Bluetooth
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            Keyles Start
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            Memory seat
-                                        </li>
+                                        @foreach (CarFeaturesAndCars carFeaturesAndCars in Model.FeaturesAndCars)
+                                        {
+                                            @foreach (CarFeatures carFeature in carFeatures)
+                                            {
+                                                @if (carFeature.FeaturesAndCars.Skip(4).Take(4).Any(sc => sc.Id == carFeaturesAndCars.Id))
+                                                {
+                                                    <li>
+                                                        <span>
+                                                            <i class="fa-solid fa-check-double"></i>
+                                                        </span>
+                                                        @carFeature.Name
+                                                    </li>
+                                                }
+                                            }
+                                        }
                                     </ul>
                                 </div>
                                 <div class="col-lg-4">
                                     <ul>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            6 Cylinders
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            Adaptive Cruise Control
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            Intermittent wipers
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i class="fa-solid fa-check-double"></i>
-                                            </span>
-                                            4 power windows
-                                        </li>
+                                        @foreach (CarFeaturesAndCars carFeaturesAndCars in Model.FeaturesAndCars)
+                                        {
+                                            @foreach (CarFeatures carFeature in carFeatures)
+                                            {
+                                                @if (carFeature.FeaturesAndCars.Skip(8).Take(4).Any(sc => sc.Id == carFeaturesAndCars.Id))
+                                                {
+                                                    <li>
+                                                        <span>
+                                                            <i class="fa-solid fa-check-double"></i>
+                                                        </span>
+                                                        @carFeature.Name
+                                                    </li>
+                                                }
+                                            }
+                                        }
                                     </ul>
                                 </div>
                             </div>
@@ -329,21 +334,8 @@
                             <h4>Description of Listing</h4>
                         </div>
                         <div class="description-items">
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                            </p>
-                            <p>
-                                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
-                            <p>
-                                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
-                            <p>
-                                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
+
+                            <p>@Model.Description</p>
                         </div>
                     </div>
                     <div class="left-components reviews">
@@ -351,34 +343,36 @@
                             <h4>Reviews(2)</h4>
                         </div>
                         <div class="reviews-body">
-                            <div class="review">
+                            @foreach(Comment comment in Model.Comments)
+                            {
+                                <div class="review">
                                 <div class="review-head">
                                     <div class="person-img-info">
                                         <div class="person-img">
-                                            <img src="./assets/images/details/comments/avatar-01.jpg" alt="">
+                                                <img src="~/assets/images/users/@users.FirstOrDefault(u=>u.Id == comment.User.Id).UserPhoto" style="border-radius:50%;" alt="">
                                         </div>
                                         <div class="person-info">
                                             <h6 class="person-name">Johnson</h6>
-                                            <p class="comment-add-date">02 Jan 2023</p>
+                                            <p class="comment-add-date">@comment.CreationTime</p>
                                         </div>
                                     </div>
                                     <div class="rate-point">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <span>(5.0)</span>
+                                        @for (double i = 0; i < comment.Rating.Point; i++)
+                                        {
+                                            <i class="fas fa-star filled"></i>
+                                        }
+                                        @for (int i = 0; i < 5 - comment.Rating.Point; i++)
+                                        {
+                                            <i class="fas fa-star filled" style="color:gray"></i>
+                                        }
+                                        <span>(@comment.Rating.Point)</span>
                                     </div>
                                 </div>
                                 <div class="comment">
-                                    <p>
-                                        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                        It was popularised in the 1960s
-                                    </p>
+                                    <p>@comment.Text</p>
                                 </div>
                             </div>
+                            }
                         </div>
                     </div>
                     <div class="left-components add-comment">
@@ -477,7 +471,7 @@
                             <div class="owner-img-info">
                                 <div class="owner-img">
                                     <a href="#">
-                                        <img src="./assets/images/owners/avatar-07.jpg" alt="owner-img">
+                                        <img src="~/assets/images/owners/avatar-07.jpg" alt="owner-img">
                                     </a>
                                 </div>
                                 <div class="owner-info">
@@ -570,7 +564,7 @@
                             <div class="car-item">
                                 <div class="car-img">
                                     <a href="./detail.html">
-                                        <img src="./assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
+                                        <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
                                              alt="">
                                     </a>
                                     <div class="fav">
@@ -583,7 +577,7 @@
                                 <div class="car-content">
                                     <div class="car-features">
                                         <a href="#" class="author-img">
-                                            <img src="./assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
+                                            <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
                                                  alt="">
                                         </a>
                                         <h3 class="car-title">
@@ -604,21 +598,21 @@
                                         <ul>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-01.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Auto</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-02.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
                                                          alt="">
                                                 </span>
                                                 <p>10 KM</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-03.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Petrol</p>
@@ -627,21 +621,21 @@
                                         <ul>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-04.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Power</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-05.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
                                                          alt="">
                                                 </span>
                                                 <p>2023</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-06.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
                                                          alt="">
                                                 </span>
                                                 <p>5 Persons</p>
@@ -677,7 +671,7 @@
                             <div class="car-item">
                                 <div class="car-img">
                                     <a href="./detail.html">
-                                        <img src="./assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
+                                        <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
                                              alt="">
                                     </a>
                                     <div class="fav">
@@ -690,7 +684,7 @@
                                 <div class="car-content">
                                     <div class="car-features">
                                         <a href="#" class="author-img">
-                                            <img src="./assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
+                                            <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
                                                  alt="">
                                         </a>
                                         <h3 class="car-title">
@@ -711,21 +705,21 @@
                                         <ul>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-01.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Auto</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-02.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
                                                          alt="">
                                                 </span>
                                                 <p>10 KM</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-03.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Petrol</p>
@@ -734,21 +728,21 @@
                                         <ul>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-04.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Power</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-05.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
                                                          alt="">
                                                 </span>
                                                 <p>2023</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-06.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
                                                          alt="">
                                                 </span>
                                                 <p>5 Persons</p>
@@ -784,7 +778,7 @@
                             <div class="car-item">
                                 <div class="car-img">
                                     <a href="./detail.html">
-                                        <img src="./assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
+                                        <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
                                              alt="">
                                     </a>
                                     <div class="fav">
@@ -797,7 +791,7 @@
                                 <div class="car-content">
                                     <div class="car-features">
                                         <a href="#" class="author-img">
-                                            <img src="./assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
+                                            <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
                                                  alt="">
                                         </a>
                                         <h3 class="car-title">
@@ -818,21 +812,21 @@
                                         <ul>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-01.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Auto</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-02.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
                                                          alt="">
                                                 </span>
                                                 <p>10 KM</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-03.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Petrol</p>
@@ -841,21 +835,21 @@
                                         <ul>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-04.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Power</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-05.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
                                                          alt="">
                                                 </span>
                                                 <p>2023</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-06.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
                                                          alt="">
                                                 </span>
                                                 <p>5 Persons</p>
@@ -891,7 +885,7 @@
                             <div class="car-item">
                                 <div class="car-img">
                                     <a href="./detail.html">
-                                        <img src="./assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
+                                        <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
                                              alt="">
                                     </a>
                                     <div class="fav">
@@ -904,7 +898,7 @@
                                 <div class="car-content">
                                     <div class="car-features">
                                         <a href="#" class="author-img">
-                                            <img src="./assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
+                                            <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
                                                  alt="">
                                         </a>
                                         <h3 class="car-title">
@@ -925,21 +919,21 @@
                                         <ul>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-01.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Auto</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-02.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
                                                          alt="">
                                                 </span>
                                                 <p>10 KM</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-03.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Petrol</p>
@@ -948,21 +942,21 @@
                                         <ul>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-04.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Power</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-05.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
                                                          alt="">
                                                 </span>
                                                 <p>2023</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-06.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
                                                          alt="">
                                                 </span>
                                                 <p>5 Persons</p>
@@ -998,7 +992,7 @@
                             <div class="car-item">
                                 <div class="car-img">
                                     <a href="./detail.html">
-                                        <img src="./assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
+                                        <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
                                              alt="">
                                     </a>
                                     <div class="fav">
@@ -1011,7 +1005,7 @@
                                 <div class="car-content">
                                     <div class="car-features">
                                         <a href="#" class="author-img">
-                                            <img src="./assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
+                                            <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
                                                  alt="">
                                         </a>
                                         <h3 class="car-title">
@@ -1032,21 +1026,21 @@
                                         <ul>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-01.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Auto</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-02.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
                                                          alt="">
                                                 </span>
                                                 <p>10 KM</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-03.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Petrol</p>
@@ -1055,21 +1049,21 @@
                                         <ul>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-04.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
                                                          alt="">
                                                 </span>
                                                 <p>Power</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-05.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
                                                          alt="">
                                                 </span>
                                                 <p>2023</p>
                                             </li>
                                             <li>
                                                 <span>
-                                                    <img src="./assets/images/index/cars/car-detail/car-parts-06.svg"
+                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
                                                          alt="">
                                                 </span>
                                                 <p>5 Persons</p>
@@ -1110,4 +1104,4 @@
 <!-- main end -->
 
 <!-- Scripts -->
-<script src="./assets/js/detail.js"></script>
+<script src="~/assets/js/detail.js"></script>

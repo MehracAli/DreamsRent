@@ -1,7 +1,7 @@
 ﻿using DreamsRentBack.Entities.CarModels;
 using Microsoft.Build.Framework;
 
-namespace DreamsRentBack.ViewModels.Car
+namespace DreamsRentBack.ViewModels.CarViewModels
 {
     public class CreateCarVM
     {

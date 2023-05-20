@@ -6,7 +6,6 @@ namespace DreamsRentBack.Entities.ClientModels
     public class Company:BaseEntity
     {
         public string CompanyName { get; set; }
-        public int? Rating { get; set; } = 0;
         public bool? Verification { get; set; } = false;
         public string? CompanyPhoto { get; set; }
         [NotMapped]

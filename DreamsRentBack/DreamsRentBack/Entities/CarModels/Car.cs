@@ -7,8 +7,7 @@ namespace DreamsRentBack.Entities.CarModels
         public int ModelId { get; set; }
         public double Price { get; set; }
         public int Views { get; set; }
-        public double? Rating { get; set; }
-        public List<Rating> Ratings { get; set; }
+        public double Rating { get; set; }
         public List<Like> Likes { get; set; }
         public int Capacity { get; set; }
         public string Description { get; set; }
@@ -56,7 +55,6 @@ namespace DreamsRentBack.Entities.CarModels
         public Car()
         {
             Likes = new();
-            Ratings = new();
             CarPhotos = new();
             ServicesAndCars = new();
             FeaturesAndCars = new();

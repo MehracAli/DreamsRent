@@ -161,10 +161,6 @@
       "PackagePath": "staticwebassets\\assets\\images\\cars\\9637450_GHr79YfU2Lh_rBEmOYQL-g.jpg"
     },
     {
-      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\companies\\hellojob.svg",
-      "PackagePath": "staticwebassets\\assets\\images\\companies\\hellojob.svg"
-    },
-    {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\contact\\contact-info.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\contact\\contact-info.jpg"
     },
@@ -503,6 +499,10 @@
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\users\\Screenshot 2023-05-16 210450.png",
       "PackagePath": "staticwebassets\\assets\\images\\users\\Screenshot 2023-05-16 210450.png"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\users\\hellojob.svg",
+      "PackagePath": "staticwebassets\\assets\\images\\users\\hellojob.svg"
     },
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\js\\AOS.js",

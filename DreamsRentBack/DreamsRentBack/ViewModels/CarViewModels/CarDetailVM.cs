@@ -1,13 +1,12 @@
 ﻿using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
 
-namespace DreamsRentBack.ViewModels.Car
+namespace DreamsRentBack.ViewModels.CarViewModels
 {
     public class CarDetailVM
     {
         public int Id { get; set; }
         public double Rating { get; set; }
-        public List<Rating> Ratings { get; set; }
         public Brand Brand { get; set; }
         public int ModelId { get; set; }
         public Location Location { get; set; }
@@ -29,6 +28,6 @@ namespace DreamsRentBack.ViewModels.Car
         public Engine Engine { get; set; }
         public List<CarFeaturesAndCars> FeaturesAndCars { get; set; }
         public List<Comment> Comments { get; set; }
-
+        public string Description { get; set; }
     }
 }

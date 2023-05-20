@@ -1,5 +1,5 @@
 ﻿@using DreamsRentBack.Entities.CarModels;
-@using DreamsRentBack.ViewModels.Car;
+@using DreamsRentBack.ViewModels.CarViewModels;
 @{
     ViewData["Title"] = "Home";
     List<CarExploreVM> cars = ViewBag.Cars;
@@ -220,7 +220,7 @@
                                 <div class="car-content">
                                     <div class="car-features">
                                         <a href="#" class="author-img" style="top:-45px">
-                                            <img src="~/assets/images/companies/@car.Company.CompanyPhoto"
+                                            <img src="~/assets/images/users/@car.Company.CompanyPhoto"
                                                      style="width:60px;height:60px;padding:2px;border: 1px solid orange;background:white;" alt="">
                                         </a>
                                         <h3 class="car-title">

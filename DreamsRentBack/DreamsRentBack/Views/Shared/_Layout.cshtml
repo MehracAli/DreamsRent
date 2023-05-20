@@ -82,14 +82,14 @@
                             <li class="first-choose">
                                 @if (User.IsInRole("Consumer"))
                                 {
-                                    <a asp-controller="Account" asp-action="ConsumerAccount">
+                                    <a asp-controller="Account" asp-action="ConsumerAccount" asp-route-UserName="@User.Identity.Name">
                                         @Html.Raw(layoutServices.GetSettings().FirstOrDefault(s=>s.Key.Equals("ConsumerAccountIcon")).Value)
                                         @await layoutServices.GetConsmuerFullName()
                                     </a>
                                 }
                                 @if (User.IsInRole("Company"))
                                 {
-                                    <a asp-controller="Account" asp-action="CompanyAccount">
+                                    <a asp-controller="Account" asp-action="CompanyAccount" asp-route-UserName="@User.Identity.Name">
                                         @Html.Raw(layoutServices.GetSettings().FirstOrDefault(s=>s.Key.Equals("CompanyAccountIcon")).Value)
                                         @await layoutServices.GetCompanyName()
                                     </a>

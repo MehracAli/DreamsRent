@@ -1,5 +1,5 @@
 ﻿using DreamsRentBack.DAL;
-using DreamsRentBack.ViewModels.Car;
+using DreamsRentBack.ViewModels.CarViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +29,6 @@ namespace DreamsRentBack.Controllers
                     Id = c.Id,
                     CarPhotos = c.CarPhotos,
                     Likes = c.Likes,
-                    Ratings = c.Ratings,
                     Brand = c.Brand,
                     ModelId = c.ModelId,
                     Price = c.Price,

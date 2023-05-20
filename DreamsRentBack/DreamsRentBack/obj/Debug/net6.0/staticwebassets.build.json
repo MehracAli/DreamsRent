@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7EP/Bu45mHtu7lsdTXOv+MNmUNBR0vJncJVIDlqTziI=",
+  "Hash": "IL7qgeNbFl5y+KQMkBgW8zO2vVc70I6NNyitvdPLhCw=",
   "Source": "DreamsRentBack",
   "BasePath": "_content/DreamsRentBack",
   "Mode": "Default",
@@ -695,23 +695,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\9637450_GHr79YfU2Lh_rBEmOYQL-g.jpg"
-    },
-    {
-      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\companies\\hellojob.svg",
-      "SourceId": "DreamsRentBack",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
-      "BasePath": "_content/DreamsRentBack",
-      "RelativePath": "assets/images/companies/hellojob.svg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\images\\companies\\hellojob.svg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\contact\\contact-info.jpg",
@@ -2140,6 +2123,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\users\\Default_pfp.svg.png"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\users\\hellojob.svg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/users/hellojob.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\users\\hellojob.svg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\users\\Screenshot 2023-05-16 210450.png",

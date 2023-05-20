@@ -1,5 +1,4 @@
 ﻿using DreamsRentBack.Entities.CarModels;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DreamsRentBack.Entities.ClientModels
 {
@@ -10,8 +9,6 @@ namespace DreamsRentBack.Entities.ClientModels
         public User User { get; set; }
         public int CarId { get; set; }
         public Car Car { get; set; }
-        [ForeignKey("Rating")]
-        public int RatingId { get; set; }
         public Rating Rating { get; set; }
     }
 }

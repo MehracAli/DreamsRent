@@ -2,7 +2,7 @@
 using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
 using DreamsRentBack.Utilities.Extentions;
-using DreamsRentBack.ViewModels.Car;
+using DreamsRentBack.ViewModels.CarViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

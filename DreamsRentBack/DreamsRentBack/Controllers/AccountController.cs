@@ -121,7 +121,7 @@ namespace DreamsRentBack.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-            return View();
+                return View();
             }
 
             [HttpPost]
@@ -277,14 +277,34 @@ namespace DreamsRentBack.Controllers
 
         #region MyAccount
             
-            public IActionResult ConsumerAccount()
+            public IActionResult ConsumerAccount(string UserName)
             {
                 return View();
             }
 
-            public IActionResult CompanyAccount()
+            public IActionResult CompanyAccount(string UserName)
             {
-                return View();
+                ViewBag.Cars = _context.Cars
+                .Include(c=>c.Brand)
+                .Include(c=>c.Transmission)
+                    .Include(c=>c.FuelType)
+                    .Include(c=>c.Engine)
+                        .ToList();
+
+
+                if (UserName == null) { return RedirectToAction("NotFound", "Error"); }
+
+                User? user = _context.Users.FirstOrDefault(u => u.UserName == UserName);
+
+                if (user == null) { return RedirectToAction("NotFound", "Error"); }
+
+                Company? company = _context.Companies
+                .Include(c=>c.Cars)
+                .FirstOrDefault(c=>c.UserId == user.Id);
+
+                //Company company = user.Company;
+
+                return View(company);
             }
 
         #endregion

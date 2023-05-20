@@ -1,7 +1,7 @@
 ﻿using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
 
-namespace DreamsRentBack.ViewModels.Car
+namespace DreamsRentBack.ViewModels.CarViewModels
 {
     public class CarExploreVM
     {

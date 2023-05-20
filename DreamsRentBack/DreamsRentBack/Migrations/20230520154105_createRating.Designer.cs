@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DreamsRentBack.Migrations
 {
     [DbContext(typeof(DreamsRentDbContext))]
-    [Migration("20230520140637_createRatingsTable")]
-    partial class createRatingsTable
+    [Migration("20230520154105_createRating")]
+    partial class createRating
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -154,7 +154,7 @@ namespace DreamsRentBack.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<double?>("Rating")
+                    b.Property<double>("Rating")
                         .HasColumnType("float");
 
                     b.Property<DateTime?>("ReturnDate")
@@ -411,20 +411,16 @@ namespace DreamsRentBack.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CarId")
+                    b.Property<int>("CommentId")
                         .HasColumnType("int");
 
                     b.Property<double>("Point")
                         .HasColumnType("float");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("CommentId")
+                        .IsUnique();
 
                     b.ToTable("Ratings");
                 });
@@ -1017,19 +1013,13 @@ namespace DreamsRentBack.Migrations
 
             modelBuilder.Entity("DreamsRentBack.Entities.CarModels.Rating", b =>
                 {
-                    b.HasOne("DreamsRentBack.Entities.CarModels.Car", "Car")
-                        .WithMany("Ratings")
-                        .HasForeignKey("CarId")
+                    b.HasOne("DreamsRentBack.Entities.ClientModels.Comment", "Comment")
+                        .WithOne("Rating")
+                        .HasForeignKey("DreamsRentBack.Entities.CarModels.Rating", "CommentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DreamsRentBack.Entities.ClientModels.User", "User")
-                        .WithMany("Ratings")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Car");
-
-                    b.Navigation("User");
+                    b.Navigation("Comment");
                 });
 
             modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Comment", b =>
@@ -1190,8 +1180,6 @@ namespace DreamsRentBack.Migrations
 
                     b.Navigation("Likes");
 
-                    b.Navigation("Ratings");
-
                     b.Navigation("ServicesAndCars");
                 });
 
@@ -1232,6 +1220,12 @@ namespace DreamsRentBack.Migrations
                     b.Navigation("Streets");
                 });
 
+            modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Comment", b =>
+                {
+                    b.Navigation("Rating")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Company", b =>
                 {
                     b.Navigation("Cars");
@@ -1256,8 +1250,6 @@ namespace DreamsRentBack.Migrations
                     b.Navigation("Likes");
 
                     b.Navigation("PayCard");
-
-                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }
