@@ -18,6 +18,7 @@ namespace DreamsRentBack.Controllers
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.Bodies = _context.Bodys.Include(b=>b.Cars).ToList();
             ViewBag.Likes = _context.Likes.Include(l=>l.User).ToList();
+            ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ToList();
 
             ViewBag.Cars = _context.Cars
                 .Include(c=>c.CarPhotos)

@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "My Account";
     List<Car> cars = ViewBag.Cars;
+    List<Rating> ratings = ViewBag.Ratings;
 }
 
 <!-- main start -->
@@ -62,103 +63,111 @@
                                     <div class="row">
                                         @foreach (Car car in Model.Cars)
                                         {
-                                            <div class="car-item">
-                                            <div class="card">
-                                                <div class="img-details">
-                                                    <div class="card-img">
-                                                        <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
-                                                            <img src="~/assets/images/cars/@car.CarPhotos.FirstOrDefault(cp=>cp.CarId == car.Id).Path" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="card-details w-100">
-                                                        <div class="card-body">
-                                                            <div class="body-head">
-                                                                <div class="title">
-                                                                    <h3>
-                                                                        @*<a href="#">@car.Brand.Name SE Hybrid</a>*@
-                                                                    </h3>
-                                                                    <h6>
-                                                                        Brand:
-                                                                        <span>Toyota</span>
-                                                                    </h6>
-                                                                </div>
-                                                                <div class="price-rating">
-                                                                    <div class="rating">
-                                                                        <i class="fas fa-star filled"></i>
-                                                                        <i class="fas fa-star filled"></i>
-                                                                        <i class="fas fa-star filled"></i>
-                                                                        <i class="fas fa-star filled"></i>
-                                                                        <i class="fas fa-star filled"></i>
-                                                                        <span>(5.0)</span>
-                                                                    </div>
-                                                                    <h6 class="price">
-                                                                        $400
-                                                                        <span>/ Day</span>
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                            <div class="body-mid">
-                                                                <ul>
-                                                                    <li>
-                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
-                                                                        <p>Auto</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
-                                                                        <p>Auto</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
-                                                                        <p>Auto</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
-                                                                        <p>Auto</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
-                                                                        <p>Auto</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
-                                                                        <p>Auto</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="body-bottom">
-                                                                <div class="author">
-                                                                    <div class="author-img">
-                                                                        <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg" alt="">
-                                                                    </div>
-                                                                    <div class="author-name-location">
-                                                                        <div class="author-name">
-                                                                            <h5>
-                                                                                <a href="#">
-                                                                                    Toyota Of Lincoln Park
-                                                                                </a>
-                                                                            </h5>
-                                                                            <h6>
-                                                                                <i class="fa-sharp fa-solid fa-location-dot"></i>
-                                                                                Newyork, USA
-                                                                            </h6>
-                                                                        </div>
-                                                                        <div class="author-location"></div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="rent-btn">
-                                                                    <a href="#" class="btn">
-                                                                        <span>
-                                                                            <i class="fa-solid fa-calendar"></i>
-                                                                        </span>
-                                                                        Rent Now
+                                            @foreach (Car VBcar in  cars)
+                                            {
+                                                @if(VBcar.Id == car.Id)
+                                                {
+                                                    <div class="car-item">
+                                                        <div class="card">
+                                                            <div class="img-details">
+                                                                <div class="card-img">
+                                                                    <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
+                                                                        <img src="~/assets/images/cars/@VBcar.CarPhotos.FirstOrDefault(cp=>cp.CarId == car.Id).Path" alt="">
                                                                     </a>
+                                                                </div>
+                                                                <div class="card-details w-100">
+                                                                    <div class="card-body">
+                                                                        <div class="body-head">
+                                                                            <div class="title">
+                                                                                <h3>
+                                                                                    <a href="#" style="background:white;">@VBcar.Brand.Name @VBcar.Brand.Models.FirstOrDefault(m=>m.Id == car.ModelId).Name</a>
+                                                                                </h3>
+                                                                                <h6>
+                                                                                    Brand:
+                                                                                    <span>@VBcar.Brand.Name</span>
+                                                                                </h6>
+                                                                            </div>
+                                                                            <div class="price-rating">
+                                                                                <div class="rating">
+                                                                                    @for (double i = 0; i < Math.Floor((double)VBcar.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
+                                                                                    {
+                                                                                        <i class="fa-solid fa-star"></i>
+                                                                                    }
+                                                                                    @for (double i = 0; i < 5 - Math.Floor((double)VBcar.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
+                                                                                    {
+                                                                                        <i class="fa-solid fa-star" style="color: gray;"></i>
+                                                                                    }
+
+                                                                                    @if (ratings.Where(r => r.Comment.CarId == VBcar.Id).Count() > 0)
+                                                                                    {
+                                                                                        <span>@(((double)VBcar.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()).ToString("F1"))</span>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <span>@(VBcar.Rating).0</span>
+                                                                                    }
+                                                                                </div>
+                                                                                <h6 class="price">
+                                                                                    $@(car.Price.ToString("N0"))
+                                                                                    <span>/ Day</span>
+                                                                                </h6>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="body-mid">
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
+                                                                                    <p>@VBcar.Transmission.Name</p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
+                                                                                    <p>@VBcar.Speed (km/ph)</p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
+                                                                                    <p>@VBcar.FuelType.Name</p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
+                                                                                    <p>@VBcar.Year</p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
+                                                                                    <p>@VBcar.Engine.HorsePower</p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
+                                                                                    <p>@VBcar.Capacity</p>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="body-bottom">
+                                                                            <div class="author">
+                                                                                <div class="author-img" style="border:1px solid gray;border-radius:50%;width:46px;height:46px;padding:2px; display:flex;align-items:center">
+                                                                                    <img src="~/assets/images/users/@Model.CompanyPhoto" style="width:100%;" alt="">
+                                                                                </div>
+                                                                                <div class="author-name-location" style="margin-left:30px">
+                                                                                    <div class="author-name">
+                                                                                        <h5 style="text-align:start;">
+                                                                                            <a href="#" style="background:white;">
+                                                                                                @Model.CompanyName
+                                                                                            </a>
+                                                                                        </h5>
+                                                                                        <h6>
+                                                                                            <i class="fa-sharp fa-solid fa-location-dot"></i>
+                                                                                            Newyork, USA
+                                                                                        </h6>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                }
+                                            }
                                         }
                                     </div>
                                 </div>

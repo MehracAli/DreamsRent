@@ -6,6 +6,7 @@
     List<Brand> brands = ViewBag.Brands;
     List<Body> bodies = ViewBag.Bodies;
     List<Like> likes = ViewBag.Likes;
+    List<Rating> ratings = ViewBag.Ratings;
 }
 
 <!-- main start -->
@@ -118,7 +119,7 @@
             </div>
         </div>
     </section>
-    <section id="services">
+    <section id="services" style="overflow:hidden;">
         <div class="right-photo">
             <img src="~/assets/images/index/service-right.svg" alt="">
         </div>
@@ -229,15 +230,23 @@
                                             </a>
                                         </h3>
                                         <div class="car-rating">
-                                            @for (double i = 0; i < car.Rating; i++)
-                                            {
-                                                <i class="fa-solid fa-star"></i>
-                                            }
-                                            @for (double i = 0; i < 5 - car.Rating; i++)
-                                            {
-                                                <i class="fa-solid fa-star" style="color: gray;"></i>
-                                            }
-                                            <span>(@car.Rating)</span>
+                                                @for (double i = 0; i < Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
+                                                {
+                                                    <i class="fa-solid fa-star"></i>
+                                                }
+                                                @for (double i = 0; i < 5 - Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
+                                                {
+                                                    <i class="fa-solid fa-star" style="color: gray;"></i>
+                                                }
+
+                                                @if (ratings.Where(r => r.Comment.CarId == car.Id).Count() > 0)
+                                                {
+                                                    <span>@(((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()).ToString("F1"))</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@(car.Rating).0</span>
+                                                }
                                             <span style="position:absolute;right:5px;"> 
                                                 <i class="fa-solid fa-heart"></i>
                                                 Likes (@car.Likes.Count())
@@ -245,7 +254,7 @@
                                         </div>
                                     </div>
                                     <div class="car-details">
-                                        <ul>
+                                        <ul style="padding-left: 2rem;">
                                             <li>
                                                 <span>
                                                     <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
@@ -268,7 +277,7 @@
                                                 <p>@car.FuelType.Name</p>
                                             </li>
                                         </ul>
-                                        <ul>
+                                            <ul style="padding-left: 2rem;">
                                             <li>
                                                 <span>
                                                     <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
@@ -301,7 +310,7 @@
                                         </div>
                                         <div class="car-price">
                                             <h6>
-                                                $@car.Price
+                                                    $@(car.Price.ToString("N0"))
                                                 <span>/Day</span>
                                             </h6>
                                         </div>
@@ -440,7 +449,7 @@
                                 <div class="slider-item">
                                     <div class="card">
                                         <div class="car-img">
-                                            <a href="#">
+                                                <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
                                                 <img src="/assets/images/cars/@car.CarPhotos.FirstOrDefault(cp=>cp.CarId == car.Id).Path" alt="">
                                             </a>
                                         </div>
@@ -448,22 +457,29 @@
                                             <div class="car-features">
                                                 <div class="fav-item">
                                                     <span class="featured-text">
-                                                        $@car.Price/day
+                                                            $@(car.Price.ToString("N0"))/day
                                                     </span>
                                                 </div>
                                                 <div class="card-rating">
-                                                    @for (double i = 0; i < car.Rating; i++)
+                                                    @for (double i = 0; i < Math.Floor((double)car.Rating / ratings.Where(r=>r.Comment.CarId == car.Id).Count()); i++)
                                                     {
                                                         <i class="fa-solid fa-star"></i>
                                                     }
-                                                    @for (double i = 0; i < 5 - car.Rating; i++)
+                                                    @for (double i = 0; i < 5 - Math.Floor((double)car.Rating / ratings.Where(r=>r.Comment.CarId == car.Id).Count()); i++)
                                                     {
                                                         <i class="fa-solid fa-star" style="color: gray;"></i>
                                                     }
-                                                    <span>(@car.Rating)</span>
+
+                                                    @if (ratings.Where(r => r.Comment.CarId == car.Id).Count() > 0)
+                                                    {
+                                                        <span>@(((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()).ToString("F1"))</span>
+                                                    }
+                                                    else{
+                                                            <span>@(car.Rating).0</span>
+                                                    }
                                                 </div>
                                                 <h3 class="card-title">
-                                                        <a href="listing-details.html">@car.Brand.Name @car.Brand.Models.FirstOrDefault(m=>m.Id == car.ModelId).Name</a>
+                                                    <a href="listing-details.html">@car.Brand.Name @car.Brand.Models.FirstOrDefault(m=>m.Id == car.ModelId).Name</a>
                                                 </h3>
                                                 <h6>
                                                     Listed By :
@@ -471,7 +487,7 @@
                                                 </h6>
                                             </div>
                                             <div class="car-details">
-                                                <ul>
+                                                    <ul style="padding-left: 2rem;">
                                                     <li>
                                                         <span>
                                                             <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
@@ -491,7 +507,7 @@
                                                         <p>@car.FuelType.Name</p>
                                                     </li>
                                                 </ul>
-                                                <ul>
+                                                    <ul style="padding-left: 2rem;">
                                                     <li>
                                                         <span>
                                                             <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">

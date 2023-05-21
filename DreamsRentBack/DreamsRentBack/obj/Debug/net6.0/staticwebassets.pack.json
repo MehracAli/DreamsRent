@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\assets\\images\\about\\about-us.png"
     },
     {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\10848853_E1lGfaedjKFGgCK_XT7qQA.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\10848853_E1lGfaedjKFGgCK_XT7qQA.jpg"
+    },
+    {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\13198170_KnNOXsm5kK8BlJRZtez2Tw.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\cars\\13198170_KnNOXsm5kK8BlJRZtez2Tw.jpg"
     },
@@ -51,6 +55,10 @@
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\3327450_GHr79YfU2Lh_rBEmOYQL-g.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\cars\\3327450_GHr79YfU2Lh_rBEmOYQL-g.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\34218075_5cUnCVa3MH0TTJq3mbyaeA.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\34218075_5cUnCVa3MH0TTJq3mbyaeA.jpg"
     },
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\3697437_FXNyLG57VaZRjV6IXeNKRA.jpg",
@@ -87,6 +95,10 @@
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\51208_LIdH8VdikxzVIDtyD89zWw.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\cars\\51208_LIdH8VdikxzVIDtyD89zWw.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\51697014_qVYZBBk_ysKru1nXJKIh8g.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\51697014_qVYZBBk_ysKru1nXJKIh8g.jpg"
     },
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\5447450_GHr79YfU2Lh_rBEmOYQL-g.jpg",
@@ -151,6 +163,14 @@
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\8787428_mYluUQKuJ6aAtoLGrVBybw.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\cars\\8787428_mYluUQKuJ6aAtoLGrVBybw.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\8824185_r_RMwR5-u_X7yDk9JcWXOA.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\8824185_r_RMwR5-u_X7yDk9JcWXOA.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\8954211_oX-HseaRgrWWlUSooS0W1Q.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\cars\\8954211_oX-HseaRgrWWlUSooS0W1Q.jpg"
     },
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\9317437_FXNyLG57VaZRjV6IXeNKRA.jpg",
@@ -327,6 +347,10 @@
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\brands\\car-icon-07.svg",
       "PackagePath": "staticwebassets\\assets\\images\\index\\brands\\car-icon-07.svg"
+    },
+    {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\brands\\haval.png",
+      "PackagePath": "staticwebassets\\assets\\images\\index\\brands\\haval.png"
     },
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\index\\brands\\toyota.png",

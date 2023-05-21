@@ -120,7 +120,7 @@ namespace DreamsRentBack.Controllers
                 Description = createdCar.Description,
                 Availability = true,
                 Views = 0,
-                Rating = 1,
+                Rating = 0,
             };
 
             string imageFolderPath = Path.Combine(_env.WebRootPath, "assets", "images");

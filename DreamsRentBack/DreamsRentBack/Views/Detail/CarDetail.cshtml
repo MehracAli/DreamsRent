@@ -7,6 +7,7 @@
     List<ExtraService> extraServices = ViewBag.Services;
     List<CarFeatures> carFeatures = ViewBag.Features;
     List<User> users = ViewBag.Users;
+    List<Rating> ratings = ViewBag.Ratings;
 }
 
 <!-- main start -->
@@ -36,16 +37,28 @@
                 <div class="detail-head-left">
                     <div class="car-rate-info">
                         <div class="rate">
-                            <span class="year">@Model.Year</span>
-                            @for (double i = 0; i < Model.Rating; i++)
+                            <span class="year" style="font-size:20px">@Model.Year</span>
+                            @for (double i = 0; i < Math.Floor(Model.Rating / ratings.Where(r => r.Comment.CarId == Model.Id).Count()); i++)
                             {
-                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled" style="font-size:20px"></i>
                             }
-                            @for (double i = 0; i < 5 - Model.Rating; i++)
+                            @for (double i = 0; i < 5 - Math.Floor(Model.Rating / ratings.Where(r => r.Comment.CarId == Model.Id).Count()); i++)
                             {
-                                <i class="fas fa-star filled" style="color:gray;"></i>
+                                <i class="fas fa-star filled" style="color:gray;font-size:20px"></i>
                             }
-                            <span class="rate-point">@Model.Rating</span>
+                            @if (ratings.Where(r => r.Comment.CarId == Model.Id).Count() > 0)
+                            {
+                                <span class="rate-point">@((Model.Rating / ratings.Where(r => r.Comment.CarId == Model.Id).Count()).ToString("F1"))</span>
+                            }
+                            else
+                            {
+                                <i class="fas fa-star filled" style="color:gray;font-size:20px"></i>
+                                <i class="fas fa-star filled" style="color:gray;font-size:20px"></i>
+                                <i class="fas fa-star filled" style="color:gray;font-size:20px"></i>
+                                <i class="fas fa-star filled" style="color:gray;font-size:20px"></i>
+                                <i class="fas fa-star filled" style="color:gray;font-size:20px"></i>
+                                <span style="font-size:20px!important">(@(Model.Rating).0)</span>
+                            }
                         </div>
                         <div class="info">
                             <h3>@Model.Brand.Name @Model.Brand.Models.FirstOrDefault(m=>m.Id == Model.ModelId).Name</h3>
@@ -103,12 +116,41 @@
                         <div class="component-title">
                             <h4>Extra Service</h4>
                         </div>
-                        <ul>
+                        <div class="row">
+                            <ul class="col-lg-4" style="padding:0;list-style:none;">
+                                @foreach (ExtraServicesAndCars servicesAndCars in Model.ServicesAndCars)
+                                {
+                                    @foreach (ExtraService extraService in extraServices.Take(4))
+                                    {
+                                        @if(extraService.ServicesAndCars.Any(sc=>sc.Id == servicesAndCars.Id))
+                                        {
+                                            <li>
+                                                <span style="display:block;padding:5px 10px;">@extraService.Name - $@extraService.Price</span>
+                                            </li>
+                                        }
+                                    }
+                                }
+                            </ul>
+                            <ul class="col-lg-4" style="padding:0;list-style:none;">
+                                @foreach (ExtraServicesAndCars servicesAndCars in Model.ServicesAndCars)
+                                {
+                                    @foreach (ExtraService extraService in extraServices.Skip(4).Take(4))
+                                    {
+                                        @if (extraService.ServicesAndCars.Any(sc => sc.Id == servicesAndCars.Id))
+                                        {
+                                            <li>
+                                                <span style="display:block;padding:5px 10px;">@extraService.Name - $@extraService.Price</span>
+                                            </li>
+                                        }
+                                    }
+                                }
+                            </ul>
+                            <ul class="col-lg-4" style="padding:0;list-style:none;">
                             @foreach (ExtraServicesAndCars servicesAndCars in Model.ServicesAndCars)
                             {
-                                @foreach (ExtraService extraService in extraServices)
+                                @foreach (ExtraService extraService in extraServices.Skip(8).Take(4))
                                 {
-                                    @if(extraService.ServicesAndCars.Take(4).Any(sc=>sc.Id == servicesAndCars.Id))
+                                    @if (extraService.ServicesAndCars.Any(sc => sc.Id == servicesAndCars.Id))
                                     {
                                         <li>
                                             <span style="display:block;padding:5px 10px;">@extraService.Name - $@extraService.Price</span>
@@ -117,34 +159,7 @@
                                 }
                             }
                         </ul>
-                        <ul>
-                            @foreach (ExtraServicesAndCars servicesAndCars in Model.ServicesAndCars)
-                            {
-                                @foreach (ExtraService extraService in extraServices)
-                                {
-                                    @if (extraService.ServicesAndCars.Skip(4).Take(4).Any(sc => sc.Id == servicesAndCars.Id))
-                                    {
-                                        <li>
-                                            <span style="display:block;padding:5px 10px;">@extraService.Name - $@extraService.Price</span>
-                                        </li>
-                                    }
-                                }
-                            }
-                        </ul>
-                        <ul>
-                            @foreach (ExtraServicesAndCars servicesAndCars in Model.ServicesAndCars)
-                            {
-                                @foreach (ExtraService extraService in extraServices)
-                                {
-                                    @if (extraService.ServicesAndCars.Skip(8).Take(4).Any(sc => sc.Id == servicesAndCars.Id))
-                                    {
-                                        <li>
-                                            <span style="display:block;padding:5px 10px;">@extraService.Name - $@extraService.Price</span>
-                                        </li>
-                                    }
-                                }
-                            }
-                        </ul>
+                        </div>
                     </div>
                     <div class="left-components car-specifications">
                         <div class="component-title">
@@ -230,7 +245,7 @@
                                     </div>
                                     <div class="specification-info">
                                         <span>VIN</span>
-                                        <h6>@Model.VIN</h6>
+                                        <h6>@(Model.VIN.Substring(0,10)+"...")</h6>
                                     </div>
                                 </div>
                                 <div class="specification col-lg-3">
@@ -273,9 +288,9 @@
                                     <ul>
                                         @foreach (CarFeaturesAndCars carFeaturesAndCars in Model.FeaturesAndCars)
                                         {
-                                            @foreach (CarFeatures carFeature in carFeatures)
+                                            @foreach (CarFeatures carFeature in carFeatures.Take(4))
                                             {
-                                                @if (carFeature.FeaturesAndCars.Take(4).Any(sc => sc.Id == carFeaturesAndCars.Id))
+                                                @if (carFeature.FeaturesAndCars.Any(sc => sc.Id == carFeaturesAndCars.Id))
                                                 {
                                                     <li>
                                                         <span>
@@ -292,9 +307,9 @@
                                     <ul>
                                         @foreach (CarFeaturesAndCars carFeaturesAndCars in Model.FeaturesAndCars)
                                         {
-                                            @foreach (CarFeatures carFeature in carFeatures)
+                                            @foreach (CarFeatures carFeature in carFeatures.Skip(4).Take(4))
                                             {
-                                                @if (carFeature.FeaturesAndCars.Skip(4).Take(4).Any(sc => sc.Id == carFeaturesAndCars.Id))
+                                                @if (carFeature.FeaturesAndCars.Any(sc => sc.Id == carFeaturesAndCars.Id))
                                                 {
                                                     <li>
                                                         <span>
@@ -311,9 +326,9 @@
                                     <ul>
                                         @foreach (CarFeaturesAndCars carFeaturesAndCars in Model.FeaturesAndCars)
                                         {
-                                            @foreach (CarFeatures carFeature in carFeatures)
+                                            @foreach (CarFeatures carFeature in carFeatures.Skip(8).Take(4))
                                             {
-                                                @if (carFeature.FeaturesAndCars.Skip(8).Take(4).Any(sc => sc.Id == carFeaturesAndCars.Id))
+                                                @if (carFeature.FeaturesAndCars.Any(sc => sc.Id == carFeaturesAndCars.Id))
                                                 {
                                                     <li>
                                                         <span>
@@ -340,19 +355,33 @@
                     </div>
                     <div class="left-components reviews">
                         <div class="component-title">
-                            <h4>Reviews(2)</h4>
+                            <h4>Reviews(@Model.Comments.Count())</h4>
                         </div>
-                        <div class="reviews-body">
+                        <div class="reviews-body" style="height:450px;overflow-y:scroll;">
                             @foreach(Comment comment in Model.Comments)
                             {
                                 <div class="review">
                                 <div class="review-head">
                                     <div class="person-img-info">
                                         <div class="person-img">
-                                                <img src="~/assets/images/users/@users.FirstOrDefault(u=>u.Id == comment.User.Id).UserPhoto" style="border-radius:50%;" alt="">
+                                            @if(comment.User is null)
+                                            {
+                                                <img src="~/assets/images/users/Default_pfp.svg.png" style="border-radius:50%;border: 1px solid gray" alt="">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/assets/images/users/@users.FirstOrDefault(u=>u.Id == comment.User.Id).UserPhoto" style="border-radius:50%;border: 1px solid gray" alt="">
+                                            }
                                         </div>
                                         <div class="person-info">
-                                            <h6 class="person-name">Johnson</h6>
+                                            @if(comment.User is null)
+                                            {
+                                                <h6 class="person-name">@comment.Fullname</h6>
+                                            }
+                                            else
+                                            {
+                                                <h6 class="person-name">@users.FirstOrDefault(u=>u.Id == comment.User.Id).Name @users.FirstOrDefault(u=>u.Id == comment.User.Id).Surname</h6>
+                                            }
                                             <p class="comment-add-date">@comment.CreationTime</p>
                                         </div>
                                     </div>
@@ -365,7 +394,7 @@
                                         {
                                             <i class="fas fa-star filled" style="color:gray"></i>
                                         }
-                                        <span>(@comment.Rating.Point)</span>
+                                        <span>(@(comment.Rating.Point).0)</span>
                                     </div>
                                 </div>
                                 <div class="comment">
@@ -380,34 +409,49 @@
                             <h4>Leave a Comment</h4>
                         </div>
                         <div class="add-comment-body">
-                            <div class="add-rate">
-                                <span>Rate </span>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                            </div>
                             <div class="comment-from">
-                                <form action="#">
+                                <form asp-controller="Detail" asp-action="AddComment" asp-route-Id="@Model.Id">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="add-rate">
+                                        <span>Rate</span>
+                                        <i class="fa-regular fa-star rate-it" onclick="fillStars(1)" style="cursor:pointer;font-size:20px;">
+                                            <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Rating.Point" type="radio" value="1" style="display:none"/>
+                                        </i>
+                                        <i class="fa-regular fa-star rate-it" onclick="fillStars(2)" style="cursor:pointer;font-size:20px;">
+                                            <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Rating.Point" type="radio"  value="2" style="display:none"/>
+                                        </i>
+                                        <i class="fa-regular fa-star rate-it" onclick="fillStars(3)" style="cursor:pointer;font-size:20px;">
+                                            <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Rating.Point" type="radio" value="3" style="display:none"/>
+                                        </i>
+                                        <i class="fa-regular fa-star rate-it" onclick="fillStars(4)" style="cursor:pointer;font-size:20px;">
+                                            <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Rating.Point" type="radio" value="4" style="display:none"/>
+                                        </i>
+                                        <i class="fa-regular fa-star rate-it" onclick="fillStars(5)" style="cursor:pointer;font-size:20px;">
+                                            <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Rating.Point" type="radio" value="5" style="display:none" />
+                                        </i>
+                                    </div>
                                     <div class="row">
-                                        <div class="col-lg-6 fullname form-group">
-                                            <label for="#">
-                                                Fullname
-                                                <span>*</span>
-                                            </label>
-                                            <input type="text">
-                                        </div>
-                                        <div class="col-lg-6 email-adress form-group">
-                                            <label for="#">
-                                                Email Adress
-                                                <span>*</span>
-                                            </label>
-                                            <input type="text">
-                                        </div>
+                                        @if (!User.Identity.IsAuthenticated)
+                                        {    
+                                            <div class="col-lg-6 fullname form-group">
+                                                <label for="#">
+                                                    Fullname
+                                                    <span>*</span>
+                                                </label>
+                                                <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Fullname">
+                                                <span asp-validation-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Fullname" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-lg-6 email-adress form-group">
+                                                <label for="#">
+                                                    Email Adress
+                                                    <span>*</span>
+                                                </label>
+                                                <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Email" type="email">
+                                            </div>
+                                        }
                                         <div class="col-lg-12 comment form-group">
                                             <label for="#">Comments</label>
-                                            <textarea cols="30" rows="10"></textarea>
+                                            <textarea asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Text" cols="30" rows="10"></textarea>
                                         </div>
                                     </div>
                                     <div>
@@ -1105,3 +1149,37 @@
 
 <!-- Scripts -->
 <script src="~/assets/js/detail.js"></script>
+
+@section Scripts{
+
+    <script>
+       let stars =  document.querySelectorAll(".rate-it")
+       var prevSibs = [];
+
+       stars.forEach(star=>{
+           star.addEventListener("click", function(){
+
+                let point = star.firstElementChild
+
+                point.checked = true;
+
+                console.log(star.firstElementChild)
+           })
+       })
+
+       function fillStars(starIndex) {
+          
+          const stars = document.querySelectorAll('.rate-it');
+
+          for (let i = 0; i < starIndex; i++) {
+            stars[i].classList.add('fa-solid');
+            stars[i].classList.remove('fa-regular');
+          }
+
+          for (let i = starIndex; i < stars.length; i++) {
+            stars[i].classList.remove('fa-solid');
+            stars[i].classList.add('fa-regular');
+          }
+       }
+    </script>
+}

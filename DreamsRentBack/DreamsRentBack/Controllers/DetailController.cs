@@ -1,6 +1,8 @@
 ﻿using DreamsRentBack.DAL;
 using DreamsRentBack.Entities.CarModels;
+using DreamsRentBack.Entities.ClientModels;
 using DreamsRentBack.ViewModels.CarViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,10 +11,12 @@ namespace DreamsRentBack.Controllers
     public class DetailController : Controller
     {
         public DreamsRentDbContext _context { get; set; }
+        public UserManager<User> _userManager { get; set; }
 
-        public DetailController(DreamsRentDbContext context)
+        public DetailController(DreamsRentDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         #region CarDetail
@@ -23,6 +27,7 @@ namespace DreamsRentBack.Controllers
                 ViewBag.Services = _context.ExtraServices.Include(es=>es.ServicesAndCars).ToList();
                 ViewBag.Features = _context.CarsFeatures.Include(cf=>cf.FeaturesAndCars).ToList();
                 ViewBag.Users = _context.Users.ToList();
+                ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ToList();
 
                 Car? car = _context.Cars
                     .Include(c=>c.Company)
@@ -72,6 +77,80 @@ namespace DreamsRentBack.Controllers
             }
             return RedirectToAction("NotFound", "Error");
         }
+        #endregion
+
+        #region AddComment
+
+        public async Task<IActionResult> AddComment(int Id, Comment newComment)
+        {
+            if (newComment.Text is null)
+            {
+                ModelState.AddModelError("", "Invalid review form");
+                return View();
+            }
+            
+            Car car = _context.Cars.FirstOrDefault(c => c.Id == Id);
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                if (newComment.Fullname is null ||  newComment.Email is null) 
+                {
+                    ModelState.AddModelError("Comments.FirstOrDefault(c=>c.CarId == Model.Id).Rating.Point", "Invalid review form");
+                    return RedirectToAction(nameof(CarDetail), new { Id });
+                }
+
+                Rating ratingNotRegistered = new()
+                {
+                    Point = newComment.Rating.Point
+                };
+
+                Comment commentNotRegistered = new()
+                {
+                    Fullname = newComment.Fullname,
+                    Email = newComment.Email,
+                    Text = newComment.Text,
+                    Car = car,
+                    Rating = ratingNotRegistered,
+                    CreationTime = DateTime.Now,
+                };
+
+                car.Comments.Add(commentNotRegistered);
+
+                await _context.Comments.AddAsync(commentNotRegistered);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(CarDetail), new { Id });
+            }
+
+            User user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            Rating ratingRegistered = new()
+            {
+                Point = newComment.Rating.Point
+            };
+
+            Comment commentRegistered = new()
+            {
+                Text = newComment.Text,
+                User = user,
+                Car = car,
+                Rating = ratingRegistered,
+                CreationTime = DateTime.Now
+            };
+
+            double rateCount = _context.Ratings.Where(r=>r.Comment.CarId == Id).Count();
+
+            car.Rating += newComment.Rating.Point;
+
+            newComment.Text = string.Empty;
+            //return Json(ratingRegistered.Comment);
+
+            await _context.Comments.AddAsync(commentRegistered);
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToAction(nameof(CarDetail), new { Id });
+        }
+
         #endregion
     }
 }

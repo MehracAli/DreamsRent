@@ -233,13 +233,17 @@ namespace DreamsRentBack.Controllers
             [HttpPost]
             public async Task<IActionResult> Signin(LoginVM loginRequestUser)
             {
-                if (!ModelState.IsValid) return View();
+                if (!ModelState.IsValid)
+                {
+                    ModelState.AddModelError("", "User name or password was incorrect");
+                    return View();
+                }
 
                 User user = await _userManager.FindByNameAsync(loginRequestUser.UserName);
 
                 if (user is null)
                 {
-                    ModelState.AddModelError("", "Incorrect Username or Password");
+                    ModelState.AddModelError("", "User name or password was incorrect");
                     return View();
                 }
 
@@ -285,12 +289,13 @@ namespace DreamsRentBack.Controllers
             public IActionResult CompanyAccount(string UserName)
             {
                 ViewBag.Cars = _context.Cars
-                .Include(c=>c.Brand)
                 .Include(c=>c.Transmission)
                     .Include(c=>c.FuelType)
-                    .Include(c=>c.Engine)
-                        .ToList();
-
+                        .Include(c=>c.Engine)
+                            .Include(c=>c.CarPhotos)
+                                .Include(c=>c.Brand).ThenInclude(b=>b.Models)
+                                    .ToList();
+                ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ToList();
 
                 if (UserName == null) { return RedirectToAction("NotFound", "Error"); }
 
