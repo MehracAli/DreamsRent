@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+9amS2N73RvHzhhogDt2AfKhY4mFZJlQHvcJ+CUT5xM=",
+  "Hash": "nupw69vCgke6SQqY0kduwN/pohx4doTG0TvaxQse2k4=",
   "Source": "DreamsRentBack",
   "BasePath": "_content/DreamsRentBack",
   "Mode": "Default",
@@ -136,6 +136,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\13198170_KnNOXsm5kK8BlJRZtez2Tw.jpg"
     },
     {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\14682451_29hVayPMZz7Mh1JygORXcg.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/14682451_29hVayPMZz7Mh1JygORXcg.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\14682451_29hVayPMZz7Mh1JygORXcg.jpg"
+    },
+    {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\1817450_GHr79YfU2Lh_rBEmOYQL-g.jpg",
       "SourceId": "DreamsRentBack",
       "SourceType": "Discovered",
@@ -151,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\1817450_GHr79YfU2Lh_rBEmOYQL-g.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\1926610_uYyMdjpteqbiJ6ba4sAuuA.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/1926610_uYyMdjpteqbiJ6ba4sAuuA.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\1926610_uYyMdjpteqbiJ6ba4sAuuA.jpg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\2067428_mYluUQKuJ6aAtoLGrVBybw.jpg",
@@ -578,6 +612,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\7187450_GHr79YfU2Lh_rBEmOYQL-g.jpg"
     },
     {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\72797417_v9VgJTK8CW_6vOjS97KKfw.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/72797417_v9VgJTK8CW_6vOjS97KKfw.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\72797417_v9VgJTK8CW_6vOjS97KKfw.jpg"
+    },
+    {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\73788_R4i-lOocczfDReRlwrezxQ.jpg",
       "SourceId": "DreamsRentBack",
       "SourceType": "Discovered",
@@ -610,6 +661,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\73791_820dzw_DEnBO9E790dfXwA.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\76626619_gRxx0PiCvyVJKBUvinBpdA.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/76626619_gRxx0PiCvyVJKBUvinBpdA.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\76626619_gRxx0PiCvyVJKBUvinBpdA.jpg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\787437_FXNyLG57VaZRjV6IXeNKRA.jpg",
@@ -746,6 +814,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\8954211_oX-HseaRgrWWlUSooS0W1Q.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\92782387_KRIt--jWtnTcGJnBvX7Hpw.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/92782387_KRIt--jWtnTcGJnBvX7Hpw.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\92782387_KRIt--jWtnTcGJnBvX7Hpw.jpg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\9317437_FXNyLG57VaZRjV6IXeNKRA.jpg",

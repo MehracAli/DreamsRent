@@ -3732,7 +3732,6 @@ html ::-webkit-scrollbar-thumb:hover {
 }
 #list .container .row .filter-bar .form-wrapper form .accordion .accordion-desc {
   padding-bottom: 15px;
-  display: none;
 }
 #list .container .row .filter-bar .form-wrapper form .accordion .accordion-desc ::-webkit-scrollbar {
   width: 7px;

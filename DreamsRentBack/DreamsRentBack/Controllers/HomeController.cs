@@ -25,6 +25,7 @@ namespace DreamsRentBack.Controllers
                     .Include(c=>c.Likes)
                         .Include(c=>c.Brand).ThenInclude(b=>b.Models)
                             .Include(c=>c.Company)
+                                .OrderByDescending(c => c.Id)
                 .Select(c=> new CarExploreVM
                 {
                     Id = c.Id,

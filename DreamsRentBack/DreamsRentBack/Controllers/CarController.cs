@@ -92,12 +92,10 @@ namespace DreamsRentBack.Controllers
             JsonSerializerOptions options = new JsonSerializerOptions
             {
                 ReferenceHandler = ReferenceHandler.Preserve,
-                // Other options as needed
             };
 
             string json = JsonSerializer.Serialize(company, options);
 
-            //return Content(json, "application/json");
 
             Car car = new()
             {
