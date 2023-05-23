@@ -105,12 +105,11 @@
                                                     <i class="fa-solid fa-pen"></i>
                                                     Edit
                                                 </a>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal fade" id="staticBackdrop" style="backdrop-filter:blur(10px);" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Account</h1>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <form asp-action="ChangeCompanyDetails" asp-route-Id="@Model.Id" class="row" style="padding: 0 30px">

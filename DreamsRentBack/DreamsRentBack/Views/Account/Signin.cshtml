@@ -30,7 +30,7 @@
                                 <input asp-for="Password">
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
-                            <a href="#" class="forgot">
+                            <a type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="forgot">
                                 Forgot Password ?
                             </a>
                             <div class="remember-me">
@@ -40,7 +40,9 @@
                                     <span asp-validation-for="RememberMe" class="text-danger"></span>
                                 </label>
                             </div>
-                            <button href="#" class="btn sign-button">Sign In</button>
+                            <div class="d-flex justify-content-center">
+                                <button href="#" class="btn sign-button btn-dark">Sign In</button>
+                            </div>
                             <div class="dont-have">
                                 Don't have an account yet?
                                 <a asp-action="ConsumerSignup">Register</a>
@@ -50,6 +52,26 @@
                 </div>
             </div>
         </section>
+        <form asp-action="ForgotPassword">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Forgot Password?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body row" style="padding: 30px 50px">
+                            <label style="margin-bottom:15px; padding:0;">Enter email adress which u forgot password</label>
+                            <input type="email" name="email" placeholder="Enter your email adress" class="col-lg-12 form-control" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn  btn-dark" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-warning" style="color:white">Send Confirm Link</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </main>
     <!-- main end -->
 

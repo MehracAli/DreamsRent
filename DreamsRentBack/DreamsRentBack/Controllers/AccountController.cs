@@ -279,11 +279,80 @@ namespace DreamsRentBack.Controllers
                 _signInManager.SignOutAsync();
                 return RedirectToAction("Index", "Home");
             }
-        //SIGNOUT END
+            //SIGNOUT END
+
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            User user = await _userManager.FindByEmailAsync(email);
+
+            if (user is not null)
+            {
+                var token = await _userManager.FindByEmailAsync(email);
+                var url = Url.Action(
+                        nameof(ResetPassword),
+                        "Account",
+                        new
+                        {
+                            user.Email,
+                        },
+                        Request.Scheme,
+                        Request.Host.ToString()
+                    );
+
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress("dreamsrentofficial@gmail.com", "DreamsRent");
+                message.To.Add(new MailAddress(email));
+                message.Subject = "Reset Password";
+                message.Body = string.Empty;
+                string body = string.Empty;
+
+                using (StreamReader reader = new StreamReader("wwwroot/confirmationForReset.html"))
+                {
+                    body = reader.ReadToEnd();
+                }
+                message.Body = body.Replace("{{link}}", url);
+                //message.Body = body.Replace("{{name}}", user.Name +" "+ user.Surname);
+                message.IsBodyHtml = true;
+
+                SmtpClient smtpClient = new SmtpClient();
+                smtpClient.Host = "smtp.gmail.com";
+                smtpClient.Port = 587;
+                smtpClient.EnableSsl = true;
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtpClient.Credentials = new NetworkCredential("dreamsrentofficial@gmail.com", "cxpstlrytkzgyrdk");
+                smtpClient.Send(message);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> ResetPassword(string email)
+        {
+            ResetPasswordVM resetPasswordVM = new()
+            {
+                Email = email,
+            };
+            return View(resetPasswordVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetingPassword(ResetPasswordVM resetPasswordVM)
+        {
+            User user = await _userManager.FindByEmailAsync(resetPasswordVM.Email);
+
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(resetPasswordVM.Password);
+            string base64Hash = Convert.ToBase64String(passwordBytes);
+
+            user.PasswordHash = base64Hash;
+
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
         #endregion
 
         #region MyAccount
-            
+
             public IActionResult ConsumerAccount(string UserName)
             {
                 return View();
