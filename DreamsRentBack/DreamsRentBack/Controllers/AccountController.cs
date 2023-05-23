@@ -2,6 +2,7 @@
 using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
 using DreamsRentBack.Utilities;
+using DreamsRentBack.Utilities.Extentions;
 using DreamsRentBack.ViewModels.Account;
 using DreamsRentBack.ViewModels.Identify;
 using Microsoft.AspNetCore.Identity;
@@ -21,13 +22,15 @@ namespace DreamsRentBack.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IWebHostEnvironment _env;
 
-        public AccountController(DreamsRentDbContext context, UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(DreamsRentDbContext context, UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment env)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _env = env;
         }
 
         #region SignupLogin
@@ -312,6 +315,88 @@ namespace DreamsRentBack.Controllers
                 return View(company);
             }
 
+            [HttpPost]
+            public async Task<IActionResult> ChangeCompanyPhoto(Company changedCompany, int Id)
+            {
+                if (Id == 0) { RedirectToAction("NotFound", "Error"); }
+
+                Company? company = _context.Companies.FirstOrDefault(c => c.Id == Id);
+
+                if (company == null) { RedirectToAction("NotFound", "Error"); }
+
+                string imageFolderPath = Path.Combine(_env.WebRootPath, "assets", "images");
+
+                string removePath = Path.Combine(_env.WebRootPath, "assets", "images", "users", company.CompanyPhoto);
+
+                FileUpload.DeleteImage(removePath);
+
+                company.CompanyPhoto = await changedCompany.iff_CompanyPhoto.CreateImage(imageFolderPath, "users");
+
+                User user = _context.Users.FirstOrDefault(u => u.Id == company.UserId);
+
+                user.UserPhoto = company.CompanyPhoto;
+
+                _context.SaveChanges();
+                return RedirectToAction("CompanyAccount", "Account", new { UserName = user.UserName });
+            }
+
+            public async Task<IActionResult> ChangeCompanyDetails(Company company, string email, string phone, int Id)
+            {
+                if (Id == 0) { return RedirectToAction("NotFound", "Error"); }
+
+                Company? findCompany = _context.Companies.Include(c=>c.User).FirstOrDefault(c=>c.Id == Id);
+
+                if (findCompany == null) { return RedirectToAction("NotFound", "Error"); }
+
+                findCompany.CompanyName = company.CompanyName;
+                findCompany.User.PhoneNumber = phone;
+
+                if (findCompany.User.Email != email)
+                {
+                    findCompany.User.Email = email;
+                    findCompany.User.NormalizedEmail = email.ToUpper();
+                    findCompany.User.EmailConfirmed = false;
+                    
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(findCompany.User);
+                    var url = Url.Action(
+                            nameof(ConfirmEmail),
+                            "Account",
+                            new
+                            {
+                                findCompany.User.Email,
+                                token
+                            },
+                            Request.Scheme,
+                            Request.Host.ToString()
+                        );
+
+                    MailMessage message = new MailMessage();
+                    message.From = new MailAddress("dreamsrentofficial@gmail.com", "DreamsRent");
+                    message.To.Add(new MailAddress(findCompany.User.Email));
+                    message.Subject = "Verify Email";
+                    message.Body = string.Empty;
+                    string body = string.Empty;
+
+                    using (StreamReader reader = new StreamReader("wwwroot/confirmation.html"))
+                    {
+                        body = reader.ReadToEnd();
+                    }
+                    message.Body = body.Replace("{{link}}", url);
+                    message.IsBodyHtml = true;
+
+                    SmtpClient smtpClient = new SmtpClient();
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtpClient.Credentials = new NetworkCredential("dreamsrentofficial@gmail.com", "cxpstlrytkzgyrdk");
+                    smtpClient.Send(message);
+                }
+
+                _context.SaveChanges();
+                return RedirectToAction("CompanyAccount", "Account", new { UserName = findCompany.User.UserName });
+            }
         #endregion
 
        

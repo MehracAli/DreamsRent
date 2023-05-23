@@ -43,7 +43,7 @@ namespace DreamsRentBack.Controllers
         //AddCreate Start
         [HttpPost]
         [ActionName(nameof(AddCar))]
-        public async Task<IActionResult> AddCar(CreateCarVM createdCar)
+        public async Task<IActionResult> AddCar(CreateCarVM createdCar, string UserName)
         {
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.Bodies = _context.Bodys.ToList();
@@ -58,7 +58,22 @@ namespace DreamsRentBack.Controllers
             //return Json(createdCar);
             //if (createdCar == null){ return View(); }
 
-            
+            if(createdCar.iff_CarPhotos.Count() < 5)
+            {
+                ModelState.AddModelError("iff_CarPhotos", "Please choose minimum 5 image");
+                return View();
+            }
+            if (!createdCar.iff_CarPhotos.Any(cp => cp.IsValidFile("image/")))
+            {
+                ModelState.AddModelError("iff_CarPhotos", "Please choose image as: jpg, png...");
+                return View();
+            }
+            if (!createdCar.iff_CarPhotos.Any(cp => cp.IsValidLength(3)))
+            {
+                ModelState.AddModelError("iff_CarPhotos", "Please choose image which size is maximum 2MB");
+                return View();
+            }
+
 
             if (!ModelState.IsValid)
             {
@@ -71,17 +86,6 @@ namespace DreamsRentBack.Controllers
                 CheckModelState(createdCar.TransmissionId, "TransmissionId", "Select transmission type");
                 CheckModelState(createdCar.DrivertrianId, "DrivertrianId", "Select drivetrian type");
                 CheckModelState(createdCar.AirConditionId, "AirConditionId", "Select air condition type");
-
-                if (!createdCar.iff_CarPhotos.Any(cp => cp.IsValidFile("image/")))
-                {
-                    ModelState.AddModelError("iff_CarPhotos", "Please choose image as: jpg, png...");
-                    return View();
-                }
-                if (!createdCar.iff_CarPhotos.Any(cp => cp.IsValidLength(3)))
-                {
-                    ModelState.AddModelError("iff_CarPhotos", "Please choose image which size is maximum 2MB");
-                    return View();
-                }
 
                 return View(createdCar);
             }
@@ -159,7 +163,7 @@ namespace DreamsRentBack.Controllers
 
             _context.Cars.Add(car);
             _context.SaveChanges();
-            return RedirectToAction("CompanyAccount", "Account");
+            return RedirectToAction("CompanyAccount", "Account", new { UserName = UserName });
         }
         //AddCreate End
 

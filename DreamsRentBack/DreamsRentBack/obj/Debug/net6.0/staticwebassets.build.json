@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nupw69vCgke6SQqY0kduwN/pohx4doTG0TvaxQse2k4=",
+  "Hash": "GleuXgJWDGOx/vmGjYYvAUXNiXhD5V1EkgQBO2i47Dc=",
   "Source": "DreamsRentBack",
   "BasePath": "_content/DreamsRentBack",
   "Mode": "Default",
@@ -136,6 +136,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\13198170_KnNOXsm5kK8BlJRZtez2Tw.jpg"
     },
     {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\14135650_YinESAIA1Kf610QvQSmd-A.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/14135650_YinESAIA1Kf610QvQSmd-A.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\14135650_YinESAIA1Kf610QvQSmd-A.jpg"
+    },
+    {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\14682451_29hVayPMZz7Mh1JygORXcg.jpg",
       "SourceId": "DreamsRentBack",
       "SourceType": "Discovered",
@@ -151,6 +168,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\14682451_29hVayPMZz7Mh1JygORXcg.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\17435631_oTRPOLdEBd28qB6EWd3_AA.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/17435631_oTRPOLdEBd28qB6EWd3_AA.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\17435631_oTRPOLdEBd28qB6EWd3_AA.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\17436575_O67Rbrn2pSjZSqYk0j2xKw.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/17436575_O67Rbrn2pSjZSqYk0j2xKw.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\17436575_O67Rbrn2pSjZSqYk0j2xKw.jpg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\1817450_GHr79YfU2Lh_rBEmOYQL-g.jpg",
@@ -204,6 +255,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\2067428_mYluUQKuJ6aAtoLGrVBybw.jpg"
     },
     {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\21935622_06rPN0-LPLIItui9ihuJrA.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/21935622_06rPN0-LPLIItui9ihuJrA.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\21935622_06rPN0-LPLIItui9ihuJrA.jpg"
+    },
+    {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\2297437_FXNyLG57VaZRjV6IXeNKRA.jpg",
       "SourceId": "DreamsRentBack",
       "SourceType": "Discovered",
@@ -238,6 +306,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\27450_GHr79YfU2Lh_rBEmOYQL-g.jpg"
     },
     {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\27786741_Uc_Nt2iadDQaaBPvtmi-_w.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/27786741_Uc_Nt2iadDQaaBPvtmi-_w.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\27786741_Uc_Nt2iadDQaaBPvtmi-_w.jpg"
+    },
+    {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\2797450_GHr79YfU2Lh_rBEmOYQL-g.jpg",
       "SourceId": "DreamsRentBack",
       "SourceType": "Discovered",
@@ -270,6 +355,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\2967428_mYluUQKuJ6aAtoLGrVBybw.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\33035631_oTRPOLdEBd28qB6EWd3_AA.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/33035631_oTRPOLdEBd28qB6EWd3_AA.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\33035631_oTRPOLdEBd28qB6EWd3_AA.jpg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\3327450_GHr79YfU2Lh_rBEmOYQL-g.jpg",
@@ -323,6 +425,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\3697437_FXNyLG57VaZRjV6IXeNKRA.jpg"
     },
     {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\38335635_-_359DgOphEyU-XswiaTpQ.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/38335635_-_359DgOphEyU-XswiaTpQ.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\38335635_-_359DgOphEyU-XswiaTpQ.jpg"
+    },
+    {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\3877428_mYluUQKuJ6aAtoLGrVBybw.jpg",
       "SourceId": "DreamsRentBack",
       "SourceType": "Discovered",
@@ -338,6 +457,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\3877428_mYluUQKuJ6aAtoLGrVBybw.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\40286724_KsXBCt4efFiJlzwgbKqOYA.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/40286724_KsXBCt4efFiJlzwgbKqOYA.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\40286724_KsXBCt4efFiJlzwgbKqOYA.jpg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\407437_FXNyLG57VaZRjV6IXeNKRA.jpg",
@@ -561,6 +697,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\58498170_KnNOXsm5kK8BlJRZtez2Tw.jpg"
     },
     {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\59335632_7u2evHc-9XYgeYc4rHaGIw.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/59335632_7u2evHc-9XYgeYc4rHaGIw.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\59335632_7u2evHc-9XYgeYc4rHaGIw.jpg"
+    },
+    {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\6427428_mYluUQKuJ6aAtoLGrVBybw.jpg",
       "SourceId": "DreamsRentBack",
       "SourceType": "Discovered",
@@ -578,6 +731,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\6427428_mYluUQKuJ6aAtoLGrVBybw.jpg"
     },
     {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\65535671_ixnlI_SVGkZWOTh9fhRCzA.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/65535671_ixnlI_SVGkZWOTh9fhRCzA.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\65535671_ixnlI_SVGkZWOTh9fhRCzA.jpg"
+    },
+    {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\66498170_KnNOXsm5kK8BlJRZtez2Tw.jpg",
       "SourceId": "DreamsRentBack",
       "SourceType": "Discovered",
@@ -593,6 +763,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\66498170_KnNOXsm5kK8BlJRZtez2Tw.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\6736591_kH3cox2VBXo_XuQNvSX9kw.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/6736591_kH3cox2VBXo_XuQNvSX9kw.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\6736591_kH3cox2VBXo_XuQNvSX9kw.jpg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\7187450_GHr79YfU2Lh_rBEmOYQL-g.jpg",
@@ -680,6 +867,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\76626619_gRxx0PiCvyVJKBUvinBpdA.jpg"
     },
     {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\77435632_7u2evHc-9XYgeYc4rHaGIw.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/77435632_7u2evHc-9XYgeYc4rHaGIw.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\77435632_7u2evHc-9XYgeYc4rHaGIw.jpg"
+    },
+    {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\787437_FXNyLG57VaZRjV6IXeNKRA.jpg",
       "SourceId": "DreamsRentBack",
       "SourceType": "Discovered",
@@ -731,6 +935,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\8198170_KnNOXsm5kK8BlJRZtez2Tw.jpg"
     },
     {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\82835622_06rPN0-LPLIItui9ihuJrA.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/82835622_06rPN0-LPLIItui9ihuJrA.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\82835622_06rPN0-LPLIItui9ihuJrA.jpg"
+    },
+    {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\8387428_mYluUQKuJ6aAtoLGrVBybw.jpg",
       "SourceId": "DreamsRentBack",
       "SourceType": "Discovered",
@@ -780,6 +1001,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\8787428_mYluUQKuJ6aAtoLGrVBybw.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\87935671_ixnlI_SVGkZWOTh9fhRCzA.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/87935671_ixnlI_SVGkZWOTh9fhRCzA.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\87935671_ixnlI_SVGkZWOTh9fhRCzA.jpg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\8824185_r_RMwR5-u_X7yDk9JcWXOA.jpg",
@@ -848,6 +1086,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\9317437_FXNyLG57VaZRjV6IXeNKRA.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\94786724_KsXBCt4efFiJlzwgbKqOYA.jpg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/cars/94786724_KsXBCt4efFiJlzwgbKqOYA.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\cars\\94786724_KsXBCt4efFiJlzwgbKqOYA.jpg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\cars\\9637450_GHr79YfU2Lh_rBEmOYQL-g.jpg",
@@ -2293,6 +2548,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\team\\team-01.jpg"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\users\\206hellojob.svg",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "assets/images/users/206hellojob.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\users\\206hellojob.svg"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\users\\Default_pfp.svg.png",

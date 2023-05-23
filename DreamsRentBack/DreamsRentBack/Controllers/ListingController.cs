@@ -63,8 +63,42 @@ namespace DreamsRentBack.Controllers
             ViewBag.Ratings = _context.Ratings.Include(r => r.Comment).ToList();
             List<Car> expensives = _context.Cars.OrderBy(c => c.Price).ToList();
             ViewBag.Expensive = expensives.First().Price;
-            List<Car> currentCars = _context.Cars.OrderBy(c=>c.Id).ToList();
+            List<Car> currentCars = _context.Cars
+                .Include(c => c.CarPhotos)
+                                    .Include(c => c.Likes)
+                                        .Include(c => c.Brand).ThenInclude(b => b.Models)
+                                        .Include(c => c.Company)
+                                            .Include(c => c.Transmission)
+                                            .Include(c => c.FuelType)
+                                                .Include(c => c.Engine)
+                                                 .OrderByDescending(c => c.Id)
+                                                    .Take(6).ToList();
 
+            if (selectedBrands.Count() == 0 && selectedBodies.Count() == 0 && selectedCapacity == 0 && selectedPrice == 0 && selectedRating == 0)
+            {
+                List<CarExploreVM> currentCarExploreVMs = currentCars.Distinct().Select(c => new CarExploreVM()
+                {
+                    Id = c.Id,
+                    CarPhotos = c.CarPhotos,
+                    Likes = c.Likes,
+                    Brand = c.Brand,
+                    ModelId = c.ModelId,
+                    Price = c.Price,
+                    Rating = c.Rating,
+                    Transmission = c.Transmission,
+                    Speed = c.Speed,
+                    FuelType = c.FuelType,
+                    Engine = c.Engine,
+                    Year = c.Year,
+                    Capacity = c.Capacity,
+                    Company = c.Company,
+
+                })
+                .OrderByDescending(c => c.Id)
+                .Take(6).ToList();
+
+                return View(currentCarExploreVMs);
+            }
 
             List<Body> getBodies = new();
             List<Car> cars = new();
@@ -87,11 +121,6 @@ namespace DreamsRentBack.Controllers
                     {
                         cars.Add(car);
                     }
-                }
-
-                foreach (int bodyId in selectedBodies)
-                {
-                    getBodies = _context.Bodys.Where(b=>b.Id==bodyId).ToList();
                 }
             }
             //-------

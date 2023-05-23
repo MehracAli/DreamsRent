@@ -22,7 +22,6 @@
         <div class="container">
             <div class="create-wrapper">
                 <form asp-action="AddCar" class="row" enctype="multipart/form-data">
-                    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
                     <div class="form-group col-lg-12 photos row justify-content-center" style="margin-bottom: 50px;">
                         <label asp-for="iff_CarPhotos" class="control-label" style="width:max-content">Choose photos
                             <span class="red-star">*</span>
@@ -198,7 +197,7 @@
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <div class="form-group fg col-lg-12" style="display:flex;justify-content:center;margin-top:50px;">
-                        <button type="submit" value="Create" class="btn">Create</button>
+                        <button asp-route-UserName="@User.Identity.Name" type="submit" value="Create" class="btn">Create</button>
                     </div>
                 </form>
             </div>

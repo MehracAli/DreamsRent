@@ -6,19 +6,67 @@
     List<Car> cars = ViewBag.Cars;
     List<Rating> ratings = ViewBag.Ratings;
 }
+@section Scripts{
 
+    <script>
+
+        let changePhotoBtn = document.querySelector(".edit-photo")
+        let changePhotoInput = document.querySelector(".change-photo-input")
+
+        changePhotoBtn.addEventListener("click", function(){
+            changePhotoInput.click()
+        })
+
+        changePhotoInput.addEventListener("change", function(){
+
+            var file = this.files[0]
+
+            if (!file.type.startsWith("image/")) {
+                alert("Please select an image file.");
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                alert("The selected image exceeds the maximum allowed size of 5MB.");
+                return;
+            }
+
+            document.querySelector("#changePhotoForm").submit();
+        })
+
+    </script>
+}
+<style>
+
+    .no-spinner::-webkit-inner-spin-button,
+    .no-spinner::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .no-spinner {
+        -moz-appearance: textfield;
+    }
+
+</style>
 <!-- main start -->
 <main>
     <section id="account">
         <div class="container">
             <div class="profile row">
                 <div class="col-lg-3">
-                    <div class="photo" style="display:flex;justify-content:center;align-items:center;padding:15px;background:white;">
+                    <div class="photo" style="display:flex;justify-content:center;align-items:center;background:white;">
                         <img src="~/assets/images/users/@Model.CompanyPhoto" alt="">
+                        <form id="changePhotoForm" asp-action="ChangeCompanyPhoto" asp-route-Id="@Model.Id" enctype="multipart/form-data">
+                            <input asp-for="iff_CompanyPhoto" style="display:none;" class="change-photo-input" accept="image/*"/>
+                        </form>
                     </div>
-                    <div class="edit-photo">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </div>
+                    @if (User.Identity.Name == Model.User.UserName)
+                    {    
+                        <div class="edit-photo">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </div>
+                    }
                 </div>
                 <div class="fullname col-lg-9">
                     <h1>@Model.CompanyName</h1>
@@ -41,6 +89,58 @@
                 <div class="col-lg-9" style="min-height: 300px;">
                     <div class="company-main-side">
                         <div class="account-details">
+                            <div class="consumer-account account-details active-main">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="person-info">
+                                            <h3>Company Info</h3>
+                                            <div class="info-body">
+                                                <p style="font-weight:800;">Company Name: <span style="font-weight:400;">@Model.CompanyName</span></p>
+                                                <p style="font-weight:800;">Email: <span style="font-weight:400;">@Model.User.Email</span></p>
+                                                <p style="font-weight:800;">Phone Number: <span style="font-weight:400;">@Model.User.PhoneNumber</span></p>
+                                            </div>
+                                            @if (User.Identity.Name == Model.User.UserName)
+                                            {
+                                                <a href="#" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color:white">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                    Edit
+                                                </a>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form asp-action="ChangeCompanyDetails" asp-route-Id="@Model.Id" class="row" style="padding: 0 30px">
+                                                                <div class="modal-body">
+                                                                        <div class="form-group" style="margin-bottom:25px">
+                                                                            <label style="margin-bottom:5px">Company Name <span style="color:red">*</span></label>
+                                                                            <input asp-for="CompanyName" class="col-lg-12 form-control" />
+                                                                        </div>
+                                                                        <div class="form-group" style="margin-bottom:25px">
+                                                                            <label style="margin-bottom:5px">Email <span style="color:red">*</span></label>
+                                                                            <input type="email" name="email" value="@Model.User.Email" class="col-lg-12 form-control" />
+                                                                        </div>
+                                                                        <div class="form-group" style="margin-bottom:25px">
+                                                                            <label style="margin-bottom:5px">Phone Number <span style="color:red">*</span></label>
+                                                                            <input type="number" name="phone" value="@Model.User.PhoneNumber" class="no-spinner col-lg-12 form-control" />
+                                                                        </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-warning" style="color:white">Save</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="about-announcements active-main">
                             <div class="company-main-head">
