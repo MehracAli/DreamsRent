@@ -14,11 +14,15 @@ namespace DreamsRentBack.Entities.ClientModels
         public string UserId { get; set; }
         public User User { get; set; }
         public Location? Location { get; set; }
+        public List<CompanyPickupLocation> companyPickupLocations { get; set; }
+        public List<CompanyDropoffLocation> companyDropoffLocations { get; set; }
         public List<Car> Cars { get; set; }
 
         public Company()
         {
             Cars = new();
+            companyPickupLocations = new();
+            companyDropoffLocations = new();
         }
 
     }

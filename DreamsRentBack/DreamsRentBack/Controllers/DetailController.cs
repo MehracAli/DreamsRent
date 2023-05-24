@@ -44,6 +44,8 @@ namespace DreamsRentBack.Controllers
                                         .Include(c=>c.Engine)
                                         .Include(c=>c.Comments).ThenInclude(c=>c.Rating)
                                             .FirstOrDefault(c => c.Id == Id);
+                car.Views++;
+                _context.SaveChanges();
 
                 CarDetailVM carDetailVM = new()
                 {

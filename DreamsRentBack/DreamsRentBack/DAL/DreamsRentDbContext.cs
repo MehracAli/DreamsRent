@@ -18,9 +18,11 @@ namespace DreamsRentBack.DAL
         public DbSet<City> Cities { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<DropoffLocation> DropoffLocations { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<PayCard> PayCards { get; set; }
         public DbSet<PayCardType> PayCardTypes { get; set; }
+        public DbSet<PickupLocation> PickupLocations { get; set; }
         public DbSet<Street> Streets { get; set; }
         //Client Models End
 

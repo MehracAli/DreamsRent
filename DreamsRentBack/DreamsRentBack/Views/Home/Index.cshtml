@@ -374,7 +374,7 @@
                                 <img src="~/assets/images/index/bx-heart.svg" alt="">
                             </div>
                             <div class="count-digit">
-                                <h4 class="count">@likes.Count()</h4>
+                                <h4 class="count" data="@likes.Count()">0</h4>
                                 <p>Happy Customers</p>
                             </div>
                         </div>
@@ -385,7 +385,7 @@
                                 <img src="~/assets/images/index/bx-car.svg" alt="">
                             </div>
                             <div class="count-digit">
-                                <h4 class="count">@cars.Count()</h4>
+                                <h4 class="count" data="@cars.Count()">0</h4>
                                 <p>Count of Cars</p>
                             </div>
                         </div>
@@ -873,3 +873,35 @@
 
 <!-- scripts -->
 <script src="~/assets/js/index.js"></script>
+
+@section Scripts{
+
+    <script>
+
+        function startCounting(){
+
+            let counts = document.querySelectorAll(".count")
+            counts.forEach(count => {
+
+                let digit = parseInt(count.getAttribute("data"))
+                let currentDigit = 0;
+                let interval = setInterval(function () {
+                    count.innerHTML = currentDigit;
+                    currentDigit++;
+
+                    if (currentDigit > digit) {
+                        clearInterval(interval);
+                    }
+                }, 100);
+
+            })
+
+        }
+
+
+        var hoverElement = document.getElementById('facts');
+        hoverElement.addEventListener('mouseenter', startCounting);
+
+    </script>
+
+}

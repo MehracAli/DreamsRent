@@ -1,15 +1,15 @@
 ﻿namespace DreamsRentBack.Entities.ClientModels
 {
-    public class Location:BaseEntity
+    public class DropoffLocation:BaseEntity
     {
         public int CityId { get; set; }
         public int StreetId { get; set; }
         public City City { get; set; }
-        public List<Company> Companies { get; set; }
+        public List<CompanyDropoffLocation> companyDropoffLocations { get; set; }
 
-        public Location()
+        public DropoffLocation()
         {
-            Companies = new();
+            companyDropoffLocations = new();
         }
     }
 }

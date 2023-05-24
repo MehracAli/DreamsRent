@@ -5,6 +5,8 @@
     ViewData["Title"] = "My Account";
     List<Car> cars = ViewBag.Cars;
     List<Rating> ratings = ViewBag.Ratings;
+    List<City> cities = ViewBag.Cities;
+    List<Street> streets = ViewBag.Streets;
 }
 @section Scripts{
 
@@ -48,6 +50,14 @@
         -moz-appearance: textfield;
     }
 
+    .location-pool{
+        border: 2px solid #f2f2f2;
+        border-radius:5px;
+        width: 100%;
+        padding: 10px;
+        min-height: 100px;
+    }
+
 </style>
 <!-- main start -->
 <main>
@@ -56,7 +66,14 @@
             <div class="profile row">
                 <div class="col-lg-3">
                     <div class="photo" style="display:flex;justify-content:center;align-items:center;background:white;">
-                        <img src="~/assets/images/users/@Model.CompanyPhoto" alt="">
+                        @if (Model.CompanyPhoto is not null)
+                        {
+                            <img src="~/assets/images/users/@Model.CompanyPhoto" alt="">
+                        }
+                        else
+                        {
+                            <img src="~/assets/images/users/Default_pfp.svg.png" alt="">
+                        }
                         <form id="changePhotoForm" asp-action="ChangeCompanyPhoto" asp-route-Id="@Model.Id" enctype="multipart/form-data">
                             <input asp-for="iff_CompanyPhoto" style="display:none;" class="change-photo-input" accept="image/*"/>
                         </form>
@@ -136,6 +153,140 @@
                                                     </div>
                                                 </div>
                                             }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="consumer-account account-details active-main">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="pickup-pool" style="margin-bottom:50px;">
+                                            <div class="row" style="margin-bottom:15px">
+                                                <div class="col-lg-6">
+                                                    <h3>Pickup Locations</h3>
+                                                </div>
+                                                <div class="col-lg-6 d-flex justify-content-end">
+                                                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                        Add Location
+                                                    </button>
+                                                </div>
+                                                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Pickup Location</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form asp-action="AddPickupLocation" asp-route-Id="@Model.Id">
+                                                                <div class="modal-body">
+                                                                    <div>
+                                                                        <label>Choose City</label>
+                                                                        <select name="cityId" class="form-control">
+                                                                            @foreach (City city in cities)
+                                                                            {
+                                                                                <option value="@city.Id">
+                                                                                    @city.Name
+                                                                                </option>
+                                                                            }
+                                                                        </select>
+                                                                    </div>
+                                                                    <div>
+                                                                        <label>Choose street</label>
+                                                                        <select id="selectOptions" name="streetId" class="form-control">
+                                                                            @foreach (Street street in streets)
+                                                                            {
+                                                                                <option value="@street.Id">
+                                                                                    @street.Name
+                                                                                </option>
+                                                                            }
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-warning" style="color:white;">Add</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="location-pool"> 
+                                                @foreach (CompanyPickupLocation companyPickupLocation in Model.companyPickupLocations)
+                                                {
+                                                    @foreach (Street street in streets)
+                                                    {
+                                                        if (street.Id == companyPickupLocation.PickupLocation.StreetId)
+                                                        {
+                                                            <span style="font-size:13px; color:gray;">@companyPickupLocation.PickupLocation.City.Name, @street.Name; </span>
+                                                        }
+                                                    };
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="dropoff-pool">
+                                            <div class="row" style="margin-bottom:15px">
+                                                <div class="col-lg-6">
+                                                    <h3>Dropoff Locations</h3>
+                                                </div>
+                                                <div class="col-lg-6 d-flex justify-content-end">
+                                                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                                                        Add Location
+                                                    </button>
+                                                </div>
+                                                <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Dropoff Location</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form asp-action="AddDropoffLocation" asp-route-Id="@Model.Id">
+                                                                <div class="modal-body">
+                                                                    <div>
+                                                                        <label>Choose City</label>
+                                                                        <select name="cityId" class="form-control">
+                                                                            @foreach (City city in cities)
+                                                                            {
+                                                                                <option value="@city.Id">
+                                                                                    @city.Name
+                                                                                </option>
+                                                                            }
+                                                                        </select>
+                                                                    </div>
+                                                                    <div>
+                                                                        <label>Choose street</label>
+                                                                        <select id="selectOptions" name="streetId" class="form-control">
+                                                                            @foreach (Street street in streets)
+                                                                            {
+                                                                                <option value="@street.Id">
+                                                                                    @street.Name
+                                                                                </option>
+                                                                            }
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-warning" style="color:white;">Add</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="location-pool">
+                                                @foreach (CompanyDropoffLocation companyDropoffLocation in Model.companyDropoffLocations)
+                                                {
+                                                    @foreach (Street street in streets)
+                                                    {
+                                                        if (street.Id == companyDropoffLocation.DropoffLocation.StreetId)
+                                                        {
+                                                            <span style="font-size:13px; color:gray;">@companyDropoffLocation.DropoffLocation.City.Name, @street.Name; </span>
+                                                        }
+                                                    };
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -13,6 +13,8 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Text.Encodings.Web;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace DreamsRentBack.Controllers
 {
@@ -281,74 +283,81 @@ namespace DreamsRentBack.Controllers
             }
             //SIGNOUT END
 
-        public async Task<IActionResult> ForgotPassword(string email)
-        {
-            User user = await _userManager.FindByEmailAsync(email);
-
-            if (user is not null)
+            public async Task<IActionResult> ForgotPassword(string email)
             {
-                var token = await _userManager.FindByEmailAsync(email);
-                var url = Url.Action(
-                        nameof(ResetPassword),
-                        "Account",
-                        new
-                        {
-                            user.Email,
-                        },
-                        Request.Scheme,
-                        Request.Host.ToString()
-                    );
+                User user = await _userManager.FindByEmailAsync(email);
 
-                MailMessage message = new MailMessage();
-                message.From = new MailAddress("dreamsrentofficial@gmail.com", "DreamsRent");
-                message.To.Add(new MailAddress(email));
-                message.Subject = "Reset Password";
-                message.Body = string.Empty;
-                string body = string.Empty;
-
-                using (StreamReader reader = new StreamReader("wwwroot/confirmationForReset.html"))
+                if (user is not null)
                 {
-                    body = reader.ReadToEnd();
-                }
-                message.Body = body.Replace("{{link}}", url);
-                //message.Body = body.Replace("{{name}}", user.Name +" "+ user.Surname);
-                message.IsBodyHtml = true;
+                    var token = await _userManager.FindByEmailAsync(email);
+                    var url = Url.Action(
+                            nameof(ResetPassword),
+                            "Account",
+                            new
+                            {
+                                user.Email,
+                            },
+                            Request.Scheme,
+                            Request.Host.ToString()
+                        );
 
-                SmtpClient smtpClient = new SmtpClient();
-                smtpClient.Host = "smtp.gmail.com";
-                smtpClient.Port = 587;
-                smtpClient.EnableSsl = true;
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtpClient.Credentials = new NetworkCredential("dreamsrentofficial@gmail.com", "cxpstlrytkzgyrdk");
-                smtpClient.Send(message);
+                    MailMessage message = new MailMessage();
+                    message.From = new MailAddress("dreamsrentofficial@gmail.com", "DreamsRent");
+                    message.To.Add(new MailAddress(email));
+                    message.Subject = "Reset Password";
+                    message.Body = string.Empty;
+                    string body = string.Empty;
+
+                    using (StreamReader reader = new StreamReader("wwwroot/confirmationForReset.html"))
+                    {
+                        body = reader.ReadToEnd();
+                    }
+                    message.Body = body.Replace("{{link}}", url);
+                    //message.Body = body.Replace("{{name}}", user.Name +" "+ user.Surname);
+                    message.IsBodyHtml = true;
+
+                    SmtpClient smtpClient = new SmtpClient();
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtpClient.Credentials = new NetworkCredential("dreamsrentofficial@gmail.com", "cxpstlrytkzgyrdk");
+                    smtpClient.Send(message);
+                }
+
+                return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("Index", "Home");
-        }
-
-        public async Task<IActionResult> ResetPassword(string email)
-        {
-            ResetPasswordVM resetPasswordVM = new()
+            public async Task<IActionResult> ResetPassword(string email)
             {
-                Email = email,
-            };
-            return View(resetPasswordVM);
-        }
+                ResetPasswordVM resetPasswordVM = new()
+                {
+                    Email = email,
+                };
+                return View(resetPasswordVM);
+            }
 
-        [HttpPost]
-        public async Task<IActionResult> ResetingPassword(ResetPasswordVM resetPasswordVM)
-        {
-            User user = await _userManager.FindByEmailAsync(resetPasswordVM.Email);
+            [HttpPost]
+            public async Task<IActionResult> ResetingPassword(ResetPasswordVM resetPasswordVM)
+            {
+                User user = await _userManager.FindByEmailAsync(resetPasswordVM.Email);
 
-            byte[] passwordBytes = Encoding.UTF8.GetBytes(resetPasswordVM.Password);
-            string base64Hash = Convert.ToBase64String(passwordBytes);
+                string resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+                IdentityResult result = await _userManager.ResetPasswordAsync(user, resetToken, resetPasswordVM.Password);
 
-            user.PasswordHash = base64Hash;
+                if (!result.Succeeded)
+                {
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    return View();
+                }
 
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
-        }
+                _context.SaveChanges();
+                return RedirectToAction("SignIn", "Account");
+            }
         #endregion
 
         #region MyAccount
@@ -368,6 +377,8 @@ namespace DreamsRentBack.Controllers
                                 .Include(c=>c.Brand).ThenInclude(b=>b.Models)
                                     .ToList();
                 ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ToList();
+                ViewBag.Cities = _context.Cities.ToList();
+                ViewBag.Streets = _context.Streets.ToList();
 
                 if (UserName == null) { return RedirectToAction("NotFound", "Error"); }
 
@@ -377,6 +388,8 @@ namespace DreamsRentBack.Controllers
 
                 Company? company = _context.Companies
                 .Include(c=>c.Cars)
+                .Include(c=>c.companyPickupLocations).ThenInclude(cp=>cp.PickupLocation).ThenInclude(p=>p.City)
+                .Include(c=>c.companyDropoffLocations).ThenInclude(cp=>cp.DropoffLocation).ThenInclude(p=>p.City)
                 .FirstOrDefault(c=>c.UserId == user.Id);
 
                 //Company company = user.Company;
@@ -466,9 +479,88 @@ namespace DreamsRentBack.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("CompanyAccount", "Account", new { UserName = findCompany.User.UserName });
             }
+            
+            public async Task<IActionResult> ChangeConsumerDetails()
+        {
+            return View();
+        }
+
+            public async Task<IActionResult> AddPickupLocation(int Id, int cityId, int streetId)
+            {
+                if (Id == 0) { return RedirectToAction("NotFound", "Error"); }
+
+                Company? company = _context.Companies
+                    .Include(c=>c.User)
+                        .Include(c=>c.companyPickupLocations).ThenInclude(c=>c.PickupLocation)
+                            .FirstOrDefault(c => c.Id == Id);
+
+                if (company == null) { return RedirectToAction("NotFound", "Error"); }
+
+                City city = _context.Cities.FirstOrDefault(c => c.Id == cityId);
+
+                PickupLocation pickupLocation = new();
+
+                CompanyPickupLocation companyPickupLocation = new();
+
+                Street findStreet = _context.Streets.FirstOrDefault(s => s.Id == streetId);
+
+                if (company.companyPickupLocations.Any(c=>c.PickupLocation.StreetId == streetId))
+                { 
+                    return RedirectToAction("CompanyAccount", "Account", new { UserName = company.User.UserName });
+                }
+
+                pickupLocation.CityId = city.Id;
+                pickupLocation.StreetId = findStreet.Id;
+
+                companyPickupLocation.PickupLocation = pickupLocation;
+                companyPickupLocation.Company = company;
+
+                company.companyPickupLocations.Add(companyPickupLocation);
+                pickupLocation.companyPickupLocations.Add(companyPickupLocation);
+                _context.SaveChanges();
+
+                return RedirectToAction("CompanyAccount", "Account", new { UserName = company.User.UserName });
+            }
+
+            public async Task<IActionResult> AddDropoffLocation(int Id, int cityId, int streetId)
+            {
+                if (Id == 0) { return RedirectToAction("NotFound", "Error"); }
+
+                Company? company = _context.Companies
+                    .Include(c => c.User)
+                        .Include(c => c.companyDropoffLocations).ThenInclude(c => c.DropoffLocation)
+                            .FirstOrDefault(c => c.Id == Id);
+
+                if (company == null) { return RedirectToAction("NotFound", "Error"); }
+
+                City city = _context.Cities.FirstOrDefault(c => c.Id == cityId);
+
+                DropoffLocation dropoffLocation = new();
+
+                CompanyDropoffLocation companyDropoffLocation = new();
+
+                Street findStreet = _context.Streets.FirstOrDefault(s => s.Id == streetId);
+
+                if (company.companyDropoffLocations.Any(c => c.DropoffLocation.StreetId == streetId))
+                {
+                    return RedirectToAction("CompanyAccount", "Account", new { UserName = company.User.UserName });
+                }
+
+                dropoffLocation.CityId = city.Id;
+                dropoffLocation.StreetId = findStreet.Id;
+
+                companyDropoffLocation.DropoffLocation = dropoffLocation;
+                companyDropoffLocation.Company = company;
+
+                company.companyDropoffLocations.Add(companyDropoffLocation);
+                dropoffLocation.companyDropoffLocations.Add(companyDropoffLocation);
+                _context.SaveChanges();
+
+                return RedirectToAction("CompanyAccount", "Account", new { UserName = company.User.UserName });
+            }
         #endregion
 
-       
+
 
         //public async Task AddRoles()
         //{
