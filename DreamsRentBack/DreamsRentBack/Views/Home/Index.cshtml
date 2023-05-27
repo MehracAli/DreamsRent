@@ -8,7 +8,32 @@
     List<Like> likes = ViewBag.Likes;
     List<Rating> ratings = ViewBag.Ratings;
 }
+<style>
 
+    #dropdownContainer {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        position: absolute;
+        z-index: 1;
+        width:100%;
+        border: 1px solid #F4F4F4;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .dropdown-content .suggestion {
+        cursor: pointer;
+        padding: 5px;
+    }    
+
+    .dropdown-content .suggestion:hover {
+        background-color: lightgray;
+    }        
+
+</style>
 <!-- main start -->
 <main>
     <section id="banner">
@@ -30,7 +55,7 @@
                         </p>
                     </div>
                     <div class="banner-button">
-                        <a href="#">
+                        <a asp-controller="Listing" asp-action="Index">
                             View all Cars
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
@@ -45,13 +70,17 @@
     <section id="search">
         <div class="container">
             <div class="search-main">
-                <form action="#">
+                <form asp-controller="Listing" asp-action="Index" method="get"  id="searchForm">
                     <ul>
                         <li>
                             <div class="form-group">
                                 <label for="#">Pickup Location</label>
                                 <div class="group-img">
-                                    <input class="form-group" type="text" placeholder="Enter City, Airport, or Address">
+                                    <input name="streetName" class="form-group" autocomplete="off" id="searchInput" type="text" placeholder="Enter City, Airport, or Address">
+                                    <input type="hidden" id="selectedValue" />
+                                    <div id="dropdownContainer">
+                                        <div id="suggestions" class="dropdown-content"></div>
+                                    </div>
                                     <span>
                                         <i class="fa-sharp fa-solid fa-location-dot"></i>
                                     </span>
@@ -65,7 +94,7 @@
                             <div class="form-group-wrapper">
                                 <div class="date form-group" style="width:100%;">
                                     <div class="group-img">
-                                        <input class="form-group date-now" type="date">
+                                        <input name="pickupDate" class="form-group date-now" type="date">
                                         <span>
                                             <i></i>
                                         </span>
@@ -91,7 +120,7 @@
                         <li>
                             <div class="form-group">
                                 <div class="search-btn">
-                                    <button class="btn search-button">
+                                    <button type="submit" class="btn search-button">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                         Search
                                     </button>
@@ -115,7 +144,7 @@
             </div>
             <div class="services-body">
                 <div class="row">
-                    <div data-aos="fade-down" data-aos-duration="500" class="location col-lg-4">
+                    <div class="location col-lg-4">
                         <div class="location-head head">
                             <img src="~/assets/images/index/services-icon-01.svg" alt="icon">
                         </div>
@@ -127,7 +156,7 @@
                             </p>
                         </div>
                     </div>
-                    <div data-aos="fade-down" data-aos-duration="500" data-aos-delay="300" class="pick-up col-lg-4">
+                    <div class="pick-up col-lg-4">
                         <div class="pick-up-head head">
                             <img src="~/assets/images/index/services-icon-01.svg" alt="icon">
                         </div>
@@ -139,7 +168,7 @@
                             </p>
                         </div>
                     </div>
-                    <div data-aos="fade-down" data-aos-duration="500" data-aos-delay="600" class="book col-lg-4">
+                    <div class="book col-lg-4">
                         <div class="book-head head">
                             <img src="~/assets/images/index/services-icon-01.svg" alt="icon">
                         </div>
@@ -183,133 +212,149 @@
                         @foreach (CarExploreVM car in cars)
                         {
                             <div data-aos="zoom-in-up" data-aos-duration="1000" class="car col-lg-4">
-                            <div class="car-item">
-                                <div class="car-img" style="height:285px;">
-                                    <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
-                                        <img src="~/assets/images/cars/@car.CarPhotos.FirstOrDefault(p=>p.CarId == car.Id).Path" style="height:100%" alt="">
-                                    </a>
-                                    <div class="fav">
-                                        <span style="height:max-content">@car.Company.CompanyName</span>
-                                        <a href="#" style="width:40px; height:40px">
-                                            @if(likes.Any(l=>l.User.UserName == User.Identity.Name && l.CarId == car.Id))
-                                            {
-                                                <i class="fa-solid fa-heart" style="font-size:20px"></i>
-                                            }
-                                            else
-                                            {
-                                                <i class="fa-regular fa-heart" style="font-size:20px"></i>
-                                            }
+                                <div class="car-item">
+                                    <div class="car-img" style="height:285px;">
+                                        <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
+                                            <img src="~/assets/images/cars/@car.CarPhotos.FirstOrDefault(p=>p.CarId == car.Id).Path" style="height:100%" alt="">
                                         </a>
-                                    </div>
-                                </div>
-                                <div class="car-content">
-                                    <div class="car-features">
-                                        <a href="#" class="author-img" style="top:-45px">
-                                            <img src="~/assets/images/users/@car.Company.CompanyPhoto"
-                                                     style="width:60px;height:60px;padding:2px;border: 1px solid orange;background:white;" alt="">
-                                        </a>
-                                        <h3 class="car-title">
-                                            <a href="#">
-                                                    @car.Brand.Name @car.Brand.Models.FirstOrDefault(m=>m.Id == car.ModelId).Name
-                                            </a>
-                                        </h3>
-                                        <div class="car-rating">
-                                                @for (double i = 0; i < Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
+                                        <div class="fav">
+                                            <span style="height:max-content">@car.Company.CompanyName</span>
+                                            <a href="#" style="width:40px; height:40px">
+                                                @if(likes.Any(l=>l.User.UserName == User.Identity.Name && l.CarId == car.Id))
                                                 {
-                                                    <i class="fa-solid fa-star"></i>
-                                                }
-                                                @for (double i = 0; i < 5 - Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
-                                                {
-                                                    <i class="fa-solid fa-star" style="color: gray;"></i>
-                                                }
-
-                                                @if (ratings.Where(r => r.Comment.CarId == car.Id).Count() > 0)
-                                                {
-                                                    <span>@(((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()).ToString("F1"))</span>
+                                                    <i class="fa-solid fa-heart" style="font-size:20px"></i>
                                                 }
                                                 else
                                                 {
-                                                    <span>@(car.Rating).0</span>
+                                                    <i class="fa-regular fa-heart" style="font-size:20px"></i>
                                                 }
-                                            <span style="position:absolute;right:5px;"> 
-                                                <i class="fa-solid fa-heart"></i>
-                                                Likes (@car.Likes.Count())
-                                            </span>
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="car-details">
-                                        <ul style="padding-left: 2rem;">
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
+                                    <div class="car-content">
+                                        <div class="car-features">
+                                            <a asp-controller="Account" asp-action="CompanyAccount" asp-route-UserName="@car.Company.User.UserName" class="author-img" style="top:-45px">
+                                                @if (car.Company.CompanyPhoto != null)
+                                                {
+                                                    <img src="~/assets/images/users/@car.Company.CompanyPhoto"
+                                                        style="width:60px;height:60px;padding:2px;border: 1px solid orange;background:white;"
+                                                        alt="">
+
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/assets/images/users/Default_pfp.svg.png"
+                                                         style="width:60px;height:60px;padding:2px;border: 1px solid orange;background:white;"
                                                          alt="">
+                                                }
+                                            </a>
+                                            <h3 class="car-title">
+                                                <a href="#">
+                                                        @car.Brand.Name @car.Brand.Models.FirstOrDefault(m=>m.Id == car.ModelId).Name
+                                                </a>
+                                            </h3>
+                                            <div class="car-rating">
+                                                    @for (double i = 0; i < Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
+                                                    {
+                                                        <i class="fa-solid fa-star"></i>
+                                                    }
+                                                    @for (double i = 0; i < 5 - Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
+                                                    {
+                                                        <i class="fa-solid fa-star" style="color: gray;"></i>
+                                                    }
+
+                                                    @if (ratings.Where(r => r.Comment.CarId == car.Id).Count() > 0)
+                                                    {
+                                                        <span>@(((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()).ToString("F1"))</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fas fa-star filled" style="color:gray;"></i>
+                                                        <i class="fas fa-star filled" style="color:gray;"></i>
+                                                        <i class="fas fa-star filled" style="color:gray;"></i>
+                                                        <i class="fas fa-star filled" style="color:gray;"></i>
+                                                        <i class="fas fa-star filled" style="color:gray;"></i>
+                                                        <span>@(car.Rating).0</span>
+                                                    }
+                                                <span style="position:absolute;right:5px;"> 
+                                                    <i class="fa-solid fa-heart"></i>
+                                                    Likes (@car.Likes.Count())
                                                 </span>
-                                                <p>@car.Transmission.Name</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>@car.Speed</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>@car.FuelType.Name</p>
-                                            </li>
-                                        </ul>
+                                            </div>
+                                        </div>
+                                        <div class="car-details">
                                             <ul style="padding-left: 2rem;">
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>@car.Engine.HorsePower (hp)</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>@car.Year</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>@car.Capacity</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="car-location-price">
-                                        <div class="car-location">
-                                            <span>
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                Germany
-                                            </span>
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
+                                                             alt="">
+                                                    </span>
+                                                    <p>@car.Transmission.Name</p>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
+                                                             alt="">
+                                                    </span>
+                                                    <p>@car.Speed</p>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
+                                                             alt="">
+                                                    </span>
+                                                    <p>@car.FuelType.Name</p>
+                                                </li>
+                                            </ul>
+                                                <ul style="padding-left: 2rem;">
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
+                                                             alt="">
+                                                    </span>
+                                                    <p>@car.Engine.HorsePower (hp)</p>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
+                                                             alt="">
+                                                    </span>
+                                                    <p>@car.Year</p>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
+                                                             alt="">
+                                                    </span>
+                                                    <p>@car.Capacity</p>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <div class="car-price">
-                                            <h6>
-                                                    $@(car.Price.ToString("N0"))
-                                                <span>/Day</span>
-                                            </h6>
+                                        <div class="car-location-price">
+                                            <div class="car-location">
+                                                <span>
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    Germany
+                                                </span>
+                                            </div>
+                                            <div class="car-price">
+                                                <h6>
+                                                        $@(car.Price.ToString("N0"))
+                                                    <span>/Day</span>
+                                                </h6>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="car-button">
-                                        <a href="#">
-                                            <span>
-                                                <i class="fa-solid fa-calendar"></i>
-                                            </span>
-                                            Rent Now
-                                        </a>
+                                        <div class="car-button">
+                                            <a href="#">
+                                                <span>
+                                                    <i class="fa-solid fa-calendar"></i>
+                                                </span>
+                                                Rent Now
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         }
                     </div>
                 </div>
@@ -346,7 +391,7 @@
                 </div>
             </div>
             <div class="view-all">
-                <a href="./listing.html">
+                <a asp-controller="Listing" asp-action="Index">
                     View all Cars
                     <i class="fa-solid fa-arrow-right"></i>
                 </a>
@@ -459,6 +504,11 @@
                                                         <span>@(((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()).ToString("F1"))</span>
                                                     }
                                                     else{
+                                                            <i class="fas fa-star filled" style="color:gray;"></i>
+                                                            <i class="fas fa-star filled" style="color:gray;"></i>
+                                                            <i class="fas fa-star filled" style="color:gray;"></i>
+                                                            <i class="fas fa-star filled" style="color:gray;"></i>
+                                                            <i class="fas fa-star filled" style="color:gray;"></i>
                                                             <span>@(car.Rating).0</span>
                                                     }
                                                 </div>
@@ -467,7 +517,7 @@
                                                 </h3>
                                                 <h6>
                                                     Listed By :
-                                                    <span>Venis Darren</span>
+                                                    <span>@car.Company.CompanyName</span>
                                                 </h6>
                                             </div>
                                             <div class="car-details">
@@ -875,6 +925,61 @@
 <script src="~/assets/js/index.js"></script>
 
 @section Scripts{
+
+    <script>
+        var searchInput = document.getElementById('searchInput');
+        var selectedValue = document.getElementById('selectedValue');
+        var suggestions = document.getElementById('suggestions');
+        var dropdownContainer = document.getElementById('dropdownContainer');
+
+        window.addEventListener("DOMContentLoaded", (event) => { 
+            hideSuggestions();
+        });
+
+        function completeSearch(value) {
+            searchInput.value = value;
+        }
+
+        function showSuggestions() {
+            dropdownContainer.style.display = 'block';
+        }
+
+        function hideSuggestions() {
+            dropdownContainer.style.display = 'none';
+        }
+        searchInput.addEventListener('keyup', function () {
+            var query = searchInput.value;
+
+            if (query.length >= 1) {
+                fetch('/Search/GetMatchingData?searchQuery=' + encodeURIComponent(query))
+                    .then(response => response.json())
+                    .then(data => {
+
+                        suggestions.innerHTML = '';
+
+                        data.forEach(function (item) {
+                            var suggestion = document.createElement('div');
+                            suggestion.classList.add('suggestion');
+                            suggestion.textContent = item;
+                            suggestion.addEventListener('click', function () {
+                                completeSearch(item);
+                            });
+                            suggestions.appendChild(suggestion);
+                        });
+                        dropdownContainer.style.display = 'block';
+                    });
+                showSuggestions();
+            } else {
+                hideSuggestions()
+            }
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!searchInput.contains(event.target)) {
+                hideSuggestions();
+            }
+        });
+    </script>
 
     <script>
 

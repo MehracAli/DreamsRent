@@ -1,5 +1,6 @@
 ﻿using DreamsRentBack.DAL;
 using DreamsRentBack.Entities.CarModels;
+using DreamsRentBack.Entities.ClientModels;
 using DreamsRentBack.ViewModels.CarViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +18,9 @@ namespace DreamsRentBack.Controllers
             _context = context;
         }
 
-        public ActionResult Index() 
+        public ActionResult Index(string? streetName, DateTime pickupDate, DateTime returnDate) 
         {
+
             ViewBag.Brands = _context.Brands.Include(b=>b.Models).OrderBy(b=>b.Name).ToList();
             ViewBag.Bodies = _context.Bodys.OrderBy(b=>b.Name).ToList();
             ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ToList();
@@ -51,960 +53,123 @@ namespace DreamsRentBack.Controllers
             })
             .Take(6)
             .ToList();
+            if (!string.IsNullOrEmpty(streetName))
+            {
+                List<CarExploreVM> filterCars = SearchByStatus(streetName, pickupDate, returnDate);
+                return View(filterCars);
+            }
 
             return View(cars);
         }
 
         [HttpPost]
-        public IActionResult Index(int[] selectedBrands, int[] selectedBodies = null, int selectedCapacity = 0, int selectedPrice = 0, int selectedRating = 0)
+        public IActionResult Index(int[] selectedBrands, int[] selectedBodies, int selectedCapacity, int selectedPrice, int selectedRating)
         {
             ViewBag.Brands = _context.Brands.Include(b => b.Models).OrderBy(b => b.Name).ToList();
             ViewBag.Bodies = _context.Bodys.OrderBy(b => b.Name).ToList();
             ViewBag.Ratings = _context.Ratings.Include(r => r.Comment).ToList();
             List<Car> expensives = _context.Cars.OrderBy(c => c.Price).ToList();
             ViewBag.Expensive = expensives.First().Price;
-            List<Car> currentCars = _context.Cars
+            IQueryable<Car>? cars = _context.Cars
                 .Include(c => c.CarPhotos)
                                     .Include(c => c.Likes)
                                         .Include(c => c.Brand).ThenInclude(b => b.Models)
                                         .Include(c => c.Company)
+                                            .Include(c=>c.Comments).ThenInclude(c=>c.Rating)
                                             .Include(c => c.Transmission)
                                             .Include(c => c.FuelType)
                                                 .Include(c => c.Engine)
                                                  .OrderByDescending(c => c.Id)
-                                                    .Take(6).ToList();
-
-            if (selectedBrands.Count() == 0 && selectedBodies.Count() == 0 && selectedCapacity == 0 && selectedPrice == 0 && selectedRating == 0)
-            {
-                List<CarExploreVM> currentCarExploreVMs = currentCars.Distinct().Select(c => new CarExploreVM()
-                {
-                    Id = c.Id,
-                    CarPhotos = c.CarPhotos,
-                    Likes = c.Likes,
-                    Brand = c.Brand,
-                    ModelId = c.ModelId,
-                    Price = c.Price,
-                    Rating = c.Rating,
-                    Transmission = c.Transmission,
-                    Speed = c.Speed,
-                    FuelType = c.FuelType,
-                    Engine = c.Engine,
-                    Year = c.Year,
-                    Capacity = c.Capacity,
-                    Company = c.Company,
-
-                })
-                .OrderByDescending(c => c.Id)
-                .Take(6).ToList();
-
-                return View(currentCarExploreVMs);
-            }
-
-            List<Body> getBodies = new();
-            List<Car> cars = new();
+                                                    .Take(6);
 
             if (selectedBrands.Count() != 0)
             {
-                foreach (int brandId in selectedBrands)
-                {
-                    List<Car>? findById  = _context.Cars
-                        .Include(c => c.CarPhotos)
-                                    .Include(c => c.Likes)
-                                        .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                        .Include(c => c.Company)
-                                            .Include(c => c.Transmission)
-                                            .Include(c => c.FuelType)
-                                                .Include(c => c.Engine)
-                                                .OrderByDescending(c => c.Id)
-                                                    .Where(c => c.BrandId == brandId).ToList();
-                    foreach (Car car in findById)
-                    {
-                        cars.Add(car);
-                    }
-                }
+                cars = cars.Where(c => selectedBrands.Contains(c.BrandId));
             }
-            //-------
             if (selectedBodies.Count() != 0)
             {
-                foreach (int bodyId in selectedBodies)
-                {
-                    if(selectedBrands.Count() == 0)
-                    {
-                        List<Car> findByBodyId2 = _context.Cars
-                             .Include(c => c.CarPhotos)
-                                    .Include(c => c.Likes)
-                                        .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                        .Include(c => c.Company)
-                                            .Include(c => c.Transmission)
-                                            .Include(c => c.FuelType)
-                                                .Include(c => c.Engine)
-                                                .OrderByDescending(c => c.Id)
-                                                    .Where(c=>c.BodyId == bodyId)
-                                                    .ToList();
-
-                        foreach (Car car in findByBodyId2)
-                        {
-                            cars.Add(car);
-                        }
-                    }
-
-                    List<Car> findByBodyId = cars.Where(c => c.BodyId == bodyId).ToList();
-
-                    cars = findByBodyId;
-
-                }
+                cars = cars.Where(c => selectedBodies.Contains(c.BodyId));
             }
-            //-------
             if (selectedCapacity != 0)
             {
-                if (selectedBrands.Count() == 0 && selectedBodies.Count() == 0)
+                switch (selectedCapacity) 
                 {
-                    if (selectedCapacity == 1) 
-                    {
-                        List<Car> findByCapacity = _context.Cars
-                            .Include(c => c.CarPhotos)
-                                        .Include(c => c.Likes)
-                                            .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                            .Include(c => c.Company)
-                                                .Include(c => c.Transmission)
-                                                .Include(c => c.FuelType)
-                                                    .Include(c => c.Engine)
-                                                    .OrderByDescending(c => c.Id)
-                                                        .Where(c=>c.Capacity >= 2 && c.Capacity <= 4)
-                                                        .ToList();
-
-                        foreach(Car car in findByCapacity)
-                        {
-                            cars.Add(car);
-                        }
-                    }
-                    if (selectedCapacity == 2)
-                    {
-                        List<Car> findByCapacity = _context.Cars
-                            .Include(c => c.CarPhotos)
-                                        .Include(c => c.Likes)
-                                            .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                            .Include(c => c.Company)
-                                                .Include(c => c.Transmission)
-                                                .Include(c => c.FuelType)
-                                                    .Include(c => c.Engine)
-                                                    .OrderByDescending(c => c.Id)
-                                                        .Where(c => c.Capacity >= 4 && c.Capacity <= 6)
-                                                        .ToList();
-
-                        foreach (Car car in findByCapacity)
-                        {
-                            cars.Add(car);
-                        }
-                    }
-                    if (selectedCapacity == 3)
-                {
-                    List<Car> findByCapacity = _context.Cars
-                       .Include(c => c.CarPhotos)
-                                   .Include(c => c.Likes)
-                                       .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                       .Include(c => c.Company)
-                                           .Include(c => c.Transmission)
-                                           .Include(c => c.FuelType)
-                                               .Include(c => c.Engine)
-                                               .OrderByDescending(c => c.Id)
-                                                   .Where(c => c.Capacity > 6 && c.Capacity < 10)
-                                                   .ToList();
-
-                    foreach (Car car in findByCapacity)
-                    {
-                        cars.Add(car);
-                    }
-                }
-                }
-                if (selectedBrands.Count() != 0) 
-                {
-                    if (selectedCapacity == 1)
-                    {
-                        List<Car> findByCapacity = cars.Where(c => c.Capacity >= 2 && c.Capacity <= 4).ToList();
-                        cars = findByCapacity.ToList();
-                    }
-                    if (selectedCapacity == 2)
-                    {
-                        List<Car> findByCapacity = cars.Where(c => c.Capacity >= 4 && c.Capacity <= 6).ToList();
-                        cars = findByCapacity.ToList();
-                    }
-                    if (selectedCapacity == 3)
-                    {
-                        List<Car> findByCapacity = cars.Where(c => c.Capacity > 6 && c.Capacity < 10).ToList();
-                        cars = findByCapacity.ToList();
-                    }
-                }
-                if (selectedBodies.Count() != 0)
-                {
-                    if (selectedCapacity == 1)
-                    {
-                        List<Car> findByCapacity = cars.Where(c => c.Capacity >= 2 && c.Capacity <= 4).ToList();
-                        cars = findByCapacity.ToList();
-                    }
-                    if (selectedCapacity == 2)
-                    {
-                        List<Car> findByCapacity = cars.Where(c => c.Capacity >= 4 && c.Capacity <= 6).ToList();
-                        cars = findByCapacity.ToList();
-                    }
-                    if (selectedCapacity == 3)
-                    {
-                        List<Car> findByCapacity = cars.Where(c => c.Capacity > 6 && c.Capacity < 10).ToList();
-                        cars = findByCapacity.ToList();
-                    }
+                    case 1:
+                        cars = cars.Where(c => c.Capacity >= 2 && c.Capacity <= 4);
+                        break;
+                    case 2:
+                        cars = cars.Where(c => c.Capacity >= 4 && c.Capacity <= 6);
+                        break;
+                    case 3:
+                        cars = cars.Where(c => c.Capacity >= 6 && c.Capacity <= 10);
+                        break;
                 }
             }
-            //-------
-            if (selectedPrice != 0 )
+            if (selectedPrice != 0)
             {
-                if (selectedBrands.Count() == 0 && selectedBodies.Count() == 0 && selectedCapacity == 0) 
+                switch (selectedPrice)
                 {
-                    if (selectedPrice == 1)
-                    {
-                        List<Car> findByPrice = _context.Cars
-                           .Include(c => c.CarPhotos)
-                                       .Include(c => c.Likes)
-                                           .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                           .Include(c => c.Company)
-                                               .Include(c => c.Transmission)
-                                               .Include(c => c.FuelType)
-                                                   .Include(c => c.Engine)
-                                                   .OrderByDescending(c => c.Id)
-                                                       .Where(c => c.Price > 0 && c.Price <= 50)
-                                                       .ToList();
-
-                        //return Json(findByPrice.First().Id);
-
-                        foreach (Car car in findByPrice)
-                        {
-                            cars.Add(car);
-                        }
-                    }
-
-                    if (selectedPrice == 2)
-                    {
-                        List<Car> findByPrice = _context.Cars
-                           .Include(c => c.CarPhotos)
-                                       .Include(c => c.Likes)
-                                           .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                           .Include(c => c.Company)
-                                               .Include(c => c.Transmission)
-                                               .Include(c => c.FuelType)
-                                                   .Include(c => c.Engine)
-                                                   .OrderByDescending(c => c.Id)
-                                                       .Where(c => c.Price >= 50 && c.Price <= 150)
-                                                       .ToList();
-
-                        foreach (Car car in findByPrice)
-                        {
-                            cars.Add(car);
-                        }
-                    }
-
-                    if (selectedPrice == 3)
-                    {
-                        List<Car> findByPrice = _context.Cars
-                           .Include(c => c.CarPhotos)
-                                       .Include(c => c.Likes)
-                                           .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                           .Include(c => c.Company)
-                                               .Include(c => c.Transmission)
-                                               .Include(c => c.FuelType)
-                                                   .Include(c => c.Engine)
-                                                   .OrderByDescending(c => c.Id)
-                                                       .Where(c => c.Price >= 150 && c.Price <= 300)
-                                                       .ToList();
-
-                        foreach (Car car in findByPrice)
-                        {
-                            cars.Add(car);
-                        }
-                    }
-
-                    if (selectedPrice == 4)
-                    {
-                        List<Car> findByPrice = _context.Cars
-                           .Include(c => c.CarPhotos)
-                                       .Include(c => c.Likes)
-                                           .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                           .Include(c => c.Company)
-                                               .Include(c => c.Transmission)
-                                               .Include(c => c.FuelType)
-                                                   .Include(c => c.Engine)
-                                                   .OrderByDescending(c => c.Id)
-                                                       .Where(c => c.Price >= 300 && c.Price <= 500)
-                                                       .ToList();
-
-                        foreach (Car car in findByPrice)
-                        {
-                            cars.Add(car);
-                        }
-                    }
-
-                    if (selectedPrice == 5)
-                    {
-                        List<Car> findByPrice = _context.Cars
-                           .Include(c => c.CarPhotos)
-                                       .Include(c => c.Likes)
-                                           .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                           .Include(c => c.Company)
-                                               .Include(c => c.Transmission)
-                                               .Include(c => c.FuelType)
-                                                   .Include(c => c.Engine)
-                                                   .OrderByDescending(c => c.Id)
-                                                       .Where(c => c.Price >= 500 && c.Price <= 1000)
-                                                       .ToList();
-
-                        foreach (Car car in findByPrice)
-                        {
-                            cars.Add(car);
-                        }
-                    }
-
-                    if (selectedPrice == 6)
-                {
-                    List<Car> findByPrice = _context.Cars
-                       .Include(c => c.CarPhotos)
-                                   .Include(c => c.Likes)
-                                       .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                       .Include(c => c.Company)
-                                           .Include(c => c.Transmission)
-                                           .Include(c => c.FuelType)
-                                               .Include(c => c.Engine)
-                                               .OrderByDescending(c => c.Id)
-                                                   .Where(c => c.Price >= 1000)
-                                                   .ToList();
-
-                    foreach (Car car in findByPrice)
-                    {
-                        cars.Add(car);
-                    }
-                }
-                }
-                if (selectedBrands.Count() != 0)
-                {
-                    if (selectedPrice == 1)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price > 0 && c.Price <= 50)
-                                    .ToList();
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 2)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 50 && c.Price <= 150)
-                                    .ToList();
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 3)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 150 && c.Price <= 300)
-                                    .ToList();
-
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 4)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 300 && c.Price <= 500)
-                                    .ToList();
-
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 5)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 500 && c.Price <= 1000)
-                                    .ToList();
-
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 6)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 1000)
-                                    .ToList();
-                            
-                        cars = findByPrice;
-                    }
-                }
-                if (selectedBodies.Count() != 0)
-                {
-                    if (selectedPrice == 1)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price > 0 && c.Price <= 50)
-                                    .ToList();
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 2)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 50 && c.Price <= 150)
-                                    .ToList();
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 3)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 150 && c.Price <= 300)
-                                    .ToList();
-
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 4)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 300 && c.Price <= 500)
-                                    .ToList();
-
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 5)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 500 && c.Price <= 1000)
-                                    .ToList();
-
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 6)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 1000)
-                                    .ToList();
-
-                        cars = findByPrice;
-                    }
-                }
-                if (selectedCapacity != 0)
-                {
-                    if (selectedPrice == 1)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price > 0 && c.Price <= 50)
-                                    .ToList();
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 2)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 50 && c.Price <= 150)
-                                    .ToList();
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 3)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 150 && c.Price <= 300)
-                                    .ToList();
-
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 4)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 300 && c.Price <= 500)
-                                    .ToList();
-
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 5)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 500 && c.Price <= 1000)
-                                    .ToList();
-
-                        cars = findByPrice;
-                    }
-
-                    if (selectedPrice == 6)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => c.Price >= 1000)
-                                    .ToList();
-
-                        cars = findByPrice;
-                    }
+                    case 1:
+                        cars = cars.Where(c => c.Price > 0 && c.Price <= 50);
+                        break;
+                    case 2:
+                        cars = cars.Where(c => c.Price >= 50 && c.Price <= 150);
+                        break;
+                    case 3:
+                        cars = cars.Where(c => c.Price >= 150 && c.Price <= 300);
+                        break;
+                    case 4:
+                        cars = cars.Where(c => c.Price >= 300 && c.Price <= 500);
+                        break;
+                    case 5:
+                        cars = cars.Where(c => c.Price >= 500 && c.Price <= 1000);
+                        break;
+                    case 6:
+                        cars = cars.Where(c => c.Price >= 1000);
+                        break;
                 }
             }
-            //-------
-            if (selectedRating != 0)
+
+            List<Rating> ratingList = _context.Ratings.Include(r => r.Comment).ThenInclude(c=>c.Car).ToList();
+
+            if (selectedRating > 0)
             {
-                List<Rating> ratings = _context.Ratings.Include(r=>r.Comment).ToList();
-
-                if (selectedBrands.Count() == 0 && selectedBodies.Count() == 0 && selectedCapacity == 0 && selectedPrice == 0)
+                switch (selectedRating)
                 {
-                    if (selectedRating == 1)
-                    {
-                        List<Car> findByRating = _context.Cars
-                           .Include(c => c.CarPhotos)
-                                       .Include(c => c.Likes)
-                                           .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                           .Include(c => c.Company)
-                                               .Include(c => c.Transmission)
-                                               .Include(c => c.FuelType)
-                                                   .Include(c => c.Engine)
-                                                   .OrderByDescending(c => c.Id)
-                                                       .ToList();
-
-                        foreach (Car car in findByRating)
-                        {
-                            double rate = car.Rating / ratings.FindAll(r => r.Comment.CarId == car.Id).Count();
-                            if (rate >= 1 && rate < 2)
-                            {
-                                cars.Add(car);
-                            }
-                        }
-                    }
-
-                    if (selectedRating == 2)
-                    {
-                        List<Car> findByRating = _context.Cars
-                           .Include(c => c.CarPhotos)
-                                       .Include(c => c.Likes)
-                                           .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                           .Include(c => c.Company)
-                                               .Include(c => c.Transmission)
-                                               .Include(c => c.FuelType)
-                                                   .Include(c => c.Engine)
-                                                   .OrderByDescending(c => c.Id)
-                                                       .ToList();
-
-                        foreach (Car car in findByRating)
-                        {
-                            double rate = car.Rating / ratings.FindAll(r => r.Comment.CarId == car.Id).Count();
-                            if (rate >= 2 && rate < 3)
-                            {
-                                cars.Add(car);
-                            }
-                        }
-                    }
-
-                    if (selectedRating == 3)
-                    {
-                        List<Car> findByRating = _context.Cars
-                           .Include(c => c.CarPhotos)
-                                       .Include(c => c.Likes)
-                                           .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                           .Include(c => c.Company)
-                                               .Include(c => c.Transmission)
-                                               .Include(c => c.FuelType)
-                                                   .Include(c => c.Engine)
-                                                   .OrderByDescending(c => c.Id)
-                                                       .ToList();
-
-                        foreach (Car car in findByRating)
-                        {
-                            double rate = car.Rating / ratings.FindAll(r => r.Comment.CarId == car.Id).Count();
-                            if (rate >= 3 && rate < 4)
-                            {
-                                cars.Add(car);
-                            }
-                        }
-                    }
-
-                    if (selectedRating == 4)
-                    {
-                        List<Car> findByRating = _context.Cars
-                           .Include(c => c.CarPhotos)
-                                       .Include(c => c.Likes)
-                                           .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                           .Include(c => c.Company)
-                                               .Include(c => c.Transmission)
-                                               .Include(c => c.FuelType)
-                                                   .Include(c => c.Engine)
-                                                   .OrderByDescending(c => c.Id)
-                                                       .ToList();
-
-                        foreach (Car car in findByRating)
-                        {
-                            double rate = car.Rating / ratings.FindAll(r => r.Comment.CarId == car.Id).Count();
-                            if (rate>=4 && rate < 5)
-                            {
-                                cars.Add(car);
-                            }
-                        }
-                    }
-
-                    if (selectedRating == 5)
-                    {
-                        List<Car> findByRating = _context.Cars
-                           .Include(c => c.CarPhotos)
-                                       .Include(c => c.Likes)
-                                           .Include(c => c.Brand).ThenInclude(b => b.Models)
-                                           .Include(c => c.Company)
-                                               .Include(c => c.Transmission)
-                                               .Include(c => c.FuelType)
-                                                   .Include(c => c.Engine)
-                                                   .OrderByDescending(c => c.Id)
-                                                       .ToList();
-
-                        foreach (Car car in findByRating)
-                        {
-                            double rate = car.Rating / ratings.FindAll(r => r.Comment.CarId == car.Id).Count();
-                            if (rate == 5)
-                            {
-                                cars.Add(car);
-                            }
-                        }
-                    }
-                }
-                if (selectedBrands.Count() != 0)
-                {
-                    if (selectedRating == 1)
-                    {
-                        double rate = 0;
-
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c=>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 1 && 
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) < 2)
-                                                .ToList();
-
-                        cars = findByRating;
-                        
-                    }
-
-                    if (selectedRating == 2)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => 
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 2 && 
-                                ((double)c.Rating / ratings
-                                    .Where(r => r.Comment.CarId == c.Id)
-                                        .Count()) < 3)
-                                            .ToList();
-
-                        cars = findByPrice;
-
-
-                    }
-
-                    if (selectedRating == 3)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => 
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 3 && 
-                                     ((double)c.Rating / ratings
-                                         .Where(r => r.Comment.CarId == c.Id)
-                                             .Count()) < 4)
-                                                .ToList();
-
-                        cars = findByPrice;
-                    }
-
-                    if (selectedRating == 4)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => 
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 4 && 
-                                ((double)c.Rating / ratings
-                                    .Where(r => r.Comment.CarId == c.Id)
-                                        .Count()) < 5)
-                                            .ToList();
-
-                        cars = findByPrice;
-                    }
-
-                    if (selectedRating == 5)
-                    {
-                        List<Car> findByPrice = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => 
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) == 5)
-                                                .ToList();
-
-                        cars = findByPrice;
-                    }
-                }
-                if (selectedBodies.Count() != 0)
-                {
-                    if (selectedRating == 1)
-                    {
-                        double rate = 0;
-
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => 
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 1 && 
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) < 2)
-                                                .ToList();
-
-                        cars = findByRating;
-
-                    }
-
-                    if (selectedRating == 2)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => ((double)c.Rating / ratings.Where(r => r.Comment.CarId == c.Id).Count()) >= 2 && ((double)c.Rating / ratings.Where(r => r.Comment.CarId == c.Id).Count()) < 3)
-                                    .ToList();
-
-                        cars = findByRating;
-
-
-                    }
-
-                    if (selectedRating == 3)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c =>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 3 &&
-                                     ((double)c.Rating / ratings
-                                         .Where(r => r.Comment.CarId == c.Id)
-                                             .Count()) < 4)
-                                                .ToList();
-
-                        cars = findByRating;
-                    }
-
-                    if (selectedRating == 4)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c =>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 4 &&
-                                ((double)c.Rating / ratings
-                                    .Where(r => r.Comment.CarId == c.Id)
-                                        .Count()) < 5)
-                                            .ToList();
-
-                        cars = findByRating;
-                    }
-
-                    if (selectedRating == 5)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c =>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) == 5)
-                                                .ToList();
-
-                        cars = findByRating;
-                    }
-                }
-                if (selectedCapacity != 0)
-                {
-                    if (selectedRating == 1)
-                    {
-                        double rate = 0;
-
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c =>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 1 &&
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) < 2)
-                                                .ToList();
-
-                        cars = findByRating;
-
-                    }
-
-                    if (selectedRating == 2)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => ((double)c.Rating / ratings.Where(r => r.Comment.CarId == c.Id).Count()) >= 2 && ((double)c.Rating / ratings.Where(r => r.Comment.CarId == c.Id).Count()) < 3)
-                                    .ToList();
-
-                        cars = findByRating;
-
-
-                    }
-
-                    if (selectedRating == 3)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c =>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 3 &&
-                                     ((double)c.Rating / ratings
-                                         .Where(r => r.Comment.CarId == c.Id)
-                                             .Count()) < 4)
-                                                .ToList();
-
-                        cars = findByRating;
-                    }
-
-                    if (selectedRating == 4)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c =>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 4 &&
-                                ((double)c.Rating / ratings
-                                    .Where(r => r.Comment.CarId == c.Id)
-                                        .Count()) < 5)
-                                            .ToList();
-
-                        cars = findByRating;
-                    }
-
-                    if (selectedRating == 5)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c =>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) == 5)
-                                                .ToList();
-
-                        cars = findByRating;
-                    }
-                }
-                if (selectedPrice != 0)
-                {
-                    if (selectedRating == 1)
-                    {
-                        double rate = 0;
-
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c =>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 1 &&
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) < 2)
-                                                .ToList();
-
-                        cars = findByRating;
-
-                    }
-
-                    if (selectedRating == 2)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c => ((double)c.Rating / ratings.Where(r => r.Comment.CarId == c.Id).Count()) >= 2 && ((double)c.Rating / ratings.Where(r => r.Comment.CarId == c.Id).Count()) < 3)
-                                    .ToList();
-
-                        cars = findByRating;
-
-
-                    }
-
-                    if (selectedRating == 3)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c =>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 3 &&
-                                     ((double)c.Rating / ratings
-                                         .Where(r => r.Comment.CarId == c.Id)
-                                             .Count()) < 4)
-                                                .ToList();
-
-                        cars = findByRating;
-                    }
-
-                    if (selectedRating == 4)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c =>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) >= 4 &&
-                                ((double)c.Rating / ratings
-                                    .Where(r => r.Comment.CarId == c.Id)
-                                        .Count()) < 5)
-                                            .ToList();
-
-                        cars = findByRating;
-                    }
-
-                    if (selectedRating == 5)
-                    {
-                        List<Car> findByRating = cars
-                            .OrderByDescending(c => c.Id)
-                                .Where(c =>
-                                    ((double)c.Rating / ratings
-                                        .Where(r => r.Comment.CarId == c.Id)
-                                            .Count()) == 5)
-                                                .ToList();
-
-                        cars = findByRating;
-                    }
+                    case 1:
+                        IEnumerable<Car> filteredCars1 = cars.AsEnumerable()
+                            .Where(c => (c.Rating / ratingList.FindAll(r => r.Comment.CarId == c.Id).Count()) >= 1 && 
+                                (c.Rating / ratingList.FindAll(r => r.Comment.CarId == c.Id).Count()) < 2);
+                        cars = filteredCars1.AsQueryable();
+                        break;
+                    case 2:
+                        IEnumerable<Car> filteredCars2 = cars.AsEnumerable()
+                            .Where(c => (c.Rating / ratingList.FindAll(r => r.Comment.CarId == c.Id).Count()) >= 2 && 
+                                (c.Rating / ratingList.FindAll(r => r.Comment.CarId == c.Id).Count()) < 3);
+                        cars = filteredCars2.AsQueryable();
+                        break;
+                    case 3:
+                        IEnumerable<Car> filteredCars3 = cars.AsEnumerable()
+                            .Where(c => (c.Rating / ratingList.FindAll(r => r.Comment.CarId == c.Id).Count()) >= 3 && 
+                                (c.Rating / ratingList.FindAll(r => r.Comment.CarId == c.Id).Count()) < 4);
+                        cars = filteredCars3.AsQueryable();
+                        break;
+                    case 4:
+                        IEnumerable<Car> filteredCars4 = cars.AsEnumerable()
+                            .Where(c => (c.Rating / ratingList.FindAll(r => r.Comment.CarId == c.Id).Count()) >= 4 && 
+                                (c.Rating / ratingList.FindAll(r => r.Comment.CarId == c.Id).Count()) < 5);
+                        cars = filteredCars4.AsQueryable();
+                        break;
+                    case 5:
+                        IEnumerable<Car> filteredCars5 = cars.AsEnumerable()
+                            .Where(c => (c.Rating / ratingList.FindAll(r => r.Comment.CarId == c.Id).Count()) == 5);
+                        cars = filteredCars5.AsQueryable();
+                        break;
                 }
             }
 
-            List<CarExploreVM> carExploreVMs = cars.Distinct().Select(c => new CarExploreVM()
+
+            List<CarExploreVM> list = cars.Select(c=> new CarExploreVM
             {
                 Id = c.Id,
                 CarPhotos = c.CarPhotos,
@@ -1021,11 +186,95 @@ namespace DreamsRentBack.Controllers
                 Capacity = c.Capacity,
                 Company = c.Company,
 
-            })
-            .OrderByDescending(c => c.Id)
-            .Take(6).ToList();
+            }).ToList();
+            return View(list);
+        }
+
+        private List<CarExploreVM> SearchByStatus(string streetName, DateTime pickupDate, DateTime returnDate)
+        {
+            ViewBag.Brands = _context.Brands.Include(b=>b.Models).OrderBy(b=>b.Name).ToList();
+            ViewBag.Bodies = _context.Bodys.OrderBy(b=>b.Name).ToList();
+            ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ToList();
+            List<Car> expensives = _context.Cars.OrderBy(c => c.Price).ToList();
+            ViewBag.Expensive = expensives.First().Price;
+
+            Street? street = _context.Streets
+                .Include(s=>s.City)
+                    .FirstOrDefault(s=>s.Name.Equals(streetName));
             
-            return View(carExploreVMs);      
+            City? city = _context.Cities
+                .FirstOrDefault(c => c.Id == street.CityId);
+
+            List<PickupLocation> pickupLocations = _context.PickupLocations
+                .Include(p=>p.companyPickupLocations)
+                    .Where(p=>p.CityId == city.Id)
+                        .ToList();
+
+            List<CompanyPickupLocation> companyPickupLocations = _context.CompanyPickupLocations
+                .Include(c=>c.Company).ThenInclude(c=>c.Cars)
+                .ToList();
+
+            List<Car> findCars = new();
+            
+
+            foreach (PickupLocation pickupLocation in pickupLocations)
+            {
+                foreach (CompanyPickupLocation companyPickupLocation in companyPickupLocations)
+                {
+                    if (companyPickupLocation.PickupLocationId == pickupLocation.Id)
+                    {
+                        findCars = companyPickupLocation.Company.Cars
+                            .Where(c=>!c.PickupDate.Equals(pickupDate))
+                                .Where(c=>!c.ReturnDate.Equals(returnDate))
+                                    .ToList();
+                    }
+                }
+            }
+            List<Car> cars = _context.Cars.Include(c => c.Company)
+                    .Include(c => c.Brand).ThenInclude(b => b.Models)
+                        .Include(c => c.Body)
+                        .Include(c => c.Transmission)
+                            .Include(c => c.FuelType)
+                            .Include(c => c.CarPhotos)
+                                .Include(c => c.ServicesAndCars).ThenInclude(sc => sc.ExtraService)
+                                .Include(c => c.FeaturesAndCars).ThenInclude(fc => fc.CarFeatures)
+                                    .Include(c => c.Drivetrian)
+                                    .Include(c => c.AirCondition)
+                                        .Include(c => c.Brake)
+                                        .Include(c => c.Engine)
+                                            .Include(c => c.Comments).ThenInclude(c => c.Rating)
+                                            .ToList();
+
+            List<CarExploreVM> carExploreVMs = new();
+
+            foreach (Car car in findCars)
+            {
+                foreach (Car item in cars)
+                {
+                    if (item.Id == car.Id)
+                    {
+                        CarExploreVM carExploreVM = new()
+                        {
+                            Id = item.Id,
+                            CarPhotos = item.CarPhotos,
+                            Likes =item.Likes,
+                            Brand = item.Brand,
+                            ModelId = item.ModelId,
+                            Price = item.Price,
+                            Rating = item.Rating,
+                            Transmission = item.Transmission,
+                            Speed = item.Speed,
+                            FuelType = item.FuelType,
+                            Engine = item.Engine,
+                            Year = item.Year,
+                            Capacity = item.Capacity,
+                            Company = item.Company,
+                        };
+                        carExploreVMs.Add(carExploreVM);
+                    }
+                }
+            }
+            return carExploreVMs;
         }
     }
 }

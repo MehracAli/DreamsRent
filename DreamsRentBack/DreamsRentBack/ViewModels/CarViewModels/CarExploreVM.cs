@@ -20,7 +20,5 @@ namespace DreamsRentBack.ViewModels.CarViewModels
         public int Year { get; set; }
         public int Capacity { get; set; }
         public Company Company { get; set; }
-
-
     }
 }

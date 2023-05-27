@@ -15,6 +15,8 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using DreamsRentBack.Migrations;
 
 namespace DreamsRentBack.Controllers
 {
@@ -364,7 +366,59 @@ namespace DreamsRentBack.Controllers
 
             public IActionResult ConsumerAccount(string UserName)
             {
-                return View();
+
+                User? user = _context.Users
+                    .Include(u=>u.PayCard).ThenInclude(p=>p.PayCardType)
+                        .FirstOrDefault(u => u.UserName == UserName);
+
+
+
+                ConsumerAccountVM consumerAccountVM = new()
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    UserPhoto = user.UserPhoto,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    PayCard = user.PayCard,
+
+                };
+                return View(consumerAccountVM);
+            }
+
+            public async Task<IActionResult> ChangeConsumerPhoto(ConsumerAccountVM consumerAccountVM, string Id)
+            {
+                User user = _context.Users.FirstOrDefault(u => u.Id == Id);
+
+                string imageFolderPath = Path.Combine(_env.WebRootPath, "assets", "images");
+
+                string removePath = Path.Combine(_env.WebRootPath, "assets", "images", "users", user.UserPhoto);
+
+                user.UserPhoto = await consumerAccountVM.iff_UserPhoto.CreateImage(imageFolderPath, "users");
+
+                FileUpload.DeleteImage(removePath);
+
+                _context.SaveChanges();
+                return RedirectToAction("ConsumerAccount", "Account", new {UserName = user.UserName});
+            }
+
+            public IActionResult ChangeConsumerDetails(ConsumerAccountVM consumerAccountVM)
+            {
+                User user = _context.Users.FirstOrDefault(u=>u.Id == consumerAccountVM.Id);
+
+                if (consumerAccountVM.Name == null || consumerAccountVM.Surname == null || consumerAccountVM.Email == null || consumerAccountVM.PhoneNumber == null)
+                {
+                    return RedirectToAction("ConsumerAccount", "Account", new { UserName = user.UserName});
+                }
+
+                user.Name = consumerAccountVM.Name;
+                user.Surname = consumerAccountVM.Surname;
+                user.Email = consumerAccountVM.Email;
+                user.PhoneNumber = consumerAccountVM.PhoneNumber;
+
+                _context.SaveChanges();
+                return RedirectToAction("ConsumerAccount", "Account", new { UserName = user.UserName });
             }
 
             public IActionResult CompanyAccount(string UserName)
@@ -479,12 +533,7 @@ namespace DreamsRentBack.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("CompanyAccount", "Account", new { UserName = findCompany.User.UserName });
             }
-            
-            public async Task<IActionResult> ChangeConsumerDetails()
-        {
-            return View();
-        }
-
+     
             public async Task<IActionResult> AddPickupLocation(int Id, int cityId, int streetId)
             {
                 if (Id == 0) { return RedirectToAction("NotFound", "Error"); }

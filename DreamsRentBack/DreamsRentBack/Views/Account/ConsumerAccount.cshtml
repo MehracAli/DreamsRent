@@ -1,8 +1,56 @@
-﻿
+﻿@using DreamsRentBack.ViewModels.Account;
+@model ConsumerAccountVM
 @{
     ViewData["Title"] = "My Account";
 }
+@section Scripts{
 
+    <script>
+
+        let changePhotoBtn = document.querySelector(".edit-photo")
+        let changePhotoInput = document.querySelector(".change-photo-input")
+
+        changePhotoBtn.addEventListener("click", function () {
+            changePhotoInput.click()
+        })
+
+        changePhotoInput.addEventListener("change", function () {
+
+            var file = this.files[0]
+
+            if (!file.type.startsWith("image/")) {
+                alert("Please select an image file.");
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                alert("The selected image exceeds the maximum allowed size of 5MB.");
+                return;
+            }
+
+            document.querySelector("#changePhotoForm").submit();
+        })
+
+    </script>
+}
+<style>
+    .no-spinner::-webkit-inner-spin-button,
+    .no-spinner::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .no-spinner {
+        -moz-appearance: textfield;
+    }
+    .pay-card-inout{
+        display:block;
+        border: 1px solid #F4F4F4;
+        outline: none;
+        padding: 5px 10px;
+        width:100%;
+    }
+</style>
 <!-- main start -->
 <main>
     <section id="account">
@@ -10,14 +58,24 @@
             <div class="profile row">
                 <div class="col-lg-3">
                     <div class="photo">
-                        <img src="~/assets/images/users/Screenshot 2023-05-16 210450.png" alt="">
+                        @if (Model.UserPhoto is not null)
+                        {
+                            <img src="~/assets/images/users/@Model.UserPhoto" alt="">
+                        }
+                        else
+                        {
+                            <img src="~/assets/images/users/Default_pfp.svg.png" alt="">
+                        }
+                        <form id="changePhotoForm" asp-action="ChangeConsumerPhoto" asp-route-Id="@Model.Id" enctype="multipart/form-data">
+                            <input asp-for="iff_UserPhoto" style="display:none;" class="change-photo-input" accept="image/*" />
+                        </form>
                     </div>
                     <div class="edit-photo">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </div>
                 </div>
                 <div class="fullname col-lg-9">
-                    <h1>Mehrac Mammadov</h1>
+                    <h1>@Model.Name @Model.Surname</h1>
                     <h4>Consumer</h4>
                 </div>
             </div>
@@ -45,49 +103,93 @@
                                     <div class="person-info">
                                         <h3>Personal Info</h3>
                                         <div class="info-body">
-                                            <p>Casandra</p>
-                                            <p>casandra@example.com</p>
-                                            <p>+1 73940 45355</p>
+                                            <p>@Model.Name @Model.Surname</p>
+                                            <p>@Model.Email</p>
+                                            <p>@Model.PhoneNumber</p>
                                         </div>
-                                        <a class="edit" href="#">
-                                            <i class="fa-solid fa-pen"></i>
+                                        <a type="button" class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                             Edit
                                         </a>
+                                        <div class="modal fade" id="staticBackdrop" style="backdrop-filter:blur(10px);" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form asp-action="ChangeConsumerDetails" asp-route-Id="@Model.Id">
+                                                        <div class="modal-body">
+                                                            <div class="form-group" style="margin-bottom:25px">
+                                                                <label style="margin-bottom:5px">Fullnam <span style="color:red">*</span></label>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <input asp-for="Name" class="col-lg-6 form-control" />
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <input asp-for="Surname" class="col-lg-6 form-control" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin-bottom:25px">
+                                                                <label style="margin-bottom:5px">Email <span style="color:red">*</span></label>
+                                                                <input asp-for="Email" value="@Model.Email" type="email" class="col-lg-12 form-control" />
+                                                            </div>
+                                                            <div class="form-group" style="margin-bottom:25px">
+                                                                <label style="margin-bottom:5px">Phone Number <span style="color:red">*</span></label>
+                                                                <input asp-for="PhoneNumber" value="@Model.PhoneNumber" type="number" class="no-spinner col-lg-12 form-control" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-warning" style="color:white;">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="address-info">
-                                        <h3>Address Info</h3>
-                                        <div class="info-body">
-                                            <p>Thomas Nolan Kaszas</p>
-                                            <p>5322 Otter Ln Middleberge</p>
-                                            <p>FL 32068 Palm Bay FL 32907</p>
-                                        </div>
-                                        <a class="edit" href="#">
-                                            <i class="fa-solid fa-pen"></i>
-                                            Edit
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="pay-card row">
-                                        <div class="col-lg-6 d-flex">
-                                            <div class="pay-card-type">
-                                                <img src="~/assets/images/payments/account-payment-visa.png" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <h3>Payment Card</h3>
-                                            <div class="info-body">
-                                                <p>MEHRAJ MAMMADOV</p>
-                                                <p>XXXX-XXXX-XXXX-5555</p>
-                                                <p>12/25</p>
-                                            </div>
-                                            <a class="edit" href="#">
-                                                <i class="fa-solid fa-pen"></i>
-                                                Edit
-                                            </a>
-                                        </div>
+                                        <h3>Payment Card</h3>
+                                        @if (Model.PayCard != null)
+                                        {
+                                            <form>
+                                                <div class="info-body">
+                                                    <p>MEHRAJ MAMMADOV</p>
+                                                    <p>XXXX-XXXX-XXXX-5555</p>
+                                                    <p>12/25</p>
+                                                </div>
+                                                <a class="edit" href="#">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                    Edit
+                                                </a>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <form>
+                                                <div class="info-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <input class="pay-card-inout" type="text" placeholder="HOLDER NAME" />
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <input class="pay-card-inout" type="text" placeholder="HOLDER SURNAME" />
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <input class="pay-card-inout" type="text" placeholder="XXXX-XXXX-XXXX-XXXX" style="margin:10px 0;" />
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <input class="pay-card-inout" type="text" placeholder="Date 00/00" style="margin:10px 0 0;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a class="edit" href="#">
+                                                    Save
+                                                </a>
+                                            </form>
+                                        }
                                     </div>
                                 </div>
                             </div>

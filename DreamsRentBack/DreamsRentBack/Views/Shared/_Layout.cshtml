@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="~/assets/css/style.css">
     <link rel="stylesheet" href="~/assets/css/owl.carousel.css" />
     <link rel="stylesheet" href="~/assets/css/owl.theme.default.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emojionearea/dist/emojionearea.min.css" />
 </head>
 
 <body style="overflow-x: hidden;">
@@ -157,21 +158,21 @@
                         <div class="col-lg-4 footer-cols">
                             <h5>Quick links</h5>
                             <ul class="col-list">
-                                <li>
-                                    <a href="#">My Account</a>
-                                </li>
-                                <li>
-                                    <a href="./signin.html">Sign In</a>
-                                </li>
-                                <li>
-                                    <a href="./signup.html">Sign Up</a>
-                                </li>
-                                <li>
-                                    <a href="./forgotpassword.html">Forgot Password</a>
-                                </li>
-                                <li>
-                                    <a href="./resetpassword.html">Reset Password</a>
-                                </li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li>
+                                        <a href="#">My Account</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="./signin.html">Sign In</a>
+                                    </li>
+                                    <li>
+                                        <a href="./signup.html">Sign Up</a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -288,12 +289,17 @@
             crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emojionearea/dist/emojionearea.min.js"></script>
     <script src="~/assets/js/slick.min.js"></script>
     <script src="~/assets/js/owl.carousel.js"></script>
     <script src="~/assets/js/carousel.js"></script>
     <script src="~/assets/js/footer.js"></script>
     <script src="~/assets/js/accordion.js"></script>
     <script src="~/assets/js/AOS.js"></script>
+    <script src="~/assets/js/emoji.js"></script>
     @RenderSection("Scripts", false)
 </body>
 </html>

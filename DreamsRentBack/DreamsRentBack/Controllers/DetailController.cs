@@ -27,10 +27,10 @@ namespace DreamsRentBack.Controllers
                 ViewBag.Services = _context.ExtraServices.Include(es=>es.ServicesAndCars).ToList();
                 ViewBag.Features = _context.CarsFeatures.Include(cf=>cf.FeaturesAndCars).ToList();
                 ViewBag.Users = _context.Users.ToList();
-                ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ToList();
+                ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ThenInclude(c=>c.Car).ToList();
 
                 Car? car = _context.Cars
-                    .Include(c=>c.Company)
+                    .Include(c=>c.Company).ThenInclude(c=>c.User)
                     .Include(c=>c.Brand).ThenInclude(b=>b.Models)
                         .Include(c=>c.Body)
                         .Include(c=>c.Transmission)
@@ -71,7 +71,19 @@ namespace DreamsRentBack.Controllers
                     FeaturesAndCars = car.FeaturesAndCars,
                     Comments = car.Comments,
                     Description = car.Description,
+                    Company = car.Company,
                 };
+
+                List<Car> cars = _context.Cars.Where(c=>c.Company.Id == car.Company.Id).ToList();
+                double companyRating = 0;
+                int companyRatingCount = 0;
+
+                foreach (var item in cars)
+                {
+                    companyRating += car.Rating;
+                }
+
+                ViewBag.CompanyRating = companyRating;
 
                 if (car == null) { return RedirectToAction("NotFound", "Error"); }
 
@@ -116,6 +128,7 @@ namespace DreamsRentBack.Controllers
                     CreationTime = DateTime.Now,
                 };
 
+                car.Rating += newComment.Rating.Point;
                 car.Comments.Add(commentNotRegistered);
 
                 await _context.Comments.AddAsync(commentNotRegistered);

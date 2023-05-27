@@ -1,0 +1,161 @@
+﻿
+@{
+    List<Brand> brands = ViewBag.Brands;
+    List<Body> bodies = ViewBag.Bodies;
+    List<Rating> ratings = ViewBag.Ratings;
+    double expensive = ViewBag.Expensive;
+}
+@model List<CarExploreVM>
+<div class="row" id="cars-list">
+    @foreach (CarExploreVM car in Model)
+    {
+        <div class="car-item">
+            <div class="card">
+                <div class="img-details">
+                    <div class="card-img">
+                        <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
+                            <img src="~/assets/images/cars/@car.CarPhotos.FirstOrDefault(cp=>cp.CarId == car.Id).Path" alt="">
+                        </a>
+                    </div>
+                    <div class="card-details w-100">
+                        <div class="card-body">
+                            <div class="body-head">
+                                <div class="title">
+                                    <h3>
+                                        <a href="#">@car.Brand.Name @car.Brand.Models.FirstOrDefault(m=>m.Id == car.ModelId).Name</a>
+                                    </h3>
+                                    <h6>
+                                        Brand:
+                                        <span>@car.Brand.Name</span>
+                                    </h6>
+                                </div>
+                                <div class="price-rating">
+                                    <div class="rating">
+                                        @for (double i = 0; i < Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
+                                        {
+                                            <i class="fa-solid fa-star"></i>
+                                        }
+                                        @for (double i = 0; i < 5 - Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
+                                        {
+                                            <i class="fa-solid fa-star" style="color: gray;"></i>
+                                        }
+
+                                        @if (ratings.Where(r => r.Comment.CarId == car.Id).Count() > 0)
+                                        {
+                                            <span>@(((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()).ToString("F1"))</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@(car.Rating).0</span>
+                                        }
+                                    </div>
+                                    <h6 class="price">
+                                        $@car.Price.ToString("N0")
+                                        <span>/ Day</span>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="body-mid">
+                                <ul>
+                                    <li>
+                                        <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
+                                        <p>@car.Transmission.Name</p>
+                                    </li>
+                                    <li>
+                                        <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
+                                        <p>@car.Speed (km/ph)</p>
+                                    </li>
+                                    <li>
+                                        <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
+                                        <p>@car.FuelType.Name</p>
+                                    </li>
+                                    <li>
+                                        <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
+                                        <p>@car.Year</p>
+                                    </li>
+                                    <li>
+                                        <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
+                                        <p>@car.Engine.HorsePower (hp)</p>
+                                    </li>
+                                    <li>
+                                        <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
+                                        <p>@car.Capacity</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="body-bottom">
+                                <div class="author">
+                                    <div class="author-img" style="width:46px;height:46px;margin-right:20px;border:1px solid gray;border-radius:50%;padding:2px">
+                                        @if (car.Company.CompanyPhoto != null)
+                                        {
+                                            <img src="~/assets/images/users/@car.Company.CompanyPhoto" style="width:100%;height:100%" alt="owner-img">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/assets/images/users/Default_pfp.svg.png" style="width:100%;height:100%" alt="owner-img">
+                                        }
+                                    </div>
+                                    <div class="author-name-location">
+                                        <div class="author-name">
+                                            <h5>
+                                                <a href="#">
+                                                    @car.Company.CompanyName
+                                                </a>
+                                            </h5>
+                                            <h6>
+                                                <i class="fa-sharp fa-solid fa-location-dot"></i>
+                                                @car.Company.Location
+                                            </h6>
+                                        </div>
+                                        <div class="author-location"></div>
+                                    </div>
+                                </div>
+                                <div class="rent-btn">
+                                    <a href="#" class="btn">
+                                        <span>
+                                            <i class="fa-solid fa-calendar"></i>
+                                        </span>
+                                        Rent Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="pagination-wrapper">
+    <nav class="pagination-nav">
+        <ul class="pagination">
+            <li class="previtem">
+                <a class="page-link" href="#"><i class="fas fa-regular fa-arrow-left me-2"></i> Prev</a>
+            </li>
+            <li class="pagination-center">
+                <div class="page-group">
+                    <ul>
+                        <li class="page-item">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="active page-link" href="#">2 <span class="visually-hidden">(current)</span></a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">4</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">5</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nextitem">
+                <a class="page-link" href="#">Next <i class="fas fa-regular fa-arrow-right ms-2"></i></a>
+            </li>
+        </ul>
+    </nav>
+</div>

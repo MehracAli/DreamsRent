@@ -29,5 +29,6 @@ namespace DreamsRentBack.ViewModels.CarViewModels
         public List<CarFeaturesAndCars> FeaturesAndCars { get; set; }
         public List<Comment> Comments { get; set; }
         public string Description { get; set; }
+        public Company Company { get; set; }
     }
 }

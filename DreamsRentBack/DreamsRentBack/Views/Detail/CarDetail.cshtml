@@ -8,8 +8,47 @@
     List<CarFeatures> carFeatures = ViewBag.Features;
     List<User> users = ViewBag.Users;
     List<Rating> ratings = ViewBag.Ratings;
+    double companyRating = ViewBag.CompanyRating;
 }
+<style>
+    .emoji-container {
+        display: inline-block;
+        position: relative;
+        width: 200px;
+    }
 
+    .emoji-container .emojionearea {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    .emoji-button {
+        display: block;
+        margin-top: 10px;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .emoji-button:hover {
+        background-color: #0056b3;
+    }
+    .owner-img{
+        border-radius: 50%;
+        border: 1px solid gray;
+        width: 80px;
+        height: 80px;
+        box-sizing: content-box;
+        margin-right:10px;
+    }
+</style>
 <!-- main start -->
 <main>
     <section id="head">
@@ -19,7 +58,7 @@
                 <div class="root">
                     <ul>
                         <li>
-                            <a href="./index.html">
+                            <a asp-controller="Home" asp-action="Index">
                                 Home
                             </a>
                         </li>
@@ -349,7 +388,6 @@
                             <h4>Description of Listing</h4>
                         </div>
                         <div class="description-items">
-
                             <p>@Model.Description</p>
                         </div>
                     </div>
@@ -357,7 +395,7 @@
                         <div class="component-title">
                             <h4>Reviews(@Model.Comments.Count())</h4>
                         </div>
-                        <div class="reviews-body" style="height:450px;overflow-y:scroll;">
+                        <div class="reviews-body" style="max-height:450px;overflow-y:scroll;">
                             @foreach(Comment comment in Model.Comments)
                             {
                                 <div class="review">
@@ -382,7 +420,7 @@
                                             {
                                                 <h6 class="person-name">@users.FirstOrDefault(u=>u.Id == comment.User.Id).Name @users.FirstOrDefault(u=>u.Id == comment.User.Id).Surname</h6>
                                             }
-                                            <p class="comment-add-date">@comment.CreationTime</p>
+                                                <p class="comment-add-date">@comment.CreationTime.ToString("MMM dd, yyyy  (HH:mm)")</p>
                                         </div>
                                     </div>
                                     <div class="rate-point">
@@ -438,7 +476,7 @@
                                                     Fullname
                                                     <span>*</span>
                                                 </label>
-                                                <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Fullname">
+                                                <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Fullname" id="notRegister-name">
                                                 <span asp-validation-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Fullname" class="text-danger"></span>
                                             </div>
                                             <div class="col-lg-6 email-adress form-group">
@@ -446,12 +484,12 @@
                                                     Email Adress
                                                     <span>*</span>
                                                 </label>
-                                                <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Email" type="email">
+                                                <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Email" type="email" id="notRegister-email">
                                             </div>
                                         }
                                         <div class="col-lg-12 comment form-group">
                                             <label for="#">Comments</label>
-                                            <textarea asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Text" cols="30" rows="10"></textarea>
+                                            <textarea asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Text" cols="30" rows="10" id="emojiTextArea"></textarea>
                                         </div>
                                     </div>
                                     <div>
@@ -514,19 +552,29 @@
                             </div>
                             <div class="owner-img-info">
                                 <div class="owner-img">
-                                    <a href="#">
-                                        <img src="~/assets/images/owners/avatar-07.jpg" alt="owner-img">
+                                    <a asp-controller="Account" asp-action="CompanyAccount" asp-route-UserName="@Model.Company.User.UserName">
+                                        @if(Model.Company.CompanyPhoto != null)
+                                        {
+                                            <img src="~/assets/images/users/@Model.Company.CompanyPhoto" alt="owner-img">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/assets/images/users/Default_pfp.svg.png" alt="owner-img">
+                                        }
                                     </a>
                                 </div>
-                                <div class="owner-info">
-                                    <h5>Brooklyn Cars</h5>
+                                <div class="owner-info" style="text-align:start;">
+                                    <h5>@Model.Company.CompanyName</h5>
                                     <div class="rating">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <span>(5.0)</span>
+                                        @for (int i = 0; i < Math.Floor(companyRating / ratings.Where(r => r.Comment.Car.CompanyId == Model.Company.Id).Count()); i++)
+                                        {
+                                            <i class="fas fa-star filled"></i>
+                                        }
+                                        @for (int i = 0; i < 5 - Math.Floor(companyRating / ratings.Where(r => r.Comment.Car.CompanyId == Model.Company.Id).Count()); i++)
+                                        {
+                                            <i class="fas fa-star filled" style="color:gray"></i>
+                                        }
+                                        <span>(@Math.Floor(companyRating / ratings.Where(r => r.Comment.Car.CompanyId == Model.Company.Id).Count()).ToString("F1"))</span>
                                     </div>
                                 </div>
                             </div>
@@ -534,7 +582,7 @@
                                 <ul class="booking-list">
                                     <li>
                                         Listings
-                                        <span>05</span>
+                                        <span>@Model.Company.Cars.Count().ToString("D2")</span>
                                     </li>
                                     <li>
                                         Bookings
@@ -542,7 +590,14 @@
                                     </li>
                                     <li>
                                         Verification
-                                        <h6>Verified</h6>
+                                        @if (Model.Company.Verification)
+                                        {
+                                            <h6>Verified</h6>
+                                        }
+                                        else
+                                        {
+                                            <h6 style="color:red">Not Verified</h6>
+                                        }
                                     </li>
                                 </ul>
                             </div>
@@ -1182,4 +1237,16 @@
           }
        }
     </script>
+    <script>
+        window.addEventListener("DOMContentLoaded", function(){
+            let commentArea = document.querySelector("#emojiTextArea")
+            let fullName = document.querySelector("#notRegister-name")
+            let email = document.querySelector("#notRegister-email")
+
+            commentArea.value = "";
+            fullName.value = "";
+            email.value = "";
+        })
+    </script>
+   
 }
