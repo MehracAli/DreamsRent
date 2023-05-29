@@ -16,6 +16,7 @@ namespace DreamsRentBack.Entities.ClientModels
         public Location? Location { get; set; }
         public List<CompanyPickupLocation> companyPickupLocations { get; set; }
         public List<CompanyDropoffLocation> companyDropoffLocations { get; set; }
+        public List<Booking>? Bookings { get; set; }
         public List<Car> Cars { get; set; }
 
         public Company()
@@ -23,6 +24,7 @@ namespace DreamsRentBack.Entities.ClientModels
             Cars = new();
             companyPickupLocations = new();
             companyDropoffLocations = new();
+            Bookings = new();
         }
 
     }

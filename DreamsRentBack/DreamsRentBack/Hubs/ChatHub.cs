@@ -4,9 +4,19 @@ namespace DreamsRentBack.Hubs
 {
     public class ChatHub:Hub
     {
-        public Task SendMEssage(string message)
+        public async Task SendMEssage(string message)
         {
-            return Clients.Others.SendAsync("send", message);
+            await Clients.All.SendAsync("receiveMessage", message);
+        }
+
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
+        }
+
+        public override Task OnDisconnectedAsync(Exception? exception)
+        {
+            return base.OnDisconnectedAsync(exception);
         }
     }
 }

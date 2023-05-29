@@ -1,5 +1,7 @@
+using DreamsRentBack;
 using DreamsRentBack.DAL;
 using DreamsRentBack.Entities.ClientModels;
+using DreamsRentBack.Hubs;
 using DreamsRentBack.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
+builder.Services.AddTransient<ChatService>();
 builder.Services.AddDbContext<DreamsRentDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
@@ -50,9 +54,15 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+
+    endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
-
+    https://localhost:7260/chatHub
+    endpoints.MapHub<ChatHub>("/chatHub");
 
 });
 

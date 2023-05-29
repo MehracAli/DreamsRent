@@ -56,6 +56,11 @@ namespace DreamsRentBack.Controllers
             if (!string.IsNullOrEmpty(streetName))
             {
                 List<CarExploreVM> filterCars = SearchByStatus(streetName, pickupDate, returnDate);
+                if (filterCars.Count() == 0)
+                {
+                    List<CarExploreVM> carsEmpty = new();
+                    return View(carsEmpty);
+                }
                 return View(filterCars);
             }
 
@@ -198,38 +203,23 @@ namespace DreamsRentBack.Controllers
             List<Car> expensives = _context.Cars.OrderBy(c => c.Price).ToList();
             ViewBag.Expensive = expensives.First().Price;
 
+            string[] streetNameSplit = streetName.Split(", ");
+
             Street? street = _context.Streets
                 .Include(s=>s.City)
-                    .FirstOrDefault(s=>s.Name.Equals(streetName));
-            
-            City? city = _context.Cities
-                .FirstOrDefault(c => c.Id == street.CityId);
+                    .FirstOrDefault(s => s.Name.Equals(streetNameSplit[1]));
 
-            List<PickupLocation> pickupLocations = _context.PickupLocations
-                .Include(p=>p.companyPickupLocations)
-                    .Where(p=>p.CityId == city.Id)
-                        .ToList();
+            PickupLocation? pickupLocation = _context.PickupLocations
+                .FirstOrDefault(p => p.StreetId == street.Id);
 
-            List<CompanyPickupLocation> companyPickupLocations = _context.CompanyPickupLocations
-                .Include(c=>c.Company).ThenInclude(c=>c.Cars)
-                .ToList();
+            List<CarExploreVM> carExploreVMs = new();
 
-            List<Car> findCars = new();
-            
 
-            foreach (PickupLocation pickupLocation in pickupLocations)
+            if (pickupLocation == null)
             {
-                foreach (CompanyPickupLocation companyPickupLocation in companyPickupLocations)
-                {
-                    if (companyPickupLocation.PickupLocationId == pickupLocation.Id)
-                    {
-                        findCars = companyPickupLocation.Company.Cars
-                            .Where(c=>!c.PickupDate.Equals(pickupDate))
-                                .Where(c=>!c.ReturnDate.Equals(returnDate))
-                                    .ToList();
-                    }
-                }
+                return carExploreVMs;
             }
+
             List<Car> cars = _context.Cars.Include(c => c.Company)
                     .Include(c => c.Brand).ThenInclude(b => b.Models)
                         .Include(c => c.Body)
@@ -243,37 +233,33 @@ namespace DreamsRentBack.Controllers
                                         .Include(c => c.Brake)
                                         .Include(c => c.Engine)
                                             .Include(c => c.Comments).ThenInclude(c => c.Rating)
+                                            .Where(c=>c.Company.companyPickupLocations
+                                                .Any(p=>p.PickupLocation.Id == pickupLocation.Id))
+                                            .OrderByDescending(c => c.Id)
                                             .ToList();
 
-            List<CarExploreVM> carExploreVMs = new();
-
-            foreach (Car car in findCars)
+            foreach (Car item in cars)
             {
-                foreach (Car item in cars)
+                CarExploreVM carExploreVM = new()
                 {
-                    if (item.Id == car.Id)
-                    {
-                        CarExploreVM carExploreVM = new()
-                        {
-                            Id = item.Id,
-                            CarPhotos = item.CarPhotos,
-                            Likes =item.Likes,
-                            Brand = item.Brand,
-                            ModelId = item.ModelId,
-                            Price = item.Price,
-                            Rating = item.Rating,
-                            Transmission = item.Transmission,
-                            Speed = item.Speed,
-                            FuelType = item.FuelType,
-                            Engine = item.Engine,
-                            Year = item.Year,
-                            Capacity = item.Capacity,
-                            Company = item.Company,
-                        };
-                        carExploreVMs.Add(carExploreVM);
-                    }
-                }
+                    Id = item.Id,
+                    CarPhotos = item.CarPhotos,
+                    Likes = item.Likes,
+                    Brand = item.Brand,
+                    ModelId = item.ModelId,
+                    Price = item.Price,
+                    Rating = item.Rating,
+                    Transmission = item.Transmission,
+                    Speed = item.Speed,
+                    FuelType = item.FuelType,
+                    Engine = item.Engine,
+                    Year = item.Year,
+                    Capacity = item.Capacity,
+                    Company = item.Company,
+                };
+                carExploreVMs.Add(carExploreVM);
             }
+
             return carExploreVMs;
         }
     }

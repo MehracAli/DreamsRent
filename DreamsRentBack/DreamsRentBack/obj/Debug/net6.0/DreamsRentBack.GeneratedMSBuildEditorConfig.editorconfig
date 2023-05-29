@@ -16,6 +16,62 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Programming\DreamsRent\DreamsRentBack\DreamsRentBack
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Account/Signin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxTaWduaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Brand/Brands.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRcQnJhbmRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Brand/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Brand/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Brand/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Model/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTW9kZWxcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Model/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTW9kZWxcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Model/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTW9kZWxcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Model/Models.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTW9kZWxcTW9kZWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Shared/_LayoutAdminPanel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pblBhbmVsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Shared/_LayoutAdminSignin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pblNpZ25pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Account/CompanyAccount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDb21wYW55QWNjb3VudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,12 +120,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlzdGluZ1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Rent/Checkout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVudFxDaGVja291dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Rent/View.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVudFxWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Shared/_LayoutError.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Shared/_LayoutWithoutHeaderFooter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRXaXRob3V0SGVhZGVyRm9vdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Shared/_partialListing.cshtml]

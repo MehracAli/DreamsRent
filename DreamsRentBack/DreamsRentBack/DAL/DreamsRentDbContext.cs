@@ -15,6 +15,8 @@ namespace DreamsRentBack.DAL
         }
 
         //Client Models Start
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Rent> Rents { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Company> Companies { get; set; }
@@ -46,6 +48,16 @@ namespace DreamsRentBack.DAL
         public DbSet<Transmission> Transmissions { get; set; }
         //Car Models End
         public DbSet<Setting> Settings { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+        }
 
     }
 }

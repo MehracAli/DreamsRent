@@ -1,4 +1,5 @@
 ﻿using DreamsRentBack.DAL;
+using DreamsRentBack.Services;
 using DreamsRentBack.ViewModels.CarViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,13 +9,17 @@ namespace DreamsRentBack.Controllers
     public class HomeController : Controller
     {
         public DreamsRentDbContext _context;
+        readonly ChatService _chatService;
 
-        public HomeController(DreamsRentDbContext context)
+        public HomeController(DreamsRentDbContext context, ChatService chatService)
         {
             _context = context;
+            _chatService = chatService;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
+
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.Bodies = _context.Bodys.Include(b=>b.Cars).ToList();
             ViewBag.Likes = _context.Likes.Include(l=>l.User).ToList();
@@ -42,6 +47,7 @@ namespace DreamsRentBack.Controllers
                     Year = c.Year,
                     Capacity = c.Capacity,
                     Company = c.Company,
+                    Availability = c.Availability,
                 })
                 .Take(9)
                 .ToList();

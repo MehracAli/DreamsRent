@@ -36,6 +36,10 @@
 </style>
 <!-- main start -->
 <main>
+ @*   <div id="status" style="display:none"></div>
+    <input type="text" id="textMessage">
+    <button id="send">Send</button>
+    <div id="messages"></div>*@
     <section id="banner">
         <div class="container">
             <div class="row">
@@ -76,7 +80,7 @@
                             <div class="form-group">
                                 <label for="#">Pickup Location</label>
                                 <div class="group-img">
-                                    <input name="streetName" class="form-group" autocomplete="off" id="searchInput" type="text" placeholder="Enter City, Airport, or Address">
+                                    <input name="streetName" class="form-group" autocomplete="off" id="searchInput" type="text" placeholder="Address">
                                     <input type="hidden" id="selectedValue" />
                                     <div id="dropdownContainer">
                                         <div id="suggestions" class="dropdown-content"></div>
@@ -345,7 +349,7 @@
                                             </div>
                                         </div>
                                         <div class="car-button">
-                                            <a href="#">
+                                            <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
                                                 <span>
                                                     <i class="fa-solid fa-calendar"></i>
                                                 </span>
@@ -922,10 +926,13 @@
 <!-- main end -->
 
 <!-- scripts -->
+<script src="~/signalr.js"></script>
+<script src="~/jquery.js"></script>
+<script src="~/site.js"></script>
+
 <script src="~/assets/js/index.js"></script>
-
+<script src="~/lib//signalr//dist/browser/signalr.js"></script>
 @section Scripts{
-
     <script>
         var searchInput = document.getElementById('searchInput');
         var selectedValue = document.getElementById('selectedValue');
@@ -983,29 +990,28 @@
 
     <script>
 
-        function startCounting(){
+        $(window).scroll(function () {
+            var specificSection = $("#facts");
+            var specificScrollPosition = specificSection.offset().top-300;
 
-            let counts = document.querySelectorAll(".count")
-            counts.forEach(count => {
+            if ($(this).scrollTop() >= specificScrollPosition) {
+                let counts = specificSection.find(".count");
+                counts.each(function () {
+                    let digit = parseInt($(this).attr("data"));
+                    let currentDigit = 0;
+                    let interval = setInterval(() => {
+                        $(this).text(currentDigit);
+                        currentDigit++;
 
-                let digit = parseInt(count.getAttribute("data"))
-                let currentDigit = 0;
-                let interval = setInterval(function () {
-                    count.innerHTML = currentDigit;
-                    currentDigit++;
+                        if (currentDigit > digit) {
+                            clearInterval(interval);
+                        }
+                    }, 100);
+                });
 
-                    if (currentDigit > digit) {
-                        clearInterval(interval);
-                    }
-                }, 100);
-
-            })
-
-        }
-
-
-        var hoverElement = document.getElementById('facts');
-        hoverElement.addEventListener('mouseenter', startCounting);
+                $(window).off("scroll");
+            }
+        });
 
     </script>
 

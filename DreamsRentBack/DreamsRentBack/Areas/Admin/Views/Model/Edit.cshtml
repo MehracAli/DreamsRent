@@ -1,0 +1,42 @@
+﻿@model DreamsRentBack.Entities.CarModels.Model
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminPanel.cshtml";
+    List<Brand> brands = ViewBag.Brands;
+}
+<div class="container h-75" style="padding: 50px 0 0;">
+    <div class="row justify-content-center w-100">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Editing Model</h6>
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group mb-lg-4">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-lg-4">
+                        <label asp-for="Brand" class="control-label">Brand Logo</label>
+                        <select asp-for="BrandId" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                            @foreach (Brand brand in brands)
+                            {
+                                <option value="@brand.Id">@brand.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="BrandId" class="text-danger"></span>
+                    </div>
+                    <input type="hidden" asp-for="Id" value="@Model.Id" />
+                    <div class="form-group mb-lg-4">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+                <div>
+                    <a asp-action="Models">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

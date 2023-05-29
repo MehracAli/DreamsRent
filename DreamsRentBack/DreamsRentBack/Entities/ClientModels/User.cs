@@ -16,10 +16,12 @@ namespace DreamsRentBack.Entities.ClientModels
         public PayCard? PayCard { get; set; }
         public List<Comment> Comments { get; set; }
         public List<Like> Likes { get; set; }
+        public List<Rent>? Rents { get; set; }
         public User()
         {
             Comments = new();
             Likes = new();
+            Rents = new();
         }
     }
 }

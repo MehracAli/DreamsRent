@@ -1,0 +1,202 @@
+﻿@model CarCheckoutVM
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_LayoutWithoutHeaderFooter.cshtml";
+}
+
+<!-- main start -->
+<main>
+    <section id="head">
+        <div class="container">
+            <div class="head-wrapper">
+                <h2>Checkout</h2>
+                <div class="root">
+                    <ul>
+                        <li>
+                            <a href="./index.html">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            Checkout
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="checkout">
+        <div class="container">
+            <ul class="steps">
+                <li class="step-1-wrap">
+                    <div href="" class="step-1 step-active">
+                        <span>Step 1</span>
+                        <h5>Booking Details</h5>
+                    </div>
+                </li>
+                <li class="step-2-wrap">
+                    <div href="" class="step-2">
+                        <span>Step 2</span>
+                        <h5>Payment Details</h5>
+                    </div>
+                </li>
+            </ul>
+            <div class="checkout-wrapper">
+                <div class="checkout-box booking-details">
+                    <h3>Booking Details</h3>
+                    <div class="booking-info">
+                        <div class="col-lg-4">
+                            <h5>Pickup</h5>
+                            <p>45, 4th Avanue Mark Street USA</p>
+                            <p>Date & time : 11 Jan 2023</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <h5>Drop Off</h5>
+                            <p>78, 10th street Laplace USA</p>
+                            <p>Date & time : 11 Jan 2023</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <h5>Amount to be paid</h5>
+                            <h6>
+                                &315
+                                <i class="fa-solid fa-circle-info"></i>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="booking-form">
+                        <h5>Enter Below details</h5>
+                        <form action="#">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label for="">
+                                        Enter Name
+                                        <span>*</span>
+                                    </label>
+                                    <input type="text">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="">
+                                        Email Address
+                                        <span>*</span>
+                                    </label>
+                                    <input type="text">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="">
+                                        Phone Number
+                                        <span>*</span>
+                                    </label>
+                                    <input type="text">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="">
+                                        Address
+                                        <span>*</span>
+                                    </label>
+                                    <input type="text">
+                                </div>
+                                <div class="col-lg-12">
+                                    <label for="">
+                                        Comments
+                                        <span>*</span>
+                                    </label>
+                                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                                </div>
+                            </div>
+                            <div class="btn-wrapper">
+                                <button type="button" class="btn go-step-2">
+                                    Go To Payment
+                                    <i class="fa-solid fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="back-detail">
+                        <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="Id">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Back to detail page
+                        </a>
+                    </div>
+                </div>
+                <div class="checkout-box payment-details d-none">
+                    <h3>Booking Details</h3>
+                    <div class="booking-info">
+                        <div class="col-lg-4">
+                            <h5>Amount to be paid</h5>
+                            <h6>
+                                &315
+                                <i class="fa-solid fa-circle-info"></i>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <h4>Choose your Payment Method</h4>
+                        <ul>
+                            <li class="paypal">
+                                <a href="#">
+                                    <img src="~/assets/images/payments/payment-1.svg" alt="">
+                                </a>
+                            </li>
+                            <li class="master">
+                                <a href="#">
+                                    <img src="~/assets/images/payments/payment-2.svg" alt="">
+                                </a>
+                            </li>
+                            <li class="visa">
+                                <a href="#">
+                                    <img src="~/assets/images/payments/payment-3.svg" alt="">
+                                </a>
+                            </li>
+                            <li class="apple-pay">
+                                <a href="#">
+                                    <img src="~/assets/images/payments/payment-4.svg" alt="">
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="booking-form">
+                            <h5>Enter Below details</h5>
+                            <form action="#">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label for="">
+                                            Card Number
+                                            <span>*</span>
+                                        </label>
+                                        <input type="text" name="" id="">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="">
+                                            Expiration date
+                                            <span>*</span>
+                                        </label>
+                                        <input type="text" name="" id="">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="">
+                                            Security number
+                                            <span>*</span>
+                                        </label>
+                                        <input type="text" name="" id="">
+                                    </div>
+                                </div>
+                                <div class="btn-pay">
+                                    <button class="btn">
+                                        Pay $315
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="back-detail" style="margin-top: 20px;">
+                        <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@Model.Id">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Back to detail page
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- main end -->
+

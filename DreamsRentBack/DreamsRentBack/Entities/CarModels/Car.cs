@@ -1,4 +1,5 @@
 ﻿using DreamsRentBack.Entities.ClientModels;
+using DreamsRentBack.Utilities;
 
 namespace DreamsRentBack.Entities.CarModels
 {
@@ -12,6 +13,8 @@ namespace DreamsRentBack.Entities.CarModels
         public int Capacity { get; set; }
         public string Description { get; set; }
         public bool Availability { get; set; }
+        public CarStatus CarStatus { get; set; } = CarStatus.Free;
+        public CarConfirmation CarConfirmation { get; set; } = CarConfirmation.None;
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         public List<CarPhoto> CarPhotos { get; set; }

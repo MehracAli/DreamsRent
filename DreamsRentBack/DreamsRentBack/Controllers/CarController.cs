@@ -1,6 +1,7 @@
 ﻿using DreamsRentBack.DAL;
 using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
+using DreamsRentBack.Utilities;
 using DreamsRentBack.Utilities.Extentions;
 using DreamsRentBack.ViewModels.CarViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -121,6 +122,8 @@ namespace DreamsRentBack.Controllers
                 Price = createdCar.Price,
                 Description = createdCar.Description,
                 Availability = true,
+                CarStatus = CarStatus.Free,
+                CarConfirmation = CarConfirmation.None,
                 Views = 0,
                 Rating = 0,
             };

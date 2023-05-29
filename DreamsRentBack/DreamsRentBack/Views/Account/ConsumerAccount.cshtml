@@ -4,7 +4,21 @@
     ViewData["Title"] = "My Account";
 }
 @section Scripts{
+    <script>
+        function formatCardNumber(input) {
+            let value = input.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+            let formattedValue = '';
 
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedValue += '-';
+                }
+                formattedValue += value.charAt(i);
+            }
+
+            input.value = formattedValue;
+        }
+    </script>
     <script>
 
         let changePhotoBtn = document.querySelector(".edit-photo")
@@ -168,26 +182,29 @@
                                         }
                                         else
                                         {
-                                            <form>
+                                            <form asp-action="AddDebitCard" asp-route-Id="@Model.Id">
                                                 <div class="info-body">
                                                     <div class="row">
                                                         <div class="col-lg-6">
-                                                            <input class="pay-card-inout" type="text" placeholder="HOLDER NAME" />
+                                                            <input name="HolderName" class="pay-card-inout" type="text" placeholder="HOLDER NAME" />
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <input class="pay-card-inout" type="text" placeholder="HOLDER SURNAME" />
+                                                            <input name="HolderSurname" class="pay-card-inout" type="text" placeholder="HOLDER SURNAME" />
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <input class="pay-card-inout" type="text" placeholder="XXXX-XXXX-XXXX-XXXX" style="margin:10px 0;" />
+                                                            <input name="CardNumber" class="pay-card-inout" type="text" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19" id="cardNumber" onkeyup="formatCardNumber(this)" style="margin:10px 0;" />
                                                         </div>
-                                                        <div class="col-lg-6">
-                                                            <input class="pay-card-inout" type="text" placeholder="Date 00/00" style="margin:10px 0 0;" />
+                                                        <div class="col-lg-3">
+                                                            <input name="Date" class="pay-card-inout" type="text" placeholder="Date" style="margin:10px 0 0;" />
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <input name="cvv" class="pay-card-inout" type="number" placeholder="cvv" style="margin:10px 0 0;" />
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a class="edit" href="#">
+                                                <button type="submit" class="edit" href="#">
                                                     Save
-                                                </a>
+                                                </button>
                                             </form>
                                         }
                                     </div>

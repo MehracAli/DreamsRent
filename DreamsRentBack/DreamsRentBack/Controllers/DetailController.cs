@@ -28,9 +28,12 @@ namespace DreamsRentBack.Controllers
                 ViewBag.Features = _context.CarsFeatures.Include(cf=>cf.FeaturesAndCars).ToList();
                 ViewBag.Users = _context.Users.ToList();
                 ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ThenInclude(c=>c.Car).ToList();
+                ViewBag.Streets = _context.Streets.Include(s=>s.City).ToList();
 
                 Car? car = _context.Cars
                     .Include(c=>c.Company).ThenInclude(c=>c.User)
+                    .Include(c=>c.Company).ThenInclude(c=>c.companyPickupLocations).ThenInclude(cp => cp.PickupLocation).ThenInclude(p => p.City)
+                    .Include(c=>c.Company).ThenInclude(c=>c.companyDropoffLocations).ThenInclude(cp => cp.DropoffLocation).ThenInclude(p => p.City)
                     .Include(c=>c.Brand).ThenInclude(b=>b.Models)
                         .Include(c=>c.Body)
                         .Include(c=>c.Transmission)
@@ -72,6 +75,7 @@ namespace DreamsRentBack.Controllers
                     Comments = car.Comments,
                     Description = car.Description,
                     Company = car.Company,
+                    Availability = car.Availability,
                 };
 
                 List<Car> cars = _context.Cars.Where(c=>c.Company.Id == car.Company.Id).ToList();
@@ -91,10 +95,10 @@ namespace DreamsRentBack.Controllers
             }
             return RedirectToAction("NotFound", "Error");
         }
+
         #endregion
 
         #region AddComment
-
         public async Task<IActionResult> AddComment(int Id, Comment newComment)
         {
             if (newComment.Text is null)
@@ -165,7 +169,6 @@ namespace DreamsRentBack.Controllers
 
             return RedirectToAction(nameof(CarDetail), new { Id });
         }
-
         #endregion
     }
 }

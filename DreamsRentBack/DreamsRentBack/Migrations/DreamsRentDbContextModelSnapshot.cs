@@ -124,6 +124,12 @@ namespace DreamsRentBack.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
+                    b.Property<int>("CarConfirmation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CarStatus")
+                        .HasColumnType("int");
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -440,6 +446,35 @@ namespace DreamsRentBack.Migrations
                     b.ToTable("Transmissions");
                 });
 
+            modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Booking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Bookings");
+                });
+
             modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.City", b =>
                 {
                     b.Property<int>("Id")
@@ -650,6 +685,9 @@ namespace DreamsRentBack.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<byte>("cvv")
+                        .HasColumnType("tinyint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PayCardTypeId");
@@ -696,6 +734,35 @@ namespace DreamsRentBack.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("PickupLocations");
+                });
+
+            modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Rent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Rents");
                 });
 
             modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Street", b =>
@@ -956,55 +1023,55 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.CarModels.AirCondition", "AirCondition")
                         .WithMany("Cars")
                         .HasForeignKey("AirConditionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.CarModels.Body", "Body")
                         .WithMany("Cars")
                         .HasForeignKey("BodyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.CarModels.Brake", "Brake")
                         .WithMany("Cars")
                         .HasForeignKey("BrakeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.CarModels.Brand", "Brand")
                         .WithMany("Cars")
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.ClientModels.Company", "Company")
                         .WithMany("Cars")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.CarModels.Drivetrian", "Drivetrian")
                         .WithMany("Cars")
                         .HasForeignKey("DrivetrianId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.CarModels.Engine", "Engine")
                         .WithMany("Cars")
                         .HasForeignKey("EngineId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.CarModels.FuelType", "FuelType")
                         .WithMany("Cars")
                         .HasForeignKey("FuelTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.CarModels.Transmission", "Transmission")
                         .WithMany("Cars")
                         .HasForeignKey("TransmissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("AirCondition");
@@ -1031,13 +1098,13 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.CarModels.CarFeatures", "CarFeatures")
                         .WithMany("FeaturesAndCars")
                         .HasForeignKey("CarFeaturesId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.CarModels.Car", "Car")
                         .WithMany("FeaturesAndCars")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Car");
@@ -1050,7 +1117,7 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.CarModels.Car", "Car")
                         .WithMany("CarPhotos")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Car");
@@ -1061,13 +1128,13 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.CarModels.Car", "Car")
                         .WithMany("ServicesAndCars")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.CarModels.ExtraService", "ExtraService")
                         .WithMany("ServicesAndCars")
                         .HasForeignKey("ExtraServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Car");
@@ -1080,12 +1147,13 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.CarModels.Car", "Car")
                         .WithMany("Likes")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.ClientModels.User", "User")
                         .WithMany("Likes")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Car");
 
@@ -1097,7 +1165,7 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.CarModels.Brand", "Brand")
                         .WithMany("Models")
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Brand");
@@ -1108,10 +1176,37 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.ClientModels.Comment", "Comment")
                         .WithOne("Rating")
                         .HasForeignKey("DreamsRentBack.Entities.CarModels.Rating", "CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Comment");
+                });
+
+            modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Booking", b =>
+                {
+                    b.HasOne("DreamsRentBack.Entities.CarModels.Car", "car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DreamsRentBack.Entities.ClientModels.Company", "company")
+                        .WithMany("Bookings")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DreamsRentBack.Entities.ClientModels.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("car");
+
+                    b.Navigation("company");
                 });
 
             modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Comment", b =>
@@ -1119,12 +1214,13 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.CarModels.Car", "Car")
                         .WithMany("Comments")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.ClientModels.User", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Car");
 
@@ -1135,12 +1231,13 @@ namespace DreamsRentBack.Migrations
                 {
                     b.HasOne("DreamsRentBack.Entities.ClientModels.Location", "Location")
                         .WithMany("Companies")
-                        .HasForeignKey("LocationId");
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DreamsRentBack.Entities.ClientModels.User", "User")
                         .WithOne("Company")
                         .HasForeignKey("DreamsRentBack.Entities.ClientModels.Company", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Location");
@@ -1153,13 +1250,13 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.ClientModels.Company", "Company")
                         .WithMany("companyDropoffLocations")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.ClientModels.DropoffLocation", "DropoffLocation")
                         .WithMany("companyDropoffLocations")
                         .HasForeignKey("DropoffLocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -1172,13 +1269,13 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.ClientModels.Company", "Company")
                         .WithMany("companyPickupLocations")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.ClientModels.PickupLocation", "PickupLocation")
                         .WithMany("companyPickupLocations")
                         .HasForeignKey("PickupLocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -1191,7 +1288,7 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.ClientModels.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("City");
@@ -1202,7 +1299,7 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.ClientModels.City", "City")
                         .WithMany("Locations")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("City");
@@ -1213,13 +1310,13 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.ClientModels.PayCardType", "PayCardType")
                         .WithMany("PayCards")
                         .HasForeignKey("PayCardTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.ClientModels.User", "User")
                         .WithOne("PayCard")
                         .HasForeignKey("DreamsRentBack.Entities.ClientModels.PayCard", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("PayCardType");
@@ -1232,10 +1329,37 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.ClientModels.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Rent", b =>
+                {
+                    b.HasOne("DreamsRentBack.Entities.CarModels.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DreamsRentBack.Entities.ClientModels.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DreamsRentBack.Entities.ClientModels.User", "User")
+                        .WithMany("Rents")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Street", b =>
@@ -1243,7 +1367,7 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.ClientModels.City", "City")
                         .WithMany("Streets")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("City");
@@ -1254,7 +1378,7 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -1263,7 +1387,7 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.ClientModels.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -1272,7 +1396,7 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.ClientModels.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -1281,13 +1405,13 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DreamsRentBack.Entities.ClientModels.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -1296,7 +1420,7 @@ namespace DreamsRentBack.Migrations
                     b.HasOne("DreamsRentBack.Entities.ClientModels.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -1380,6 +1504,8 @@ namespace DreamsRentBack.Migrations
 
             modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Company", b =>
                 {
+                    b.Navigation("Bookings");
+
                     b.Navigation("Cars");
 
                     b.Navigation("companyDropoffLocations");
@@ -1416,6 +1542,8 @@ namespace DreamsRentBack.Migrations
                     b.Navigation("Likes");
 
                     b.Navigation("PayCard");
+
+                    b.Navigation("Rents");
                 });
 #pragma warning restore 612, 618
         }

@@ -372,7 +372,6 @@ namespace DreamsRentBack.Controllers
                         .FirstOrDefault(u => u.UserName == UserName);
 
 
-
                 ConsumerAccountVM consumerAccountVM = new()
                 {
                     Id = user.Id,
@@ -420,6 +419,29 @@ namespace DreamsRentBack.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("ConsumerAccount", "Account", new { UserName = user.UserName });
             }
+
+        public IActionResult AddDebitCard(string Id, string HolderName, string HolderSurname, string CardNumber, string Date, int date, byte cvv)
+        {
+            User user = _context.Users.FirstOrDefault(u=>u.Id == Id);
+
+            PayCard payCard = new()
+            {
+                HolderName = HolderName,
+                HolderSurname = HolderSurname,
+                CardNumber = CardNumber,
+                Date = Date,
+                cvv = cvv
+            };
+
+            //if (CardNumber.StartsWith("4"))
+            //{
+            //    payCard.PayCardType = 
+            //}
+
+            return Json(user);
+
+            return View();
+        }
 
             public IActionResult CompanyAccount(string UserName)
             {
