@@ -1,0 +1,63 @@
+﻿@model Car
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminPanel.cshtml";
+}
+
+<div class="container h-75 pt-2">
+    <div class="bg-secondary rounded h-100 p-4">
+        <div class="imgs d-flex">
+            @foreach (CarPhoto carPhoto in Model.CarPhotos)
+            {
+                <div class="w-2" style="margin-right: 10px;">
+                    <img class="w-100" src="~/assets/images/cars/@carPhoto.Path" />
+                </div>
+            }
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-6">
+                <p>Brand: @Model.Brand.Name</p>
+                <p>Model: @Model.Brand.Models.FirstOrDefault(m=>m.Id == Model.ModelId).Name</p>
+                <p>Year: @Model.Year</p>
+                <p>Engine: @Model.Engine.HorsePower (hp)</p>
+                <p>Fuel Type: @Model.FuelType.Name</p>
+                <p>Brake Type: @Model.Brake.Name</p>
+                <p>Transmission Type: @Model.Transmission.Name</p>
+                <p class="pb-1">
+                    Extra Services:
+                    <div class="mx-4">
+                            @foreach (var item in Model.ServicesAndCars)
+                            {
+                                if (item.CarId == Model.Id)
+                                {
+                                    <p class="text-white" style="font-size:12px;">@item.ExtraService.Name</p>
+                                }
+                            }
+                    </div>
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <p>Speed: @Model.Speed</p>
+                <p>Vehicles Type: @Model.Body.Name</p>
+                <p>Doors: @Model.Door</p>
+                <p>Capacity: @Model.Capacity</p>
+                <p>Drivertrian: @Model.Drivetrian.Name</p>
+                <p>AirCondition : @Model.AirCondition.Name</p>
+                <p>VIN code: @Model.VIN</p>
+                <p>
+                    Features:
+                    <div class="mx-3">
+                        @foreach (var item in Model.FeaturesAndCars)
+                        {
+                            if (item.CarId == Model.Id)
+                            {
+                                <p class="text-white" style="font-size:12px;">@item.CarFeatures.Name</p>
+                            }
+                        }
+                    </div>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

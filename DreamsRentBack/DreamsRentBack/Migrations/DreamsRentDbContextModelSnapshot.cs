@@ -609,6 +609,38 @@ namespace DreamsRentBack.Migrations
                     b.ToTable("CompanyPickupLocations");
                 });
 
+            modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.ContactUs", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SendTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactUsMessages");
+                });
+
             modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.DropoffLocation", b =>
                 {
                     b.Property<int>("Id")
@@ -651,6 +683,35 @@ namespace DreamsRentBack.Migrations
                     b.ToTable("Locations");
                 });
 
+            modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.PayCard", b =>
                 {
                     b.Property<int>("Id")
@@ -685,8 +746,9 @@ namespace DreamsRentBack.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<byte>("cvv")
-                        .HasColumnType("tinyint");
+                    b.Property<string>("cvv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -707,6 +769,10 @@ namespace DreamsRentBack.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -785,6 +851,23 @@ namespace DreamsRentBack.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Streets");
+                });
+
+            modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Subscribe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscribes");
                 });
 
             modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.User", b =>
@@ -1305,6 +1388,33 @@ namespace DreamsRentBack.Migrations
                     b.Navigation("City");
                 });
 
+            modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.Order", b =>
+                {
+                    b.HasOne("DreamsRentBack.Entities.CarModels.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DreamsRentBack.Entities.ClientModels.Company", "Company")
+                        .WithMany("Orders")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DreamsRentBack.Entities.ClientModels.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DreamsRentBack.Entities.ClientModels.PayCard", b =>
                 {
                     b.HasOne("DreamsRentBack.Entities.ClientModels.PayCardType", "PayCardType")
@@ -1508,6 +1618,8 @@ namespace DreamsRentBack.Migrations
 
                     b.Navigation("Cars");
 
+                    b.Navigation("Orders");
+
                     b.Navigation("companyDropoffLocations");
 
                     b.Navigation("companyPickupLocations");
@@ -1540,6 +1652,8 @@ namespace DreamsRentBack.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Likes");
+
+                    b.Navigation("Orders");
 
                     b.Navigation("PayCard");
 

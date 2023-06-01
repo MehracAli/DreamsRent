@@ -10,6 +10,6 @@
     <WebStackScaffolding_IsPartialViewSelected>False</WebStackScaffolding_IsPartialViewSelected>
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>False</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_DbContextTypeFullName>DreamsRentBack.DAL.DreamsRentDbContext</WebStackScaffolding_DbContextTypeFullName>
-    <WebStackScaffolding_LayoutPageFile>~/Views/Shared/_LayoutWithoutHeaderFooter.cshtml</WebStackScaffolding_LayoutPageFile>
+    <WebStackScaffolding_LayoutPageFile>~/Areas/Admin/Views/Shared/_LayoutAdminPanel.cshtml</WebStackScaffolding_LayoutPageFile>
   </PropertyGroup>
 </Project>

@@ -6,12 +6,12 @@
 @section Scripts{
     <script>
         function formatCardNumber(input) {
-            let value = input.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+            let value = input.value.replace(/[^0-9]/g, '');
             let formattedValue = '';
 
             for (let i = 0; i < value.length; i++) {
                 if (i > 0 && i % 4 === 0) {
-                    formattedValue += '-';
+                    formattedValue += ' ';
                 }
                 formattedValue += value.charAt(i);
             }

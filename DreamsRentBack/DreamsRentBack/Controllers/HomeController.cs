@@ -1,5 +1,7 @@
 ﻿using DreamsRentBack.DAL;
+using DreamsRentBack.Entities.ClientModels;
 using DreamsRentBack.Services;
+using DreamsRentBack.Utilities;
 using DreamsRentBack.ViewModels.CarViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +32,8 @@ namespace DreamsRentBack.Controllers
                     .Include(c=>c.Likes)
                         .Include(c=>c.Brand).ThenInclude(b=>b.Models)
                             .Include(c=>c.Company).ThenInclude(c=>c.User)
-                                .OrderByDescending(c => c.Id)
+                                .Where(c=>c.CarConfirmation == CarConfirmation.Confirmed)
+                                    .OrderByDescending(c => c.Id)
                 .Select(c=> new CarExploreVM
                 {
                     Id = c.Id,
@@ -53,6 +56,18 @@ namespace DreamsRentBack.Controllers
                 .ToList();
         
             return View();
+        }
+
+        public IActionResult Subscribtion(string email)
+        {
+            Subscribe subscribe = new()
+            {
+                Email = email,
+            };
+
+            _context.Subscribes.Add(subscribe);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

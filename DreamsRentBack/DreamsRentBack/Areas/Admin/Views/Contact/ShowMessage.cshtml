@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "ShowMessage";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminPanel.cshtml";
+    string email = ViewBag.Email;
+    string comment = ViewBag.Comment;
+    string name = ViewBag.Name;
+}
+<div class="container h-75">
+    <div class="row justify-content-center" >
+        <form asp-action="SendMessage" class="col-lg-9">
+            <div class="bg-secondary rounded h-100 p-4 mt-5">
+                <div class="bg-dark p-3 mb-3" style="max-height:300px; overflow-y:scroll;">
+                    <h6 class="mb-4">@name</h6>
+                    <p style="word-wrap:break-word;">@comment</p>
+                </div>
+                <div class="form-floating mb-3">
+                    <input disabled type="email" name="email" value="@email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="floatingTextarea" style="height: 150px;"></textarea>
+                    <label for="floatingTextarea">Your Message</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+        </form>
+    </div>
+</div>
+

@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Contact/ShowMessage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29udGFjdFxTaG93TWVzc2FnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,12 +68,36 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pblNpZ25pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/Sticker/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU3RpY2tlclxEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Areas/Admin/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/AboutUs/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRVc1xBYm91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/AboutUs/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRVc1xDb250YWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/AboutUs/FAQ.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRVc1xGQVEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/AboutUs/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRVc1xQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/AboutUs/Team.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRVc1xUZWFtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Account/CompanyAccount.cshtml]
@@ -120,12 +148,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlzdGluZ1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Rent/AlreadyOrdered.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVudFxBbHJlYWR5T3JkZXJlZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Rent/Checkout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVudFxDaGVja291dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Rent/View.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVudFxWaWV3LmNzaHRtbA==
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Rent/OrderConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVudFxPcmRlckNvbmZpcm1hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Rent/SuccesfullyOrdered.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVudFxTdWNjZXNmdWxseU9yZGVyZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/DreamsRent/DreamsRentBack/DreamsRentBack/Views/Shared/_Layout.cshtml]

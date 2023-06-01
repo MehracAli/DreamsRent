@@ -10,6 +10,7 @@
     List<Rating> ratings = ViewBag.Ratings;
     List<Street> streets = ViewBag.Streets;
     double companyRating = ViewBag.CompanyRating;
+    int companyRatingCount = ViewBag.CompanyRatingCount;
 }
 <style>
     #dropdownContainer {
@@ -585,8 +586,9 @@
                                             </div>
                                         </li>
                                     </ul>
+                                    <input type="hidden" name="carId" value="@Model.Id"/>
                                     <div class="submit">
-                                        <button asp-route-carId="@Model.Id" type="submit" class="btn">check Availability</button>
+                                        <button type="submit" class="btn">check Availability</button>
                                     </div>
                                 </form>
                             </div>
@@ -611,15 +613,15 @@
                                 <div class="owner-info" style="text-align:start;">
                                     <h5>@Model.Company.CompanyName</h5>
                                     <div class="rating">
-                                        @for (int i = 0; i < Math.Floor(companyRating / ratings.Where(r => r.Comment.Car.CompanyId == Model.Company.Id).Count()); i++)
+                                        @for (int i = 0; i < Math.Floor(companyRating / companyRatingCount); i++)
                                         {
                                             <i class="fas fa-star filled"></i>
                                         }
-                                        @for (int i = 0; i < 5 - Math.Floor(companyRating / ratings.Where(r => r.Comment.Car.CompanyId == Model.Company.Id).Count()); i++)
+                                        @for (int i = 0; i < 5 - Math.Floor(companyRating / companyRatingCount); i++)
                                         {
                                             <i class="fas fa-star filled" style="color:gray"></i>
                                         }
-                                        <span>(@Math.Floor(companyRating / ratings.Where(r => r.Comment.Car.CompanyId == Model.Company.Id).Count()).ToString("F1"))</span>
+                                        <span>(@Math.Floor(companyRating / companyRatingCount).ToString("F1"))</span>
                                     </div>
                                 </div>
                             </div>
@@ -631,7 +633,7 @@
                                     </li>
                                     <li>
                                         Bookings
-                                        <span>225</span>
+                                        <span>@Model.Bookings.Count().ToString("D2")</span>
                                     </li>
                                     <li>
                                         Verification
@@ -1345,8 +1347,6 @@
                 let point = star.firstElementChild
 
                 point.checked = true;
-
-                console.log(star.firstElementChild)
            })
        })
 

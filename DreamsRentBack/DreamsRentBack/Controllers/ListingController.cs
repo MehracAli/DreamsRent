@@ -1,6 +1,7 @@
 ﻿using DreamsRentBack.DAL;
 using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
+using DreamsRentBack.Utilities;
 using DreamsRentBack.ViewModels.CarViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,7 @@ namespace DreamsRentBack.Controllers
                     .Include(c => c.Likes)
                         .Include(c => c.Brand).ThenInclude(b => b.Models)
                             .Include(c => c.Company)
+                            .Where(c=>c.CarConfirmation == CarConfirmation.Confirmed)
                                 .OrderByDescending(c => c.Id)
             .Select(c=> new CarExploreVM
             {

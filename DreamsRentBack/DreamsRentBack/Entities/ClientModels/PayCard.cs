@@ -11,7 +11,7 @@ namespace DreamsRentBack.Entities.ClientModels
         public string HolderName { get; set; }
         public string HolderSurname { get; set; }
         public double Balance { get; set; } = 1000;
-        public byte cvv { get; set; }
+        public string cvv { get; set; }
         public int PayCardTypeId { get; set; }
         public PayCardType PayCardType { get; set; }
         public string UserId { get; set; }

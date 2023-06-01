@@ -17,11 +17,13 @@ namespace DreamsRentBack.Entities.ClientModels
         public List<Comment> Comments { get; set; }
         public List<Like> Likes { get; set; }
         public List<Rent>? Rents { get; set; }
+        public List<Order> Orders { get; set; }
         public User()
         {
             Comments = new();
             Likes = new();
             Rents = new();
+            Orders = new();
         }
     }
 }

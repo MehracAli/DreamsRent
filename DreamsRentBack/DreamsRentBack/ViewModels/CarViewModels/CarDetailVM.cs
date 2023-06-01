@@ -30,6 +30,7 @@ namespace DreamsRentBack.ViewModels.CarViewModels
         public List<Comment> Comments { get; set; }
         public string Description { get; set; }
         public Company Company { get; set; }
+        public List<Booking> Bookings { get; set; }
         public bool Availability { get; set; }
     }
 }

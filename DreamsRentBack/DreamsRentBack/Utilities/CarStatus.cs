@@ -2,7 +2,7 @@
 {
     public enum CarStatus
     {
-        Free = 1,
+        Available = 1,
         Pending,
         Rented
     }

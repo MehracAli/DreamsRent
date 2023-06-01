@@ -1033,6 +1033,10 @@
       "PackagePath": "staticwebassets\\assets\\images\\listing\\breadcrumbright.png"
     },
     {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\listing\\download.png",
+      "PackagePath": "staticwebassets\\assets\\images\\listing\\download.png"
+    },
+    {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\owners\\avatar-07.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\owners\\avatar-07.jpg"
     },
@@ -1041,24 +1045,12 @@
       "PackagePath": "staticwebassets\\assets\\images\\owners\\signute\\signature (1).png"
     },
     {
-      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\payments\\account-payment-visa.png",
-      "PackagePath": "staticwebassets\\assets\\images\\payments\\account-payment-visa.png"
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\payments\\mastercard.png",
+      "PackagePath": "staticwebassets\\assets\\images\\payments\\mastercard.png"
     },
     {
-      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\payments\\payment-1.svg",
-      "PackagePath": "staticwebassets\\assets\\images\\payments\\payment-1.svg"
-    },
-    {
-      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\payments\\payment-2.png",
-      "PackagePath": "staticwebassets\\assets\\images\\payments\\payment-2.png"
-    },
-    {
-      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\payments\\payment-3.png",
-      "PackagePath": "staticwebassets\\assets\\images\\payments\\payment-3.png"
-    },
-    {
-      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\payments\\payment-4.svg",
-      "PackagePath": "staticwebassets\\assets\\images\\payments\\payment-4.svg"
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\payments\\visacard.png",
+      "PackagePath": "staticwebassets\\assets\\images\\payments\\visacard.png"
     },
     {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\assets\\images\\scroll\\PngItem_1509117.png",

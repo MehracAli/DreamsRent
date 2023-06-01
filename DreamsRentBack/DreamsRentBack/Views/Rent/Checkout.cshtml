@@ -1,9 +1,15 @@
-﻿@model CarCheckoutVM
+﻿@using DreamsRentBack.Entities.ClientModels;
+@model CarCheckoutVM
 @{
     ViewData["Title"] = "Checkout";
     Layout = "~/Views/Shared/_LayoutWithoutHeaderFooter.cshtml";
+    List<PayCardType> payCardTypes = ViewBag.PayCards;
 }
-
+<style>
+    .invalid {
+        border: 1px solid red!important;
+    }
+</style>
 <!-- main start -->
 <main>
     <section id="head">
@@ -41,162 +47,311 @@
                     </div>
                 </li>
             </ul>
-            <div class="checkout-wrapper">
-                <div class="checkout-box booking-details">
-                    <h3>Booking Details</h3>
-                    <div class="booking-info">
-                        <div class="col-lg-4">
-                            <h5>Pickup</h5>
-                            <p>45, 4th Avanue Mark Street USA</p>
-                            <p>Date & time : 11 Jan 2023</p>
-                        </div>
-                        <div class="col-lg-4">
-                            <h5>Drop Off</h5>
-                            <p>78, 10th street Laplace USA</p>
-                            <p>Date & time : 11 Jan 2023</p>
-                        </div>
-                        <div class="col-lg-4">
-                            <h5>Amount to be paid</h5>
-                            <h6>
-                                &315
-                                <i class="fa-solid fa-circle-info"></i>
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="booking-form">
-                        <h5>Enter Below details</h5>
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <label for="">
-                                        Enter Name
-                                        <span>*</span>
-                                    </label>
-                                    <input type="text">
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="">
-                                        Email Address
-                                        <span>*</span>
-                                    </label>
-                                    <input type="text">
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="">
-                                        Phone Number
-                                        <span>*</span>
-                                    </label>
-                                    <input type="text">
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="">
-                                        Address
-                                        <span>*</span>
-                                    </label>
-                                    <input type="text">
-                                </div>
-                                <div class="col-lg-12">
-                                    <label for="">
-                                        Comments
-                                        <span>*</span>
-                                    </label>
-                                    <textarea name="" id="" cols="30" rows="10"></textarea>
-                                </div>
+            <form asp-action="OrderConfirmation" asp-route-carId="@Model.Id">
+                <div class="checkout-wrapper">
+                    <div class="checkout-box booking-details">
+                        <h3>Booking Details</h3>
+                        <div class="booking-info">
+                            <div class="col-lg-4">
+                                <h5>Pickup</h5>
+                                <p>@Model.PickLocation</p>
+                                <p>@Model.PickDate.ToString("D")</p>
+                                <input name="PickLocation" value="@Model.PickLocation" type="text" style="display:none;" />
+                                <input name="PickDate" value="@Model.PickDate" type="text" style="display:none;" />
                             </div>
-                            <div class="btn-wrapper">
-                                <button type="button" class="btn go-step-2">
-                                    Go To Payment
-                                    <i class="fa-solid fa-arrow-right ms-2"></i>
-                                </button>
+                            <div class="col-lg-4">
+                                <h5>Drop Off</h5>
+                                <p>@Model.DropLocation</p>
+                                <p>@Model.DropDate.ToString("D")</p>
+                                <input name="DropLocation" value="@Model.DropLocation" type="text" style="display:none;" />
+                                <input name="DropDate" value="@Model.DropDate" type="text" style="display:none;" />
                             </div>
-                        </form>
-                    </div>
-                    <div class="back-detail">
-                        <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="Id">
-                            <i class="fa-solid fa-arrow-left"></i>
-                            Back to detail page
-                        </a>
-                    </div>
-                </div>
-                <div class="checkout-box payment-details d-none">
-                    <h3>Booking Details</h3>
-                    <div class="booking-info">
-                        <div class="col-lg-4">
-                            <h5>Amount to be paid</h5>
-                            <h6>
-                                &315
-                                <i class="fa-solid fa-circle-info"></i>
-                            </h6>
+                            <div class="col-lg-4">
+                                <h5>Amount to be paid</h5>
+                                <h6>
+                                    &@Model.Price
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </h6>
+                            </div>
                         </div>
-                    </div>
-                    <div class="payment-method">
-                        <h4>Choose your Payment Method</h4>
-                        <ul>
-                            <li class="paypal">
-                                <a href="#">
-                                    <img src="~/assets/images/payments/payment-1.svg" alt="">
-                                </a>
-                            </li>
-                            <li class="master">
-                                <a href="#">
-                                    <img src="~/assets/images/payments/payment-2.svg" alt="">
-                                </a>
-                            </li>
-                            <li class="visa">
-                                <a href="#">
-                                    <img src="~/assets/images/payments/payment-3.svg" alt="">
-                                </a>
-                            </li>
-                            <li class="apple-pay">
-                                <a href="#">
-                                    <img src="~/assets/images/payments/payment-4.svg" alt="">
-                                </a>
-                            </li>
-                        </ul>
                         <div class="booking-form">
                             <h5>Enter Below details</h5>
-                            <form action="#">
+                            <div class="booking-form-body">
                                 <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="">
+                                            Enter Full Name
+                                            <span>*</span>
+                                        </label>
+                                        <input name="fullname" type="text" value="@Model.User.Name @Model.User.Surname">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="">
+                                            Email Address
+                                            <span>*</span>
+                                        </label>
+                                        <input name="email" type="email" value="@Model.User.Email">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="">
+                                            Phone Number
+                                            <span>*</span>
+                                        </label>
+                                        <input name="phoneNumber" type="tel" value="@Model.User.PhoneNumber">
+                                        <input type="hidden" name="UserName" value="@User.Identity.Name"/>
+                                    </div>
                                     <div class="col-lg-12">
                                         <label for="">
-                                            Card Number
+                                            Comments
                                             <span>*</span>
                                         </label>
-                                        <input type="text" name="" id="">
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label for="">
-                                            Expiration date
-                                            <span>*</span>
-                                        </label>
-                                        <input type="text" name="" id="">
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label for="">
-                                            Security number
-                                            <span>*</span>
-                                        </label>
-                                        <input type="text" name="" id="">
+                                        <textarea name="comment" id="" cols="30" rows="10"></textarea>
                                     </div>
                                 </div>
-                                <div class="btn-pay">
-                                    <button class="btn">
-                                        Pay $315
+                                <div class="btn-wrapper">
+                                    <button type="button" class="btn go-step-2">
+                                        Go To Payment
+                                        <i class="fa-solid fa-arrow-right ms-2"></i>
                                     </button>
                                 </div>
-                            </form>
+                            </div>
+                        </div>
+                        <div class="back-detail">
+                            <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@Model.Id">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                Back to detail page
+                            </a>
                         </div>
                     </div>
-                    <div class="back-detail" style="margin-top: 20px;">
-                        <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@Model.Id">
-                            <i class="fa-solid fa-arrow-left"></i>
-                            Back to detail page
-                        </a>
+                    <div class="checkout-box payment-details d-none">
+                        <h3>Booking Details</h3>
+                        <div class="booking-info">
+                            <div class="col-lg-4">
+                                <h5>Amount to be paid</h5>
+                                <h6>
+                                    &@Model.Price
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="payment-method">
+                            @if (Model.User.PayCard == null)
+                            {
+                                <h4>Choose your Payment Method</h4>
+                            }
+                            <ul>
+                                @foreach (PayCardType payCardType in payCardTypes)
+                                {   
+                                    if (Model.User.PayCard == null)
+                                    {
+                                        <li class="@payCardType.Name">
+                                            <a class="choosePayCard">
+                                                <img src="~/assets/images/payments/@payCardType.Path" alt="">
+                                                <input style="display:none;" type="radio" name="payCardTypeId" value="@payCardType.Id"/>
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        if (Model.User.PayCard.PayCardTypeId == payCardType.Id)
+                                        {
+                                            <li class="@payCardType.Name">
+                                                <a class="choosePayCard" style="cursor:pointer;">
+                                                    <img src="~/assets/images/payments/@payCardType.Path" alt="">
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                }
+                            </ul>
+                            <div class="booking-form">
+                                <h5>Enter Below details</h5>
+                                <div class="booking-form-body">
+                                    @if (Model.User.PayCard == null)
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <label for="">
+                                                    Card Number
+                                                    <span>*</span>
+                                                </label>
+                                                <input class="cardNumber" type="text" name="cardNumber" onkeyup="formatCardNumber(this)" maxlength="19" required>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label for="">
+                                                    Holder Name
+                                                    <span>*</span>
+                                                </label>
+                                                <input type="text" name="holderName" required>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label for="">
+                                                    Holder Surname
+                                                    <span>*</span>
+                                                </label>
+                                                <input type="text" name="holderSurname" required>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label for="">
+                                                    Expiration date
+                                                    <span>*</span>
+                                                </label>
+                                                <input type="text" name="date" id="" min="5" maxlength="5" onkeyup="formatDate(this)" required>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label for="">
+                                                    Security number
+                                                    <span>*</span>
+                                                </label>
+                                                <input type="text" name="cvv" maxlength="3" required>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <label for="">
+                                                    Card Number
+                                                    <span>*</span>
+                                                </label>
+                                                <input class="cardNumber disable" type="text" name="cardNumber" onkeyup="formatCardNumber(this)" value="@Model.User.PayCard.CardNumber" required>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label for="">
+                                                    Holder Name
+                                                    <span>*</span>
+                                                </label>
+                                                <input class="disable" type="text" name="holderName" value="@Model.User.PayCard.HolderName" required>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label for="">
+                                                    Holder Surname
+                                                    <span>*</span>
+                                                </label>
+                                                <input class="disable" type="text" name="holderSurname" value="@Model.User.PayCard.HolderSurname" required>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label for="">
+                                                    Expiration date
+                                                    <span>*</span>
+                                                </label>
+                                                <input class="disable" type="text" name="date" min="5" onkeyup="formatDate(this)" maxlength="5" value="@Model.User.PayCard.Date" required>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label for="">
+                                                    Security number
+                                                    <span>*</span>
+                                                </label>
+                                                <input class="disable" type="text" name="cvv" maxlength="3" value="@Model.User.PayCard.cvv" required>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="btn-pay">
+                                        <button type="submit" class="btn">
+                                            Pay $@Model.Price
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="back-detail" style="margin-top: 20px;">
+                            <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@Model.Id">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                Back to detail page
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 </main>
 <!-- main end -->
+<!-- scripts -->
+@section Scripts{
+    <script>
+        const inputs = document.querySelectorAll('.cardNumber');
+
+        inputs.forEach(function (input) {
+            input.setAttribute('maxlength', 19);
+            input.setAttribute('maxlength', 19);
+            input.addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, '').substring(0, 19);
+            });
+        });
+
+        const inputsCvv = document.querySelectorAll('.cvv');
+
+        inputsCvv.forEach(function (input) {
+            input.setAttribute('maxlength', 5);
+            input.addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, '').substring(0, 5);
+            });
+        });
+
+        const disabledInputs = document.querySelectorAll('.disable');
+
+        disabledInputs.forEach(function (input) {
+            input.disabled = true;
+        });
+    </script>
+    <script>
+        const inputs = document.querySelectorAll('input');
+
+        inputs.forEach(function (input) {
+            input.setAttribute('required', true);
+        });
+
+        document.addEventListener('submit', function (event) {
+            inputs.forEach(function (input) {
+                if (!input.value) {
+                    input.classList.add('invalid');
+                    event.preventDefault();
+                } else {
+                    input.classList.remove('invalid');
+                }
+            });
+        });
+    </script>
+    <script>
+        let choosePayCard = document.querySelectorAll(".choosePayCard")
+
+        choosePayCard.forEach(Element=>{
+            Element.addEventListener("click",function(){
+                Element.firstElementChild.nextElementSibling.checked = true;
+            })
+        })
+    </script>
+    <script>
+        function formatCardNumber(input) {
+            let value = input.value.replace(/[^0-9]/g, '');
+            let formattedValue = '';
+
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedValue += ' ';
+                }
+                formattedValue += value.charAt(i);
+            }
+
+            input.value = formattedValue;
+        }
+    </script>
+    <script>
+        function formatDate(input) {
+            let value = input.value.replace(/[^0-9]/g, '');
+            let formattedValue = '';
+
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 2 === 0) {
+                    formattedValue += '/';
+                }
+                formattedValue += value.charAt(i);
+            }
+
+            input.value = formattedValue;
+        }
+    </script>
+}
 

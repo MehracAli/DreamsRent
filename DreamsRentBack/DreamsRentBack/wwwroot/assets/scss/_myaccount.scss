@@ -436,6 +436,168 @@
                             background-color: #fff;
                             border-radius: 5px;
                             text-align: center;
+                            .row{
+                                .car-item{
+                                    .card{
+                                        margin-bottom: 24px;
+                                        padding: 0 20px;
+                                        background: #ffffff;
+                                        box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+                                        display: inline-block;
+                                        width: 100%;
+                                        border: none;
+                                        border-radius: 8px;
+                                        .img-details{
+                                            display: flex;
+                                            align-items: center;
+                                            .card-img{
+                                                margin-right: 15px;
+                                                border-radius: 10px;
+                                                max-width: 30%;
+                                                img{
+                                                    border-radius: 10px;
+                                                    max-width: 100%;
+                                                    height: auto;
+                                                }
+                                            }
+                                            .card-details{
+                                                width: 100%;
+                                                .card-body{
+                                                    position: relative;
+                                                    .body-head{
+                                                        margin-bottom: 15px;
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                        .title{
+                                                            h3{
+                                                                margin-bottom: 10px;
+                                                                font-size: 20px;
+                                                                font-weight: 600;
+                                                                
+                                                                a{
+                                                                    color: #201F1D;
+                                                                    text-decoration: none;
+                                                                }
+                                                            }
+                                                            h6{
+                                                                font-size: 15px;
+                                                                color: #737373;
+                                                                font-weight: 400;
+                                                            }
+                                                        }
+                                                        .price-rating{
+                                                            .rating{
+                                                                margin-bottom: 8px;
+                                                                i{
+                                                                    color: #FF9307;
+                                                                    font-size: 14px;
+                                                                }
+                                                                span{
+                                                                    font-size: 15px;
+                                                                    color: #787878;
+                                                                }
+                                                            }
+                                                            .price{
+                                                                font-weight: 700;
+                                                                font-size: 24px;
+                                                                color: #FF0000;
+                                                                display: flex;
+                                                                align-items: center;
+                                                                justify-content: center;
+                                                                margin: 0;
+                                                                span{
+                                                                    font-size: 14px;
+                                                                    font-weight: normal;
+                                                                    color: #828282;
+                                                                    margin-left: 7px;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    .body-mid{
+                                                        margin-bottom: 15px;
+                                                        padding-bottom: 15px;
+                                                        border-bottom: 1px solid #F4F4F4;
+                                                        ul{
+                                                            margin: 0;
+                                                            padding: 10px;
+                                                            background: #F2F7F6;
+                                                            border-radius: 5px;
+                                                            list-style: none;
+                                                            display: flex;
+                                                            align-items: center;
+                                                            justify-content: space-between;
+                                                            li{
+                                                                display: flex;
+                                                                img{
+                                                                    margin-right: 10px;
+                                                                    line-height: 0;
+                                                                    width: 16px;
+                                                                }
+                                                                p{
+                                                                    margin: 0;
+                                                                    font-size: 15px;
+                                                                    color: #787878;
+                                                                }
+                                                            }
+                                                        }
+            
+                                                    }
+                                                    .body-bottom{
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                        align-items: center;
+                                                        .author{
+                                                            display: flex;
+                                                            .author-img{
+                                                                img{
+                                                                    margin-right: 10px;
+                                                                    border-radius: 50%;
+                                                                    width: 46px;
+                                                                    height: 46px;
+                                                                }
+                                                            }
+                                                            .author-name-location{
+                                                                .author-name{
+                                                                    h5{
+                                                                        margin-bottom: 3px;
+                                                                        a{
+                                                                            text-decoration: none;
+                                                                            font-size: 16px;
+                                                                            color: #201F1D;
+                                                                        }
+                                                                    }
+                                                                    h6{
+                                                                        display: flex;
+                                                                        align-items: center;
+                                                                        font-size: 15px;
+                                                                        color: #737373;
+                                                                        font-weight: 400;
+                                                                        i{
+                                                                            margin-right: 10px;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        .rent-btn{
+                                                            a{
+                                                                background: #201F1D;
+                                                                color: #ffffff;
+                                                                transition: all 0.5;
+            
+                                                                &:hover{
+                                                                    background-color: #127384;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                         .rented-body{
                             padding: 20px;
@@ -443,6 +605,168 @@
                             background-color: #fff;
                             border-radius: 5px;
                             text-align: center;
+                            .row{
+                                .car-item{
+                                    .card{
+                                        margin-bottom: 24px;
+                                        padding: 0 20px;
+                                        background: #ffffff;
+                                        box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+                                        display: inline-block;
+                                        width: 100%;
+                                        border: none;
+                                        border-radius: 8px;
+                                        .img-details{
+                                            display: flex;
+                                            align-items: center;
+                                            .card-img{
+                                                margin-right: 15px;
+                                                border-radius: 10px;
+                                                max-width: 30%;
+                                                img{
+                                                    border-radius: 10px;
+                                                    max-width: 100%;
+                                                    height: auto;
+                                                }
+                                            }
+                                            .card-details{
+                                                width: 100%;
+                                                .card-body{
+                                                    position: relative;
+                                                    .body-head{
+                                                        margin-bottom: 15px;
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                        .title{
+                                                            h3{
+                                                                margin-bottom: 10px;
+                                                                font-size: 20px;
+                                                                font-weight: 600;
+                                                                
+                                                                a{
+                                                                    color: #201F1D;
+                                                                    text-decoration: none;
+                                                                }
+                                                            }
+                                                            h6{
+                                                                font-size: 15px;
+                                                                color: #737373;
+                                                                font-weight: 400;
+                                                            }
+                                                        }
+                                                        .price-rating{
+                                                            .rating{
+                                                                margin-bottom: 8px;
+                                                                i{
+                                                                    color: #FF9307;
+                                                                    font-size: 14px;
+                                                                }
+                                                                span{
+                                                                    font-size: 15px;
+                                                                    color: #787878;
+                                                                }
+                                                            }
+                                                            .price{
+                                                                font-weight: 700;
+                                                                font-size: 24px;
+                                                                color: #FF0000;
+                                                                display: flex;
+                                                                align-items: center;
+                                                                justify-content: center;
+                                                                margin: 0;
+                                                                span{
+                                                                    font-size: 14px;
+                                                                    font-weight: normal;
+                                                                    color: #828282;
+                                                                    margin-left: 7px;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    .body-mid{
+                                                        margin-bottom: 15px;
+                                                        padding-bottom: 15px;
+                                                        border-bottom: 1px solid #F4F4F4;
+                                                        ul{
+                                                            margin: 0;
+                                                            padding: 10px;
+                                                            background: #F2F7F6;
+                                                            border-radius: 5px;
+                                                            list-style: none;
+                                                            display: flex;
+                                                            align-items: center;
+                                                            justify-content: space-between;
+                                                            li{
+                                                                display: flex;
+                                                                img{
+                                                                    margin-right: 10px;
+                                                                    line-height: 0;
+                                                                    width: 16px;
+                                                                }
+                                                                p{
+                                                                    margin: 0;
+                                                                    font-size: 15px;
+                                                                    color: #787878;
+                                                                }
+                                                            }
+                                                        }
+            
+                                                    }
+                                                    .body-bottom{
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                        align-items: center;
+                                                        .author{
+                                                            display: flex;
+                                                            .author-img{
+                                                                img{
+                                                                    margin-right: 10px;
+                                                                    border-radius: 50%;
+                                                                    width: 46px;
+                                                                    height: 46px;
+                                                                }
+                                                            }
+                                                            .author-name-location{
+                                                                .author-name{
+                                                                    h5{
+                                                                        margin-bottom: 3px;
+                                                                        a{
+                                                                            text-decoration: none;
+                                                                            font-size: 16px;
+                                                                            color: #201F1D;
+                                                                        }
+                                                                    }
+                                                                    h6{
+                                                                        display: flex;
+                                                                        align-items: center;
+                                                                        font-size: 15px;
+                                                                        color: #737373;
+                                                                        font-weight: 400;
+                                                                        i{
+                                                                            margin-right: 10px;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        .rent-btn{
+                                                            a{
+                                                                background: #201F1D;
+                                                                color: #ffffff;
+                                                                transition: all 0.5;
+            
+                                                                &:hover{
+                                                                    background-color: #127384;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                         p{
                             color: #838383;

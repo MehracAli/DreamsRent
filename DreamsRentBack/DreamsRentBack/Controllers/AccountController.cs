@@ -420,7 +420,7 @@ namespace DreamsRentBack.Controllers
                 return RedirectToAction("ConsumerAccount", "Account", new { UserName = user.UserName });
             }
 
-        public IActionResult AddDebitCard(string Id, string HolderName, string HolderSurname, string CardNumber, string Date, int date, byte cvv)
+        public IActionResult AddDebitCard(string Id, string HolderName, string HolderSurname, string CardNumber, string Date, int date, string cvv)
         {
             User user = _context.Users.FirstOrDefault(u=>u.Id == Id);
 
@@ -466,6 +466,10 @@ namespace DreamsRentBack.Controllers
                 .Include(c=>c.Cars)
                 .Include(c=>c.companyPickupLocations).ThenInclude(cp=>cp.PickupLocation).ThenInclude(p=>p.City)
                 .Include(c=>c.companyDropoffLocations).ThenInclude(cp=>cp.DropoffLocation).ThenInclude(p=>p.City)
+                .Include(c=>c.Orders).ThenInclude(o=>o.Car).ThenInclude(c=>c.Brand).ThenInclude(b=>b.Models)
+                .Include(c=>c.Orders).ThenInclude(o=>o.User)
+                .Include(c=>c.Bookings).ThenInclude(b => b.car).ThenInclude(c => c.Brand).ThenInclude(b => b.Models)
+                .Include(c=>c.Bookings).ThenInclude(b => b.User)
                 .FirstOrDefault(c=>c.UserId == user.Id);
 
                 //Company company = user.Company;

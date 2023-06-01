@@ -24,10 +24,13 @@ namespace DreamsRentBack.DAL
         public DbSet<CompanyDropoffLocation> CompanyDropoffLocations { get; set; }
         public DbSet<DropoffLocation> DropoffLocations { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<PayCard> PayCards { get; set; }
         public DbSet<PayCardType> PayCardTypes { get; set; }
         public DbSet<PickupLocation> PickupLocations { get; set; }
         public DbSet<Street> Streets { get; set; }
+        public DbSet<Subscribe> Subscribes { get; set; }
+        public DbSet<ContactUs> ContactUsMessages { get; set; }
         //Client Models End
 
         //Car Models Start

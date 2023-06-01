@@ -1,12 +1,17 @@
-﻿
+﻿@model List<CarExploreVM>
 @{
     List<Brand> brands = ViewBag.Brands;
     List<Body> bodies = ViewBag.Bodies;
     List<Rating> ratings = ViewBag.Ratings;
     double expensive = ViewBag.Expensive;
 }
-@model List<CarExploreVM>
 <div class="row" id="cars-list">
+    @if (Model.Count() == 0)
+    {
+        <div>
+            <h3 class="text-center">Car Not Found</h3>
+        </div>
+    }
     @foreach (CarExploreVM car in Model)
     {
         <div class="car-item">
@@ -126,7 +131,9 @@
         </div>
     }
 </div>
-<div class="pagination-wrapper">
+@if (Model.Count() != 0)
+{
+<div class="pagination-wrapper" style="position:absolute;bottom:0;left:45%">
     <nav class="pagination-nav">
         <ul class="pagination">
             <li class="previtem">
@@ -159,3 +166,4 @@
         </ul>
     </nav>
 </div>
+}

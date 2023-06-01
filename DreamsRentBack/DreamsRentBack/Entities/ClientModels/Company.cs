@@ -18,12 +18,13 @@ namespace DreamsRentBack.Entities.ClientModels
         public List<CompanyDropoffLocation> companyDropoffLocations { get; set; }
         public List<Booking>? Bookings { get; set; }
         public List<Car> Cars { get; set; }
-
+        public List<Order> Orders { get; set; }
         public Company()
         {
             Cars = new();
             companyPickupLocations = new();
             companyDropoffLocations = new();
+            Orders = new List<Order>();
             Bookings = new();
         }
 

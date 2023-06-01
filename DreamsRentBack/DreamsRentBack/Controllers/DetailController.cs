@@ -32,6 +32,7 @@ namespace DreamsRentBack.Controllers
 
                 Car? car = _context.Cars
                     .Include(c=>c.Company).ThenInclude(c=>c.User)
+                    .Include(c=>c.Company).ThenInclude(c=>c.Bookings)
                     .Include(c=>c.Company).ThenInclude(c=>c.companyPickupLocations).ThenInclude(cp => cp.PickupLocation).ThenInclude(p => p.City)
                     .Include(c=>c.Company).ThenInclude(c=>c.companyDropoffLocations).ThenInclude(cp => cp.DropoffLocation).ThenInclude(p => p.City)
                     .Include(c=>c.Brand).ThenInclude(b=>b.Models)
@@ -47,6 +48,7 @@ namespace DreamsRentBack.Controllers
                                         .Include(c=>c.Engine)
                                         .Include(c=>c.Comments).ThenInclude(c=>c.Rating)
                                             .FirstOrDefault(c => c.Id == Id);
+
                 car.Views++;
                 _context.SaveChanges();
 
@@ -75,6 +77,7 @@ namespace DreamsRentBack.Controllers
                     Comments = car.Comments,
                     Description = car.Description,
                     Company = car.Company,
+                    Bookings = car.Company.Bookings,
                     Availability = car.Availability,
                 };
 
@@ -85,9 +88,11 @@ namespace DreamsRentBack.Controllers
                 foreach (var item in cars)
                 {
                     companyRating += car.Rating;
+                    companyRatingCount += car.Comments.Count() ;
                 }
 
                 ViewBag.CompanyRating = companyRating;
+                ViewBag.CompanyRatingCount = companyRatingCount;
 
                 if (car == null) { return RedirectToAction("NotFound", "Error"); }
 

@@ -122,7 +122,7 @@ namespace DreamsRentBack.Controllers
                 Price = createdCar.Price,
                 Description = createdCar.Description,
                 Availability = true,
-                CarStatus = CarStatus.Free,
+                CarStatus = CarStatus.Available,
                 CarConfirmation = CarConfirmation.None,
                 Views = 0,
                 Rating = 0,

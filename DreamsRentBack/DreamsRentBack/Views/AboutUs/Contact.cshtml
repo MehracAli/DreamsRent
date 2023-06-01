@@ -1,0 +1,126 @@
+﻿@using DreamsRentBack.Services;
+@inject LayoutService layoutServices;
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- main start -->
+<main>
+    <section id="head">
+        <div class="container">
+            <div class="head-wrapper">
+                <h2>Contact Us</h2>
+                <div class="root">
+                    <ul>
+                        <li>
+                            <a href="./index.html">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            Contact Us
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contac-us">
+        <div class="container">
+            <div class="contact-info">
+                <div class="row">
+                    <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="100" class="col-lg-3">
+                        <div class="info">
+                            <span>
+                                <i class="fa-solid fa-phone-volume"></i>
+                            </span>
+                            <h3>Phone Number</h3>
+                            <a href="">@layoutServices.GetSettings().FirstOrDefault(s=>s.Key.Equals("Tel")).Value</a>
+                        </div>
+                    </div>
+                    <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="500" class="col-lg-3">
+                        <div class="info">
+                            <span>
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+                            <h3>Email</h3>
+                            <a href="">@layoutServices.GetSettings().FirstOrDefault(s=>s.Key.Equals("Email")).Value</a>
+                        </div>
+                    </div>
+                    <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="900" class="col-lg-3">
+                        <div class="info">
+                            <span>
+                                <i class="fa-sharp fa-solid fa-location-dot"></i>
+                            </span>
+                            <h3>Location</h3>
+                            <a href="">@layoutServices.GetSettings().FirstOrDefault(s=>s.Key.Equals("Location")).Value</a>
+                        </div>
+                    </div>
+                    <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="1300" class="col-lg-3">
+                        <div class="info">
+                            <span>
+                                <i class="fa-solid fa-clock"></i>
+                            </span>
+                            <h3>Work Hours</h3>
+                            <a href="">@layoutServices.GetSettings().FirstOrDefault(s=>s.Key.Equals("Opening")).Value</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <div class="row">
+                    <div class="col-lg-6 form-img">
+                        <img src="~/assets/images/contact/contact-info.jpg" alt="">
+                    </div>
+                    <div class="col-lg-6 form">
+                        <form asp-action="Contact">
+                            <div class="row">
+                                <h1>Get in touch!</h1>
+                                <div class="input-wrapper">
+                                    <div class="form-group">
+                                        <label>
+                                            Name
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" name="name">
+                                    </div>
+                                </div>
+                                <div class="input-wrapper">
+                                    <div class="form-group">
+                                        <label>
+                                            Email Address
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="email" name="email">
+                                    </div>
+                                </div>
+                                <div class="input-wrapper">
+                                    <div class="form-group">
+                                        <label>
+                                            Phone number
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="tel" name="phoneNumber">
+                                    </div>
+                                </div>
+                                <div class="input-wrapper">
+                                    <div class="form-group">
+                                        <label>
+                                            Comment
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <textarea name="comment" cols="30" rows="10"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn contact-btn">Send Enquiry</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- main end -->
+

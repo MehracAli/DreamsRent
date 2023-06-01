@@ -43,13 +43,13 @@
                             <a asp-controller="Listing" asp-action="Index">Car List</a>
                         </li>
                         <li>
-                            <a href="./contact.html">Contact</a>
+                            <a asp-controller="AboutUs" asp-action="Contact">Contact</a>
                         </li>
                         <li>
-                            <a href="./about.html">About Us</a>
+                            <a asp-controller="AboutUs" asp-action="About">About Us</a>
                         </li>
                         <li>
-                            <a href="./faq.html">FAQ</a>
+                            <a asp-controller="AboutUs" asp-action="FAQ">FAQ</a>
                         </li>
                     </ul>
                 </div>
@@ -128,19 +128,19 @@
                             <h5>About Company</h5>
                             <ul class="col-list">
                                 <li>
-                                    <a href="./contact.html">Contact Us</a>
+                                    <a asp-controller="AboutUs" asp-action="Contact">Contact Us</a>
                                 </li>
                                 <li>
-                                    <a href="./about.html">About Us</a>
+                                    <a asp-controller="AboutUs" asp-action="About">About Us</a>
                                 </li>
                                 <li>
-                                    <a href="./team.html">Our Team</a>
+                                    <a asp-controller="AboutUs" asp-action="Team">Our Team</a>
                                 </li>
                                 <li>
-                                    <a href="./faq.html">FAQ</a>
+                                    <a asp-controller="AboutUs" asp-action="FAQ">FAQ</a>
                                 </li>
                                 <li>
-                                    <a href="./privacy&policy.html">Privacy & Policy</a>
+                                    <a asp-controller="AboutUs" asp-action="FAQ">Privacy & Policy</a>
                                 </li>
                             </ul>
                         </div>
@@ -196,11 +196,11 @@
                                 </div>
                             </div>
                             <div class="contact-form">
-                                <form action="#">
+                                <form asp-controller="Home" asp-action="Subscribtion">
                                     <span>
                                         <i class="fa-solid fa-envelope"></i>
                                     </span>
-                                    <input type="email" placeholder="Eter Your Email Here">
+                                    <input type="email" name="email" placeholder="Eter Your Email Here">
                                     <button type="submit">
                                         <i class="fa-solid fa-paper-plane"></i>
                                     </button>

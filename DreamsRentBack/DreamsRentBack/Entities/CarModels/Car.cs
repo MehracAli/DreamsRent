@@ -13,13 +13,13 @@ namespace DreamsRentBack.Entities.CarModels
         public int Capacity { get; set; }
         public string Description { get; set; }
         public bool Availability { get; set; }
-        public CarStatus CarStatus { get; set; } = CarStatus.Free;
+        public CarStatus CarStatus { get; set; } = CarStatus.Available;
         public CarConfirmation CarConfirmation { get; set; } = CarConfirmation.None;
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         public List<CarPhoto> CarPhotos { get; set; }
-        public DateTime? PickupDate { get; set; }
-        public DateTime? ReturnDate { get; set; }
+        public DateTime? PickupDate { get; set; } = DateTime.MinValue;
+        public DateTime? ReturnDate { get; set; } = DateTime.MinValue;
 
         //Extra Services Start
         public List<ExtraServicesAndCars> ServicesAndCars { get; set; }
