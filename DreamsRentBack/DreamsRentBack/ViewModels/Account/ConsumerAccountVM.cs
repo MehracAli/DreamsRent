@@ -12,6 +12,7 @@ namespace DreamsRentBack.ViewModels.Account
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public PayCard PayCard { get; set; }
-
+        public Wishlist Wishlist { get; set; }
+        public List<Rent> Rents { get; set;}
     }
 }

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<DreamsRentBack.Entities.CarModels.Transmission>
+
+@{
+    ViewData["Title"] = "Transmissions";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminPanel.cshtml";
+}
+<div class="container  h-75" style="padding: 50px 0 0;">
+    <div class="row justify-content-center w-100">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <a asp-action="Create" class="mb-4">Create New Transmission</a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Transmission Name</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    #
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

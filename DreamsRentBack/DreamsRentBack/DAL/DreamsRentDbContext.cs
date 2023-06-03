@@ -23,7 +23,6 @@ namespace DreamsRentBack.DAL
         public DbSet<CompanyPickupLocation> CompanyPickupLocations { get; set; }
         public DbSet<CompanyDropoffLocation> CompanyDropoffLocations { get; set; }
         public DbSet<DropoffLocation> DropoffLocations { get; set; }
-        public DbSet<Location> Locations { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<PayCard> PayCards { get; set; }
         public DbSet<PayCardType> PayCardTypes { get; set; }
@@ -31,6 +30,8 @@ namespace DreamsRentBack.DAL
         public DbSet<Street> Streets { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<ContactUs> ContactUsMessages { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<WishlistItem> WishlistItems { get; set; }
         //Client Models End
 
         //Car Models Start
@@ -44,8 +45,8 @@ namespace DreamsRentBack.DAL
         public DbSet<Drivetrian> Drivetrians { get; set; }
         public DbSet<Engine> Engines { get; set; }
         public DbSet<ExtraService> ExtraServices { get; set; }
+        public DbSet<ExtraServicesAndCars> ServicesAndCars { get; set; }
         public DbSet<FuelType> FuelTypes { get; set; }
-        public DbSet<Like> Likes { get; set; }
         public DbSet<Model> Models { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Transmission> Transmissions { get; set; }

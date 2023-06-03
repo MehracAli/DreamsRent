@@ -1,12 +1,13 @@
 ﻿@using DreamsRentBack.Entities.CarModels;
+@using DreamsRentBack.Entities.ClientModels;
 @using DreamsRentBack.ViewModels.CarViewModels;
 @{
     ViewData["Title"] = "Home";
     List<CarExploreVM> cars = ViewBag.Cars;
     List<Brand> brands = ViewBag.Brands;
     List<Body> bodies = ViewBag.Bodies;
-    List<Like> likes = ViewBag.Likes;
     List<Rating> ratings = ViewBag.Ratings;
+    User user = ViewBag.User;
 }
 <style>
 
@@ -223,16 +224,21 @@
                                         </a>
                                         <div class="fav">
                                             <span style="height:max-content">@car.Company.CompanyName</span>
-                                            <a href="#" style="width:40px; height:40px">
-                                                @if(likes.Any(l=>l.User.UserName == User.Identity.Name && l.CarId == car.Id))
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                if(user.Wishlist.wishlistItems.Any(w=>w.CarId == car.Id))
                                                 {
-                                                    <i class="fa-solid fa-heart" style="font-size:20px"></i>
+                                                    <a asp-controller="Wishlist" asp-action="AddWishlist" asp-route-carId="@car.Id" style="width:40px; height:40px">
+                                                        <i class="fa-solid fa-heart" style="font-size:20px"></i>
+                                                    </a>
                                                 }
                                                 else
                                                 {
-                                                    <i class="fa-regular fa-heart" style="font-size:20px"></i>
+                                                    <a asp-controller="Wishlist" asp-action="AddWishlist" asp-route-carId="@car.Id" style="width:40px; height:40px">
+                                                        <i class="fa-regular fa-heart" style="font-size:20px"></i>
+                                                    </a>
                                                 }
-                                            </a>
+                                            }
                                         </div>
                                     </div>
                                     <div class="car-content">
@@ -280,10 +286,6 @@
                                                         <i class="fas fa-star filled" style="color:gray;"></i>
                                                         <span>@(car.Rating).0</span>
                                                     }
-                                                <span style="position:absolute;right:5px;"> 
-                                                    <i class="fa-solid fa-heart"></i>
-                                                    Likes (@car.Likes.Count())
-                                                </span>
                                             </div>
                                         </div>
                                         <div class="car-details">
@@ -423,7 +425,6 @@
                                 <img src="~/assets/images/index/bx-heart.svg" alt="">
                             </div>
                             <div class="count-digit">
-                                <h4 class="count" data="@likes.Count()">0</h4>
                                 <p>Happy Customers</p>
                             </div>
                         </div>

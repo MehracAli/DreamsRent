@@ -1,4 +1,5 @@
 ﻿using DreamsRentBack.DAL;
+using DreamsRentBack.Entities.ClientModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +23,19 @@ namespace DreamsRentBack.Areas.Admin.Controllers
                     .OrderByDescending(c=>c.Id)
                     .ToList();
             ViewBag.Companies = _context.Companies.ToList();
+            ViewBag.Consumer = _context.Users.Include(u=>u.Company).ToList();
+            ViewBag.Bookings = _context.Bookings.ToList();
             return View();
+        }
+
+        public IActionResult VeriifyCompany(int CompanyId)
+        {
+            Company company = _context.Companies.FirstOrDefault(c=>c.Id == CompanyId);
+
+            company.Verification = true;
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

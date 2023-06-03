@@ -31,7 +31,6 @@ namespace DreamsRentBack.Controllers
 
             List<CarExploreVM> cars = _context.Cars
                 .Include(c => c.CarPhotos)
-                    .Include(c => c.Likes)
                         .Include(c => c.Brand).ThenInclude(b => b.Models)
                             .Include(c => c.Company)
                             .Where(c=>c.CarConfirmation == CarConfirmation.Confirmed)
@@ -40,7 +39,6 @@ namespace DreamsRentBack.Controllers
             {
                 Id = c.Id,
                 CarPhotos = c.CarPhotos,
-                Likes = c.Likes,
                 Brand = c.Brand,
                 ModelId = c.ModelId,
                 Price = c.Price,
@@ -79,7 +77,6 @@ namespace DreamsRentBack.Controllers
             ViewBag.Expensive = expensives.First().Price;
             IQueryable<Car>? cars = _context.Cars
                 .Include(c => c.CarPhotos)
-                                    .Include(c => c.Likes)
                                         .Include(c => c.Brand).ThenInclude(b => b.Models)
                                         .Include(c => c.Company)
                                             .Include(c=>c.Comments).ThenInclude(c=>c.Rating)
@@ -180,7 +177,6 @@ namespace DreamsRentBack.Controllers
             {
                 Id = c.Id,
                 CarPhotos = c.CarPhotos,
-                Likes = c.Likes,
                 Brand = c.Brand,
                 ModelId = c.ModelId,
                 Price = c.Price,
@@ -246,7 +242,6 @@ namespace DreamsRentBack.Controllers
                 {
                     Id = item.Id,
                     CarPhotos = item.CarPhotos,
-                    Likes = item.Likes,
                     Brand = item.Brand,
                     ModelId = item.ModelId,
                     Price = item.Price,

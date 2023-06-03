@@ -29,7 +29,9 @@
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.BrandLogo)
+                                <div style="width:30px;height:30px;border-radius:50%">
+                                    <img class="w-100" src="~/assets/images/index/brands/@item.BrandLogo" />
+                                </div>
                             </td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

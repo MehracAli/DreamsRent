@@ -58,7 +58,6 @@ namespace DreamsRentBack.Controllers
                     Rating = car.Rating,
                     Brand = car.Brand,
                     ModelId = car.ModelId,
-                    Location = car.Company.Location,
                     Views = car.Views,
                     CarPhotos = car.CarPhotos,
                     ServicesAndCars = car.ServicesAndCars,

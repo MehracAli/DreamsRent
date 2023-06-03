@@ -9,7 +9,7 @@ namespace DreamsRentBack.ViewModels.CarViewModels
         public double Rating { get; set; }
         public Brand Brand { get; set; }
         public int ModelId { get; set; }
-        public Location Location { get; set; }
+        public string Location { get; set; }
         public int Views { get; set; }
         public List<CarPhoto> CarPhotos { get; set; }
         public List<ExtraServicesAndCars> ServicesAndCars { get; set; }

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DreamsRentBack.Entities.CarModels.Body>
+
+@{
+    ViewData["Title"] = "BodyTypes";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminPanel.cshtml";
+}
+<div class="container  h-75" style="padding: 50px 0 0;">
+    <div class="row justify-content-center w-100">
+        <h3 style="text-align:center;">Body Types</h3>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <a asp-action="Create" class="mb-4">Create New Body Type</a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Body Type Name</th>
+                            <th scope="col">Body Type Photo</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    #
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    <div style="width:40px;height:40px;border-radius:50%">
+                                        <img class="w-100" src="~/assets/images/index/bodies/@item.BodyPhoto" style="filter:invert(100%)" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

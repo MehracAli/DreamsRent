@@ -7,6 +7,8 @@
     List<ContactUs> contactUsMessages = ViewBag.ContactUsMessages;
     List<Car> cars = ViewBag.Cars;
     List<Company> companies = ViewBag.Companies;
+    List<User> users = ViewBag.Consumer;
+    List<Booking> bookings = ViewBag.Bookings;
 }
 <style>
     .company{
@@ -27,28 +29,28 @@
     <div class="row g-4">
         <div class="col-sm-6 col-xl-3">
             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-line fa-3x text-primary"></i>
+                <i class="fa-solid fa-car fa-3x text-primary"></i>
                 <div class="ms-3">
-                    <p class="mb-2">Today Sale</p>
-                    <h6 class="mb-0">$1234</h6>
+                    <p class="mb-2">Total Car Stickers</p>
+                    <h6 class="mb-0">@cars.Count()</h6>
                 </div>
             </div>
         </div>
         <div class="col-sm-6 col-xl-3">
             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                <i class="fa-solid fa-building fa-3x text-primary"></i>
                 <div class="ms-3">
-                    <p class="mb-2">Total Sale</p>
-                    <h6 class="mb-0">$1234</h6>
+                    <p class="mb-2">Total Companies</p>
+                    <h6 class="mb-0">@companies.Count()</h6>
                 </div>
             </div>
         </div>
         <div class="col-sm-6 col-xl-3">
             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-area fa-3x text-primary"></i>
+                <i class="fa-solid fa-user fa-3x text-primary"></i>
                 <div class="ms-3">
-                    <p class="mb-2">Today Revenue</p>
-                    <h6 class="mb-0">$1234</h6>
+                    <p class="mb-2">Today Users</p>
+                    <h6 class="mb-0">@users.Where(u=>u.Company == null).Count()</h6>
                 </div>
             </div>
         </div>
@@ -56,8 +58,8 @@
             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                 <i class="fa fa-chart-pie fa-3x text-primary"></i>
                 <div class="ms-3">
-                    <p class="mb-2">Total Revenue</p>
-                    <h6 class="mb-0">$1234</h6>
+                    <p class="mb-2">Total Bookings</p>
+                    <h6 class="mb-0">@bookings.Count()</h6>
                 </div>
             </div>
         </div>
@@ -92,10 +94,9 @@
 <div class="container-fluid pt-4 px-4">
     <div class="bg-secondary text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <h6 class="mb-0">Recent Salse</h6>
-            <a href="~/admin/assets/">Show All</a>
+            <h6 class="mb-0">New Car Stickers</h6>
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive" style="overflow-y: scroll;">
             <table class="table text-start align-middle table-bordered table-hover mb-0">
                 <thead>
                     <tr class="text-white">
@@ -148,11 +149,11 @@
                             {
                                 <small>@(Math.Round((DateTime.Now - item.SendTime).TotalMinutes)) minutes ago</small>
                             }
-                            @if(Math.Round((DateTime.Now - item.SendTime).TotalMinutes) > 60)
+                            @if (Math.Round((DateTime.Now - item.SendTime).TotalMinutes) > 60 && Math.Round((DateTime.Now - item.SendTime).TotalMinutes) < 1440)
                             {
                                 <small>@(Math.Round((DateTime.Now - item.SendTime).TotalHours)) hours ago</small>
                             }
-                            @if (Math.Round((DateTime.Now - item.SendTime).TotalHours) > 24)
+                            @if (Math.Round((DateTime.Now - item.SendTime).TotalHours) > 24 && Math.Round((DateTime.Now - item.SendTime).TotalHours) < 720)
                             {
                                 <small>@(Math.Round((DateTime.Now - item.SendTime).TotalDays)) days ago</small>
                             }
@@ -201,7 +202,7 @@
                                         }
                                     </div>
                                     <span>@company.CompanyName</span>
-                                    <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                                    <a asp-action="VeriifyCompany" asp-route-companyId="@company.Id" class="btn btn-primary">Verify</a>
                                 </div>
                             </div>
                         </div>

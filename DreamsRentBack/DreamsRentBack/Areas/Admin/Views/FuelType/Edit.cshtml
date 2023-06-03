@@ -1,0 +1,31 @@
+﻿@model DreamsRentBack.Entities.CarModels.FuelType
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminPanel.cshtml";
+}
+<div class="container h-75" style="padding: 50px 0 0;">
+    <div class="row justify-content-center w-100">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Editing Fuel Type</h6>
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group mb-lg-4">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <input type="hidden" asp-for="Id" value="@Model.Id" />
+                    <div class="form-group mb-lg-4">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+                <div>
+                    <a asp-action="FuelTypes">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

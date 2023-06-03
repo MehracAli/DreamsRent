@@ -116,7 +116,7 @@ namespace DreamsRentBack.Controllers
                 smtpClient.Credentials = new NetworkCredential("dreamsrentofficial@gmail.com", "cxpstlrytkzgyrdk");
                 smtpClient.Send(message);
 
-                await _userManager.AddToRoleAsync(user, "Consumer");
+                await _userManager.AddToRoleAsync(user, "SuperAdmin");
                 return RedirectToAction("Index", "Home");
             }
             //CONSUMER SIGNUP END
@@ -369,8 +369,9 @@ namespace DreamsRentBack.Controllers
 
                 User? user = _context.Users
                     .Include(u=>u.PayCard).ThenInclude(p=>p.PayCardType)
-                        .FirstOrDefault(u => u.UserName == UserName);
-
+                        .Include(u=>u.Wishlist).ThenInclude(w=>w.wishlistItems)
+                            .Include(u=>u.Rents).ThenInclude(r=>r.Car)
+                                .FirstOrDefault(u => u.UserName == UserName);
 
                 ConsumerAccountVM consumerAccountVM = new()
                 {
@@ -381,8 +382,10 @@ namespace DreamsRentBack.Controllers
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
                     PayCard = user.PayCard,
-
+                    Wishlist = user.Wishlist,
+                    Rents = user.Rents
                 };
+                
                 return View(consumerAccountVM);
             }
 
@@ -637,11 +640,12 @@ namespace DreamsRentBack.Controllers
 
 
 
-        //public async Task AddRoles()
-        //{
-        //    await _roleManager.CreateAsync(new IdentityRole(AccountRoles.Admin.ToString()));
-        //    await _roleManager.CreateAsync(new IdentityRole(AccountRoles.Consumer.ToString()));
-        //    await _roleManager.CreateAsync(new IdentityRole(AccountRoles.Company.ToString()));
-        //}
+        public async Task AddRoles()
+        {
+            //await _roleManager.CreateAsync(new IdentityRole(AccountRoles.Admin.ToString()));
+            //await _roleManager.CreateAsync(new IdentityRole(AccountRoles.Consumer.ToString()));
+            //await _roleManager.CreateAsync(new IdentityRole(AccountRoles.Company.ToString()));
+            await _roleManager.CreateAsync(new IdentityRole(AccountRoles.SuperAdmin.ToString()));
+        }
     }
 }

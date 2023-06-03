@@ -6,7 +6,6 @@ namespace DreamsRentBack.ViewModels.CarViewModels
     public class CarExploreVM
     {
         public int Id { get; set; }
-        public List<Like> Likes { get; set; }
         public List<CarPhoto> CarPhotos { get; set; }
         public List<Rating> Ratings { get; set; }
         public Brand Brand { get; set; }

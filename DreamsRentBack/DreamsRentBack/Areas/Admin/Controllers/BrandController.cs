@@ -99,6 +99,18 @@ namespace DreamsRentBack.Areas.Admin.Controllers
 
             foreach (Car car in cars)
             {
+                List<Comment> comments = _context.Comments.Where(c => c.CarId == car.Id).ToList();
+                foreach (Comment comment in comments)
+                {
+                    Rating rating = _context.Ratings.FirstOrDefault(r=>r.CommentId == comment.Id);
+                    _context.Ratings.Remove(rating);
+                    _context.Comments.Remove(comment);
+                }
+                List<ExtraServicesAndCars> extraServicesAndCars = car.ServicesAndCars.ToList();
+                foreach (var item in extraServicesAndCars)
+                {
+                    _context.ServicesAndCars.Remove(item);
+                }
                 _context.Cars.Remove(car);
             }
 

@@ -4,6 +4,7 @@
     {
         Admin = 1,
         Consumer,
-        Company
+        Company,
+        SuperAdmin
     }
 }

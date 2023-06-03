@@ -24,12 +24,14 @@ namespace DreamsRentBack.Controllers
 
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.Bodies = _context.Bodys.Include(b=>b.Cars).ToList();
-            ViewBag.Likes = _context.Likes.Include(l=>l.User).ToList();
             ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ToList();
+            ViewBag.User = _context.Users
+                .Include(u=>u.Wishlist)
+                    .ThenInclude(w=>w.wishlistItems)
+                        .FirstOrDefault(u=>u.UserName == User.Identity.Name);
 
             ViewBag.Cars = _context.Cars
                 .Include(c=>c.CarPhotos)
-                    .Include(c=>c.Likes)
                         .Include(c=>c.Brand).ThenInclude(b=>b.Models)
                             .Include(c=>c.Company).ThenInclude(c=>c.User)
                                 .Where(c=>c.CarConfirmation == CarConfirmation.Confirmed)
@@ -38,7 +40,6 @@ namespace DreamsRentBack.Controllers
                 {
                     Id = c.Id,
                     CarPhotos = c.CarPhotos,
-                    Likes = c.Likes,
                     Brand = c.Brand,
                     ModelId = c.ModelId,
                     Price = c.Price,
