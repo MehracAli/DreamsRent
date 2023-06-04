@@ -7,6 +7,9 @@
     List<Brand> brands = ViewBag.Brands;
     List<Body> bodies = ViewBag.Bodies;
     List<Rating> ratings = ViewBag.Ratings;
+    List<User> users = ViewBag.HappyUsers;
+    List<ContactUs> contacts = ViewBag.ContactUs;
+    List<Booking> bookings = ViewBag.Bookings;
     User user = ViewBag.User;
 }
 <style>
@@ -201,7 +204,7 @@
                     @foreach (Brand brand in brands)
                     {
                         <li style="margin-right:20px">
-                            <a href="#">
+                            <a onclick="filterBrands(@brand.Id);event.preventDefault();">
                                 <span style="padding: 5px;width:50px;height:50px;">
                                     <img style="width:100%;" src="~/assets/images/index/brands/@brand.BrandLogo" alt="">
                                 </span>
@@ -212,157 +215,8 @@
                 </ul>
             </div>
             <div class="explore-body-bottom">
-                <div class="cars">
-                    <div class="row">
-                        @foreach (CarExploreVM car in cars)
-                        {
-                            <div data-aos="zoom-in-up" data-aos-duration="1000" class="car col-lg-4">
-                                <div class="car-item">
-                                    <div class="car-img" style="height:285px;">
-                                        <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
-                                            <img src="~/assets/images/cars/@car.CarPhotos.FirstOrDefault(p=>p.CarId == car.Id).Path" style="height:100%" alt="">
-                                        </a>
-                                        <div class="fav">
-                                            <span style="height:max-content">@car.Company.CompanyName</span>
-                                            @if (User.Identity.IsAuthenticated)
-                                            {
-                                                if(user.Wishlist.wishlistItems.Any(w=>w.CarId == car.Id))
-                                                {
-                                                    <a asp-controller="Wishlist" asp-action="AddWishlist" asp-route-carId="@car.Id" style="width:40px; height:40px">
-                                                        <i class="fa-solid fa-heart" style="font-size:20px"></i>
-                                                    </a>
-                                                }
-                                                else
-                                                {
-                                                    <a asp-controller="Wishlist" asp-action="AddWishlist" asp-route-carId="@car.Id" style="width:40px; height:40px">
-                                                        <i class="fa-regular fa-heart" style="font-size:20px"></i>
-                                                    </a>
-                                                }
-                                            }
-                                        </div>
-                                    </div>
-                                    <div class="car-content">
-                                        <div class="car-features">
-                                            <a asp-controller="Account" asp-action="CompanyAccount" asp-route-UserName="@car.Company.User.UserName" class="author-img" style="top:-45px">
-                                                @if (car.Company.CompanyPhoto != null)
-                                                {
-                                                    <img src="~/assets/images/users/@car.Company.CompanyPhoto"
-                                                        style="width:60px;height:60px;padding:2px;border: 1px solid orange;background:white;"
-                                                        alt="">
-
-                                                }
-                                                else
-                                                {
-                                                    <img src="~/assets/images/users/Default_pfp.svg.png"
-                                                         style="width:60px;height:60px;padding:2px;border: 1px solid orange;background:white;"
-                                                         alt="">
-                                                }
-                                            </a>
-                                            <h3 class="car-title">
-                                                <a href="#">
-                                                        @car.Brand.Name @car.Brand.Models.FirstOrDefault(m=>m.Id == car.ModelId).Name
-                                                </a>
-                                            </h3>
-                                            <div class="car-rating">
-                                                    @for (double i = 0; i < Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
-                                                    {
-                                                        <i class="fa-solid fa-star"></i>
-                                                    }
-                                                    @for (double i = 0; i < 5 - Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
-                                                    {
-                                                        <i class="fa-solid fa-star" style="color: gray;"></i>
-                                                    }
-
-                                                    @if (ratings.Where(r => r.Comment.CarId == car.Id).Count() > 0)
-                                                    {
-                                                        <span>@(((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()).ToString("F1"))</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <i class="fas fa-star filled" style="color:gray;"></i>
-                                                        <i class="fas fa-star filled" style="color:gray;"></i>
-                                                        <i class="fas fa-star filled" style="color:gray;"></i>
-                                                        <i class="fas fa-star filled" style="color:gray;"></i>
-                                                        <i class="fas fa-star filled" style="color:gray;"></i>
-                                                        <span>@(car.Rating).0</span>
-                                                    }
-                                            </div>
-                                        </div>
-                                        <div class="car-details">
-                                            <ul style="padding-left: 2rem;">
-                                                <li>
-                                                    <span>
-                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
-                                                             alt="">
-                                                    </span>
-                                                    <p>@car.Transmission.Name</p>
-                                                </li>
-                                                <li>
-                                                    <span>
-                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
-                                                             alt="">
-                                                    </span>
-                                                    <p>@car.Speed</p>
-                                                </li>
-                                                <li>
-                                                    <span>
-                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
-                                                             alt="">
-                                                    </span>
-                                                    <p>@car.FuelType.Name</p>
-                                                </li>
-                                            </ul>
-                                                <ul style="padding-left: 2rem;">
-                                                <li>
-                                                    <span>
-                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
-                                                             alt="">
-                                                    </span>
-                                                    <p>@car.Engine.HorsePower (hp)</p>
-                                                </li>
-                                                <li>
-                                                    <span>
-                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
-                                                             alt="">
-                                                    </span>
-                                                    <p>@car.Year</p>
-                                                </li>
-                                                <li>
-                                                    <span>
-                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
-                                                             alt="">
-                                                    </span>
-                                                    <p>@car.Capacity</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="car-location-price">
-                                            <div class="car-location">
-                                                <span>
-                                                    <i class="fa-solid fa-location-dot"></i>
-                                                    Germany
-                                                </span>
-                                            </div>
-                                            <div class="car-price">
-                                                <h6>
-                                                        $@(car.Price.ToString("N0"))
-                                                    <span>/Day</span>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <div class="car-button">
-                                            <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
-                                                <span>
-                                                    <i class="fa-solid fa-calendar"></i>
-                                                </span>
-                                                Rent Now
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
+                <div class="cars" id="partialHomeCars">
+                    @await Html.PartialAsync("_partialHomeCars",cars)
                 </div>
             </div>
         </div>
@@ -425,6 +279,7 @@
                                 <img src="~/assets/images/index/bx-heart.svg" alt="">
                             </div>
                             <div class="count-digit">
+                                <h4 class="count" data="@users.Count()">0</h4>
                                 <p>Happy Customers</p>
                             </div>
                         </div>
@@ -446,7 +301,7 @@
                                 <img src="~/assets/images/index/bx-headphone.svg" alt="">
                             </div>
                             <div class="count-digit">
-                                <h4>625K+</h4>
+                                <h4 class="count" data="@contacts.Count()">0</h4>
                                 <p>Car Center Solutions</p>
                             </div>
                         </div>
@@ -457,8 +312,8 @@
                                 <img src="~/assets/images/index/bx-history.svg" alt="">
                             </div>
                             <div class="count-digit">
-                                <h4>200K+</h4>
-                                <p>Total Kilometer</p>
+                                <h4 class="count" data="@bookings.Count()">0</h4>
+                                <p>Total Bookings</p>
                             </div>
                         </div>
                     </div>
@@ -477,7 +332,7 @@
                 <div class="slider">
                     <div class="slider-wrapper">
                         <div class="responsive">
-                            @foreach (CarExploreVM car in cars)
+                            @foreach (CarExploreVM car in cars.OrderBy(c=>c.Comments.Count()))
                             {
                                 <div class="item">
                                 <div class="slider-item">
@@ -933,6 +788,16 @@
 
 <script src="~/assets/js/index.js"></script>
 @section Scripts{
+    <script>
+        function filterBrands(brandId) {
+            fetch('/Home/FilterBrands?brandId='+brandId)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('partialHomeCars').innerHTML = data;
+                });
+        }
+
+    </script>
     <script>
         var searchInput = document.getElementById('searchInput');
         var selectedValue = document.getElementById('selectedValue');

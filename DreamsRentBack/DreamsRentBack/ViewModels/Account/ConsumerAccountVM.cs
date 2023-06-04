@@ -14,5 +14,6 @@ namespace DreamsRentBack.ViewModels.Account
         public PayCard PayCard { get; set; }
         public Wishlist Wishlist { get; set; }
         public List<Rent> Rents { get; set;}
+        public List<Order> Orders { get; set; }
     }
 }

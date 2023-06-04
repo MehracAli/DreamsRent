@@ -9,6 +9,7 @@
     List<User> users = ViewBag.Users;
     List<Rating> ratings = ViewBag.Ratings;
     List<Street> streets = ViewBag.Streets;
+    User currentUser = ViewBag.CurrentUser;
     double companyRating = ViewBag.CompanyRating;
     int companyRatingCount = ViewBag.CompanyRatingCount;
 }
@@ -429,64 +430,23 @@
                             <p>@Model.Description</p>
                         </div>
                     </div>
-                    <div class="left-components reviews">
+                    <div class="left-components reviews" id="partialComment">
                         <div class="component-title">
                             <h4>Reviews(@Model.Comments.Count())</h4>
                         </div>
-                        <div class="reviews-body" style="max-height:450px;overflow-y:scroll;">
-                            @foreach(Comment comment in Model.Comments)
-                            {
-                                <div class="review">
-                                <div class="review-head">
-                                    <div class="person-img-info">
-                                        <div class="person-img">
-                                            @if(comment.User is null)
-                                            {
-                                                <img src="~/assets/images/users/Default_pfp.svg.png" style="border-radius:50%;border: 1px solid gray" alt="">
-                                            }
-                                            else
-                                            {
-                                                <img src="~/assets/images/users/@users.FirstOrDefault(u=>u.Id == comment.User.Id).UserPhoto" style="border-radius:50%;border: 1px solid gray" alt="">
-                                            }
-                                        </div>
-                                        <div class="person-info">
-                                            @if(comment.User is null)
-                                            {
-                                                <h6 class="person-name">@comment.Fullname</h6>
-                                            }
-                                            else
-                                            {
-                                                <h6 class="person-name">@users.FirstOrDefault(u=>u.Id == comment.User.Id).Name @users.FirstOrDefault(u=>u.Id == comment.User.Id).Surname</h6>
-                                            }
-                                                <p class="comment-add-date">@comment.CreationTime.ToString("MMM dd, yyyy  (HH:mm)")</p>
-                                        </div>
-                                    </div>
-                                    <div class="rate-point">
-                                        @for (double i = 0; i < comment.Rating.Point; i++)
-                                        {
-                                            <i class="fas fa-star filled"></i>
-                                        }
-                                        @for (int i = 0; i < 5 - comment.Rating.Point; i++)
-                                        {
-                                            <i class="fas fa-star filled" style="color:gray"></i>
-                                        }
-                                        <span>(@(comment.Rating.Point).0)</span>
-                                    </div>
-                                </div>
-                                <div class="comment">
-                                    <p>@comment.Text</p>
-                                </div>
-                            </div>
-                            }
+                        <div class="bdy">
+                            @await Html.PartialAsync("_partialComments",Model)
                         </div>
                     </div>
-                    <div class="left-components add-comment">
+                    @if (User.IsInRole("Consumer") || !User.Identity.IsAuthenticated)
+                    {
+                        <div class="left-components add-comment">
                         <div class="component-title">
                             <h4>Leave a Comment</h4>
                         </div>
                         <div class="add-comment-body">
                             <div class="comment-from">
-                                <form asp-controller="Detail" asp-action="AddComment" asp-route-Id="@Model.Id">
+                                <form method="post" id="commentForm" onsubmit="event.preventDefault(); submitForm()">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <div class="add-rate">
                                         <span>Rate</span>
@@ -514,7 +474,7 @@
                                                     Fullname
                                                     <span>*</span>
                                                 </label>
-                                                <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Fullname" id="notRegister-name">
+                                                <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Fullname" id="notRegister-name" class="input">
                                                 <span asp-validation-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Fullname" class="text-danger"></span>
                                             </div>
                                             <div class="col-lg-6 email-adress form-group">
@@ -522,13 +482,14 @@
                                                     Email Adress
                                                     <span>*</span>
                                                 </label>
-                                                <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Email" type="email" id="notRegister-email">
+                                                <input asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Email" type="email" id="notRegister-email" class="input">
                                             </div>
                                         }
                                         <div class="col-lg-12 comment form-group">
                                             <label for="#">Comments</label>
-                                            <textarea asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Text" cols="30" rows="10" id="emojiTextArea"></textarea>
+                                            <textarea asp-for="Comments.FirstOrDefault(c=>c.CarId == Model.Id).Text" cols="30" rows="10" id="emojiTextArea" class="input"></textarea>
                                         </div>
+                                        <input name="carId" value="@Model.Id" type="hidden"/>
                                     </div>
                                     <div>
                                         <button class="btn" type="submit">Submit Review</button>
@@ -537,62 +498,131 @@
                             </div>
                         </div>
                     </div>
+                    }
                 </div>
                 <div class="col-lg-4 body-right">
                     <div class="sticky">
-                        <div class="right-components check-availability">
+                        @if (User.IsInRole("Consumer") || User.Identity.IsAuthenticated)
+                        {
+                            <div class="right-components check-availability">
                             <div class="component-title">
                                 <h4>Check Availability</h4>
                             </div>
-                            <div class="form-wrapper">
-                                <form asp-controller="Rent" asp-action="Checkout" asp-route-companyId="@Model.Company.Id">
-                                    <ul>
-                                        <li>
-                                            <label for="">Pickup Location</label>
-                                            <div class="group-img">
-                                                <input name="pickLocation" class="form-group searchInput" autocomplete="off" type="text" placeholder="Address">
-                                                <input type="hidden" class="selectedValue" />
-                                                <input type="hidden" class="companyId" value="@Model.Company.Id" />
-                                                <div class="dropdownContainer">
-                                                    <div class="suggestions dropdown-content"></div>
-                                                </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @if (currentUser.Orders.Where(o => o.IsAccepted == false).Any(o => o.Car.Id == Model.Id))
+                                {
+                                    <h5 class="text-gray">You already ordered this car</h5>
+                                }
+                                else if (currentUser.Rents.Where(r => r.TimeIsOver == false).Any(r => r.Car.Id == Model.Id))
+                                {
+                                    <h5 class="text-gray">You already rented this car</h5>
+                                }
+                                else
+                                {
+                                    <div class="form-wrapper">
+                                        <form asp-controller="Rent" asp-action="Checkout" asp-route-companyId="@Model.Company.Id">
+                                            <ul>
+                                                <li>
+                                                    <label for="">Pickup Location</label>
+                                                    <div class="group-img">
+                                                        <input name="pickLocation" class="form-group searchInput" autocomplete="off" type="text" placeholder="Address">
+                                                        <input type="hidden" class="selectedValue" />
+                                                        <input type="hidden" class="companyId" value="@Model.Company.Id" />
+                                                        <div class="dropdownContainer">
+                                                            <div class="suggestions dropdown-content"></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <label for="">Dropoff Location</label>
+                                                    <div class="group-img">
+                                                        <input name="dropLocation" class="form-group searchInput" autocomplete="off" type="text" placeholder="Address">
+                                                        <input type="hidden" class="selectedValue" />
+                                                        <input type="hidden" class="companyId" value="@Model.Company.Id" />
+                                                        <div class="dropdownContainer">
+                                                            <div class="suggestions dropdown-content"></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <label for="pickupDate">Pickup Date</label>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <input id="pickupDate" name="pickDate" type="date" class="date-now" min="">
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <label for="returnDate">Return Date</label>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <input id="returnDate" name="dropDate" type="date" class="date-now" min="">
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <input type="hidden" name="carId" value="@Model.Id"/>
+                                            <div class="submit">
+                                                <button type="submit" class="btn">Check Availability</button>
                                             </div>
-                                        </li>
-                                        <li>
-                                            <label for="">Dropoff Location</label>
-                                            <div class="group-img">
-                                                <input name="dropLocation" class="form-group searchInput" autocomplete="off" type="text" placeholder="Address">
-                                                <input type="hidden" class="selectedValue" />
-                                                <input type="hidden" class="companyId" value="@Model.Company.Id" />
-                                                <div class="dropdownContainer">
-                                                    <div class="suggestions dropdown-content"></div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <label for="pickupDate">Pickup Date</label>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <input id="pickupDate" name="pickDate" type="date" class="date-now" min="">
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <label for="returnDate">Return Date</label>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <input id="returnDate" name="dropDate" type="date" class="date-now" min="">
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <input type="hidden" name="carId" value="@Model.Id"/>
-                                    <div class="submit">
-                                        <button type="submit" class="btn">check Availability</button>
+                                        </form>
                                     </div>
-                                </form>
-                            </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="form-wrapper">
+                                    <form asp-controller="Rent" asp-action="Checkout" asp-route-companyId="@Model.Company.Id">
+                                        <ul>
+                                            <li>
+                                                <label for="">Pickup Location</label>
+                                                <div class="group-img">
+                                                    <input name="pickLocation" class="form-group searchInput" autocomplete="off" type="text" placeholder="Address">
+                                                    <input type="hidden" class="selectedValue" />
+                                                    <input type="hidden" class="companyId" value="@Model.Company.Id" />
+                                                    <div class="dropdownContainer">
+                                                        <div class="suggestions dropdown-content"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <label for="">Dropoff Location</label>
+                                                <div class="group-img">
+                                                    <input name="dropLocation" class="form-group searchInput" autocomplete="off" type="text" placeholder="Address">
+                                                    <input type="hidden" class="selectedValue" />
+                                                    <input type="hidden" class="companyId" value="@Model.Company.Id" />
+                                                    <div class="dropdownContainer">
+                                                        <div class="suggestions dropdown-content"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <label for="pickupDate">Pickup Date</label>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <input id="pickupDate" name="pickDate" type="date" class="date-now" min="">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <label for="returnDate">Return Date</label>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <input id="returnDate" name="dropDate" type="date" class="date-now" min="">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <input type="hidden" name="carId" value="@Model.Id" />
+                                        <div class="submit">
+                                            <button type="submit" class="btn">Check Availability</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            }
                         </div>
+                        }
                         <div class="right-components owner-details">
                             <div class="component-title">
                                 <h4>Listing Owner Details</h4>
@@ -1254,6 +1284,13 @@
 
 @section Scripts{
     <script>
+        const inputs = document.querySelectorAll('input');
+
+        inputs.forEach(function (input) {
+            input.setAttribute('required', true);
+        });
+    </script>
+    <script>
         const today = new Date();
         const year = today.getFullYear();
         const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -1375,5 +1412,21 @@
             fullName.value = "";
             email.value = "";
         })
+    </script>
+    <script>
+
+        function submitForm() {
+            var formData = new FormData(document.getElementById("commentForm"));
+
+            fetch('/Detail/AddComment', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('partialComment').innerHTML = data;
+                });
+        }
+
     </script>
 }

@@ -160,9 +160,18 @@
                             <ul class="col-list">
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <li>
-                                        <a href="#">My Account</a>
-                                    </li>
+                                    @if (User.IsInRole("Consumer"))
+                                    {
+                                        <li>
+                                            <a asp-controller="Account" asp-action="ConsumerAccount" asp-route-UserName="@User.Identity.Name">My Account</a>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("Company"))
+                                    {
+                                        <li>
+                                            <a asp-controller="Account" asp-action="CompanyAccount" asp-route-UserName="@User.Identity.Name">My Account</a>
+                                        </li>
+                                    }
                                 }
                                 else
                                 {

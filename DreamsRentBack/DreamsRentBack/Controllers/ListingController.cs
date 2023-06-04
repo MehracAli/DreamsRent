@@ -88,24 +88,24 @@ namespace DreamsRentBack.Controllers
 
             if (selectedBrands.Count() != 0)
             {
-                cars = cars.Where(c => selectedBrands.Contains(c.BrandId));
+                cars = cars.Where(c => selectedBrands.Contains(c.BrandId)).AsQueryable();
             }
             if (selectedBodies.Count() != 0)
             {
-                cars = cars.Where(c => selectedBodies.Contains(c.BodyId));
+                cars = cars.Where(c => selectedBodies.Contains(c.BodyId)).AsQueryable();
             }
             if (selectedCapacity != 0)
             {
                 switch (selectedCapacity) 
                 {
                     case 1:
-                        cars = cars.Where(c => c.Capacity >= 2 && c.Capacity <= 4);
+                        cars = cars.Where(c => c.Capacity >= 2 && c.Capacity <= 4).AsQueryable();
                         break;
                     case 2:
-                        cars = cars.Where(c => c.Capacity >= 4 && c.Capacity <= 6);
+                        cars = cars.Where(c => c.Capacity >= 4 && c.Capacity <= 6).AsQueryable();
                         break;
                     case 3:
-                        cars = cars.Where(c => c.Capacity >= 6 && c.Capacity <= 10);
+                        cars = cars.Where(c => c.Capacity >= 6 && c.Capacity <= 10).AsQueryable();
                         break;
                 }
             }
@@ -114,22 +114,22 @@ namespace DreamsRentBack.Controllers
                 switch (selectedPrice)
                 {
                     case 1:
-                        cars = cars.Where(c => c.Price > 0 && c.Price <= 50);
+                        cars = cars.Where(c => c.Price > 0 && c.Price <= 50).AsQueryable();
                         break;
                     case 2:
-                        cars = cars.Where(c => c.Price >= 50 && c.Price <= 150);
+                        cars = cars.Where(c => c.Price >= 50 && c.Price <= 150).AsQueryable();
                         break;
                     case 3:
-                        cars = cars.Where(c => c.Price >= 150 && c.Price <= 300);
+                        cars = cars.Where(c => c.Price >= 150 && c.Price <= 300).AsQueryable();
                         break;
                     case 4:
-                        cars = cars.Where(c => c.Price >= 300 && c.Price <= 500);
+                        cars = cars.Where(c => c.Price >= 300 && c.Price <= 500).AsQueryable();
                         break;
                     case 5:
-                        cars = cars.Where(c => c.Price >= 500 && c.Price <= 1000);
+                        cars = cars.Where(c => c.Price >= 500 && c.Price <= 1000).AsQueryable();
                         break;
                     case 6:
-                        cars = cars.Where(c => c.Price >= 1000);
+                        cars = cars.Where(c => c.Price >= 1000).AsQueryable();
                         break;
                 }
             }
@@ -190,7 +190,7 @@ namespace DreamsRentBack.Controllers
                 Company = c.Company,
 
             }).ToList();
-            return View(list);
+            return PartialView("_partialListing", list);
         }
 
         private List<CarExploreVM> SearchByStatus(string streetName, DateTime pickupDate, DateTime returnDate)

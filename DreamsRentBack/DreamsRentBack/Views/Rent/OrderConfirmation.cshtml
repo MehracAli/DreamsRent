@@ -13,7 +13,7 @@
                 <div class="root">
                     <ul>
                         <li>
-                            <a href="./index.html">
+                            <a asp-controller="Home" asp-action="Index">
                                 Home
                             </a>
                         </li>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="order-car">
                             <span>
-                                <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg" alt="">
+                                <img src="~/assets/images/cars/@Model.CarPhoto" alt="">
                             </span>
                             <h5>
                                 @Model.BrandName @Model.ModelName
@@ -63,9 +63,6 @@
                             <h4>Payment details</h4>
                         </div>
                         <div class="pay-card">
-                            <a href="#">
-                                <img src="./assets/images/payments/payment-2.png" alt="">
-                            </a>
                             <h6>Visa card ending in @Model.User.PayCard.CardNumber.Substring(12, 4)</h6>
                         </div>
                     </div>
@@ -100,7 +97,14 @@
                 </div>
             </div>
             <div class="place-order">
-                <a asp-action="PlaceOrder" asp-route-carId="@Model.Id" class="btn">
+                    <a 
+                       asp-action="PlaceOrder"
+                       asp-route-carId="@Model.Id"
+                       asp-route-pickLocation="@Model.PickupLocation"
+                       asp-route-dropLocation="@Model.DropoffLocation"
+                       asp-route-pickDate="@Model.PickupDate"
+                       asp-route-dropDate="@Model.DropoffDate"
+                       class="btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reception-4" viewBox="0 0 16 16">
                         <path d="M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-5zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-8zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-11z" />
                     </svg>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Email Confirmation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dreams Rent - Invoice</title>
+    <link rel="shortcut icon" href="~/assets/images/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+<style>
+    #invoice {
+        position: relative;
+        padding: 80px 0;
+    }
+
+        #invoice .container .invoice-box {
+            background: #fff;
+            box-shadow: 0 4px 24px rgba(225, 225, 225, 0.25);
+            border-radius: 14px;
+            padding: 40px;
+            max-width: 1076px;
+            margin: auto;
+        }
+
+            #invoice .container .invoice-box .invoice-title {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 15px;
+            }
+
+                #invoice .container .invoice-box .invoice-title .title-info {
+                    text-align: right;
+                }
+
+                    #invoice .container .invoice-box .invoice-title .title-info h1 {
+                        font-weight: 700;
+                        font-size: 32px;
+                        color: #2f2f2f;
+                        margin: 0 0 10px;
+                    }
+
+                    #invoice .container .invoice-box .invoice-title .title-info h6 {
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #737373;
+                    }
+
+            #invoice .container .invoice-box .invoice-info {
+                position: relative;
+                background: #201f1d;
+                border-radius: 10px;
+                padding: 30px;
+                margin: 0 0 37px;
+            }
+
+                #invoice .container .invoice-box .invoice-info::before {
+                    content: "";
+                    background: url(../images/invoice/invoice.png) no-repeat;
+                    position: absolute;
+                    top: -45px;
+                    left: -45px;
+                    width: 179px;
+                    height: 180px;
+                    background-size: cover;
+                }
+
+                #invoice .container .invoice-box .invoice-info ul {
+                    justify-content: space-between;
+                    color: white;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                    #invoice .container .invoice-box .invoice-info ul li {
+                        display: flex;
+                        justify-content: center;
+                        border-left: 1px solid #fcfbfb;
+                    }
+
+                        #invoice .container .invoice-box .invoice-info ul li:first-child {
+                            border-left: none;
+                        }
+
+                        #invoice .container .invoice-box .invoice-info ul li p {
+                            margin: 0;
+                            font-size: 14px;
+                            color: #fff;
+                        }
+
+            #invoice .container .invoice-box .invoice-table .table-wrapper table {
+                color: #2f2f2f;
+                max-width: 100%;
+                margin-bottom: 0;
+                width: 100%;
+            }
+
+                #invoice .container .invoice-box .invoice-table .table-wrapper table thead {
+                    background-color: #f4f4f4;
+                    border-bottom: 0;
+                    vertical-align: middle;
+                    white-space: nowrap;
+                }
+
+                    #invoice .container .invoice-box .invoice-table .table-wrapper table thead tr th {
+                        font-size: 15px;
+                        color: #201f1d;
+                        font-weight: 500;
+                        background-color: #f4f4f4;
+                        padding: 15px;
+                    }
+
+                #invoice .container .invoice-box .invoice-table .table-wrapper table tbody {
+                    vertical-align: middle;
+                    white-space: nowrap;
+                }
+
+                    #invoice .container .invoice-box .invoice-table .table-wrapper table tbody tr:hover {
+                        background-color: #f6f6f7;
+                    }
+
+                    #invoice .container .invoice-box .invoice-table .table-wrapper table tbody tr td {
+                        border-color: #dee2e6;
+                        padding: 15px;
+                    }
+
+            #invoice .container .invoice-box .invoice-payment {
+                margin-top: 40px;
+            }
+
+                #invoice .container .invoice-box .invoice-payment .row .payment-details h6 {
+                    font-weight: 500;
+                    font-size: 18px;
+                    color: #2f2f2f;
+                    margin-bottom: 18px;
+                }
+
+                #invoice .container .invoice-box .invoice-payment .row .payment-details .card-details {
+                    border: 2px dashed #787878;
+                    border-radius: 4px;
+                    max-width: 266px;
+                    padding: 20px;
+                }
+
+                    #invoice .container .invoice-box .invoice-payment .row .payment-details .card-details p {
+                        margin: 0;
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #2f2f2f;
+                    }
+
+                #invoice .container .invoice-box .invoice-payment .row .invoice-total p {
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: #828282;
+                    margin-bottom: 25px;
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                    #invoice .container .invoice-box .invoice-payment .row .invoice-total p span {
+                        font-weight: 700;
+                        font-size: 15px;
+                        color: #2f2f2f;
+                    }
+
+            #invoice .container .invoice-box .invoice-total {
+                background: #f1f1f1;
+                border: 2px dashed #fcfcfc;
+                margin: 33px 0;
+                padding: 10px;
+                text-align: right;
+            }
+
+                #invoice .container .invoice-box .invoice-total h4 {
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: #201f1d;
+                }
+
+                    #invoice .container .invoice-box .invoice-total h4 span {
+                        padding-left: 88px;
+                    }
+
+            #invoice .container .invoice-box .invoice-footer .row {
+                align-items: center;
+                justify-content: space-between;
+            }
+
+                #invoice .container .invoice-box .invoice-footer .row .invoice-not {
+                    margin-bottom: 20px;
+                }
+
+                    #invoice .container .invoice-box .invoice-footer .row .invoice-not h6 {
+                        font-weight: 500;
+                        font-size: 18px;
+                        color: #201f1d;
+                        margin: 0 0 13px;
+                    }
+
+                    #invoice .container .invoice-box .invoice-footer .row .invoice-not p {
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #2f2f2f;
+                        margin: 0;
+                    }
+
+                #invoice .container .invoice-box .invoice-footer .row .invoice-signature img {
+                    margin-bottom: 20px;
+                }
+
+                #invoice .container .invoice-box .invoice-footer .row .invoice-signature span {
+                    font-weight: 500;
+                    font-size: 18px;
+                    color: #201f1d;
+                    text-align: center;
+                    display: block;
+                }
+</style>
+</head>
+<body>
+    <!-- main start -->
+    <section id="invoice">
+        <div class="container">
+            <div class="invoice-box">
+                <div class="invoice-title">
+                    <div class="title-logo">
+                        <img src="~/assets/images/header/logo.svg" alt="">
+                    </div>
+                </div>
+                <div class="invoice-info">
+                    <ul class="row d-flex justify-content-around" style="border:none">
+                        <li class="col-lg-4">
+                            <div>
+                                <h6>Billed to</h6>
+                                <p>{{CustomerName}}</p>
+                                <p>{{CustomerPhone}}</p>
+                            </div>
+                        </li>
+                        <li class="col-lg-4">
+                            <div>
+                                <h6>Invoice From</h6>
+                                <p>{{CompanyName}}</p>
+                                <p>{{CompanyPhone}}</p>
+                            </div>
+                        </li>
+                        <li class="col-lg-4">
+                            <div>
+                                <p>
+                                    Pickup Date :
+                                    <span>{{PickDate}}</span>
+                                </p>
+                                <p>
+                                    Dropoff Date : 
+                                    <span>{{DropDate}}</span>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="invoice-table">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Company Name</th>
+                                    <th>Brand and Model</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{CompanyName}}</td>
+                                    <td>{{BrandName}}</td>
+                                    <td>${{Price}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="invoice-payment">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="payment-details">
+                                <h6>Payment Details</h6>
+                                <div class="card-details">
+                                    <p>Debit Card</p>
+                                    <p>XXXXXXXXXXXX-{{CardNum}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="invoice-total">
+                    <h4>
+                        Amount :
+                        <span>${{Price}}</span>
+                    </h4>
+                </div>
+                <div class="invoice-footer">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="invoice-not">
+                                <h6>Notes</h6>
+                                <p>Enter customer notes or any other details</p>
+                            </div>
+                            <div class="invoice-not">
+                                <h6>Terms and Conditions</h6>
+                                <p>Enter customer notes or any other details</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="display: flex;justify-content: end;">
+                            <div class="invoice-signature">
+                                <img src="~/assets/images/owners/signute/signature (1).png" alt="">
+                                <span>Harristemp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <!-- main end -->
+</body>
+
+</html>

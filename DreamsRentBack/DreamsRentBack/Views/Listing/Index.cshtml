@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="filter-bar col-lg-4">
                     <div class="form-wrapper">
-                        <form asp-controller="Listing" asp-action="Index" method="post">
+                        <form method="post" id="myForm" onsubmit="event.preventDefault(); submitForm()">
                             <div class="bar-head" style="background:#F2F7F6;">
                                 <h3 style="color:gray;">What Are You Looking For?</h3>
                             </div>
@@ -217,7 +217,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="car-list col-lg-8" id="partials">
+                <div class="car-list col-lg-8" id="partialListing">
                     @await Html.PartialAsync("_partialListing",Model)
                 </div>
             </div>
@@ -244,30 +244,19 @@
 
     </script>
     <script>
-        const form = document.getElementById('filterForm');
-
-        form.addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent default form submission
-
-            const formData = new FormData(form);
-            const encodedData = new URLSearchParams(formData).toString();
+        
+        function submitForm() {
+            var formData = new FormData(document.getElementById("myForm"));
 
             fetch('/Listing/Index', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: encodedData
+                body: formData
             })
                 .then(response => response.text())
                 .then(data => {
-                    // Update the partial listing content with the response data
-                    const partials = document.getElementById('partials');
-                    partials.innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
+                    document.getElementById('partialListing').innerHTML = data;
                 });
-        });
+        }
+
     </script>
 }

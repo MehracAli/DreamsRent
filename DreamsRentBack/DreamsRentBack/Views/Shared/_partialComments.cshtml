@@ -1,0 +1,61 @@
+﻿@using DreamsRentBack.Entities.CarModels;
+@using DreamsRentBack.Entities.ClientModels;
+@using DreamsRentBack.ViewModels.CarViewModels;
+@model CarDetailVM
+@{
+    ViewData["Title"] = "CarDetail";
+    List<ExtraService> extraServices = ViewBag.Services;
+    List<CarFeatures> carFeatures = ViewBag.Features;
+    List<User> users = ViewBag.Users;
+    List<Rating> ratings = ViewBag.Ratings;
+    List<Street> streets = ViewBag.Streets;
+    User currentUser = ViewBag.CurrentUser;
+    double companyRating = ViewBag.CompanyRating;
+    int companyRatingCount = ViewBag.CompanyRatingCount;
+}
+<div class="reviews-body" style="max-height:450px;overflow-y:scroll;">
+    @foreach (Comment comment in Model.Comments.OrderByDescending(c=>c.Id))
+    {
+        <div class="review">
+            <div class="review-head">
+                <div class="person-img-info">
+                    <div class="person-img">
+                        @if (comment.User is null)
+                        {
+                            <img src="~/assets/images/users/Default_pfp.svg.png" style="border-radius:50%;border: 1px solid gray" alt="">
+                        }
+                        else
+                        {
+                            <img src="~/assets/images/users/@users.FirstOrDefault(u=>u.Id == comment.User.Id).UserPhoto" style="border-radius:50%;border: 1px solid gray" alt="">
+                        }
+                    </div>
+                    <div class="person-info">
+                        @if (comment.User is null)
+                        {
+                            <h6 class="person-name">@comment.Fullname</h6>
+                        }
+                        else
+                        {
+                            <h6 class="person-name">@users.FirstOrDefault(u=>u.Id == comment.User.Id).Name @users.FirstOrDefault(u=>u.Id == comment.User.Id).Surname</h6>
+                        }
+                        <p class="comment-add-date">@comment.CreationTime.ToString("MMM dd, yyyy  (HH:mm)")</p>
+                    </div>
+                </div>
+                <div class="rate-point">
+                    @for (double i = 0; i < comment.Rating.Point; i++)
+                    {
+                        <i class="fas fa-star filled"></i>
+                    }
+                    @for (int i = 0; i < 5 - comment.Rating.Point; i++)
+                    {
+                        <i class="fas fa-star filled" style="color:gray"></i>
+                    }
+                    <span>(@(comment.Rating.Point).0)</span>
+                </div>
+            </div>
+            <div class="comment">
+                <p>@comment.Text</p>
+            </div>
+        </div>
+    }
+</div>

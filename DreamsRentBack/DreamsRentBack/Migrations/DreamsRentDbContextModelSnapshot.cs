@@ -434,6 +434,23 @@ namespace DreamsRentBack.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DropDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DropLoc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PickDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PickLoc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TimeIsOver")
+                        .HasColumnType("bit");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -648,6 +665,23 @@ namespace DreamsRentBack.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DropDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DropLoc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("PickDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PickLoc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -766,6 +800,23 @@ namespace DreamsRentBack.Migrations
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DropDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DropLoc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PickDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PickLoc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TimeIsOver")
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserId")
                         .IsRequired()

@@ -145,7 +145,7 @@
                                     if (Model.User.PayCard == null)
                                     {
                                         <li class="@payCardType.Name">
-                                            <a class="choosePayCard">
+                                            <a class="choosePayCard" style="cursor:pointer">
                                                 <img src="~/assets/images/payments/@payCardType.Path" alt="">
                                                 <input style="display:none;" type="radio" name="payCardTypeId" value="@payCardType.Id"/>
                                             </a>
@@ -284,11 +284,13 @@
         const inputsCvv = document.querySelectorAll('.cvv');
 
         inputsCvv.forEach(function (input) {
-            input.setAttribute('maxlength', 5);
+            input.setAttribute('maxlength', 3);
             input.addEventListener('input', function () {
-                this.value = this.value.replace(/\D/g, '').substring(0, 5);
+                this.value = this.value.replace(/\D/g, '').substring(0, 3);
             });
         });
+
+        const inputsCvv = document.querySelectorAll('.cvv');
 
         const disabledInputs = document.querySelectorAll('.disable');
 
@@ -337,8 +339,7 @@
 
             input.value = formattedValue;
         }
-    </script>
-    <script>
+
         function formatDate(input) {
             let value = input.value.replace(/[^0-9]/g, '');
             let formattedValue = '';
@@ -352,6 +353,7 @@
 
             input.value = formattedValue;
         }
+
     </script>
 }
 

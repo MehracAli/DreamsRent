@@ -67,6 +67,7 @@ namespace DreamsRentBack.Controllers
                     UserName = registerRequestConsumer.UserName,
                     Email = registerRequestConsumer.Email,
                     PhoneNumber = registerRequestConsumer.PhoneNumber,
+                    UserPhoto = "Default_pfp.svg.png",
                     IsCompany = false
                 };
 
@@ -116,7 +117,7 @@ namespace DreamsRentBack.Controllers
                 smtpClient.Credentials = new NetworkCredential("dreamsrentofficial@gmail.com", "cxpstlrytkzgyrdk");
                 smtpClient.Send(message);
 
-                await _userManager.AddToRoleAsync(user, "SuperAdmin");
+                await _userManager.AddToRoleAsync(user, "Consumer");
                 return RedirectToAction("Index", "Home");
             }
             //CONSUMER SIGNUP END
@@ -152,7 +153,8 @@ namespace DreamsRentBack.Controllers
                     Email = registerRequestCompany.Email,
                     PhoneNumber = registerRequestCompany.PhoneNumber,
                     IsCompany = true,
-                    Company = company
+                    Company = company,
+                    UserPhoto = "Default_pfp.svg.png"
                 };
 
                 company.UserId = user.Id;
@@ -371,6 +373,8 @@ namespace DreamsRentBack.Controllers
                     .Include(u=>u.PayCard).ThenInclude(p=>p.PayCardType)
                         .Include(u=>u.Wishlist).ThenInclude(w=>w.wishlistItems)
                             .Include(u=>u.Rents).ThenInclude(r=>r.Car)
+                            .Include(u=>u.Orders).ThenInclude(o=>o.Car).ThenInclude(c=>c.Brand).ThenInclude(b=>b.Models)
+                            .Include(u => u.Orders).ThenInclude(o => o.Car).ThenInclude(c => c.Company)
                                 .FirstOrDefault(u => u.UserName == UserName);
 
                 ConsumerAccountVM consumerAccountVM = new()
@@ -383,7 +387,8 @@ namespace DreamsRentBack.Controllers
                     PhoneNumber = user.PhoneNumber,
                     PayCard = user.PayCard,
                     Wishlist = user.Wishlist,
-                    Rents = user.Rents
+                    Rents = user.Rents,
+                    Orders = user.Orders,
                 };
                 
                 return View(consumerAccountVM);
@@ -423,26 +428,38 @@ namespace DreamsRentBack.Controllers
                 return RedirectToAction("ConsumerAccount", "Account", new { UserName = user.UserName });
             }
 
-        public IActionResult AddDebitCard(string Id, string HolderName, string HolderSurname, string CardNumber, string Date, int date, string cvv)
+            public IActionResult AddDebitCard(string Id, string HolderName, string HolderSurname, string CardNumber, string Date, string date, string cvv)
         {
             User user = _context.Users.FirstOrDefault(u=>u.Id == Id);
 
             PayCard payCard = new()
             {
-                HolderName = HolderName,
-                HolderSurname = HolderSurname,
-                CardNumber = CardNumber,
+                HolderName = HolderName.ToUpper(),
+                HolderSurname = HolderSurname.ToUpper(),
+                CardNumber = CardNumber.Replace(" ", ""),
                 Date = Date,
                 cvv = cvv
             };
 
-            //if (CardNumber.StartsWith("4"))
-            //{
-            //    payCard.PayCardType = 
-            //}
+            if (CardNumber.StartsWith("4"))
+            {
+                PayCardType payCardType = _context.PayCardTypes.FirstOrDefault(p => p.Name == "Visa");
+                payCard.PayCardType = payCardType;
+            }
+            if (CardNumber.StartsWith("5"))
+            {
+                PayCardType payCardType = _context.PayCardTypes.FirstOrDefault(p => p.Name == "Master");
+                payCard.PayCardType = payCardType;
+            }
 
-            return Json(user);
+            user.PayCard = payCard;
+            _context.SaveChanges();
 
+            return RedirectToAction("ConsumerAccount", new {UserName = user.UserName});
+        }
+
+        public IActionResult EditDebitCard(string Id) 
+        {
             return View();
         }
 

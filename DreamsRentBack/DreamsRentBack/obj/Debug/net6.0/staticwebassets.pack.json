@@ -1253,6 +1253,10 @@
       "PackagePath": "staticwebassets\\confirmationForReset.html"
     },
     {
+      "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\invoice.html",
+      "PackagePath": "staticwebassets\\invoice.html"
+    },
+    {
       "Id": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\jquery.js",
       "PackagePath": "staticwebassets\\jquery.js"
     },

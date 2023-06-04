@@ -29,6 +29,10 @@ namespace DreamsRentBack.Controllers
                 ViewBag.Users = _context.Users.ToList();
                 ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ThenInclude(c=>c.Car).ToList();
                 ViewBag.Streets = _context.Streets.Include(s=>s.City).ToList();
+                ViewBag.CurrentUser = _context.Users
+                    .Include(u=>u.Rents).ThenInclude(r=>r.Car)
+                    .Include(u=>u.Orders).ThenInclude(r=>r.Car)
+                    .FirstOrDefault(u => u.UserName == User.Identity.Name);
 
                 Car? car = _context.Cars
                     .Include(c=>c.Company).ThenInclude(c=>c.User)
@@ -103,22 +107,48 @@ namespace DreamsRentBack.Controllers
         #endregion
 
         #region AddComment
-        public async Task<IActionResult> AddComment(int Id, Comment newComment)
+        public async Task<IActionResult> AddComment(int carId, Comment newComment)
         {
+            ViewBag.Services = _context.ExtraServices.Include(es => es.ServicesAndCars).ToList();
+            ViewBag.Features = _context.CarsFeatures.Include(cf => cf.FeaturesAndCars).ToList();
+            ViewBag.Users = _context.Users.ToList();
+            ViewBag.Ratings = _context.Ratings.Include(r => r.Comment).ThenInclude(c => c.Car).ToList();
+            ViewBag.Streets = _context.Streets.Include(s => s.City).ToList();
+            ViewBag.CurrentUser = _context.Users
+                .Include(u => u.Rents).ThenInclude(r => r.Car)
+                .Include(u => u.Orders).ThenInclude(r => r.Car)
+                .FirstOrDefault(u => u.UserName == User.Identity.Name);
+
             if (newComment.Text is null)
             {
                 ModelState.AddModelError("", "Invalid review form");
                 return View();
             }
             
-            Car car = _context.Cars.FirstOrDefault(c => c.Id == Id);
+            Car? car = _context.Cars.Include(c => c.Company).ThenInclude(c => c.User)
+                    .Include(c => c.Company).ThenInclude(c => c.Bookings)
+                    .Include(c => c.Company).ThenInclude(c => c.companyPickupLocations).ThenInclude(cp => cp.PickupLocation).ThenInclude(p => p.City)
+                    .Include(c => c.Company).ThenInclude(c => c.companyDropoffLocations).ThenInclude(cp => cp.DropoffLocation).ThenInclude(p => p.City)
+                    .Include(c => c.Brand).ThenInclude(b => b.Models)
+                        .Include(c => c.Body)
+                        .Include(c => c.Transmission)
+                            .Include(c => c.FuelType)
+                            .Include(c => c.CarPhotos)
+                                .Include(c => c.ServicesAndCars).ThenInclude(sc => sc.ExtraService)
+                                .Include(c => c.FeaturesAndCars).ThenInclude(fc => fc.CarFeatures)
+                                    .Include(c => c.Drivetrian)
+                                    .Include(c => c.AirCondition)
+                                        .Include(c => c.Brake)
+                                        .Include(c => c.Engine)
+                                        .Include(c => c.Comments).ThenInclude(c => c.Rating)
+                                            .FirstOrDefault(c => c.Id == carId);
 
             if (!User.Identity.IsAuthenticated)
             {
                 if (newComment.Fullname is null ||  newComment.Email is null) 
                 {
                     ModelState.AddModelError("Comments.FirstOrDefault(c=>c.CarId == Model.Id).Rating.Point", "Invalid review form");
-                    return RedirectToAction(nameof(CarDetail), new { Id });
+                    return RedirectToAction(nameof(CarDetail), new { carId });
                 }
 
                 Rating ratingNotRegistered = new()
@@ -138,10 +168,49 @@ namespace DreamsRentBack.Controllers
 
                 car.Rating += newComment.Rating.Point;
                 car.Comments.Add(commentNotRegistered);
+                List<Car> noRegistercars = _context.Cars.Where(c => c.Company.Id == car.Company.Id).ToList();
+                double noRegistercompanyRating = 0;
+                int noRegistercompanyRatingCount = 0;
 
+                foreach (var item in noRegistercars)
+                {
+                    noRegistercompanyRating += car.Rating;
+                    noRegistercompanyRatingCount += car.Comments.Count();
+                }
+
+                ViewBag.CompanyRating = noRegistercompanyRating;
+                ViewBag.CompanyRatingCount = noRegistercompanyRatingCount;
+
+                CarDetailVM noRegistercarDetailVM = new()
+                {
+                    Id = car.Id,
+                    Rating = car.Rating,
+                    Brand = car.Brand,
+                    ModelId = car.ModelId,
+                    Views = car.Views,
+                    CarPhotos = car.CarPhotos,
+                    ServicesAndCars = car.ServicesAndCars,
+                    Body = car.Body,
+                    Transmission = car.Transmission,
+                    FuelType = car.FuelType,
+                    Speed = car.Speed,
+                    Drivetrian = car.Drivetrian,
+                    Year = car.Year,
+                    AirCondition = car.AirCondition,
+                    VIN = car.VIN,
+                    Door = car.Door,
+                    Brake = car.Brake,
+                    Engine = car.Engine,
+                    FeaturesAndCars = car.FeaturesAndCars,
+                    Comments = car.Comments,
+                    Description = car.Description,
+                    Company = car.Company,
+                    Bookings = car.Company.Bookings,
+                    Availability = car.Availability,
+                };
                 await _context.Comments.AddAsync(commentNotRegistered);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(CarDetail), new { Id });
+                return PartialView("_partialComments", noRegistercarDetailVM);
             }
 
             User user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -160,18 +229,57 @@ namespace DreamsRentBack.Controllers
                 CreationTime = DateTime.Now
             };
 
-            double rateCount = _context.Ratings.Where(r=>r.Comment.CarId == Id).Count();
+            double rateCount = _context.Ratings.Where(r=>r.Comment.CarId == carId).Count();
 
             car.Rating += newComment.Rating.Point;
 
             newComment.Text = string.Empty;
-            //return Json(ratingRegistered.Comment);
+
+            List<Car> cars = _context.Cars.Where(c => c.Company.Id == car.Company.Id).ToList();
+            double companyRating = 0;
+            int companyRatingCount = 0;
+
+            foreach (var item in cars)
+            {
+                companyRating += car.Rating;
+                companyRatingCount += car.Comments.Count();
+            }
+
+            ViewBag.CompanyRating = companyRating;
+            ViewBag.CompanyRatingCount = companyRatingCount;
+
+            CarDetailVM carDetailVM = new()
+            {
+                Id = car.Id,
+                Rating = car.Rating,
+                Brand = car.Brand,
+                ModelId = car.ModelId,
+                Views = car.Views,
+                CarPhotos = car.CarPhotos,
+                ServicesAndCars = car.ServicesAndCars,
+                Body = car.Body,
+                Transmission = car.Transmission,
+                FuelType = car.FuelType,
+                Speed = car.Speed,
+                Drivetrian = car.Drivetrian,
+                Year = car.Year,
+                AirCondition = car.AirCondition,
+                VIN = car.VIN,
+                Door = car.Door,
+                Brake = car.Brake,
+                Engine = car.Engine,
+                FeaturesAndCars = car.FeaturesAndCars,
+                Comments = car.Comments,
+                Description = car.Description,
+                Company = car.Company,
+                Bookings = car.Company.Bookings,
+                Availability = car.Availability,
+            };
 
             await _context.Comments.AddAsync(commentRegistered);
             await _context.SaveChangesAsync();
 
-
-            return RedirectToAction(nameof(CarDetail), new { Id });
+            return PartialView("_partialComments", carDetailVM);
         }
         #endregion
     }

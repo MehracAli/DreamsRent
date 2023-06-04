@@ -8,6 +8,7 @@ namespace DreamsRentBack.ViewModels.CarViewModels
         public int Id { get; set; }
         public string BrandName { get; set; }
         public string ModelName { get; set; }
+        public string CarPhoto { get; set; }
         public List<string> extraServices { get; set; }
         public string PickupLocation { get; set; }
         public string DropoffLocation { get; set; }

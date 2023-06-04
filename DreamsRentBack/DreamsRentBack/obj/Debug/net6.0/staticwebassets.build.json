@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EA+Lb43g1rdS4LQXpju3BaskVQJ9zdnpWB1cc95/QS4=",
+  "Hash": "4ohhHfZVunt3yi+auqxt63laTUeHJ2UCQ8pHccGnLnw=",
   "Source": "DreamsRentBack",
   "BasePath": "_content/DreamsRentBack",
   "Mode": "Default",
@@ -5336,6 +5336,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\confirmationForReset.html"
+    },
+    {
+      "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\invoice.html",
+      "SourceId": "DreamsRentBack",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\",
+      "BasePath": "_content/DreamsRentBack",
+      "RelativePath": "invoice.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\invoice.html"
     },
     {
       "Identity": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\wwwroot\\jquery.js",
