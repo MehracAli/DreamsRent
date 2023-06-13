@@ -1,6 +1,7 @@
 ﻿using DreamsRentBack.DAL;
 using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
+using DreamsRentBack.Utilities;
 using DreamsRentBack.ViewModels.CarViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,31 @@ namespace DreamsRentBack.Controllers
                 ViewBag.Users = _context.Users.ToList();
                 ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ThenInclude(c=>c.Car).ToList();
                 ViewBag.Streets = _context.Streets.Include(s=>s.City).ToList();
+                ViewBag.Cars = _context.Cars
+                .Include(c => c.CarPhotos)
+                        .Include(c => c.Brand).ThenInclude(b => b.Models)
+                            .Include(c => c.Company).ThenInclude(c => c.User)
+                                .Where(c => c.CarConfirmation == CarConfirmation.Confirmed)
+                                    .OrderByDescending(c => c.Id)
+                .Select(c => new CarExploreVM
+                {
+                    Id = c.Id,
+                    CarPhotos = c.CarPhotos,
+                    Brand = c.Brand,
+                    ModelId = c.ModelId,
+                    Price = c.Price,
+                    Rating = c.Rating,
+                    Transmission = c.Transmission,
+                    Speed = c.Speed,
+                    FuelType = c.FuelType,
+                    Engine = c.Engine,
+                    Year = c.Year,
+                    Capacity = c.Capacity,
+                    Company = c.Company,
+                    Availability = c.Availability,
+                    Comments = c.Comments,
+                }).ToList();
+
                 ViewBag.CurrentUser = _context.Users
                     .Include(u=>u.Rents).ThenInclude(r=>r.Car)
                     .Include(u=>u.Orders).ThenInclude(r=>r.Car)
@@ -82,6 +108,7 @@ namespace DreamsRentBack.Controllers
                     Company = car.Company,
                     Bookings = car.Company.Bookings,
                     Availability = car.Availability,
+                    Location = car.Company.Location
                 };
 
                 List<Car> cars = _context.Cars.Where(c=>c.Company.Id == car.Company.Id).ToList();

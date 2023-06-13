@@ -1,13 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "0+bwAL0X54fUo55359OpYSno8UP6zn49/6byfGuPyuQjOHOfvVdxLQzj1rkYT0Xe1UfmlLALfFWbz4kfZLsamg==",
+  "dgSpecHash": "OkjS7DqELD3AheKys9qn145YQ3B2sTarfYehZUDXymAyIaPVi8a3DOGzLrNAgJNSuMqrLOfHJU8Qu3ut3t5Wnw==",
   "success": true,
   "projectFilePath": "D:\\Programming\\DreamsRent\\DreamsRentBack\\DreamsRentBack\\DreamsRentBack.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mehra\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\mehra\\.nuget\\packages\\jquery\\1.6.3\\jquery.1.6.3.nupkg.sha512",
     "C:\\Users\\mehra\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\mehra\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\mehra\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
+    "C:\\Users\\mehra\\.nuget\\packages\\microsoft.aspnetcore.authentication.facebook\\6.0.16\\microsoft.aspnetcore.authentication.facebook.6.0.16.nupkg.sha512",
+    "C:\\Users\\mehra\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\6.0.16\\microsoft.aspnetcore.authentication.google.6.0.16.nupkg.sha512",
     "C:\\Users\\mehra\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.16\\microsoft.aspnetcore.cryptography.internal.6.0.16.nupkg.sha512",
     "C:\\Users\\mehra\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.16\\microsoft.aspnetcore.cryptography.keyderivation.6.0.16.nupkg.sha512",
     "C:\\Users\\mehra\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\6.0.16\\microsoft.aspnetcore.identity.entityframeworkcore.6.0.16.nupkg.sha512",
@@ -181,7 +184,8 @@
     "C:\\Users\\mehra\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\mehra\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\mehra\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\mehra\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\mehra\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\mehra\\.nuget\\packages\\toastr\\2.1.1\\toastr.2.1.1.nupkg.sha512"
   ],
   "logs": [
     {

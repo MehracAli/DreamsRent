@@ -16,6 +16,17 @@ builder.Services.AddDbContext<DreamsRentDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
+builder.Services.AddAuthentication().AddGoogle(options =>
+{
+    options.ClientId = "453551993493-mivjrpv95ej7oebfpa2vgj1o71a0bhq2.apps.googleusercontent.com";
+    options.ClientSecret = "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";
+});
+builder.Services.AddAuthentication()
+            .AddFacebook(options =>
+            {
+                options.AppId = "642690207734546";
+                options.AppSecret = "597c1d3a07127015d4f5fea3c8b80cd6";
+});
 builder.Services.AddScoped<LayoutService>();
 builder.Services.AddIdentity<User, IdentityRole>(opt =>
 {
@@ -55,7 +66,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
     name: "areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    pattern: "{area:exists}/{controller=Account}/{action=Signin}/{id?}"
     );
 
     endpoints.MapControllerRoute(

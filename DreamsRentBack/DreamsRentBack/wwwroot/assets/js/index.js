@@ -10,40 +10,72 @@ timeInput.forEach(Element=>{
     Element.value = now.toTimeString().slice(0, 5);
 })
 
-let servicesSect = document.getElementById("services")
-let locationHead = document.querySelector("#services .location-head")
-let pickUpHead = document.querySelector("#services .pick-up-head")
-let bookUpHead = document.querySelector("#services .book-head")
-let headImg = document.querySelectorAll(".head img")
+let servicesSect = document.getElementById("services");
+let locationHead = document.querySelector("#services .location-head");
+let pickUpHead = document.querySelector("#services .pick-up-head");
+let bookUpHead = document.querySelector("#services .book-head");
+let headImg = document.querySelectorAll(".head img");
 
-servicesSect.addEventListener("mouseover", function(){
-  locationHead.classList.add("location-head-moving")
-  locationHead.style.opacity = "1"
-  locationHead.classList.add(".threeD-rotate")
+$(window).scroll(function () {
+    var specificSection = $("#services");
+    var specificScrollPosition = specificSection.offset().top - 300;
 
-  setTimeout(() => {
-    locationHead.style.background = "#fff"
-  }, 500)
+    if ($(this).scrollTop() >= specificScrollPosition) {
+        locationHead.classList.add("location-head-moving");
+        locationHead.style.opacity = "1";
+        locationHead.classList.add("threeD-rotate");
 
-  setTimeout(() => {
-    pickUpHead.classList.add("pick-up-head-moving")
-    pickUpHead.style.opacity = "1"
-  }, "500");
+        setTimeout(() => {
+            locationHead.style.background = "#fff";
+        }, 500);
 
-  setTimeout(() => {
-    pickUpHead.style.background = "#fff"
-  }, 1000)
-  
-  setTimeout(() => {
-    bookUpHead.classList.add("book-head-moving")
-    bookUpHead.style.opacity = "1"
-  }, "1000")
+        setTimeout(() => {
+            pickUpHead.classList.add("pick-up-head-moving");
+            pickUpHead.style.opacity = "1";
+        }, 500);
 
-  setTimeout(() => {
-    bookUpHead.style.background = "#fff"
-  }, 1500)
+        setTimeout(() => {
+            pickUpHead.style.background = "#fff";
+        }, 1000);
 
-  headImg.forEach(Element=>{
-    Element.style.opacity = "1"
-  })
-})
+        setTimeout(() => {
+            bookUpHead.classList.add("book-head-moving");
+            bookUpHead.style.opacity = "1";
+        }, 1000);
+
+        setTimeout(() => {
+            bookUpHead.style.background = "#fff";
+        }, 1500);
+
+        headImg.forEach(Element => {
+            Element.style.opacity = "1";
+        });
+
+        $(window).off("scroll");
+    }
+});
+
+var factsAnimated = false;
+
+$(window).scroll(function () {
+    var specificSection = $("#facts");
+    var specificScrollPosition = specificSection.offset().top - 300;
+
+    if (!factsAnimated && $(this).scrollTop() >= specificScrollPosition) {
+        let counts = specificSection.find(".count");
+        counts.each(function () {
+            let digit = parseInt($(this).attr("data"));
+            let currentDigit = 0;
+            let interval = setInterval(() => {
+                $(this).text(currentDigit);
+                currentDigit++;
+
+                if (currentDigit > digit) {
+                    clearInterval(interval);
+                }
+            }, 100);
+        });
+
+        factsAnimated = true;
+    }
+});

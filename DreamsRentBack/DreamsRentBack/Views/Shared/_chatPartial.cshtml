@@ -1,0 +1,46 @@
+﻿@using DreamsRentBack.Entities.ClientModels;
+@model Chat
+@{
+    ViewData["Title"] = "Chating";
+    User partner = ViewBag.Partner;
+    List<Chat> chats = ViewBag.Chats;
+    List<User> users = ViewBag.Users;
+    List<Message> messages = ViewBag.Messages;
+}
+<div class="chating-wrapper">
+    <ul id="messagesContainer">
+        @foreach (var item in Model.Messages)
+        {
+            foreach (var message in messages)
+            {
+                if (message.Id == item.MessageId)
+                {
+                    if (message.UserName != User.Identity.Name)
+                    {
+                        <li>
+                            <div class="message">
+                                <p>@message.Text</p>
+                                <span>
+                                    <i class="fa-solid fa-clock" style="margin-right:5px;"></i>
+                                    @message.TimeStamp.ToString("t")
+                                </span>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="me">
+                            <div class="message">
+                                <p id="chatContainerme">@message.Text</p>
+                                <span>
+                                    <i class="fa-solid fa-clock" style="margin-right:5px;"></i>
+                                    @message.TimeStamp.ToString("t")
+                                </span>
+                            </div>
+                        </li>
+                    }
+                }
+            }
+        }
+    </ul>
+</div>

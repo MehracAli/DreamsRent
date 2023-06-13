@@ -1,8 +1,10 @@
-﻿@model List<CarExploreVM>
+﻿@using DreamsRentBack.Entities.ClientModels;
+@model List<CarExploreVM>
 @{
     List<Brand> brands = ViewBag.Brands;
     List<Body> bodies = ViewBag.Bodies;
     List<Rating> ratings = ViewBag.Ratings;
+    User user = ViewBag.User;
     double expensive = ViewBag.Expensive;
 }
 <div class="row" id="cars-list">
@@ -14,7 +16,7 @@
     }
     @foreach (CarExploreVM car in Model)
     {
-        <div class="car-item">
+        <div class="car-item d-lg-flex d-md-flex d-none">
             <div class="card">
                 <div class="img-details">
                     <div class="card-img">
@@ -51,6 +53,11 @@
                                         }
                                         else
                                         {
+                                            <i class="fas fa-star filled" style="color:gray;"></i>
+                                            <i class="fas fa-star filled" style="color:gray;"></i>
+                                            <i class="fas fa-star filled" style="color:gray;"></i>
+                                            <i class="fas fa-star filled" style="color:gray;"></i>
+                                            <i class="fas fa-star filled" style="color:gray;"></i>
                                             <span>@(car.Rating).0</span>
                                         }
                                     </div>
@@ -107,15 +114,19 @@
                                                     @car.Company.CompanyName
                                                 </a>
                                             </h5>
-                                            <h6>
-                                                <i class="fa-sharp fa-solid fa-location-dot"></i>
-                                            </h6>
+                                            @if (car.Company.Location != null)
+                                            {
+                                                <h6>
+                                                    <i class="fa-sharp fa-solid fa-location-dot"></i>
+                                                    @car.Company.Location
+                                                </h6>
+                                            }
                                         </div>
                                         <div class="author-location"></div>
                                     </div>
                                 </div>
                                 <div class="rent-btn">
-                                    <a href="#" class="btn">
+                                    <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id" class="btn">
                                         <span>
                                             <i class="fa-solid fa-calendar"></i>
                                         </span>
@@ -128,41 +139,176 @@
                 </div>
             </div>
         </div>
-    }
-</div>
-@if (Model.Count() != 0)
-{
-<div class="pagination-wrapper" style="position:absolute;bottom:0;left:45%">
-    <nav class="pagination-nav">
-        <ul class="pagination">
-            <li class="previtem">
-                <a class="page-link" href="#"><i class="fas fa-regular fa-arrow-left me-2"></i> Prev</a>
-            </li>
-            <li class="pagination-center">
-                <div class="page-group">
+        <div class="car-item-grid d-lg-none d-md-none d-flex">
+            <div class="car-img">
+                <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
+                    <img src="~/assets/images/cars/@car.CarPhotos.FirstOrDefault(cp=>cp.CarId == car.Id).Path"
+                         alt="">
+                </a>
+                <div class="fav">
+                    <span>@car.Company.CompanyName</span>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole("Consumer"))
+                        {
+                            @if (user.Wishlist != null)
+                            {
+                                if (user.Wishlist.wishlistItems.Any(w => w.CarId == car.Id))
+                                {
+                                    <a asp-controller="Wishlist" asp-action="AddWishlist" asp-route-carId="@car.Id" style="width:40px; height:40px">
+                                        <i class="fa-solid fa-heart" style="font-size:20px"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Wishlist" asp-action="AddWishlist" asp-route-carId="@car.Id" style="width:40px; height:40px">
+                                        <i class="fa-regular fa-heart" style="font-size:20px"></i>
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+                                <a asp-controller="Wishlist" asp-action="AddWishlist" asp-route-carId="@car.Id" style="width:40px; height:40px">
+                                    <i class="fa-regular fa-heart" style="font-size:20px"></i>
+                                </a>
+                            }
+                        }
+
+                    }
+                </div>
+            </div>
+            <div class="car-content">
+                <div class="car-features">
+                    <a href="#" class="author-img">
+                        @if (car.Company.CompanyPhoto != null)
+                        {
+                            <img src="~/assets/images/users/@car.Company.CompanyPhoto" style="background:white;" alt="owner-img">
+                        }
+                        else
+                        {
+                            <img src="~/assets/images/users/Default_pfp.svg.png" alt="owner-img">
+                        }
+                    </a>
+                    <h3 class="car-title">
+                        <a href="#">
+                            <span>@car.Brand.Name @car.Brand.Models.FirstOrDefault(m=>m.Id == car.ModelId).Name</span>
+                        </a>
+                    </h3>
+                    <div class="car-rating">
+                        @for (double i = 0; i < Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
+                        {
+                            <i class="fa-solid fa-star"></i>
+                        }
+                        @for (double i = 0; i < 5 - Math.Floor((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()); i++)
+                        {
+                            <i class="fa-solid fa-star" style="color: gray;"></i>
+                        }
+
+                        @if (ratings.Where(r => r.Comment.CarId == car.Id).Count() > 0)
+                        {
+                            <span>@(((double)car.Rating / ratings.Where(r => r.Comment.CarId == car.Id).Count()).ToString("F1"))</span>
+                        }
+                        else
+                        {
+                            <span>@(car.Rating).0</span>
+                        }
+                    </div>
+                </div>
+                <div class="car-details">
                     <ul>
-                        <li class="page-item">
-                            <a class="page-link" href="#">1</a>
+                        <li>
+                            <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
+                            <p>@car.Transmission.Name</p>
                         </li>
-                        <li class="page-item">
-                            <a class="active page-link" href="#">2 <span class="visually-hidden">(current)</span></a>
+                        <li>
+                            <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
+                            <p>@car.Speed (km/ph)</p>
                         </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
+                        <li>
+                            <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
+                            <p>@car.FuelType.Name</p>
                         </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
+                    </ul>
+                    <ul>
+                        <li>
+                            <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
+                            <p>@car.Year</p>
                         </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">5</a>
+                        <li>
+                            <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
+                            <p>@car.Engine.HorsePower (hp)</p>
+                        </li>
+                        <li>
+                            <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
+                            <p>@car.Capacity</p>
                         </li>
                     </ul>
                 </div>
-            </li>
-            <li class="nextitem">
-                <a class="page-link" href="#">Next <i class="fas fa-regular fa-arrow-right ms-2"></i></a>
-            </li>
-        </ul>
-    </nav>
+                <div class="car-location-price">
+                    <div class="car-location">
+                        @if (car.Company.Location != null)
+                        {
+                            <span>
+                                <i class="fa-solid fa-location-dot"></i>
+                                @car.Company.Location
+                            </span>
+                        }
+                    </div>
+                    <div class="car-price">
+                        <h6>
+                            $@car.Price.ToString("N0")
+                            <span>/Day</span>
+                        </h6>
+                    </div>
+                </div>
+                <div class="car-button">
+                    <a href="#">
+                        <span>
+                            <i class="fa-solid fa-calendar"></i>
+                        </span>
+                        Rent Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
 </div>
+<style>
+    .page-item.active .page-link{
+        background:orange!important;
+        color:white;
+        border:none;
+    }
+
+    .page-item .page-link{
+        color:gray;
+    }
+
+    .previtem .page-link{
+        color: gray
+    }
+    .nextitem .page-link{
+        color: gray
+    }
+</style>
+@if (Model.Count() != 0)
+{
+    <div class="pagination-wrapper">
+        <nav id="pagination" class="pagination-wrapper" aria-label="...">
+            <ul class="pagination">
+                <li class="previtem @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                    <a class="page-link rounded m-1" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage-1)" tabindex="-1">Previous</a>
+                </li>
+                @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                {
+                    <li class="page-item @(i==ViewBag.CurrentPage ? "active pointerNone" : "")">
+                        <a class="page-link rounded m-1" asp-action="Index" asp-route-page="@i">@i</a>
+                    </li>
+                }
+                <li class="nextitem @(ViewBag.TotalPage == ViewBag.CurrentPage ? "disabled" : "")">
+                    <a class="page-link rounded m-1" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage+1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 }

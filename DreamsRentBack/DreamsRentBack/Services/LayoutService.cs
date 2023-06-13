@@ -3,6 +3,7 @@ using DreamsRentBack.Entities;
 using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace DreamsRentBack.Services
 {
@@ -42,6 +43,24 @@ namespace DreamsRentBack.Services
             Company company = companies.FirstOrDefault(c=>c.UserId.Equals(user.Id));
 
             return company.CompanyName;
+        }
+
+        public async Task<int> GetChatId()
+        {
+            User user = await _userManager.GetUserAsync(_accessor.HttpContext.User);
+
+            User contextUser = _context.Users.Include(u=>u.Chats).FirstOrDefault(u=>u.Id == user.Id);
+
+            Chat chat = contextUser.Chats.OrderByDescending(c=>c.Id).FirstOrDefault(c => c.UserId == user.Id);
+
+            if (chat == null)
+            {
+                return 0;
+            }
+
+            int chatId = chat.Id;
+
+            return chatId;
         }
 
         public List<Body> GetBodyTypes()

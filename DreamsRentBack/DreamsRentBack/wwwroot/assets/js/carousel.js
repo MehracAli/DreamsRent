@@ -15,6 +15,7 @@ $(".responsive").slick({
           slidesToScroll: 3,
           infinite: true,
           dots: false,
+          nav: false,
         },
       },
       {
@@ -104,7 +105,7 @@ $('#detail-body .owl-carousel').owlCarousel({
   responsive:{
       0:{
           items:1,
-          nav:true
+          nav:false
       },
       600:{
           items:1,

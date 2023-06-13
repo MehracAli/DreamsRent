@@ -38,7 +38,14 @@
             <div class="profile row">
                 <div class="col-lg-3">
                     <div class="photo" style="display:flex;justify-content:center;align-items:center;background:white;">
-                        <img src="~/assets/images/users/@Model.CompanyPhoto" alt="">
+                        @if (@Model.CompanyPhoto == null)
+                        {
+                            <img src="~/assets/images/users/Default_pfp.svg.png" alt="">
+                        }
+                        else
+                        {
+                            <img src="~/assets/images/users/@Model.CompanyPhoto" alt="">
+                        }
                         <form id="changePhotoForm" asp-action="ChangeCompanyPhoto" asp-route-Id="@Model.Id" enctype="multipart/form-data">
                             <input asp-for="iff_CompanyPhoto" style="display:none;" class="change-photo-input" accept="image/*"/>
                         </form>
@@ -57,7 +64,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="side-bar">
+                    <div class="side-bar mb-3">
                         <ul class="bar-list">
                             <li id="account-detail">
                                 Account Details
@@ -80,6 +87,16 @@
                                                 <p style="font-weight:800;">Company Name: <span style="font-weight:400;">@Model.CompanyName</span></p>
                                                 <p style="font-weight:800;">Email: <span style="font-weight:400;">@Model.User.Email</span></p>
                                                 <p style="font-weight:800;">Phone Number: <span style="font-weight:400;">@Model.User.PhoneNumber</span></p>
+                                                @if (Model.Location == null)
+                                                {
+                                                    <form asp-action="AddCompanyLocation" asp-route-companyId="@Model.Id">
+                                                        <input name="location" type="text" class="form-control w-25 mb-3" placeholder="Add Location"/>
+                                                    </form>
+                                                }
+                                                else
+                                                {
+                                                    <p style="font-weight:800;">Location: <span style="font-weight:400;">@Model.Location</span></p>
+                                                }
                                             </div>
                                             @if (User.Identity.Name == Model.User.UserName)
                                             {
@@ -108,6 +125,10 @@
                                                                             <label style="margin-bottom:5px">Phone Number <span style="color:red">*</span></label>
                                                                             <input type="number" name="phone" value="@Model.User.PhoneNumber" class="no-spinner col-lg-12 form-control" />
                                                                         </div>
+                                                                    <div class="form-group" style="margin-bottom:25px">
+                                                                        <label style="margin-bottom:5px">Location <span style="color:red">*</span></label>
+                                                                        <input type="text" name="location" value="@Model.Location" class="no-spinner col-lg-12 form-control" />
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
@@ -149,7 +170,7 @@
                                                                 <div class="modal-body">
                                                                     <div>
                                                                         <label>Choose City</label>
-                                                                        <select name="cityId" class="form-control">
+                                                                        <select name="cityId" class="form-control" id="CityIdPick" onclick="clickFuncPick();">
                                                                             @foreach (City city in cities)
                                                                             {
                                                                                 <option value="@city.Id">
@@ -160,13 +181,8 @@
                                                                     </div>
                                                                     <div>
                                                                         <label>Choose street</label>
-                                                                        <select id="selectOptions" name="streetId" class="form-control">
-                                                                            @foreach (Street street in streets)
-                                                                            {
-                                                                                <option value="@street.Id">
-                                                                                    @street.Name
-                                                                                </option>
-                                                                            }
+                                                                        <select id="StreetIdPick" name="streetId" class="form-control" disabled>
+                                                                            <option value="0"></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -216,7 +232,7 @@
                                                                 <div class="modal-body">
                                                                     <div>
                                                                         <label>Choose City</label>
-                                                                        <select name="cityId" class="form-control">
+                                                                        <select name="cityId" class="form-control" id="CityIdDrop" onclick="clickFuncDrop();">
                                                                             @foreach (City city in cities)
                                                                             {
                                                                                 <option value="@city.Id">
@@ -227,13 +243,8 @@
                                                                     </div>
                                                                     <div>
                                                                         <label>Choose street</label>
-                                                                        <select id="selectOptions" name="streetId" class="form-control">
-                                                                            @foreach (Street street in streets)
-                                                                            {
-                                                                                <option value="@street.Id">
-                                                                                    @street.Name
-                                                                                </option>
-                                                                            }
+                                                                        <select id="StreetIdDrop" name="streetId" class="form-control" disabled>
+                                                                            <option value="0"></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -275,7 +286,7 @@
                                 </ul>
                             </div>
                             <div class="company-main-body">
-                                <div class="announcements-body">
+                                <div class="announcements-body p-0" style="background:none;">
                                     @if(Model.Cars == null)
                                     {
                                         <p>Announcements is empty</p>
@@ -284,14 +295,14 @@
                                             Add Car
                                         </a>
                                     }
-                                    <div class="row">
+                                    <div class="row p-1">
                                         @foreach (Car car in Model.Cars)
                                         {
                                             @foreach (Car VBcar in  cars)
                                             {
                                                 @if(VBcar.Id == car.Id)
                                                 {
-                                                    <div class="car-item">
+                                                    <div class="car-item d-lg-flex d-md-flex d-none">
                                                         <div class="card">
                                                             <div class="img-details">
                                                                 <div class="card-img">
@@ -345,7 +356,7 @@
                                                                                 </li>
                                                                                 <li>
                                                                                     <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
-                                                                                    <p>@VBcar.Speed (km/ph)</p>
+                                                                                    <p>@VBcar.Speed</p>
                                                                                 </li>
                                                                                 <li>
                                                                                     <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
@@ -391,8 +402,138 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            <div class="edit">
+                                                                                <a class="btn" style="background:orange!important" data-bs-toggle="modal" data-bs-target="#staticBackCarEdit">
+                                                                                    <i class="fa-solid fa-pen"></i>
+                                                                                    Edit
+                                                                                </a>
+                                                                                <div class="modal fade" id="staticBackCarEdit" style="backdrop-filter:blur(10px);" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                                    <div class="modal-dialog">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header">
+                                                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Account</h1>
+                                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                            </div>
+                                                                                            <form asp-controller="Car" asp-action="EditCar" asp-route-carId="@VBcar.Id" class="row" style="padding: 0 30px" enctype="multipart/form-data">
+                                                                                                <div class="modal-body">
+                                                                                                    <div class="form-group" style="margin-bottom:25px">
+                                                                                                        <label style="margin-bottom:5px">Car Photos <span style="color:red">*</span></label>
+                                                                                                        <input name="carPhotos" type="file" multiple class="col-lg-12 form-control" />
+                                                                                                    </div>
+                                                                                                    <div class="form-group" style="margin-bottom:25px">
+                                                                                                        <label style="margin-bottom:5px">Price <span style="color:red">*</span></label>
+                                                                                                        <input type="number" name="price" value="@VBcar.Price" class="col-lg-12 form-control" />
+                                                                                                    </div>
+                                                                                                    <div class="form-group" style="margin-bottom:25px">
+                                                                                                        <label style="margin-bottom:5px">Description <span style="color:red">*</span></label>
+                                                                                                        <textarea name="description" style="height:200px" class="form-control">@VBcar.Description</textarea>
+                                                                                                    </div>
+                                                                                                    <input type="hidden" name="UserName" value="@Model.User.UserName"/>
+                                                                                                </div>
+                                                                                                <div class="modal-footer">
+                                                                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                                                                                    <button type="submit" class="btn btn-warning" style="color:white">Save</button>
+                                                                                                </div>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="car-item-grid d-lg-none d-md-none d-flex mb-3">
+                                                        <div class="car-img">
+                                                            <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
+                                                                <img src="~/assets/images/cars/@car.CarPhotos.FirstOrDefault(cp=>cp.CarId == car.Id).Path"
+                                                                     alt="">
+                                                            </a>
+                                                        </div>
+                                                        <div class="car-content">
+                                                            <div class="car-features" style="text-align:start;">
+                                                                <a href="#" class="author-img">
+                                                                    @if (VBcar.Company.CompanyPhoto != null)
+                                                                    {
+                                                                        <img src="~/assets/images/users/@VBcar.Company.CompanyPhoto" style="background:white;" alt="owner-img">
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <img src="~/assets/images/users/Default_pfp.svg.png" alt="owner-img">
+                                                                    }
+                                                                </a>
+                                                                <h3 class="car-title">
+                                                                    <a href="#" style="background:white!important">
+                                                                        <span >@VBcar.Brand.Name @VBcar.Brand.Models.FirstOrDefault(m=>m.Id == VBcar.ModelId).Name</span>
+                                                                    </a>
+                                                                </h3>
+                                                                <div class="car-rating">
+                                                                    @for (double i = 0; i < Math.Floor((double)VBcar.Rating / ratings.Where(r => r.Comment.CarId == VBcar.Id).Count()); i++)
+                                                                    {
+                                                                        <i class="fa-solid fa-star"></i>
+                                                                    }
+                                                                    @for (double i = 0; i < 5 - Math.Floor((double)VBcar.Rating / ratings.Where(r => r.Comment.CarId == VBcar.Id).Count()); i++)
+                                                                    {
+                                                                        <i class="fa-solid fa-star" style="color: gray;"></i>
+                                                                    }
+
+                                                                    @if (ratings.Where(r => r.Comment.CarId == VBcar.Id).Count() > 0)
+                                                                    {
+                                                                        <span>@(((double)VBcar.Rating / ratings.Where(r => r.Comment.CarId == VBcar.Id).Count()).ToString("F1"))</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span>@(VBcar.Rating).0</span>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            <div class="car-details">
+                                                                <ul>
+                                                                    <li>
+                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg" alt="">
+                                                                        <p>@VBcar.Transmission.Name</p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg" alt="">
+                                                                        <p>@VBcar.Speed</p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg" alt="">
+                                                                        <p>@VBcar.FuelType.Name</p>
+                                                                    </li>
+                                                                </ul>
+                                                                <ul>
+                                                                    <li>
+                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg" alt="">
+                                                                        <p>@VBcar.Year</p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg" alt="">
+                                                                        <p>@VBcar.Engine.HorsePower</p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg" alt="">
+                                                                        <p>@VBcar.Capacity</p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="car-location-price">
+                                                                <div class="car-location">
+                                                                    @if (VBcar.Company.Location != null)
+                                                                    {
+                                                                        <span>
+                                                                            <i class="fa-solid fa-location-dot"></i>
+                                                                            @VBcar.Company.Location
+                                                                        </span>
+                                                                    }
+                                                                </div>
+                                                                <div class="car-price">
+                                                                    <h6>
+                                                                        $@VBcar.Price.ToString("N0")
+                                                                        <span>/Day</span>
+                                                                    </h6>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -442,16 +583,19 @@
                                         <p>There is no rented car</p>
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 122.88 98.75" style="enable-background:new 0 0 122.88 98.75" xml:space="preserve"><style type="text/css">                                                                                                                                                                                                                    }</style><g><path class="st0" d="M76.71,23.6l15.76,15.97v7.51l-7.46,0v-5.65h-6.18v-6.18h-5.91l-1.71-5.57c-2.72,1.82-6.03,2.88-9.58,2.88 c-9.32,0-16.88-7.29-16.88-16.28C44.75,7.29,52.31,0,61.63,0c9.32,0,16.88,7.29,16.88,16.28C78.51,18.91,77.86,21.4,76.71,23.6 L76.71,23.6L76.71,23.6z M0,45.47h24.83v44.18H0V45.47L0,45.47z M29.83,85.94V49.02h16.61c7.04,1.26,14.08,5.08,21.12,9.51h12.9 c5.84,0.35,8.9,6.27,3.22,10.16c-4.53,3.32-10.49,3.13-16.61,2.58c-4.22-0.21-4.4,5.46,0,5.48c1.53,0.12,3.19-0.24,4.64-0.24 c7.63-0.01,13.92-1.47,17.77-7.5l1.93-4.51l19.19-9.51c9.6-3.16,16.42,6.88,9.35,13.87C106.06,78.96,91.81,87.28,77.23,94 c-10.59,6.44-21.18,6.22-31.76,0L29.83,85.94L29.83,85.94z M59.2,11.07c1.66,0,3.01,1.35,3.01,3.01c0,1.66-1.35,3.01-3.01,3.01 c-1.67,0-3.01-1.35-3.01-3.01C56.19,12.41,57.54,11.07,59.2,11.07L59.2,11.07z" /></g></svg>
                                     }
-                                    <div class="row">
+                                    <div>
                                         @foreach (Booking booking  in Model.Bookings)
                                         {
                                             if (!booking.TimeIsOver)
                                             {
-                                                <div class="bg-secondary p-3">
+                                                <div class="bg-dark p-3 rounded">
                                                     <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@booking.car.Id" class="row align-items-center text-white text-decoration-none">
-                                                        <p class="col-lg-4 text-white">Consumer: @booking.User.Name @booking.User.Surname</p>
-                                                        <p class="col-lg-3 text-white">Car: @booking.car.Brand.Name @booking.car.Brand.Models.FirstOrDefault(m=>m.Id == booking.car.ModelId).Name</p>
-                                                        <p class="col-lg-3 text-white">Price: $@booking.car.Price</p>
+                                                        <div class="img w-25 h-25 col-lg-3 col-3 overflow-hidden rounded">
+                                                            <img class="w-100 rounded" src="~/assets/images/cars/@booking.car.CarPhotos.FirstOrDefault(p=>p.CarId == booking.CarId)?.Path"/>
+                                                        </div>
+                                                        <p style="margin:0;" class="col-lg-4 col-4 text-white">Consumer: @booking.User.Name @booking.User.Surname</p>
+                                                        <p style="margin:0;" class="col-lg-3 col-3 text-white">Car: @booking.car.Brand.Name @booking.car.Brand.Models.FirstOrDefault(m=>m.Id == booking.car.ModelId).Name</p>
+                                                        <p style="margin:0;" class="col-lg-2 col-2 text-white">Price: $@booking.car.Price</p>
                                                         <div class="col-lg-2 d-flex justify-content-between">
                                                         </div>
                                                     </a>
@@ -472,8 +616,68 @@
 
 <!-- scripts -->
 <script src="~/assets/js/companyaccount.js"></script>
-@section Scripts{
+<script>
+    function clickFuncPick() {
 
+        console.log("ok")
+        const select = document.querySelector("#CityIdPick")
+        const option = select.options[select.selectedIndex].value;
+
+        let streets = document.querySelector("#StreetIdPick")
+        streets.innerHTML = $`<option>Select</option>`;
+        streets.disabled = "true"
+
+        var url = `/Account/GetStreets?cityId=${option}`
+        fetch(url).then(response => response.json()).then(datas => {
+            if (datas.status !== 404) {
+                datas.forEach(data => {
+                    let modelOption = document.createElement("option")
+                    modelOption.innerText = data.name
+                    modelOption.value = data.id
+                    console.log(modelOption)
+                    streets.append(modelOption)
+                    streets.removeAttribute("disabled")
+                })
+            }
+        });
+
+    }
+</script>
+<script>
+    function clickFuncDrop() {
+
+        console.log("ok")
+        const select = document.querySelector("#CityIdDrop")
+        const option = select.options[select.selectedIndex].value;
+
+        let streets = document.querySelector("#StreetIdDrop")
+        streets.innerHTML = $`<option>Select</option>`;
+        streets.disabled = "true"
+
+        var url = `/Account/GetStreets?cityId=${option}`
+        fetch(url).then(response => response.json()).then(datas => {
+            if (datas.status !== 404) {
+                datas.forEach(data => {
+                    let modelOption = document.createElement("option")
+                    modelOption.innerText = data.name
+                    modelOption.value = data.id
+                    console.log(modelOption)
+                    streets.append(modelOption)
+                    streets.removeAttribute("disabled")
+                })
+            }
+        });
+
+    }
+</script>
+<script>
+    const inputs = document.querySelectorAll('input');
+
+    inputs.forEach(function (input) {
+        input.setAttribute('required', true);
+    });
+</script>
+@section Scripts{
     <script>
 
         let changePhotoBtn = document.querySelector(".edit-photo")

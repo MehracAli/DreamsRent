@@ -4,6 +4,7 @@ using DreamsRentBack.Entities.ClientModels;
 using DreamsRentBack.Utilities;
 using DreamsRentBack.ViewModels.CarViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
@@ -19,15 +20,21 @@ namespace DreamsRentBack.Controllers
             _context = context;
         }
 
-        public ActionResult Index(string? streetName, DateTime pickupDate, DateTime returnDate) 
+        public ActionResult Index(string? streetName, DateTime pickupDate, DateTime returnDate, int page = 1) 
         {
 
             ViewBag.Brands = _context.Brands.Include(b=>b.Models).OrderBy(b=>b.Name).ToList();
             ViewBag.Bodies = _context.Bodys.OrderBy(b=>b.Name).ToList();
             ViewBag.Ratings = _context.Ratings.Include(r=>r.Comment).ToList();
+            ViewBag.User = _context.Users
+               .Include(u => u.Wishlist)
+                   .ThenInclude(w => w.wishlistItems)
+                       .FirstOrDefault(u => u.UserName == User.Identity.Name);
             List<Car> expensives = _context.Cars.OrderBy(c=>c.Price).ToList();
             ViewBag.Expensive = expensives.First().Price;
 
+            ViewBag.TotalPage = Math.Ceiling((double)_context.Cars.Count() / 6);
+            ViewBag.CurrentPage = page;
 
             List<CarExploreVM> cars = _context.Cars
                 .Include(c => c.CarPhotos)
@@ -51,11 +58,12 @@ namespace DreamsRentBack.Controllers
                 Capacity = c.Capacity,
                 Company = c.Company,
             })
-            .Take(6)
+            .Skip((page - 1) * 6).Take(6)
             .ToList();
+
             if (!string.IsNullOrEmpty(streetName))
             {
-                List<CarExploreVM> filterCars = SearchByStatus(streetName, pickupDate, returnDate);
+                List<CarExploreVM> filterCars = SearchByStatus(streetName, pickupDate, returnDate, page);
                 if (filterCars.Count() == 0)
                 {
                     List<CarExploreVM> carsEmpty = new();
@@ -73,6 +81,10 @@ namespace DreamsRentBack.Controllers
             ViewBag.Brands = _context.Brands.Include(b => b.Models).OrderBy(b => b.Name).ToList();
             ViewBag.Bodies = _context.Bodys.OrderBy(b => b.Name).ToList();
             ViewBag.Ratings = _context.Ratings.Include(r => r.Comment).ToList();
+            ViewBag.User = _context.Users
+                .Include(u => u.Wishlist)
+                    .ThenInclude(w => w.wishlistItems)
+                        .FirstOrDefault(u => u.UserName == User.Identity.Name);
             List<Car> expensives = _context.Cars.OrderBy(c => c.Price).ToList();
             ViewBag.Expensive = expensives.First().Price;
             IQueryable<Car>? cars = _context.Cars
@@ -193,7 +205,7 @@ namespace DreamsRentBack.Controllers
             return PartialView("_partialListing", list);
         }
 
-        private List<CarExploreVM> SearchByStatus(string streetName, DateTime pickupDate, DateTime returnDate)
+        private List<CarExploreVM> SearchByStatus(string streetName, DateTime pickupDate, DateTime returnDate, int page=1)
         {
             ViewBag.Brands = _context.Brands.Include(b=>b.Models).OrderBy(b=>b.Name).ToList();
             ViewBag.Bodies = _context.Bodys.OrderBy(b=>b.Name).ToList();
@@ -201,17 +213,80 @@ namespace DreamsRentBack.Controllers
             List<Car> expensives = _context.Cars.OrderBy(c => c.Price).ToList();
             ViewBag.Expensive = expensives.First().Price;
 
+            ViewBag.TotalPage = Math.Ceiling((double)_context.Cars.Count() / 6);
+            ViewBag.CurrentPage = page;
+
             string[] streetNameSplit = streetName.Split(", ");
+
+            if (streetNameSplit.Length != 2)
+            {
+                List<CarExploreVM> carsVms = _context.Cars
+                .Include(c => c.CarPhotos)
+                        .Include(c => c.Brand).ThenInclude(b => b.Models)
+                            .Include(c => c.Company)
+                            .Where(c => c.Id == 0)
+                                .OrderByDescending(c => c.Id)
+                .Select(c => new CarExploreVM
+                {
+                    Id = c.Id,
+                    CarPhotos = c.CarPhotos,
+                    Brand = c.Brand,
+                    ModelId = c.ModelId,
+                    Price = c.Price,
+                    Rating = c.Rating,
+                    Transmission = c.Transmission,
+                    Speed = c.Speed,
+                    FuelType = c.FuelType,
+                    Engine = c.Engine,
+                    Year = c.Year,
+                    Capacity = c.Capacity,
+                    Company = c.Company,
+                })
+                .Skip((page - 1) * 6).Take(6)
+                .ToList();
+
+                return carsVms;
+            }
+
 
             Street? street = _context.Streets
                 .Include(s=>s.City)
                     .FirstOrDefault(s => s.Name.Equals(streetNameSplit[1]));
 
+            if (street == null)
+            {
+                List<CarExploreVM> carsVms = _context.Cars
+                .Include(c => c.CarPhotos)
+                        .Include(c => c.Brand).ThenInclude(b => b.Models)
+                            .Include(c => c.Company)
+                            .Where(c => c.Id == 0)
+                                .OrderByDescending(c => c.Id)
+                .Select(c => new CarExploreVM
+                {
+                    Id = c.Id,
+                    CarPhotos = c.CarPhotos,
+                    Brand = c.Brand,
+                    ModelId = c.ModelId,
+                    Price = c.Price,
+                    Rating = c.Rating,
+                    Transmission = c.Transmission,
+                    Speed = c.Speed,
+                    FuelType = c.FuelType,
+                    Engine = c.Engine,
+                    Year = c.Year,
+                    Capacity = c.Capacity,
+                    Company = c.Company,
+                })
+                .Skip((page - 1) * 6).Take(6)
+                .ToList();
+
+                return carsVms;
+            }
+
             PickupLocation? pickupLocation = _context.PickupLocations
                 .FirstOrDefault(p => p.StreetId == street.Id);
 
             List<CarExploreVM> carExploreVMs = new();
-
 
             if (pickupLocation == null)
             {
@@ -233,7 +308,11 @@ namespace DreamsRentBack.Controllers
                                             .Include(c => c.Comments).ThenInclude(c => c.Rating)
                                             .Where(c=>c.Company.companyPickupLocations
                                                 .Any(p=>p.PickupLocation.Id == pickupLocation.Id))
+                                            .Where(c=> (pickupDate < c.PickupDate && returnDate < c.PickupDate) || 
+                                                       (pickupDate > c.ReturnDate && returnDate > c.ReturnDate) || 
+                                                       (c.PickupDate == null && c.ReturnDate == null))
                                             .OrderByDescending(c => c.Id)
+                                            .Skip((page - 1) * 6).Take(6)
                                             .ToList();
 
             foreach (Car item in cars)

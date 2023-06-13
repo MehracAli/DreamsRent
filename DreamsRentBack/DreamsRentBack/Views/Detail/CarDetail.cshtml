@@ -9,6 +9,7 @@
     List<User> users = ViewBag.Users;
     List<Rating> ratings = ViewBag.Ratings;
     List<Street> streets = ViewBag.Streets;
+    List<CarExploreVM> cars = ViewBag.Cars;
     User currentUser = ViewBag.CurrentUser;
     double companyRating = ViewBag.CompanyRating;
     int companyRatingCount = ViewBag.CompanyRatingCount;
@@ -158,12 +159,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="detail-head-right">
-                    <a href="#">
-                        <i class="fa-solid fa-heart"></i>
-                        Whishlist
-                    </a>
                 </div>
             </div>
         </div>
@@ -502,7 +497,7 @@
                 </div>
                 <div class="col-lg-4 body-right">
                     <div class="sticky">
-                        @if (User.IsInRole("Consumer") || User.Identity.IsAuthenticated)
+                        @if (User.IsInRole("Consumer") && User.Identity.IsAuthenticated)
                         {
                             <div class="right-components check-availability">
                             <div class="component-title">
@@ -512,11 +507,11 @@
                             {
                                 @if (currentUser.Orders.Where(o => o.IsAccepted == false).Any(o => o.Car.Id == Model.Id))
                                 {
-                                    <h5 class="text-gray">You already ordered this car</h5>
+                                    <h5 class="text-gray">You already ordered this car!</h5>
                                 }
                                 else if (currentUser.Rents.Where(r => r.TimeIsOver == false).Any(r => r.Car.Id == Model.Id))
                                 {
-                                    <h5 class="text-gray">You already rented this car</h5>
+                                    <h5 class="text-gray">You already rented this car!</h5>
                                 }
                                 else
                                 {
@@ -678,9 +673,12 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="message-btn">
-                                <a href="#" class="btn">Message to owner</a>
-                            </div>
+                            @if (User.IsInRole("Consumer"))
+                            {
+                                <div class="message-btn">
+                                    <a asp-controller="Chat" asp-action="CreateChat" asp-route-companyId="@Model.Company.Id" class="btn">Message to owner</a>
+                                </div>
+                            }
                         </div>
                         <div class="right-components share-car">
                             <div class="component-title">
@@ -736,541 +734,164 @@
                         <h3>You May be Interested in</h3>
                     </div>
                     <div class="owl-carousel owl-theme">
-                        <div class="item">
-                            <div class="car-item">
-                                <div class="car-img">
-                                    <a href="./detail.html">
-                                        <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
-                                             alt="">
-                                    </a>
-                                    <div class="fav">
-                                        <span>Toyota</span>
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
+                        @foreach (var item in cars.OrderBy(c=>c.Comments.Count()))
+                        {
+                            @if (item.Company.Id == Model.Company.Id)
+                            {
+                                <div class="item">
+                                    <div class="car-item">
+                                    <div class="car-img">
+                                        <a href="./detail.html">
+                                                <img src="~/assets/images/cars/@item.CarPhotos.FirstOrDefault(cp=>cp.CarId == item.Id).Path" alt="">
                                         </a>
+                                        <div class="fav">
+                                            <span class="d-flex align-items-center justify-content-center">@item.Brand.Name</span>
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    @if (User.IsInRole("Consumer"))
+                                                    {
+                                                        @if (currentUser.Wishlist != null)
+                                                        {
+                                                            if (currentUser.Wishlist.wishlistItems.Any(w => w.CarId == item.Id))
+                                                            {
+                                                                <a asp-controller="Wishlist" asp-action="AddWishlist" asp-route-carId="@item.Id" style="width:40px; height:40px">
+                                                                    <i class="fa-solid fa-heart" style="font-size:20px"></i>
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a asp-controller="Wishlist" asp-action="AddWishlist" asp-route-carId="@item.Id" style="width:40px; height:40px">
+                                                                    <i class="fa-regular fa-heart" style="font-size:20px"></i>
+                                                                </a>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <a asp-controller="Wishlist" asp-action="AddWishlist" asp-route-carId="@item.Id" style="width:40px; height:40px">
+                                                                <i class="fa-regular fa-heart" style="font-size:20px"></i>
+                                                            </a>
+                                                        }
+                                                    }
+
+                                                }
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="car-content">
-                                    <div class="car-features">
-                                        <a href="#" class="author-img">
-                                            <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
-                                                 alt="">
-                                        </a>
-                                        <h3 class="car-title">
-                                            <a href="#">
-                                                Toyota Camry SE Hybrid
+                                    <div class="car-content">
+                                        <div class="car-features">
+                                            <a href="#" class="author-img">
+                                                @if(item.Company.CompanyPhoto == null)
+                                                {
+                                                    <img class="bg-white" src="~/assets/images/users/Default_pfp.svg.png" alt="">
+                                                }
+                                                else{
+                                                    <img src="~/assets/images/users/@item.Company.CompanyPhoto" alt="">
+                                                }
                                             </a>
-                                        </h3>
-                                        <div class="car-rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <span>(5.0)</span>
+                                            <h3 class="car-title">
+                                                <a href="#">
+                                                        @item.Brand.Name @item.Brand.Models.FirstOrDefault(m=>m.Id == item.ModelId).Name
+                                                </a>
+                                            </h3>
+                                            <div class="car-rating">
+                                                    @for (double i = 0; i < Math.Floor((double)item.Rating / ratings.Where(r => r.Comment.CarId == item.Id).Count()); i++)
+                                                    {
+                                                        <i class="fa-solid fa-star"></i>
+                                                    }
+                                                    @for (double i = 0; i < 5 - Math.Floor((double)item.Rating / ratings.Where(r => r.Comment.CarId == item.Id).Count()); i++)
+                                                    {
+                                                        <i class="fa-solid fa-star" style="color: gray;"></i>
+                                                    }
+
+                                                    @if (ratings.Where(r => r.Comment.CarId == item.Id).Count() > 0)
+                                                    {
+                                                        <span>@(((double)item.Rating / ratings.Where(r => r.Comment.CarId == item.Id).Count()).ToString("F1"))</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fas fa-star filled" style="color:gray;"></i>
+                                                        <i class="fas fa-star filled" style="color:gray;"></i>
+                                                        <i class="fas fa-star filled" style="color:gray;"></i>
+                                                        <i class="fas fa-star filled" style="color:gray;"></i>
+                                                        <i class="fas fa-star filled" style="color:gray;"></i>
+                                                        <span>@(item.Rating).0</span>
+                                                    }
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="car-details">
-                                        <ul>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Auto</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>10 KM</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Petrol</p>
-                                            </li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Power</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>2023</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>5 Persons</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="car-location-price">
-                                        <div class="car-location">
-                                            <span>
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                Germany
-                                            </span>
+                                        <div class="car-details">
+                                            <ul>
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
+                                                             alt="">
+                                                    </span>
+                                                    <p>@item.Transmission.Name</p>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
+                                                             alt="">
+                                                    </span>
+                                                    <p>@item.Speed</p>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
+                                                             alt="">
+                                                    </span>
+                                                        <p>@item.FuelType.Name</p>
+                                                </li>
+                                            </ul>
+                                            <ul>
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
+                                                             alt="">
+                                                    </span>
+                                                    <p>@item.Engine.HorsePower (h/p)</p>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
+                                                             alt="">
+                                                    </span>
+                                                        <p>@item.Year</p>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
+                                                             alt="">
+                                                    </span>
+                                                    <p>@item.Capacity Persons</p>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <div class="car-price">
-                                            <h6>
-                                                $400
-                                                <span>/Day</span>
-                                            </h6>
+                                        <div class="car-location-price">
+                                            <div class="car-location">
+                                                <span>
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    @item.Company.Location
+                                                </span>
+                                            </div>
+                                            <div class="car-price">
+                                                <h6>
+                                                        $@item.Price
+                                                    <span>/Day</span>
+                                                </h6>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="car-button">
-                                        <a href="#">
-                                            <span>
-                                                <i class="fa-solid fa-calendar"></i>
-                                            </span>
-                                            Rent Now
-                                        </a>
+                                        <div class="car-button">
+                                                <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@item.Id">
+                                                    <span>
+                                                        <i class="fa-solid fa-calendar"></i>
+                                                    </span>
+                                                    Rent Now
+                                                </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="car-item">
-                                <div class="car-img">
-                                    <a href="./detail.html">
-                                        <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
-                                             alt="">
-                                    </a>
-                                    <div class="fav">
-                                        <span>Toyota</span>
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
                                 </div>
-                                <div class="car-content">
-                                    <div class="car-features">
-                                        <a href="#" class="author-img">
-                                            <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
-                                                 alt="">
-                                        </a>
-                                        <h3 class="car-title">
-                                            <a href="#">
-                                                Toyota Camry SE Hybrid
-                                            </a>
-                                        </h3>
-                                        <div class="car-rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <span>(5.0)</span>
-                                        </div>
-                                    </div>
-                                    <div class="car-details">
-                                        <ul>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Auto</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>10 KM</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Petrol</p>
-                                            </li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Power</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>2023</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>5 Persons</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="car-location-price">
-                                        <div class="car-location">
-                                            <span>
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                Germany
-                                            </span>
-                                        </div>
-                                        <div class="car-price">
-                                            <h6>
-                                                $400
-                                                <span>/Day</span>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="car-button">
-                                        <a href="#">
-                                            <span>
-                                                <i class="fa-solid fa-calendar"></i>
-                                            </span>
-                                            Rent Now
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="car-item">
-                                <div class="car-img">
-                                    <a href="./detail.html">
-                                        <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
-                                             alt="">
-                                    </a>
-                                    <div class="fav">
-                                        <span>Toyota</span>
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="car-content">
-                                    <div class="car-features">
-                                        <a href="#" class="author-img">
-                                            <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
-                                                 alt="">
-                                        </a>
-                                        <h3 class="car-title">
-                                            <a href="#">
-                                                Toyota Camry SE Hybrid
-                                            </a>
-                                        </h3>
-                                        <div class="car-rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <span>(5.0)</span>
-                                        </div>
-                                    </div>
-                                    <div class="car-details">
-                                        <ul>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Auto</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>10 KM</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Petrol</p>
-                                            </li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Power</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>2023</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>5 Persons</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="car-location-price">
-                                        <div class="car-location">
-                                            <span>
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                Germany
-                                            </span>
-                                        </div>
-                                        <div class="car-price">
-                                            <h6>
-                                                $400
-                                                <span>/Day</span>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="car-button">
-                                        <a href="#">
-                                            <span>
-                                                <i class="fa-solid fa-calendar"></i>
-                                            </span>
-                                            Rent Now
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="car-item">
-                                <div class="car-img">
-                                    <a href="./detail.html">
-                                        <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
-                                             alt="">
-                                    </a>
-                                    <div class="fav">
-                                        <span>Toyota</span>
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="car-content">
-                                    <div class="car-features">
-                                        <a href="#" class="author-img">
-                                            <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
-                                                 alt="">
-                                        </a>
-                                        <h3 class="car-title">
-                                            <a href="#">
-                                                Toyota Camry SE Hybrid
-                                            </a>
-                                        </h3>
-                                        <div class="car-rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <span>(5.0)</span>
-                                        </div>
-                                    </div>
-                                    <div class="car-details">
-                                        <ul>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Auto</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>10 KM</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Petrol</p>
-                                            </li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Power</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>2023</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>5 Persons</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="car-location-price">
-                                        <div class="car-location">
-                                            <span>
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                Germany
-                                            </span>
-                                        </div>
-                                        <div class="car-price">
-                                            <h6>
-                                                $400
-                                                <span>/Day</span>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="car-button">
-                                        <a href="#">
-                                            <span>
-                                                <i class="fa-solid fa-calendar"></i>
-                                            </span>
-                                            Rent Now
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="car-item">
-                                <div class="car-img">
-                                    <a href="./detail.html">
-                                        <img src="~/assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
-                                             alt="">
-                                    </a>
-                                    <div class="fav">
-                                        <span>Toyota</span>
-                                        <a href="#">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="car-content">
-                                    <div class="car-features">
-                                        <a href="#" class="author-img">
-                                            <img src="~/assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
-                                                 alt="">
-                                        </a>
-                                        <h3 class="car-title">
-                                            <a href="#">
-                                                Toyota Camry SE Hybrid
-                                            </a>
-                                        </h3>
-                                        <div class="car-rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <span>(5.0)</span>
-                                        </div>
-                                    </div>
-                                    <div class="car-details">
-                                        <ul>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-01.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Auto</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-02.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>10 KM</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-03.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Petrol</p>
-                                            </li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-04.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>Power</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-05.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>2023</p>
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <img src="~/assets/images/index/cars/car-detail/car-parts-06.svg"
-                                                         alt="">
-                                                </span>
-                                                <p>5 Persons</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="car-location-price">
-                                        <div class="car-location">
-                                            <span>
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                Germany
-                                            </span>
-                                        </div>
-                                        <div class="car-price">
-                                            <h6>
-                                                $400
-                                                <span>/Day</span>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="car-button">
-                                        <a href="#">
-                                            <span>
-                                                <i class="fa-solid fa-calendar"></i>
-                                            </span>
-                                            Rent Now
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>
@@ -1415,6 +1036,10 @@
     </script>
     <script>
 
+        let commentArea = document.querySelector(".emojionearea-editor")
+        let fullName = document.querySelector("#notRegister-name")
+        let email = document.querySelector("#notRegister-email")
+
         function submitForm() {
             var formData = new FormData(document.getElementById("commentForm"));
 
@@ -1425,8 +1050,62 @@
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('partialComment').innerHTML = data;
+
+
+                    commentArea.innerText = "";
+                    fullName.value = "";
+                    email.value = "";
                 });
         }
 
     </script>
+    @if (TempData["ShowToast"] != null && (bool)TempData["ShowToast"] == true)
+    {
+        <script>
+            Command: toastr["error"]("This car rented for these times.", "Sorry.")
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        </script>
+    }
+    @if (TempData["ShowToastIfNotTheseLocation"] != null && (bool)TempData["ShowToastIfNotTheseLocation"] == true)
+    {
+        <script>
+            Command: toastr["error"]("This car not delivery to these locations.", "Sorry.")
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        </script>
+    }
+
 }

@@ -1,0 +1,146 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.row{
+    .messages{
+        height: 100vh;
+        background-color: #201F1D;
+        padding: 0;
+        color: white;
+        h3{
+            padding: 20px 30px;
+        }
+        .users{
+            padding: 0;
+            max-height: 90%;
+            overflow-y: scroll;
+            ul{
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                li{
+                    padding: 10px 30px;
+                    font-size: 20px;
+                    border-bottom: solid 1px rgb(100, 100, 100);
+
+                    &:last-child{
+                        border: none;
+                    }
+                    .img{
+                        border-radius: 50%;
+                        overflow: hidden;
+                        width: 50px;
+                        height: 50px;
+                        margin-right: 20px;
+                    }
+                }
+            }
+        }
+    }
+    .chating{
+        height: 100vh;
+        background-color: white;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        .chating-header{
+            background-color: white;
+            padding: 10px 20px;
+            flex-grow: 1;
+            .img{
+                border-radius: 50%;
+                overflow: hidden;
+                width: 70px;
+                height: 70px;
+                margin-right: 20px;
+            }
+            .name{
+                h4{
+                    font-size: 25px;
+                    color: #201F1D;
+                }
+            }
+        }
+        .chating-body{
+            background-color: #F2F7F6;
+            overflow-y: scroll;
+            padding: 50px;
+            flex-grow: 100;
+
+            ul{
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                li{
+                    max-width: 70%;
+                    width: max-content;
+                    display: flex;
+                    justify-content: flex-end;
+                    margin-bottom: 20px;
+                    .message{
+                        background-color: orange;
+                        min-width: 200px;
+                        border-radius: 10px;
+                        color: white;
+                        padding: 10px 25px;
+                        p{
+                            margin: 0;
+                            padding: 0;
+                        }
+                        span{
+                            font-size: 8px;
+                        }
+                    }
+                }
+                .me{
+                    justify-content: flex-end;
+                    margin-left: auto;
+                    .message{
+                        background-color: #2F2F2F;
+                        float: right;
+                    }
+                }
+            }
+        }
+        .chating-botom{
+            padding: 10px 30px;
+            width: 100%;
+            background-color: #F2F7F6;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            .message-box{
+                position: relative;
+                width: 50%;
+                input{
+                    width: 100%;
+                    padding: 20px 30px;
+                    border-radius: 40px;
+                    outline: none;
+                    border: 1px solid rgb(200, 200, 200);
+                }
+                button{
+                    width: 65px;
+                    height: 65.1px;
+                    padding: 20px 20px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    top: 0.5%;
+                    left: 90.5%;
+                    background-color: black;
+                    i{
+                        color: white;
+                        font-size: 25px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,11 @@
-﻿
+﻿@using DreamsRentBack.Entities.ClientModels;
+
 @{
     ViewData["Title"] = "About";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<User> users = ViewBag.HappyUsers;
+    List<ContactUs> contacts = ViewBag.ContactUs;
+    List<Car> cars = ViewBag.Cars;
+    List<Booking> bookings = ViewBag.Bookings;
 }
 
 <!-- main start -->
@@ -80,7 +84,7 @@
             </div>
         </div>
     </section>
-    <section id="services">
+    <section id="services" style="overflow:hidden;">
         <div class="right-photo">
             <img src="~/assets/images/index/service-right.svg" alt="">
         </div>
@@ -92,7 +96,7 @@
             </div>
             <div class="services-body">
                 <div class="row">
-                    <div data-aos="fade-down" data-aos-duration="500" class="location col-lg-4">
+                    <div class="location col-lg-4">
                         <div class="location-head head">
                             <img src="~/assets/images/index/services-icon-01.svg" alt="icon">
                         </div>
@@ -104,7 +108,7 @@
                             </p>
                         </div>
                     </div>
-                    <div data-aos="fade-down" data-aos-duration="500" data-aos-delay="300" class="pick-up col-lg-4">
+                    <div class="pick-up col-lg-4">
                         <div class="pick-up-head head">
                             <img src="~/assets/images/index/services-icon-01.svg" alt="icon">
                         </div>
@@ -116,7 +120,7 @@
                             </p>
                         </div>
                     </div>
-                    <div data-aos="fade-down" data-aos-duration="500" data-aos-delay="600" class="book col-lg-4">
+                    <div class="book col-lg-4">
                         <div class="book-head head">
                             <img src="~/assets/images/index/services-icon-01.svg" alt="icon">
                         </div>
@@ -134,10 +138,10 @@
     </section>
     <section id="facts">
         <div class="left-img">
-            <img src="~/assets/images/index/facts-left.png" class="img-fluid" alt="facts left">
+            <img src="assets/images/index/facts-left.png" class="img-fluid" alt="facts left">
         </div>
         <div class="right-img">
-            <img src="~/assets/images/index/facts-right.png" class="img-fluid" alt="facts left">
+            <img src="assets/images/index/facts-right.png" class="img-fluid" alt="facts left">
         </div>
         <div class="container">
             <div data-aos="fade-down" class="facts-title">
@@ -153,7 +157,7 @@
                                 <img src="~/assets/images/index/bx-heart.svg" alt="">
                             </div>
                             <div class="count-digit">
-                                <h4 class="count">16</h4>
+                                <h4 class="count" data="@users.Count()">0</h4>
                                 <p>Happy Customers</p>
                             </div>
                         </div>
@@ -164,7 +168,7 @@
                                 <img src="~/assets/images/index/bx-car.svg" alt="">
                             </div>
                             <div class="count-digit">
-                                <h4 class="count">2547+</h4>
+                                <h4 class="count" data="@cars.Count()">0</h4>
                                 <p>Count of Cars</p>
                             </div>
                         </div>
@@ -175,7 +179,7 @@
                                 <img src="~/assets/images/index/bx-headphone.svg" alt="">
                             </div>
                             <div class="count-digit">
-                                <h4>625K+</h4>
+                                <h4 class="count" data="@contacts.Count()">0</h4>
                                 <p>Car Center Solutions</p>
                             </div>
                         </div>
@@ -186,8 +190,8 @@
                                 <img src="~/assets/images/index/bx-history.svg" alt="">
                             </div>
                             <div class="count-digit">
-                                <h4>200K+</h4>
-                                <p>Total Kilometer</p>
+                                <h4 class="count" data="@bookings.Count()">0</h4>
+                                <p>Total Bookings</p>
                             </div>
                         </div>
                     </div>
@@ -534,5 +538,7 @@
     </section>
 </main>
 <!-- main end -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/jquery.js"></script>
 <script src="~/assets/js/index.js"></script>
 

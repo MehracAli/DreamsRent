@@ -22,6 +22,8 @@ $(".responsive").slick({
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
+          dots: false,
+          arrows: false
         },
       },
       {
@@ -52,11 +54,11 @@ $('#populars .owl-carousel').owlCarousel({
             nav:true
         },
         600:{
-            items:3,
+            items:1,
             nav:false
         },
         1000:{
-            items:5,
+            items:3,
             nav:true,
         }
     }

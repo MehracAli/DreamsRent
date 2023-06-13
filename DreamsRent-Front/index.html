@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="overflow-x: hidden;">
 
 <head>
     <meta charset="UTF-8">
@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="./assets/css/owl.theme.default.css">
 </head>
 
-<body>
+<body style="position: relative;">
     <!-- header start -->
-    <header id="header">
+    <header id="header" class="d-lg-flex d-none">
         <div class="container">
             <nav class="row">
                 <div class="nav-logo col-lg-3">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="nav-user col-lg-3">
                     <ul class="d-flex">
-                        <li class="add-car">
+                        <li class="add-car d-none">
                             <a href="#">
                                 <i class="fa-regular fa-user"></i>
                                 Add Car
@@ -67,13 +67,13 @@
                                 Sign Up
                             </a>
                         </li>
-                        <li class="my-account first-choose">
+                        <li class="my-account first-choose d-none">
                             <a href="#">
                                 <i class="fa-regular fa-user"></i>
                                 My Account
                             </a>
                         </li>
-                        <li class="sign-out second-choose">
+                        <li class="sign-out second-choose d-none">
                             <a href="#">
                                 <i class="fa-regular fa-user"></i>
                                 Sign Out
@@ -84,7 +84,112 @@
             </nav>
         </div>
     </header>
+    <!--mini header-->
+    <div id="mini-head" class="d-lg-none d-flex">
+        <div class="container">
+          <div class="row">
+            <div class="burger-search d-flex col-2">
+              <div class="open-nav">
+                <div class="top">
+                    <div class="logo-wrap">
+                        <img src="./assets/images/header/logo.svg"/>
+                    </div>
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+                <div class="bottom">
+                    <div class="nav-item">
+                        <a href="#">
+                            <span>Home</span>
+                        </a>
+                    </div>
+                  <div class="nav-item">
+                    <a href="#">
+                        <span>Home</span>
+                    </a>
+                  </div>
+                  <div class="nav-item">
+                    <a href="#">
+                        <span>Home</span>
+                    </a>
+                  </div>
+                  <div class="nav-item">
+                    <a href="#">
+                        <span>Home</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                  <symbol id="menu" viewBox="0 0 750 750"><title>menu</title>
+                      <path d="M12.03,84.212h360.909c6.641,0,12.03-5.39,12.03-12.03c0-6.641-5.39-12.03-12.03-12.03H12.03
+                      C5.39,60.152,0,65.541,0,72.182C0,78.823,5.39,84.212,12.03,84.212z"></path>
+                      <path d="M372.939,180.455H12.03c-6.641,0-12.03,5.39-12.03,12.03s5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03
+                          S379.58,180.455,372.939,180.455z"></path>
+                      <path d="M372.939,300.758H12.03c-6.641,0-12.03,5.39-12.03,12.03c0,6.641,5.39,12.03,12.03,12.03h360.909
+                      c6.641,0,12.03-5.39,12.03-12.03C384.97,306.147,379.58,300.758,372.939,300.758z"></path>
+                  </symbol>
+                </svg>
+                <svg class="icon" viewBox="0 0 30 30"><use xlink:href="#menu" x="22%" y="25%"></use></svg>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between col-10" style="padding-right: 0;padding-left: 25px;">
+                <div class="logo">
+                  <a href="../html/home.html"><img src="./assets/images/header/logo.svg" alt=""></a>
+                </div>
+                <div class="nav-user">
+                    <ul class="d-flex">
+                        <li class="add-car d-none">
+                            <a href="#">
+                                <i class="fa-regular fa-user"></i>
+                                Add Car
+                            </a>
+                        </li>
+                        <li class="sign-in first-choose">
+                            <a href="#" class="btn btn-warning">
+                                <i class="fa-regular fa-user"></i>
+                                Sign In
+                            </a>
+                        </li>
+                        <li class="sign-up second-choose">
+                            <a href="./signup.html" class="btn btn-dark">
+                                <i class="fa-solid fa-lock"></i>
+                                Sign Up
+                            </a>
+                        </li>
+                        <li class="my-account first-choose d-none">
+                            <a href="#">
+                                <i class="fa-regular fa-user"></i>
+                                My Account
+                            </a>
+                        </li>
+                        <li class="sign-out second-choose d-none">
+                            <a href="#">
+                                <i class="fa-regular fa-user"></i>
+                                Sign Out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pro-user">
+                    <a href="#" class="btn btn-warning "> 
+                        <i class="fa-regular fa-user"></i>
+                    </a>
+                    <div class="drop-login">
+                        <a href="./signin.html">
+                            <p>Sign In</p>
+                        </a>
+                        <a href="./signin.html">
+                            <p>Sign Up</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
     <!-- header end -->
+    
 
     <!-- main start -->
     <main>
@@ -128,7 +233,7 @@
                                 <div class="form-group">
                                     <label for="#">Pickup Location</label>
                                     <div class="group-img">
-                                        <input class="form-group" type="text" placeholder="Enter City, Airport, or Address">
+                                        <input class="form-group locate" type="text" placeholder="Enter City, Airport, or Address">
                                         <span>
                                             <i class="fa-sharp fa-solid fa-location-dot"></i>
                                         </span>
@@ -140,17 +245,9 @@
                                     <label for="#">Pickup Date</label>
                                 </div>
                                 <div class="form-group-wrapper">
-                                    <div class="date form-group">
+                                    <div class="date form-group w-100">
                                         <div class="group-img">
                                             <input class="form-group date-now" type="date">
-                                            <span>
-                                                <i></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="time form-group">
-                                        <div class="group-img">
-                                            <input class="form-group time-now" type="time">
                                             <span>
                                                 <i></i>
                                             </span>
@@ -163,17 +260,9 @@
                                     <label for="#">Pickup Date</label>
                                 </div>
                                 <div class="form-group-wrapper">
-                                    <div class="date form-group">
+                                    <div class="date form-group w-100">
                                         <div class="group-img">
                                             <input class="form-group date-now" type="date">
-                                            <span>
-                                                <i></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="time form-group">
-                                        <div class="group-img">
-                                            <input class="form-group time-now" type="time">
                                             <span>
                                                 <i></i>
                                             </span>
@@ -304,7 +393,7 @@
                 <div class="explore-body-bottom">
                     <div class="cars">
                         <div class="row">
-                            <div data-aos="zoom-in-up" data-aos-duration="1000" class="car col-lg-4">
+                            <div data-aos="zoom-in-up" data-aos-duration="1000" class="car col-lg-4 col-md-6">
                                 <div class="car-item">
                                     <div class="car-img">
                                         <a href="./detail.html">
@@ -564,7 +653,7 @@
                 </div>
                 <div data-aos="fade-down" class="counter-group">
                     <div class="row">
-                        <div class="col-lg-3">
+                        <div class="col-lg-3 col-md-6">
                             <div class="count-item">
                                 <div class="count-img">
                                     <img src="./assets/images/index/bx-heart.svg" alt="">
@@ -575,7 +664,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-3 col-md-6">
                             <div class="count-item">
                                 <div class="count-img">
                                     <img src="./assets/images/index/bx-car.svg" alt="">
@@ -586,7 +675,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-3 col-md-6">
                             <div class="count-item">
                                 <div class="count-img">
                                     <img src="./assets/images/index/bx-headphone.svg" alt="">
@@ -597,7 +686,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-3 col-md-6">
                             <div class="count-item">
                                 <div class="count-img">
                                     <img src="./assets/images/index/bx-history.svg" alt="">
@@ -1655,7 +1744,7 @@
             <div data-aos="fade-up" class="footer-top">
                 <div class="row">
                     <div class="col-lg-7 row">
-                        <div class="col-lg-4 footer-cols">
+                        <div class="col-lg-4 col-md-4 footer-cols">
                             <h5>About Company</h5>
                             <ul class="col-list">
                                 <li>
@@ -1675,7 +1764,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-4 footer-cols">
+                        <div class="col-lg-4 col-md-4 footer-cols">
                             <h5>Vehicles Type</h5>
                             <ul class="col-list">
                                 <li>
@@ -1695,7 +1784,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-4 footer-cols">
+                        <div class="col-lg-4 col-md-4 footer-cols">
                             <h5>Quick links</h5>
                             <ul class="col-list">
                                 <li>
@@ -1789,10 +1878,10 @@
         <div class="footer-bottom">
             <div class="container">
                 <div class="copyright-debits row">
-                    <div class="copyright col-lg-6">
+                    <div class="copyright col-lg-6 col-md-6">
                         <span>© 2023 Dreams Rent. All Rights Reserved.</span>
                     </div>
-                    <div class="debits col-lg-6">
+                    <div class="debits col-lg-6 col-md-6">
                         <ul>
                             <li>
                                 <a href="#">
@@ -1837,6 +1926,20 @@
     <script src="./assets/js/footer.js"></script>
     <script src="./assets/js/accordion.js"></script>
     <script src="./assets/js/AOS.js"></script>
+    <script src="./assets/js/miniheader.js"></script>
+    <script>
+        $(window).scroll(function () {
+            var specificSection = $("#services");
+            var specificScrollPosition = specificSection.offset().top - 300;
+
+            if ($(this).scrollTop() >= specificScrollPosition) {
+                
+                specificSection.click()
+
+                $(window).off("scroll");
+            }
+        });
+    </script>
 </body>
 
 </html>

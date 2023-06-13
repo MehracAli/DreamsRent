@@ -17,6 +17,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using DreamsRentBack.Migrations;
+using System.Security.Claims;
 
 namespace DreamsRentBack.Controllers
 {
@@ -38,7 +39,6 @@ namespace DreamsRentBack.Controllers
         }
 
         #region SignupLogin
-            //CONSUMER SIGNUP START
             public IActionResult ConsumerSignup()
             {
                 if (User.Identity.IsAuthenticated)
@@ -120,9 +120,129 @@ namespace DreamsRentBack.Controllers
                 await _userManager.AddToRoleAsync(user, "Consumer");
                 return RedirectToAction("Index", "Home");
             }
-            //CONSUMER SIGNUP END
 
-            //COMPANY SIGNUP START
+            public IActionResult SigninGoogle(string url = null)
+            {
+                var properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action("GoogleCallback", "Account", new { url }));
+                return Challenge(properties, "Google");
+            }
+        
+            public async Task<IActionResult> GoogleCallback(string url = null)
+            {
+                var signinDetails = await _signInManager.GetExternalLoginInfoAsync();
+                if (signinDetails == null)
+                {
+                    return RedirectToAction("ConsumerSignup");
+                }
+
+                var email = signinDetails.Principal.FindFirstValue(ClaimTypes.Email);
+                var name = signinDetails.Principal.FindFirstValue(ClaimTypes.Name);
+                var surname = signinDetails.Principal.FindFirstValue(ClaimTypes.Surname);
+
+                var isUserHave = await _userManager.FindByEmailAsync(email);
+
+                if (isUserHave != null)
+                {
+                    await _signInManager.SignInAsync(isUserHave, isPersistent: false);
+
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        return Redirect(url);
+                    }
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                var newUser = new User
+                {
+                    Name = name,
+                    Surname = surname,
+                    UserName = name.ToLower()+""+surname.ToLower(),
+                    Email = email,
+                    EmailConfirmed = true
+
+                };
+
+                var result = await _userManager.CreateAsync(newUser);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(newUser, AccountRoles.Consumer.ToString());
+
+                    await _signInManager.SignInAsync(newUser, isPersistent: false);
+
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        return Redirect(url);
+                    }
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("ConsumerSignup");
+                }
+            }
+
+            public IActionResult SigninFacebook(string url = null)
+            {
+                var properties = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", Url.Action("FacebookCallback", "Account", new { url }));
+                return Challenge(properties, "Facebook");
+            }
+
+            public async Task<IActionResult> FacebookCallback(string url = null)
+            {
+                var SigninDetails = await _signInManager.GetExternalLoginInfoAsync();
+                if (SigninDetails == null)
+                {
+                    return RedirectToAction("Register");
+                }
+
+                var email = SigninDetails.Principal.FindFirstValue(ClaimTypes.Email);
+                var name = SigninDetails.Principal.FindFirstValue(ClaimTypes.Name);
+                var surname = SigninDetails.Principal.FindFirstValue(ClaimTypes.Surname);
+
+                var isUserHave = await _userManager.FindByEmailAsync(email);
+                if (isUserHave != null)
+                {
+                    await _signInManager.SignInAsync(isUserHave, isPersistent: false);
+
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        return Redirect(url);
+                    }
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                var newUser = new User
+                {
+                    Name = name,
+                    Surname = surname,
+                    UserName = name.ToLower() + "" + surname.ToLower(),
+                    Email = email,
+                    EmailConfirmed = true
+                };
+
+                var result = await _userManager.CreateAsync(newUser);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(newUser, AccountRoles.Consumer.ToString());
+
+                    await _signInManager.SignInAsync(newUser, isPersistent: false);
+
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        return Redirect(url);
+                    }
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("ConsumerSignup");
+                }
+            }
+
             public IActionResult CompanySignup() 
             {
                 if (User.Identity.IsAuthenticated)
@@ -208,9 +328,7 @@ namespace DreamsRentBack.Controllers
                 await _userManager.AddToRoleAsync(user, "Company");
                 return RedirectToAction("Index", "Home");
             }
-            //COMPANY SIGNUP END
 
-            //SIGNUP OTHER START
             public async Task<IActionResult> ConfirmEmail(string token, string email)
             {
                 User user = await _userManager.FindByEmailAsync(email);
@@ -222,14 +340,12 @@ namespace DreamsRentBack.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
+            
             public IActionResult Privacy()
             {
                 return View();
             }
-            //SIGNUP OTHER END
 
-
-            //SIGNIN START
             public IActionResult Signin()
             {
                 if (User.Identity.IsAuthenticated)
@@ -277,15 +393,12 @@ namespace DreamsRentBack.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            //SIGNIN END
 
-            //SIGNOUT START
             public async Task<IActionResult> Signout()
             {
                 _signInManager.SignOutAsync();
                 return RedirectToAction("Index", "Home");
             }
-            //SIGNOUT END
 
             public async Task<IActionResult> ForgotPassword(string email)
             {
@@ -429,39 +542,60 @@ namespace DreamsRentBack.Controllers
             }
 
             public IActionResult AddDebitCard(string Id, string HolderName, string HolderSurname, string CardNumber, string Date, string date, string cvv)
-        {
-            User user = _context.Users.FirstOrDefault(u=>u.Id == Id);
-
-            PayCard payCard = new()
             {
-                HolderName = HolderName.ToUpper(),
-                HolderSurname = HolderSurname.ToUpper(),
-                CardNumber = CardNumber.Replace(" ", ""),
-                Date = Date,
-                cvv = cvv
-            };
+                User user = _context.Users.FirstOrDefault(u=>u.Id == Id);
 
-            if (CardNumber.StartsWith("4"))
-            {
-                PayCardType payCardType = _context.PayCardTypes.FirstOrDefault(p => p.Name == "Visa");
-                payCard.PayCardType = payCardType;
+                PayCard payCard = new()
+                {
+                    HolderName = HolderName.ToUpper(),
+                    HolderSurname = HolderSurname.ToUpper(),
+                    CardNumber = CardNumber.Replace(" ", ""),
+                    Date = Date,
+                    cvv = cvv
+                };
+
+                if (CardNumber.StartsWith("4"))
+                {
+                    PayCardType payCardType = _context.PayCardTypes.FirstOrDefault(p => p.Name == "Visa");
+                    payCard.PayCardType = payCardType;
+                }
+                if (CardNumber.StartsWith("5"))
+                {
+                    PayCardType payCardType = _context.PayCardTypes.FirstOrDefault(p => p.Name == "Master");
+                    payCard.PayCardType = payCardType;
+                }
+
+                user.PayCard = payCard;
+                _context.SaveChanges();
+
+                return RedirectToAction("ConsumerAccount", new {UserName = user.UserName});
             }
-            if (CardNumber.StartsWith("5"))
+
+            public IActionResult EditDebitCard(string Id, string HolderName, string HolderSurname, string CardNumber, string Date, string date, string cvv) 
             {
-                PayCardType payCardType = _context.PayCardTypes.FirstOrDefault(p => p.Name == "Master");
-                payCard.PayCardType = payCardType;
+                User user = _context.Users.Include(u=>u.PayCard).ThenInclude(p=>p.PayCardType).FirstOrDefault(u => u.Id == Id);
+                
+                user.PayCard.HolderName = HolderName;
+                user.PayCard.HolderSurname = HolderSurname;
+                user.PayCard.CardNumber = CardNumber.Replace(" ", "");
+                user.PayCard.Date = Date;
+                user.PayCard.cvv = cvv;
+
+                if (CardNumber.StartsWith("4"))
+                {
+                    PayCardType payCardType = _context.PayCardTypes.FirstOrDefault(p => p.Name == "Visa");
+                    user.PayCard.PayCardType = payCardType;
+                }
+                if (CardNumber.StartsWith("5"))
+                {
+                    PayCardType payCardType = _context.PayCardTypes.FirstOrDefault(p => p.Name == "Master");
+                    user.PayCard.PayCardType = payCardType;
+                }
+
+                _context.SaveChanges();
+
+                return RedirectToAction("ConsumerAccount", new { UserName = user.UserName });
             }
-
-            user.PayCard = payCard;
-            _context.SaveChanges();
-
-            return RedirectToAction("ConsumerAccount", new {UserName = user.UserName});
-        }
-
-        public IActionResult EditDebitCard(string Id) 
-        {
-            return View();
-        }
 
             public IActionResult CompanyAccount(string UserName)
             {
@@ -489,6 +623,7 @@ namespace DreamsRentBack.Controllers
                 .Include(c=>c.Orders).ThenInclude(o=>o.Car).ThenInclude(c=>c.Brand).ThenInclude(b=>b.Models)
                 .Include(c=>c.Orders).ThenInclude(o=>o.User)
                 .Include(c=>c.Bookings).ThenInclude(b => b.car).ThenInclude(c => c.Brand).ThenInclude(b => b.Models)
+                .Include(c=>c.Bookings).ThenInclude(b=>b.car).ThenInclude(x=>x.CarPhotos)
                 .Include(c=>c.Bookings).ThenInclude(b => b.User)
                 .FirstOrDefault(c=>c.UserId == user.Id);
 
@@ -522,7 +657,7 @@ namespace DreamsRentBack.Controllers
                 return RedirectToAction("CompanyAccount", "Account", new { UserName = user.UserName });
             }
 
-            public async Task<IActionResult> ChangeCompanyDetails(Company company, string email, string phone, int Id)
+            public async Task<IActionResult> ChangeCompanyDetails(Company company, string email, string phone, string location, int Id)
             {
                 if (Id == 0) { return RedirectToAction("NotFound", "Error"); }
 
@@ -532,6 +667,7 @@ namespace DreamsRentBack.Controllers
 
                 findCompany.CompanyName = company.CompanyName;
                 findCompany.User.PhoneNumber = phone;
+                findCompany.Location = location;
 
                 if (findCompany.User.Email != email)
                 {
@@ -588,6 +724,7 @@ namespace DreamsRentBack.Controllers
                     .Include(c=>c.User)
                         .Include(c=>c.companyPickupLocations).ThenInclude(c=>c.PickupLocation)
                             .FirstOrDefault(c => c.Id == Id);
+                
 
                 if (company == null) { return RedirectToAction("NotFound", "Error"); }
 
@@ -601,6 +738,16 @@ namespace DreamsRentBack.Controllers
 
                 if (company.companyPickupLocations.Any(c=>c.PickupLocation.StreetId == streetId))
                 { 
+                    return RedirectToAction("CompanyAccount", "Account", new { UserName = company.User.UserName });
+                }
+
+                if (_context.PickupLocations.Any(p => p.StreetId == streetId && p.CityId == cityId))
+                {
+                    PickupLocation pickup = _context.PickupLocations.FirstOrDefault(p => p.StreetId == streetId && p.CityId == cityId);
+                    companyPickupLocation.PickupLocation = pickup;
+                    company.companyPickupLocations.Add(companyPickupLocation);
+
+                    _context.SaveChanges();
                     return RedirectToAction("CompanyAccount", "Account", new { UserName = company.User.UserName });
                 }
 
@@ -641,6 +788,16 @@ namespace DreamsRentBack.Controllers
                     return RedirectToAction("CompanyAccount", "Account", new { UserName = company.User.UserName });
                 }
 
+                if (_context.DropoffLocations.Any(p => p.StreetId == streetId && p.CityId == cityId))
+                {
+                    DropoffLocation dropoff = _context.DropoffLocations.FirstOrDefault(p => p.StreetId == streetId && p.CityId == cityId);
+                    companyDropoffLocation.DropoffLocation = dropoff;
+                    company.companyDropoffLocations.Add(companyDropoffLocation);
+
+                    _context.SaveChanges();
+                    return RedirectToAction("CompanyAccount", "Account", new { UserName = company.User.UserName });
+                }
+
                 dropoffLocation.CityId = city.Id;
                 dropoffLocation.StreetId = findStreet.Id;
 
@@ -653,9 +810,27 @@ namespace DreamsRentBack.Controllers
 
                 return RedirectToAction("CompanyAccount", "Account", new { UserName = company.User.UserName });
             }
+
+            public IActionResult AddCompanyLocation(int companyId, string location)
+            {
+                Company company = _context.Companies.Include(c=>c.User).FirstOrDefault(c=>c.Id == companyId);
+                company.Location = location;
+                _context.SaveChanges();
+
+                return RedirectToAction("CompanyAccount", "Account", new {UserName = company.User.UserName});
+            }
         #endregion
+        public IActionResult GetStreets(int cityId)
+        {
+            List<Street> streets = _context.Streets.Where(m => m.CityId.Equals(cityId)).ToList();
 
+            if (streets == null)
+            {
+                return Json(new { status = 404 });
+            }
 
+            return Json(streets);
+        }
 
         public async Task AddRoles()
         {

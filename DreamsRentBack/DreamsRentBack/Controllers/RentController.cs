@@ -39,11 +39,13 @@ namespace DreamsRentBack.Controllers
 
             if (pickLocation == null && dropLocation == null)
             {
+                TempData["ShowToast"] = true;
                 return RedirectToAction("CarDetail", "Detail", new { Id = carId });
             }
 
             if (!pickLocation.Contains(", ") || !dropLocation.Contains(", "))
             {
+                TempData["ShowToast"] = true;
                 return RedirectToAction("CarDetail", "Detail", new { Id = carId });
             }
 
@@ -55,6 +57,7 @@ namespace DreamsRentBack.Controllers
             
             if (cityPick == null && streetPick == null)
             {
+                TempData["ShowToast"] = true;
                 return RedirectToAction("CarDetail", "Detail", new { Id = carId });
             }
 
@@ -70,29 +73,33 @@ namespace DreamsRentBack.Controllers
             DropoffLocation? dropoffLocation = _context.DropoffLocations
                 .FirstOrDefault(d => d.CityId == cityDrop.Id && d.StreetId == streetDrop.Id);
 
-            if (company.companyPickupLocations.Any(cp=>cp.PickupLocationId == pickupLocation.Id) && 
-                company.companyDropoffLocations.Any(cd=>cd.DropoffLocationId == dropoffLocation.Id))
+            if(dropoffLocation != null && pickupLocation != null)
             {
-                Car? car = _context.Cars.FirstOrDefault(c => c.Id == carId);
-
-                bool CarStatus = IsCarRentedBetweenDates(car, pickDate, dropDate);
-
-                if (car.CarStatus == Utilities.CarStatus.Available)
+                if (company.companyPickupLocations.Any(cp=>cp.PickupLocationId == pickupLocation.Id) && 
+                    company.companyDropoffLocations.Any(cd=>cd.DropoffLocationId == dropoffLocation.Id))
                 {
-                    CarCheckoutVM carCheckoutVM = new()
+                    Car? car = _context.Cars.FirstOrDefault(c => c.Id == carId);
+
+                    bool CarStatus = IsCarRentedBetweenDates(car, pickDate, dropDate);
+
+                    if (car.CarStatus == Utilities.CarStatus.Available)
                     {
-                        Id = car.Id,
-                        PickLocation = pickCity + " " + pickStreet,
-                        DropLocation = dropCity + " " + dropStreet,
-                        PickDate = pickDate,
-                        DropDate = dropDate,
-                        Price = car.Price,
-                        User = _context.Users.Include(u=>u.PayCard).FirstOrDefault(u=>u.UserName == User.Identity.Name)
-                    };
-                    return View(carCheckoutVM);
+                        CarCheckoutVM carCheckoutVM = new()
+                        {
+                            Id = car.Id,
+                            PickLocation = pickCity + " " + pickStreet,
+                            DropLocation = dropCity + " " + dropStreet,
+                            PickDate = pickDate,
+                            DropDate = dropDate,
+                            Price = car.Price,
+                            User = _context.Users.Include(u=>u.PayCard).FirstOrDefault(u=>u.UserName == User.Identity.Name)
+                        };
+                        return View(carCheckoutVM);
+                    }
                 }
             }
 
+            TempData["ShowToastIfNotTheseLocation"] = true;
             return RedirectToAction("CarDetail", "Detail", new { Id = carId});
         }
 
@@ -217,7 +224,7 @@ namespace DreamsRentBack.Controllers
 
             _context.Orders.Add(newOrder);
             _context.SaveChanges();
-            return RedirectToAction("SuccesfullyOrdered", "Rent");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult AcceptOrder(int carId, string userId, int orderId)

@@ -22,11 +22,26 @@
     <link rel="stylesheet" href="~/assets/css/owl.carousel.css" />
     <link rel="stylesheet" href="~/assets/css/owl.theme.default.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emojionearea/dist/emojionearea.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 </head>
-
+<style>
+    .msg-btn {
+        padding: 15px!important;
+        width: 60px!important;
+        height: 60px!important;
+        position: fixed!important;
+        border-radius: 50%!important;
+        bottom: 20px!important;
+        display: flex!important;
+        justify-content: center!important;
+        align-items: center!important;
+        right: 95%!important;
+    }
+    }
+</style>
 <body style="overflow-x: hidden;">
     <!-- header start -->
-    <header id="header">
+    <header id="header" class="d-lg-flex d-none">
         <div class="container">
             <nav class="row">
                 <div class="nav-logo col-lg-4">
@@ -103,12 +118,158 @@
                                     Log Out
                                 </a>
                             </li>
+                            <li class="second-choose ">
+                                @if (await layoutServices.GetChatId() != 0)
+                                {
+                                    @if (User.IsInRole("Consumer"))
+                                    {
+                                        <a asp-controller="Chat" asp-action="Chatting" asp-route-chatId="@await layoutServices.GetChatId()" class="msg-btn">
+                                            <i class="fa-solid fa-message"></i>
+                                        </a>
+                                    }
+                                    @if (User.IsInRole("Company"))
+                                    {
+                                        <a asp-controller="Chat" asp-action="ChattingCompany" asp-route-chatId="@await layoutServices.GetChatId()" class="msg-btn">
+                                            <i class="fa-solid fa-message"></i>
+                                        </a>
+                                    }
+                                }
+                            </li>
                         }
                     </ul>
                 </div>
             </nav>
         </div>
     </header>
+    <!--mini header-->
+    <div id="mini-head" class="d-lg-none d-flex" style="z-index:1000;position:fixed;">
+        <div class="container">
+            <div class="row">
+                <div class="burger-search d-flex col-2 col-md-1">
+                    <div class="open-nav">
+                        <div class="top">
+                            <div class="logo-wrap">
+                                <img src="~/assets/images/header/logo.svg" />
+                            </div>
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                        <div class="bottom">
+                            <div class="nav-item">
+                                <a asp-controller="Home" asp-action="Index">
+                                    <span>Home</span>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a asp-controller="Listing" asp-action="Index">
+                                    <span>Car Listing</span>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a asp-controller="AboutUs" asp-action="Contact">
+                                    <span>Contact Us</span>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a asp-controller="AboutUs" asp-action="About">
+                                    <span>About Us</span>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a asp-controller="AboutUs" asp-action="FAQ">
+                                    <span>FAQ</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                            <symbol id="menu" viewBox="0 0 750 750">
+                                <title>menu</title>
+                                <path d="M12.03,84.212h360.909c6.641,0,12.03-5.39,12.03-12.03c0-6.641-5.39-12.03-12.03-12.03H12.03
+                      C5.39,60.152,0,65.541,0,72.182C0,78.823,5.39,84.212,12.03,84.212z"></path>
+                                <path d="M372.939,180.455H12.03c-6.641,0-12.03,5.39-12.03,12.03s5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03
+                          S379.58,180.455,372.939,180.455z"></path>
+                                <path d="M372.939,300.758H12.03c-6.641,0-12.03,5.39-12.03,12.03c0,6.641,5.39,12.03,12.03,12.03h360.909
+                      c6.641,0,12.03-5.39,12.03-12.03C384.97,306.147,379.58,300.758,372.939,300.758z"></path>
+                            </symbol>
+                        </svg>
+                        <svg class="icon" viewBox="0 0 30 30"><use xlink:href="#menu" x="22%" y="25%"></use></svg>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between col-10 col-md-11" style="padding-right: 0;padding-left: 25px;">
+                    <div class="logo">
+                        <a asp-controller="Home" asp-action="Index"><img src="~/assets/images/header/logo.svg" alt=""></a>
+                    </div>
+                    <div class="nav-user">
+                        <ul class="d-flex">
+                            <li class="sign-in first-choose">
+                                <a asp-controller="Account" asp-action="Signin" class="btn btn-warning">
+                                    <i class="fa-regular fa-user"></i>
+                                    Sign In
+                                </a>
+                            </li>
+                            <li class="sign-up second-choose">
+                                <a asp-controller="Account" asp-action="ConsumerSignup" class="btn btn-dark">
+                                    <i class="fa-solid fa-lock"></i>
+                                    Sign Up
+                                </a>
+                            </li>
+                            <li class="my-account first-choose d-none">
+                                <a href="#">
+                                    <i class="fa-regular fa-user"></i>
+                                    My Account
+                                </a>
+                            </li>
+                            <li class="sign-out second-choose d-none">
+                                <a href="#">
+                                    <i class="fa-regular fa-user"></i>
+                                    Sign Out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pro-user">
+                        <a href="#" class="btn btn-warning ">
+                            <i class="fa-regular fa-user"></i>
+                        </a>
+                        <div class="drop-login">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <a asp-controller="Account" asp-action="Signin">
+                                    <p>Sign In</p>
+                                </a>
+                                <a asp-controller="Account" asp-action="ConsumerSignup">
+                                    <p>Sign Up</p>
+                                </a>
+                            }
+                            else
+                            {
+                                @if (User.IsInRole("Consumer"))
+                                {
+                                    <a asp-controller="Account" asp-action="ConsumerAccount" asp-route-UserName="@User.Identity.Name">
+                                        <p>My Account</p>
+                                    </a>
+                                }
+                                @if (User.IsInRole("Company"))
+                                {
+                                    <a asp-controller="Account" asp-action="CompanyAccount" asp-route-UserName="@User.Identity.Name">
+                                        <p>My Account</p>
+                                    </a>
+                                    <a asp-controller="Car" asp-action="AddCar">
+                                        <p>Add Car</p>
+                                    </a>
+                                }
+                                <a asp-controller="Account" asp-action="Signout">
+                                    <p>Sign Out</p>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-lg-none d-flex" style="height:60px"></div>
     <!-- header end -->
     <div>
         @RenderBody()
@@ -124,7 +285,7 @@
             <div data-aos="fade-up" class="footer-top">
                 <div class="row">
                     <div class="col-lg-7 row">
-                        <div class="col-lg-4 footer-cols">
+                        <div class="col-lg-4 col-md-4 footer-cols">
                             <h5>About Company</h5>
                             <ul class="col-list">
                                 <li>
@@ -144,7 +305,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-4 footer-cols">
+                        <div class="col-lg-4 col-md-4 footer-cols">
                             <h5>Vehicles Type</h5>
                             <ul class="col-list">
                                 @foreach (Body body in layoutServices.GetBodyTypes())
@@ -155,7 +316,7 @@
                                 }
                             </ul>
                         </div>
-                        <div class="col-lg-4 footer-cols">
+                        <div class="col-lg-4 col-md-4 footer-cols">
                             <h5>Quick links</h5>
                             <ul class="col-list">
                                 @if (User.Identity.IsAuthenticated)
@@ -176,10 +337,10 @@
                                 else
                                 {
                                     <li>
-                                        <a href="./signin.html">Sign In</a>
+                                        <a asp-controller="Account" asp-action="Signin">Sign In</a>
                                     </li>
                                     <li>
-                                        <a href="./signup.html">Sign Up</a>
+                                        <a asp-controller="Account" asp-action="ConsumerSignup">Sign Up</a>
                                     </li>
                                 }
                             </ul>
@@ -258,10 +419,10 @@
         <div class="footer-bottom">
             <div class="container">
                 <div class="copyright-debits row">
-                    <div class="copyright col-lg-6">
+                    <div class="copyright col-lg-6 col-md-6">
                         <span>© 2023 Dreams Rent. All Rights Reserved.</span>
                     </div>
-                    <div class="debits col-lg-6">
+                    <div class="debits col-lg-6 col-md-6">
                         <ul>
                             <li>
                                 <a href="#">
@@ -311,6 +472,8 @@
     <script src="~/assets/js/accordion.js"></script>
     <script src="~/assets/js/AOS.js"></script>
     <script src="~/assets/js/emoji.js"></script>
+    <script src="~/assets/js/miniheader.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     
     @RenderSection("Scripts", false)
 </body>

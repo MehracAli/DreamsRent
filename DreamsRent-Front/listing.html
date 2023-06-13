@@ -47,16 +47,34 @@
                 </div>
                 <div class="nav-user col-lg-3">
                     <ul class="d-flex">
-                        <li class="sign-in">
+                        <li class="add-car d-none">
+                            <a href="#">
+                                <i class="fa-regular fa-user"></i>
+                                Add Car
+                            </a>
+                        </li>
+                        <li class="sign-in first-choose">
                             <a href="#">
                                 <i class="fa-regular fa-user"></i>
                                 Sign In
                             </a>
                         </li>
-                        <li class="sign-out">
-                            <a href="#">
+                        <li class="sign-up second-choose">
+                            <a href="./signup.html">
                                 <i class="fa-solid fa-lock"></i>
                                 Sign Up
+                            </a>
+                        </li>
+                        <li class="my-account first-choose d-none">
+                            <a href="#">
+                                <i class="fa-regular fa-user"></i>
+                                My Account
+                            </a>
+                        </li>
+                        <li class="sign-out second-choose d-none">
+                            <a href="#">
+                                <i class="fa-regular fa-user"></i>
+                                Sign Out
                             </a>
                         </li>
                     </ul>
@@ -335,13 +353,12 @@
                                     <i class="fa-solid fa-filter"></i>
                                     Filter Results
                                 </button>
-
                             </form>
                         </div>
                     </div>
                     <div class="car-list col-lg-8">
                         <div class="row">
-                            <div class="car-item">
+                            <div class="car-item d-lg-flex d-md-flex d-none">
                                 <div class="card">
                                     <div class="img-details">
                                         <div class="card-img">
@@ -435,6 +452,111 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="car-item-grid d-lg-none d-md-none d-flex">
+                                <div class="car-img">
+                                    <a href="./detail.html">
+                                        <img src="./assets/images/cars/49702_VdWRZyZ6YhOUk7K97Ocqlw.jpg"
+                                            alt="">
+                                    </a>
+                                    <div class="fav">
+                                        <span>Toyota</span>
+                                        <a href="#">
+                                            <i class="fa-regular fa-heart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="car-content">
+                                    <div class="car-features">
+                                        <a href="#" class="author-img">
+                                            <img src="./assets/images/index/cars/car-logo/WpcTavg99b5XpK6STzSLZ8.jpg"
+                                                alt="">
+                                        </a>
+                                        <h3 class="car-title">
+                                            <a href="#">
+                                                Toyota Camry SE Hybrid
+                                            </a>
+                                        </h3>
+                                        <div class="car-rating">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <span>(5.0)</span>
+                                        </div>
+                                    </div>
+                                    <div class="car-details">
+                                        <ul>
+                                            <li>
+                                                <span>
+                                                    <img src="./assets/images/index/cars/car-detail/car-parts-01.svg"
+                                                        alt="">
+                                                </span>
+                                                <p>Auto</p>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    <img src="./assets/images/index/cars/car-detail/car-parts-02.svg"
+                                                        alt="">
+                                                </span>
+                                                <p>10 KM</p>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    <img src="./assets/images/index/cars/car-detail/car-parts-03.svg"
+                                                        alt="">
+                                                </span>
+                                                <p>Petrol</p>
+                                            </li>
+                                        </ul>
+                                        <ul>
+                                            <li>
+                                                <span>
+                                                    <img src="./assets/images/index/cars/car-detail/car-parts-04.svg"
+                                                        alt="">
+                                                </span>
+                                                <p>Power</p>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    <img src="./assets/images/index/cars/car-detail/car-parts-05.svg"
+                                                        alt="">
+                                                </span>
+                                                <p>2023</p>
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    <img src="./assets/images/index/cars/car-detail/car-parts-06.svg"
+                                                        alt="">
+                                                </span>
+                                                <p>5 Persons</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="car-location-price">
+                                        <div class="car-location">
+                                            <span>
+                                                <i class="fa-solid fa-location-dot"></i>
+                                                Germany
+                                            </span>
+                                        </div>
+                                        <div class="car-price">
+                                            <h6>
+                                                $400
+                                                <span>/Day</span>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="car-button">
+                                        <a href="#">
+                                            <span>
+                                                <i class="fa-solid fa-calendar"></i>
+                                            </span>
+                                            Rent Now
+                                        </a>
                                     </div>
                                 </div>
                             </div>

@@ -12,11 +12,11 @@
 <div class="row">
     @foreach (CarExploreVM car in cars)
     {
-        <div class="car col-lg-4">
+        <div class="car col-lg-4 col-md-6">
             <div class="car-item">
-                <div class="car-img" style="height:285px;">
+                <div class="car-img" style="height:250px;">
                     <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
-                        <img src="~/assets/images/cars/@car.CarPhotos.FirstOrDefault(p=>p.CarId == car.Id).Path" style="height:100%" alt="">
+                        <img src="~/assets/images/cars/@car.CarPhotos.FirstOrDefault(p=>p.CarId == car.Id).Path" style="height:100%;object-fit:cover" alt="">
                     </a>
                     <div class="fav">
                         <span style="height:max-content">@car.Company.CompanyName</span>
@@ -148,8 +148,11 @@
                     <div class="car-location-price">
                         <div class="car-location">
                             <span>
-                                <i class="fa-solid fa-location-dot"></i>
-                                Germany
+                                @if (car.Company.Location != null)
+                                {
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    @car.Company.Location
+                                }
                             </span>
                         </div>
                         <div class="car-price">

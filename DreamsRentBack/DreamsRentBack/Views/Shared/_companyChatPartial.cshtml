@@ -1,0 +1,67 @@
+﻿@using DreamsRentBack.Entities.ClientModels;
+@model Chat
+@{
+    ViewData["Title"] = "ChatCompany";
+    User partner = ViewBag.Partner;
+    List<Chat> chats = ViewBag.Chats;
+    List<User> users = ViewBag.Users;
+    List<Message> messages = ViewBag.Messages;
+
+}
+
+<div class="chating-wrapper">
+    <ul>
+        @foreach (var item in Model.Messages)
+        {
+            foreach (var message in messages)
+            {
+                if (message.Id == item.MessageId)
+                {
+                    if (message.UserName != User.Identity.Name)
+                    {
+                        <li>
+                            <div class="message">
+                                <p>@message.Text</p>
+                                <span>
+                                    <i class="fa-solid fa-clock" style="margin-right:5px;"></i>
+                                    @message.TimeStamp.ToString("t")
+                                </span>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="me">
+                            <div class="message">
+                                <p>@message.Text</p>
+                                <span>
+                                    <i class="fa-solid fa-clock" style="margin-right:5px;"></i>
+                                    @message.TimeStamp.ToString("t")
+                                </span>
+                            </div>
+                        </li>
+                    }
+                }
+            }
+        }
+    </ul>
+</div>
+<script>
+    $(function () {
+        // ...existing code...
+
+        // Handle form submission and send the message to the server
+        $('#sendMessageForm').submit(function (event) {
+            event.preventDefault();
+
+            var chatId = @Model.Id; // Get the chatId from the model or assign it dynamically
+            var message = $('#messageInput').val();
+
+            // Invoke the server-side SendMessage method
+            commentHub.server.sendMessage(chatId, message);
+
+            // Clear the input field
+            $('#messageInput').val('');
+        });
+    });
+</script>

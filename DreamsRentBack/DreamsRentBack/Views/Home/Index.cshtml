@@ -78,13 +78,13 @@
     <section id="search">
         <div class="container">
             <div class="search-main">
-                <form asp-controller="Listing" asp-action="Index" method="get"  id="searchForm">
+                <form asp-controller="Listing" asp-action="Index" method="get" id="searchForm">
                     <ul>
                         <li>
                             <div class="form-group">
                                 <label for="#">Pickup Location</label>
                                 <div class="group-img">
-                                    <input name="streetName" class="form-group" autocomplete="off" id="searchInput" type="text" placeholder="Address">
+                                    <input name="streetName" class="form-group locate" autocomplete="off" id="searchInput" type="text" placeholder="Address">
                                     <input type="hidden" id="selectedValue" />
                                     <div id="dropdownContainer">
                                         <div id="suggestions" class="dropdown-content"></div>
@@ -117,7 +117,7 @@
                             <div class="form-group-wrapper">
                                 <div class="date form-group" style="width:100%;">
                                     <div class="group-img">
-                                        <input class="form-group date-now" type="date">
+                                        <input name="returnDate" class="form-group date-now" type="date">
                                         <span>
                                             <i></i>
                                         </span>
@@ -332,14 +332,14 @@
                 <div class="slider">
                     <div class="slider-wrapper">
                         <div class="responsive">
-                            @foreach (CarExploreVM car in cars.OrderBy(c=>c.Comments.Count()))
+                            @foreach (CarExploreVM car in cars.OrderByDescending(c=>c.Comments.Count()).Take(5))
                             {
                                 <div class="item">
                                 <div class="slider-item">
                                     <div class="card">
                                             <div class="car-img" style="height:285px;">
                                                 <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
-                                                <img src="/assets/images/cars/@car.CarPhotos.FirstOrDefault(cp=>cp.CarId == car.Id).Path" style="height:100%" alt="">
+                                                <img src="~/assets/images/cars/@car.CarPhotos.FirstOrDefault(cp=>cp.CarId == car.Id).Path" style="height:100%" alt="">
                                             </a>
                                         </div>
                                         <div class="car-content">
@@ -423,7 +423,7 @@
                                                 </ul>
                                             </div>
                                             <div class="car-button">
-                                                <a href="#">
+                                                <a asp-controller="Detail" asp-action="CarDetail" asp-route-Id="@car.Id">
                                                     <span>
                                                         <i class="fa-solid fa-calendar"></i>
                                                     </span>
@@ -782,18 +782,17 @@
 <!-- main end -->
 
 <!-- scripts -->
-<script src="~/signalr.js"></script>
 <script src="~/jquery.js"></script>
-<script src="~/site.js"></script>
-
 <script src="~/assets/js/index.js"></script>
 @section Scripts{
     <script>
+
         function filterBrands(brandId) {
             fetch('/Home/FilterBrands?brandId='+brandId)
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('partialHomeCars').innerHTML = data;
+                    AOS.refresh();
                 });
         }
 
@@ -851,33 +850,6 @@
                 hideSuggestions();
             }
         });
-    </script>
-
-    <script>
-
-        $(window).scroll(function () {
-            var specificSection = $("#facts");
-            var specificScrollPosition = specificSection.offset().top-300;
-
-            if ($(this).scrollTop() >= specificScrollPosition) {
-                let counts = specificSection.find(".count");
-                counts.each(function () {
-                    let digit = parseInt($(this).attr("data"));
-                    let currentDigit = 0;
-                    let interval = setInterval(() => {
-                        $(this).text(currentDigit);
-                        currentDigit++;
-
-                        if (currentDigit > digit) {
-                            clearInterval(interval);
-                        }
-                    }, 100);
-                });
-
-                $(window).off("scroll");
-            }
-        });
-
     </script>
 
 }

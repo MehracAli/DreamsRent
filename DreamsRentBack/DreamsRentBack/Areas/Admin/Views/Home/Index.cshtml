@@ -72,19 +72,21 @@
         <div class="col-sm-12 col-xl-6">
             <div class="bg-secondary text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Worldwide Sales</h6>
-                    <a href="~/admin/assets/">Show All</a>
+                    <h6 class="mb-0">Cars Count</h6>
                 </div>
-                <canvas id="worldwide-sales"></canvas>
+                <div>
+                    <canvas id="brandChart"></canvas>
+                </div>
             </div>
         </div>
         <div class="col-sm-12 col-xl-6">
             <div class="bg-secondary text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Salse & Revenue</h6>
-                    <a href="~/admin/assets/">Show All</a>
+                    <h6 class="mb-0">Bookings Count</h6>
                 </div>
-                <canvas id="salse-revenue"></canvas>
+                <div>
+                    <canvas id="bran2dChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -213,3 +215,49 @@
     </div>
 </div>
 <!-- Widgets End -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+<script>
+    const ctx = document.getElementById('brandChart');
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Json.Serialize(ViewBag.BrandNames)),
+            datasets: [{
+                label: 'Cars', 
+                data: @Html.Raw(Json.Serialize(ViewBag.CarCount)),
+                borderWidth: 1,
+                backgroundColor: 'rgb(255, 0, 0, 0.5)',
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const ctx2 = document.getElementById('bran2dChart');
+
+    new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(Json.Serialize(ViewBag.CompanyNames)),
+            datasets: [{
+                label: 'Bookings',
+                data: @Html.Raw(Json.Serialize(ViewBag.BookingCount)),
+                borderWidth: 1,
+                backgroundColor: 'rgb(255, 0, 0, 0.5)',
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

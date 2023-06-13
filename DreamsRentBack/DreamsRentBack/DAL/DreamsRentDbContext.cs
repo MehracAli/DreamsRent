@@ -16,6 +16,8 @@ namespace DreamsRentBack.DAL
 
         //Client Models Start
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<Rent> Rents { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -23,6 +25,7 @@ namespace DreamsRentBack.DAL
         public DbSet<CompanyPickupLocation> CompanyPickupLocations { get; set; }
         public DbSet<CompanyDropoffLocation> CompanyDropoffLocations { get; set; }
         public DbSet<DropoffLocation> DropoffLocations { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<PayCard> PayCards { get; set; }
         public DbSet<PayCardType> PayCardTypes { get; set; }

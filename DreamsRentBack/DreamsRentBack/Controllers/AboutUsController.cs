@@ -1,6 +1,7 @@
 ﻿using DreamsRentBack.DAL;
 using DreamsRentBack.Entities.ClientModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DreamsRentBack.Controllers
 {
@@ -15,6 +16,11 @@ namespace DreamsRentBack.Controllers
 
         public IActionResult About()
         {
+            ViewBag.ContactUs = _context.ContactUsMessages.ToList();
+            ViewBag.Cars = _context.Cars.ToList();
+            ViewBag.HappyUsers = _context.Users
+                .Where(u => u.Comments.FirstOrDefault(c => c.Rating.Point > 4) != null).ToList();
+            ViewBag.Bookings = _context.Bookings.ToList();
             return View();
         }
 

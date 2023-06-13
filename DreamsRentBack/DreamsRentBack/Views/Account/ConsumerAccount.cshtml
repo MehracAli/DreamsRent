@@ -72,11 +72,11 @@
                                             <p>@Model.Email</p>
                                             <p>@Model.PhoneNumber</p>
                                         </div>
-                                        <a type="button" class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        <a type="button" class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#staticDetailEdit">
                                             <i class="fa-solid fa-pen"></i>
                                             Edit
                                         </a>
-                                        <div class="modal fade" id="staticBackdrop" style="backdrop-filter:blur(10px);" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal fade" id="staticDetailEdit" style="backdrop-filter:blur(10px);" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -120,17 +120,54 @@
                                         <h3>Payment Card</h3>
                                         @if (Model.PayCard != null)
                                         {
-                                            <form>
-                                                <div class="info-body">
-                                                    <p>@Model.PayCard.HolderName @Model.PayCard.HolderSurname</p>
-                                                    <p>XXXX-XXXX-XXXX-@Model.PayCard.CardNumber.Substring(12, 4)</p>
-                                                    <p>@Model.PayCard.Date</p>
+                                            <div class="info-body">
+                                                <p>@Model.PayCard.PayCardType.Name</p>
+                                                <p>@Model.PayCard.HolderName @Model.PayCard.HolderSurname</p>
+                                                <p>XXXX-XXXX-XXXX-@Model.PayCard.CardNumber.Substring(12, 4)</p>
+                                                <p>@Model.PayCard.Date</p>
+                                            </div>
+                                            <a type="button" class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#staticCardEdit">
+                                                <i class="fa-solid fa-pen"></i>
+                                                Edit
+                                            </a>
+                                            <div class="modal fade" id="staticCardEdit" style="backdrop-filter:blur(10px);" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form asp-action="EditDebitCard" asp-route-Id="@Model.Id">
+                                                            <div class="modal-body">
+                                                                <div class="info-body">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6">
+                                                                            <input name="HolderName" value="@Model.PayCard.HolderName" class="pay-card-inout" type="text" placeholder="HOLDER NAME" />
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <input name="HolderSurname" value="@Model.PayCard.HolderSurname" class="pay-card-inout" type="text" placeholder="HOLDER SURNAME" />
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <input name="CardNumber" value="@Model.PayCard.CardNumber" class="pay-card-inout cardNumber" type="text" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19" id="cardNumber" onkeyup="formatCardNumber(this)" style="margin:10px 0;" />
+                                                                        </div>
+                                                                        <div class="col-lg-3">
+                                                                            <input name="Date" value="@Model.PayCard.Date" class="pay-card-inout date" onkeyup="formatDate(this)" type="text" placeholder="Date" maxlength="5" style="margin:10px 0 0;" />
+                                                                        </div>
+                                                                        <div class="col-lg-3">
+                                                                            <input name="cvv" class="pay-card-inout cvv" type="text" placeholder="cvv" style="margin:10px 0 0;" maxlength="3" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-warning" style="color:white;">Save</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
-                                                <a class="edit" href="#">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                    Edit
-                                                </a>
-                                            </form>
+                                            </div>
+
                                         }
                                         else
                                         {

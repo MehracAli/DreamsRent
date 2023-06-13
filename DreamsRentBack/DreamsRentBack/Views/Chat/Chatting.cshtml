@@ -1,0 +1,91 @@
+﻿@using DreamsRentBack.Entities.ClientModels;
+@model Chat
+@{
+    ViewData["Title"] = "Chating";
+    User partner = ViewBag.Partner;
+    List<Chat> chats = ViewBag.Chats;
+    List<User> users = ViewBag.Users;
+    List<Message> messages = ViewBag.Messages;
+}
+
+<main>
+    <div id="chatme">
+        message:
+    </div>
+    <div class="row w-100">
+        <dv class="messages col-lg-3" style="height:85vh;">
+            <h3>Messages</h3>
+            <div class="users">
+                <ul>
+                    @foreach (var item in chats)
+                    {
+                        foreach (var user in users)
+                        {
+                            @if (user.Id == item.PartnerId)
+                            {
+                                <a asp-controller="Chat" asp-action="Chatting" asp-route-chatId="@item.Id" style="text-decoration:none;color:white;">
+                                    <li class="d-flex align-items-center">
+                                        <div class="img bg-white d-flex align-items-center">
+                                            <img class="w-100" src="~/assets/images/users/@user.UserPhoto" alt="">
+                                        </div>
+                                        <span>
+                                            @user.Company.CompanyName
+                                        </span>
+                                    </li>
+                                </a>
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+        </dv>
+        <div class="chating col-lg-9" style="height:85vh;">
+            <div class="chating-header">
+                <div class="d-flex align-items-center">
+                    <div class="img d-flex align-items-center bg-white">
+                        <a href="#">
+                            <img class="w-100" src="~/assets/images/users/@partner.UserPhoto" alt="">
+                        </a>
+                    </div>
+                    <div class="name">
+                        <h4>
+                            @partner.Company.CompanyName
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="chating-body scrollableDiv" id="partialContainer">
+                @await Html.PartialAsync("_chatPartial", Model)
+            </div>
+            <div class="chating-botom">
+                <div class="message-box">
+                    <form method="post" id="messageForm">
+                        <div class="row">
+                            <input name="message" type="text" class="col-11" style="width:90%;" id="messageInput">
+                            <button type="submit" class="btn btn-dark col-1" style="left:80%">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="~/jquery.js"></script>
+<script src="~/site.js"></script>
+<script src="~/signalr.js"></script>
+<script>
+    function scrollToBottom() {
+        var chatingBody = document.querySelector(".chating-body");
+        chatingBody.scrollTop = chatingBody.scrollHeight;
+    }
+
+    var messageForm = document.getElementById("messageForm");
+    messageForm.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        scrollToBottom();
+    });
+
+    window.onload = scrollToBottom;
+</script>

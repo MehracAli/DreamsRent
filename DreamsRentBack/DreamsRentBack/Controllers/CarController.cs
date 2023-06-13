@@ -41,7 +41,7 @@ namespace DreamsRentBack.Controllers
 
             return View();
         }
-        //AddCreate Start
+        //AddCar Start
         [HttpPost]
         [ActionName(nameof(AddCar))]
         public async Task<IActionResult> AddCar(CreateCarVM createdCar, string UserName)
@@ -124,6 +124,8 @@ namespace DreamsRentBack.Controllers
                 Availability = true,
                 CarStatus = CarStatus.Available,
                 CarConfirmation = CarConfirmation.None,
+                PickupDate = null,
+                ReturnDate = null,
                 Views = 0,
                 Rating = 0,
             };
@@ -168,8 +170,44 @@ namespace DreamsRentBack.Controllers
             _context.SaveChanges();
             return RedirectToAction("CompanyAccount", "Account", new { UserName = UserName });
         }
-        //AddCreate End
+        //AddCar End
+        //EditCar start
+        public async Task<IActionResult> EditCar(string UserName, int carId, List<IFormFile> carPhotos, double price, string description)
+        {
+            Car car = _context.Cars.Include(c=>c.CarPhotos).FirstOrDefault(c => c.Id == carId);
 
+            string imageFolderPath = Path.Combine(_env.WebRootPath, "assets", "images");
+
+            foreach (CarPhoto photo in car.CarPhotos)
+            {
+                string removePath = Path.Combine(_env.WebRootPath, "assets", "images", "cars", photo.Path);
+                _context.CarPhotos.Remove(photo);
+                FileUpload.DeleteImage(removePath);
+            }
+
+            foreach (IFormFile image in carPhotos)
+            {
+                if (!image.IsValidFile("image/") || !image.IsValidLength(2))
+                {
+                    TempData["InvalidImages"] += image.FileName;
+                    continue;
+                }
+
+                CarPhoto newImage = new()
+                {
+                    Path = await image.CreateImage(imageFolderPath, "cars")
+                };
+
+                car.CarPhotos.Add(newImage);
+            }
+
+            car.Price = price;
+            car.Description = description;
+
+            _context.SaveChanges();
+            return RedirectToAction("CompanyAccount", "Account", new { UserName = UserName });
+        }
+        //EditCar End
         public void CheckModelState(int id, string model, string modelError)
         {
             if(id != null && model != null && modelError != null)

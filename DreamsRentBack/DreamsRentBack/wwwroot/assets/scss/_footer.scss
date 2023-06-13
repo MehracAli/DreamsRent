@@ -246,10 +246,34 @@
                                     color: #201F1D;
                                 }
                             }
+                            @media screen and (max-width:391px){
+                                .button{
+                                    margin: 0 5px;
+                                    &:nth-child(1){
+                                        margin-left: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    @media screen and (max-width:391px){
+                        .connect{
+                            margin: 0 5px;
                         }
                     }
                 }
             }
+        }
+    }
+    @media screen and (max-width:391px){
+        .container{
+            padding: 30px 10px;
+            line-height: 5px;
+        }
+    }
+    @media screen and (min-width:391px) and (max-width:821px){
+        .container{
+            padding: 50px 0;
         }
     }
     .footer-bottom{
@@ -289,6 +313,40 @@
                     }
                 }
             }
+            @media screen and (min-width:391px) and (max-width:821px){
+                .copyright-debits{
+                    align-items: center;
+                }
+            }
         }
     }
+    @media screen and (max-width:391px){
+        .footer-bottom{
+            text-align: center;
+            .container{
+                .copyright-debits{
+                    .copyright{
+                        margin-bottom: 20px;
+                    }
+                    .debits{
+                        ul{
+                            justify-content: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width:391px){
+    #footer{
+        &::after{
+            background: none;
+        }
+        &::before{
+            background: none;
+        }
+    }
+}
+@media screen and (min-width:391px) and (max-width:821px){
 }

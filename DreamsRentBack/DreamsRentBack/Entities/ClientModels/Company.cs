@@ -10,7 +10,7 @@ namespace DreamsRentBack.Entities.ClientModels
         public string? CompanyPhoto { get; set; }
         [NotMapped]
         public IFormFile? iff_CompanyPhoto { get; set; }
-        public int? LocationId { get; set; }
+        public string? Location { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
         public List<CompanyPickupLocation> companyPickupLocations { get; set; }

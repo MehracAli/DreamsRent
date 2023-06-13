@@ -1,0 +1,41 @@
+﻿@using DreamsRentBack.Entities.ClientModels;
+@model DreamsRentBack.Entities.ClientModels.Street
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminPanel.cshtml";
+    List<City> cities = ViewBag.Cities;
+}
+<div class="container h-75" style="padding: 50px 0 0;">
+    <div class="row justify-content-center w-100">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Creating Street</h6>
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group mb-lg-4">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CityId" class="control-label"></label>
+                        <select asp-for="CityId" class="form-control">
+                            @foreach (var item in cities)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group mb-lg-4">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+                <div>
+                    <a asp-action="Streets">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

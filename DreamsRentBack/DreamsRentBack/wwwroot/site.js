@@ -1,62 +1,100 @@
-﻿$(document).ready(() => {
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl("https://localhost:7260/chatHub")
+﻿//$(document).ready(() => {
+//    let connection = new signalR.HubConnectionBuilder()
+//        .withUrl("/chatHub")
+//        .withAutomaticReconnect()
+//        .build();
+
+//    connection.start();
+
+//    console.log(connection)
+
+//    let chatId = window.location.href.split('=')[1];
+//    let chatContainer = $("#partialContainer");
+
+//    $("#messageForm").submit(async function (e) {
+//        e.preventDefault();
+//        let messageContent = $('#messageInput').val();
+
+//        console.log(messageContent)
+
+//        if (!messageContent.trim()) {
+//            return;
+//        }
+
+//        let formData = new FormData(this);
+
+//        await fetch(`/Chat/SendMessage?chatId=${chatId}&message=${messageContent}`, {
+//            method: 'POST',
+//            body: formData
+//        })
+//            .then(res => res.text())
+//            .then(data => {
+//                console.log(data)
+//                chatContainer.append(data)
+//                $('#messageInput').val("")
+//            })
+//    })
+
+//    connection.on("ReceiveMessage", (message) => {
+//        let chatcontainers = document.querySelectorAll("#chatme")
+//        chatcontainers.forEach(Element => {
+
+//            Element.append(message)
+//        })
+//    })
+
+//});
+$(document).ready(() => {
+    let connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chatHub")
         .withAutomaticReconnect()
         .build();
 
-    async function start() {
-        try {
-            connection.start();
+    connection.start();
+
+    console.log(connection);
+
+    let chatId = window.location.href.split('=')[1];
+    let chatContainer = $("#partialContainer");
+
+    $("#messageForm").submit(async function (e) {
+        e.preventDefault();
+        let messageContent = $('#messageInput').val();
+
+        console.log(messageContent);
+
+        if (!messageContent.trim()) {
+            return;
         }
-        catch(error) {
-            setTimeout(()=> start(), 2000)
-        }
-    }
 
-    start()
+        let formData = new FormData(this);
 
-    const status = $("#status")
-    connection.onreconnecting(error => {
-        status.css("background-color", "blue")
-        status.css("color", "white")
-        status.html("Connecting...")
-        status.fadeIn(2000, () => {
-            setTimeout(() => {
-                status.fadeOut(2000)
-            })
+        await fetch(`/Chat/SendMessage?chatId=${chatId}&message=${messageContent}`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.text())
+            .then(data => {
+                console.log(data);
+                chatContainer.append(data);
+                $('#messageInput').val("");
+            });
+
+                connection.on("ReceiveMessage", (message) => {
+        let chatcontainers = document.querySelectorAll("#chatme")
+        chatcontainers.forEach(Element => {
+
+            Element.append(message)
         })
     })
 
-    connection.onreconnected(connectionId => {
-        status.css("background-color", "green")
-        status.css("color", "white")
-        status.html("Connected!")
-        status.fadeIn(2000, () => {
-            setTimeout(() => {
-                status.fadeOut(2000)
-            })
-        })
-    })
-
-    connection.onclose(connectionId => {
-        status.css("background-color", "red")
-        status.css("color", "white")
-        status.html("Not connected!")
-        status.fadeIn(2000, () => {
-            setTimeout(() => {
-                status.fadeOut(2000)
-            })
-        })
-    })
-
-    $("#send").click(() => {
-        let message = $("#textMessage").val();
-        connection.invoke("SendMessage", message);
+        scrollToBottom(); // Ekranı en alta kaydır
     });
-
-    connection.on("receiveMessage", message => {
-
-        $("#messages").append(message + "</br>")
-    })
-
 });
+
+function scrollToBottom() {
+    var chatingBody = document.querySelector(".chating-body");
+    chatingBody.scrollTop = chatingBody.scrollHeight;
+}
+
+window.onload = scrollToBottom;

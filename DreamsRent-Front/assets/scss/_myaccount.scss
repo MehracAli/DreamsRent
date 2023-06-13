@@ -27,6 +27,16 @@
                     object-fit: cover;
                 }
             }
+            @media screen and (max-width:391px){
+                .photo{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 0 auto;
+                    width: 150px;
+                    height: 150px;
+                }
+            }
             .fullname{
                 h1{
                     z-index: 1;
@@ -37,6 +47,30 @@
                     color: #FFA633;
                 }
                 
+            }
+            @media screen and (max-width:391px){
+                .fullname{
+                    align-items: center;
+                    margin: 0 auto;
+                    width: 150px;
+                    height: 150px;
+                    h4{
+                        text-align: center;
+                    }
+                    h1{
+                        text-align: center;
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }
+        @media screen and (max-width:391px){
+            .profile{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border-radius: 0;
             }
         }
         .edit-photo{
@@ -63,6 +97,14 @@
             }
             &:hover i {
                 color: #ffffff;
+            }
+        }
+        @media screen and (max-width:391px){
+            .edit-photo{
+                width: 30px;
+                height: 30px;
+                top:5;
+                left: 240px;
             }
         }
         .row{
@@ -428,6 +470,220 @@
                                         }
                                     }
                                 }
+                                .car-item-grid {
+                                    position: relative;
+                                    background: #ffffff;
+                                    border-radius: 10px;
+                                    margin: 0 0 24px 0;
+                                    padding: 20px;
+                                    transition: 0.3s;
+                                    flex-wrap: wrap;
+            
+                                    &:hover {
+                                        box-shadow: 0px 0px 10px white;
+                                        transform: scale(1.02, 1.02);
+                                    }
+            
+                                    &:hover .car-content .car-button a {
+                                        background-color: #EDA600;
+                                    }
+            
+                                    &:hover .car-img .fav a {
+                                        background-color: #127384;
+                                        border: none;
+                                    }
+            
+                                    .car-img {
+                                        position: relative;
+                                        overflow: hidden;
+                                        border-radius: 10px;
+                                        margin: 0 0 10px;
+            
+                                        img {
+                                            border-radius: 10px;
+                                            width: 100%;
+                                        }
+            
+                                        .fav {
+                                            display: flex;
+                                            justify-content: space-between;
+                                            position: absolute;
+                                            left: 0;
+                                            top: 0;
+                                            width: 100%;
+                                            padding: 15px;
+                                            z-index: 1;
+                                            font-size: 14px;
+            
+                                            span {
+                                                background: #ffffff;
+                                                border-radius: 5px;
+                                                min-width: 75px;
+                                                padding: 5px 15px;
+                                                font-size: 14px;
+                                                color: #737373;
+                                            }
+            
+                                            a {
+                                                width: 26px;
+                                                height: 26px;
+                                                border-radius: 50%;
+                                                color: #ffffff;
+                                                border: 1px solid #ffffff;
+                                                display: flex;
+                                                justify-content: center;
+                                                align-items: center;
+                                                text-decoration: none;
+                                                transition: 0.5s;
+                                            }
+                                        }
+                                    }
+                                    
+                                    .car-content {
+                                        margin-top: 15px;
+                                        width: 100%;
+                                        
+                                        .car-features {
+                                            position: relative;
+                                            border-bottom: 1px solid #F4F4F4;
+                                            margin: 0 0 15px;
+                                            padding: 0 0 15px;
+            
+                                            .author-img {
+                                                position: absolute;
+                                                top: -35px;
+                                                z-index: 2;
+                                                right: 15px;
+                                                border-radius: 50px;
+            
+                                                img {
+                                                    width: 35px;
+                                                    height: 35px;
+                                                    border-radius: 50px;
+                                                    border: 2px solid #ffffff;
+                                                }
+                                            }
+            
+                                            .car-title {
+                                                margin-bottom: 5px;
+                                                font-size: 20px;
+            
+                                                a {
+                                                    font-weight: 600;
+                                                    color: #201F1D;
+                                                    text-decoration: none;
+                                                }
+                                            }
+            
+                                            .car-rating {
+                                                i {
+                                                    color: #FF9307;
+                                                    font-size: 14px;
+                                                }
+            
+                                                span {
+                                                    font-weight: 500;
+                                                    color: #737373;
+                                                    margin-left: 8px;
+                                                }
+                                            }
+                                        }
+            
+                                        .car-details {
+                                            margin-bottom: 15px;
+            
+                                            ul {
+                                                list-style: none;
+                                                padding: 0;
+                                                margin-bottom: 10px;
+                                                display: flex;
+                                                align-items: center;
+            
+                                                li {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    flex: 33.33%;
+                                                    max-width: 33.33%;
+                                                    font-size: 15px;
+                                                    color: #787878;
+            
+                                                    p {
+                                                        margin: 0 0 0 8px;
+                                                    }
+                                                }
+                                            }
+                                        }
+            
+                                        .car-location-price {
+                                            border-radius: 5px;
+                                            background: #EDA600;
+                                            padding: 8px 20px;
+                                            margin: 0 0 15px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-between;
+                                            transition: 0.5s;
+            
+                                            .car-location {
+                                                span {
+                                                    margin-right: 7px;
+                                                    color: white;
+                                                }
+                                            }
+            
+                                            .car-price {
+                                                h6 {
+                                                    font-weight: 700;
+                                                    font-size: 24px;
+                                                    color: #ffffff;
+                                                    margin: 0;
+                                                    display: flex;
+                                                    align-items: center;
+            
+                                                    span {
+                                                        color: #ffffff;
+                                                        font-size: 14px;
+                                                        font-weight: 400;
+                                                        margin-left: 7px;
+                                                    }
+                                                }
+                                            }
+            
+                                        }
+            
+                                        .car-button {
+                                            a {
+                                                display: block;
+                                                background: #201F1D;
+                                                position: relative;
+                                                border-radius: 5px;
+                                                font-weight: 600;
+                                                font-size: 16px;
+                                                color: #ffffff;
+                                                text-align: center;
+                                                padding: 10px;
+                                                width: 100%;
+                                                text-decoration: none;
+                                                transition: 0.5s;
+            
+                                                span {
+                                                    margin-right: 5px;
+                                                }
+            
+                                                &:hover {
+                                                    background-color: #111111;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    @media screen and (min-width:391px) and (max-width:821px){
+                                        .car-content{
+                                            .car-details{
+                                                display: none;
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                         .pending-body{
@@ -786,5 +1042,10 @@
                 }
             }
         }
+    }
+}
+@media screen and (max-width:391px){
+    #account{
+        padding-top: 0;
     }
 }

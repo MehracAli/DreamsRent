@@ -154,11 +154,21 @@
                             left: 30px;
                             transform: translateY(-50%);
                         }
+                        @media screen and (max-width:391px){
+                            .slick-prev{
+                                display: none!important;
+                            }
+                        }
                         .slick-next{
                             position: absolute;
                             top: 50%;
                             right: 30px;
                             transform: translateY(-50%);
+                        }
+                        @media screen and (max-width:391px){
+                            .slick-next{
+                                display: none!important;
+                            }
                         }
                         img{
                             width: 100%;
@@ -682,6 +692,11 @@
                         color: #fff;
                     }
                 }
+                @media screen and (max-width:391px){
+                    .owl-prev{
+                        display: none;
+                    }
+                }
                 .owl-next{
                     display: flex;
                     justify-content: center;
@@ -706,12 +721,22 @@
                         color: #fff;
                     }
                 }
+                @media screen and (max-width:391px){
+                    .owl-next{
+                        display: none;
+                    }
+                }
                 .slider-head{
                     margin-bottom: 25px;
                     h3{
                         font-weight: 700;
                         font-size: 24px;
                         color: #111;                    
+                    }
+                    @media screen and (max-width:391px){
+                        h3{
+                            text-align: center;
+                        }
                     }
                 }
                 .item{
@@ -918,6 +943,16 @@
                 }
             }
         }
+    }
+}
+@media screen and (max-width:391px){
+    .slick-prev{
+        display: none!important;
+    }
+}
+@media screen and (max-width:391px){
+    #detail-body{
+        padding: 20px 0;
     }
 }
 .emoji-container {

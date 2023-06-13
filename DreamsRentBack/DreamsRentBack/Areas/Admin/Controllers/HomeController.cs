@@ -1,10 +1,14 @@
 ﻿using DreamsRentBack.DAL;
+using DreamsRentBack.Entities.CarModels;
 using DreamsRentBack.Entities.ClientModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DreamsRentBack.Areas.Admin.Controllers
 {
+    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "SuperAdmin")]
     [Area("Admin")]
     public class HomeController : Controller
     {
@@ -25,6 +29,30 @@ namespace DreamsRentBack.Areas.Admin.Controllers
             ViewBag.Companies = _context.Companies.ToList();
             ViewBag.Consumer = _context.Users.Include(u=>u.Company).ToList();
             ViewBag.Bookings = _context.Bookings.ToList();
+            List<Brand> brands = _context.Brands.Include(b=>b.Cars).ToList();
+            List<Company> companies = _context.Companies.Include(c=>c.Bookings).ToList();
+
+            List<string> brandNames = new();
+            List<int> carCount = new();
+            List<string> companyNames = new();
+            List<int> bookingCount = new();
+
+            foreach (var item in brands)
+            {
+                brandNames.Add(item.Name);
+                carCount.Add(item.Cars.Count());
+            }
+            foreach (var item in companies)
+            {
+                companyNames.Add(item.CompanyName);
+                bookingCount.Add(item.Bookings.Count());
+            }
+
+            ViewBag.BrandNames = brandNames;
+            ViewBag.CarCount = carCount;
+            ViewBag.CompanyNames = companyNames;
+            ViewBag.BookingCount = bookingCount;
+
             return View();
         }
 
